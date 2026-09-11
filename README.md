@@ -10,7 +10,7 @@
 
 *Air flowing past a cylinder, computed on one GPU with this engine's fluid kernel. Vorticity is shown: red turns one way, blue the other. Reynolds number 256; the vortices are shed at a Strouhal number of 0.210, matching the reference value 0.20–0.21. 614 000 cells, 60 000 time steps, 3.2 seconds.*
 
-> Part of 3FOLD · results are nodes in the [Decorrelation Graph Engine](https://github.com/OWNER/3fold-graph-engine)
+> Part of 3FOLD · results are nodes in the [Decorrelation Graph Engine](https://github.com/antonbj3/3fold-graph-engine)
 
 ---
 
