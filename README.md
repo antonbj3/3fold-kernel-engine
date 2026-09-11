@@ -10,7 +10,7 @@
 
 *Air flowing past a cylinder, computed on one GPU with this engine's fluid kernel. Vorticity is shown: red turns one way, blue the other. Reynolds number 256; the vortices are shed at a Strouhal number of 0.210, matching the reference value 0.20–0.21. 614 000 cells, 60 000 time steps, 3.2 seconds.*
 
-> Part of 3FOLD · results are nodes in the [Decorrelation Graph Engine](https://github.com/antonbj3/3fold-graph-engine)
+> Part of 3FOLD · results are nodes in the [Decorrelation Graph Engine](https://github.com/OWNER/3fold-graph-engine)
 
 ---
 
@@ -128,7 +128,7 @@ One more result, on where not to skip work: the cheap signals a model exposes fo
 | GPU sheet, co-tenancy law | 632 / 672 GB/s; 22.6 → 340 ns; ≈ 2.2 ms per sync |
 | Water-filling on weights, matched bit budget | +14.4 pp at 3 bits (dense, 682 params); +40–58 pp at 1–2 bits (sparse, 1.13 M params); 10 paired seeds |
 | Identifiability router vs learned gate | 8 of 8 seeds, −15 to −19 % held-out error |
-| Information-sized tokenizer (crossing law) | 0.38–0.58× steps to shared quality; byte-level +0.30–0.60 at convergence; poxel ⊗ quant 4.03× content/s at 0.56× VRAM |
+| Information-sized tokenizer (crossing law) | 0.38–0.58× steps to shared quality; byte-level +0.30–0.60 at convergence |
 | Quantization floor | c·ε·σ_max, c ≈ 0.23; fp8 and above free; per-tensor fp4 saturates |
 | LLM early-exit signals anti-align with compute need | GPT-2, Qwen; 8 prompts |
 
