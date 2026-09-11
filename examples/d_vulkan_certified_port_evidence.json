@@ -1,0 +1,177 @@
+{
+ "backend": "Vulkan",
+ "theo_bw_gbs": 672.0,
+ "config": {
+  "block": 256,
+  "grid": 2048,
+  "N_canonical": 67108864,
+  "tol": 0.01,
+  "target_roof": 0.85
+ },
+ "preregistered_prediction": "cert transfers (fingerprint-invariance: same algo/floor/silicon, only API changed)",
+ "gate1_bit_exact_sweep": [
+  {
+   "n": 65536,
+   "pattern": "uniform01",
+   "bit_exact_frac": 1.0,
+   "max_abs_delta": 0.0
+  },
+  {
+   "n": 65536,
+   "pattern": "mixed_sign",
+   "bit_exact_frac": 1.0,
+   "max_abs_delta": 0.0
+  },
+  {
+   "n": 65536,
+   "pattern": "wide_dynrange",
+   "bit_exact_frac": 1.0,
+   "max_abs_delta": 0.0
+  },
+  {
+   "n": 65536,
+   "pattern": "subnormal_scale",
+   "bit_exact_frac": 0.96875,
+   "max_abs_delta": 5.294384512665498e-36,
+   "cuda_vs_oracle": 1.0,
+   "vk_vs_oracle": 0.96875,
+   "n_mismatch": 64
+  },
+  {
+   "n": 1048576,
+   "pattern": "uniform01",
+   "bit_exact_frac": 1.0,
+   "max_abs_delta": 0.0
+  },
+  {
+   "n": 1048576,
+   "pattern": "mixed_sign",
+   "bit_exact_frac": 1.0,
+   "max_abs_delta": 0.0
+  },
+  {
+   "n": 1048576,
+   "pattern": "wide_dynrange",
+   "bit_exact_frac": 1.0,
+   "max_abs_delta": 0.0
+  },
+  {
+   "n": 1048576,
+   "pattern": "subnormal_scale",
+   "bit_exact_frac": 0.5,
+   "max_abs_delta": 5.415713552386479e-36,
+   "cuda_vs_oracle": 1.0,
+   "vk_vs_oracle": 0.5,
+   "n_mismatch": 1024
+  },
+  {
+   "n": 16777216,
+   "pattern": "uniform01",
+   "bit_exact_frac": 1.0,
+   "max_abs_delta": 0.0
+  },
+  {
+   "n": 16777216,
+   "pattern": "mixed_sign",
+   "bit_exact_frac": 1.0,
+   "max_abs_delta": 0.0
+  },
+  {
+   "n": 16777216,
+   "pattern": "wide_dynrange",
+   "bit_exact_frac": 1.0,
+   "max_abs_delta": 0.0
+  },
+  {
+   "n": 16777216,
+   "pattern": "subnormal_scale",
+   "bit_exact_frac": 0.0,
+   "max_abs_delta": 4.1817471106815104e-35,
+   "cuda_vs_oracle": 1.0,
+   "vk_vs_oracle": 0.0,
+   "n_mismatch": 2048
+  },
+  {
+   "n": 67108864,
+   "pattern": "uniform01",
+   "bit_exact_frac": 1.0,
+   "max_abs_delta": 0.0
+  },
+  {
+   "n": 67108864,
+   "pattern": "mixed_sign",
+   "bit_exact_frac": 1.0,
+   "max_abs_delta": 0.0
+  },
+  {
+   "n": 67108864,
+   "pattern": "wide_dynrange",
+   "bit_exact_frac": 1.0,
+   "max_abs_delta": 0.0
+  },
+  {
+   "n": 67108864,
+   "pattern": "subnormal_scale",
+   "bit_exact_frac": 0.0,
+   "max_abs_delta": 1.6546388199812842e-34,
+   "cuda_vs_oracle": 1.0,
+   "vk_vs_oracle": 0.0,
+   "n_mismatch": 2048
+  }
+ ],
+ "gate1_pass": false,
+ "oracle_instrument_check": true,
+ "gate2_facets": {
+  "R2_determinism": {
+   "vulkan": true,
+   "transfers": true
+  },
+  "correctness": {
+   "vulkan": true,
+   "transfers": true
+  },
+  "bit_exact_cross_api": {
+   "value": true,
+   "transfers": true
+  },
+  "roofline_vs_theo": {
+   "vulkan": 0.8748477521702535,
+   "cuda_pass": true,
+   "vulkan_pass": true,
+   "transfers": true
+  },
+  "roofline_vs_api_copy": {
+   "vulkan": 1.0884320216138075
+  }
+ },
+ "cert_transfers": true,
+ "totals": {
+  "ref_float64": 33558532.24847382,
+  "cuda_total": 33558508.0,
+  "vulkan_total": 33558508.0
+ },
+ "bandwidth_gbs": {
+  "cuda_reduction": 595.6231373980298,
+  "vulkan_reduction": 587.8976894584104,
+  "cuda_copy": 547.2170166399341,
+  "vulkan_copy": 540.1326658753941
+ },
+ "gate1_boundary_localization": {
+  "mechanism": "Vulkan/NVIDIA SPIR-V path FLUSHES SUBNORMAL f32 INPUTS TO ZERO (FTZ); CUDA fadd preserves subnormals",
+  "evidence": {
+   "oracle_attribution": "fp32-exact CPU oracle matches CUDA 1.0000 bitwise on every failing cell; Vulkan deviates",
+   "constructive_proof": "FTZ-inputs oracle == Vulkan partials 1.0000 bitwise (N=2^20 subnormal pattern); plain oracle 0.5",
+   "lone_subnormal_probe": "single input 5e-39 (subnormal), rest zeros -> Vulkan partial = 0.0 (flushed); CUDA preserves",
+   "scaling": "mismatch fraction grows with N (0.031@2^16 -> 1.0@2^24+) = per-partial probability of >=1 subnormal element -> 1"
+  },
+  "consequence": "portable primitive set {mul, add, explicit fma()} holds on the NORMAL-RANGE domain only; add SUBNORMAL-FREE INPUTS (|x| >= 1.1754944e-38 or exactly 0) as a cert-transfer precondition. All normal-range patterns incl. wide dynamic range (2^-18..2^18) bit-exact 1.0000 at every size.",
+  "probe_script": "scratchpad vk_ftz_probe.py (session), reusing the cell's WGSL verbatim"
+ },
+ "cert_transfers_conditions": [
+  "kernel composed of portable primitive set {mul, add, explicit fma()}, source-preserved association (this kernel: add-only)",
+  "inputs subnormal-free (|x|>=FLT_MIN or 0) — NEW boundary, measured+localized this run (Vulkan FTZ)",
+  "same launch geometry (b=256,g=2048) and grid-stride element order",
+  "same silicon (RTX 5070): invariance is API/compiler-level, not cross-device",
+  "throughput facet re-measured through the new API (scheduling is API-owned): 87.5% vs 88.6% of THEO, both >= 85% target"
+ ]
+}

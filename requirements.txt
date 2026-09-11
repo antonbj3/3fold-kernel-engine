@@ -1,0 +1,9 @@
+numpy
+scipy
+pyyaml
+warp-lang
+torch
+scikit-image
+pytest
+# optional, only for the Vulkan cross-API port:
+# wgpu
