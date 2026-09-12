@@ -304,8 +304,23 @@ SYNTHETIC-ONLY = the method was demonstrated on private input, and it ships with
 | src/kernel_engine/reductions/d_1c_iv_best_in_class_float4.py | VERIFIED-FRESH | scalar tree 597 GB/s (89 %), float4 tree 638 GB/s (95 %), cub 650 GB/s (97 %); all deterministic and correct |
 | src/kernel_engine/reductions/det_accumulation_probe.py | VERIFIED-FRESH |  |
 | src/kernel_engine/wave_fdtd/goc_wave_verify.py | VERIFIED-FRESH |  |
+| src/kernel_engine/_vendor/_emit.py | VERIFIED-FRESH | evidence-JSON writer used by the wake cells; exercised by g39/g42/g61 |
+| src/kernel_engine/certified_kernels/probe_dma_single_stream_gap.py | VERIFIED-FRESH | H1 (per-transfer overhead) false, H2 (stream-depth cap) true: 16/64/256 MiB chunks give 24.07/23.33/24.09 GB/s and the queued-depth arm gains 0.6 % |
+| src/kernel_engine/certified_kernels/probe_dma_split_shape_decisive.py | VERIFIED-FRESH | the instrument decides the split shape: interleaved-windowed enqueue 11.69/11.69 GB/s (even, agg 23.4), batch-enqueue-per-stream 23.4/11.7 GB/s (uneven, same 23.3-23.5 aggregate) |
+| src/kernel_engine/certified_kernels/probe_l2_arbitration_endgame.py | CUDA-ONLY | own verdict: "G-ctrl FAILED - sensors not calibrated; matrix uninterpretable" (hog +0.8/-0.8, stream +0.8/-0.825), the spatial-locality artefact its own header documents |
+| src/kernel_engine/fem/fno_3d.py | VERIFIED-FRESH | SpektralConv3d linear 3.9e-07, high mode (k=5 > kept 3) damped to 2.0e-16, held-out rel L2 0.982 -> 0.059, mesh-flexible on a 16^3 grid |
+| src/kernel_engine/fem/fno_tpu_compatible.py | VERIFIED-FRESH | truncated-DFT matmul equals the FFT spectral convolution to 1.9e-15 (mode block 2.2e-15), no torch.fft in the matmul path, autograd finite |
+| src/kernel_engine/lbm/g39_cfd_force_nilss_bed.py | CUDA-ONLY | --validate green (grid 416x272x200 = 22.6M, 31.31 ms/step, rms(uz)/U 0.0009 finite, twin 6.9 GB); the act itself is ~106000 step-equivalents ~ 55 min, past the run cap here |
+| src/kernel_engine/lbm/g42_wake_benettin_dim.py | CUDA-ONLY | --smoke exceeds the 300 s run cap on the shared GPU |
+| src/kernel_engine/lbm/g61_modeA_Rec_cylinder_vs_ellipse.py | CUDA-ONLY | --validate exceeds the 300 s run cap on the shared GPU |
+| src/kernel_engine/reductions/d_1c_v_atomic_saturation_check.py | VERIFIED-FRESH | at N=67M a single-float32 atomic accumulator is bit-identical over 20 reps (16777216.0 every time) and 50 % wrong: saturation at 2^24, inside the (N-1)*eps = 8.0 naive-summation bound |
+| src/kernel_engine/warp_gpu/substep_value_probe.py | VERIFIED-FRESH | substepping win not confirmed: the substep path blows up at mass ratio 100x+ while the baseline is stable; per-body adaptive under-relaxation (relax <= 1/contacts) is stable 30x-1000x (106/342/420/420 mm) where fixed relax=0.25 blows up |
+| src/kernel_engine/warp_gpu/warmstart_massratio.py | VERIFIED-FRESH | honest negative: pre-applying the cached normal impulse destabilises relaxed Jacobi at every ratio (cold 151/421/420/421 mm at 20/50/100/300x, warm blows up) |
+| src/kernel_engine/warp_gpu/warmstart_value_probe.py | VERIFIED-FRESH | its own instrument guard fires: the warm branch diverges (KE 705.7 at vit4 vs cold 0.145 at vit40), so the value question is unresolved rather than negative |
+| src/kernel_engine/wave_fdtd/xray_3d_dda.py | VERIFIED-FRESH | internal 3-D field recovered from 24 external views at rel 8 %; error rises 6.6x from low-sigma to high-sigma regions, monotone |
+| src/kernel_engine/wave_fdtd/xray_tomography_sigma.py | VERIFIED-FRESH | 3/3 gates; mean absolute error by coverage-sigma quartile 0.015/0.016/0.017/0.059, monotone, top/bottom band 4.0x |
 
-275 modules: 253 VERIFIED-FRESH, 18 CUDA-ONLY, 4 SYNTHETIC-ONLY.
+292 module rows: 266 VERIFIED-FRESH, 22 CUDA-ONLY, 4 SYNTHETIC-ONLY.
 
 
 ## Real datasets

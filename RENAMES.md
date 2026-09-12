@@ -535,3 +535,28 @@ Warp device headers, Apache-2.0; see `kernel_gen/export/THIRD_PARTY`.
 | `kernel_gen/export/EXPORT.md` | new: export steps, the shim and Warp's launch ABI, the measured table, and what a foreign C engine needs to call the kernel |
 | `kernel_gen/export/THIRD_PARTY` | new: licence note for the copied Warp headers and generated source |
 | `tests/test_kernel_gen_export.py` | new pytest wrapper: builds with `nvcc`, runs both paths on the same input, asserts element-wise equality; skips without `nvcc` or a CUDA device |
+
+## Next batch of the GPU-index sweep (2026-09-12)
+
+Source worktrees: `CADtoSIMReady-G` and `bodytwin` (a platform worktree checkout, not body-twin subject
+matter). 15 modules plus one vendored dependency; `wave###_` prefixes were absent in this batch.
+
+| file | platform source | edits |
+| --- | --- | --- |
+| `_vendor/_emit.py` | `evidence/_emit.py` | vendored dependency of the three wake cells; docstring trimmed; `_DIR` retargeted from the directory of the file to `src/kernel_engine/artifacts/` and the directory is created on write |
+| `certified_kernels/probe_dma_single_stream_gap.py` | `bodytwin/scripts/physics_exp/probes/probe_dma_single_stream_gap.py` | docstring header line rewritten (session/agent reference removed, tenancy line reworded); the report JSON now goes through a new `_out()` helper into `artifacts/` instead of `reports/probes/` |
+| `certified_kernels/probe_dma_split_shape_decisive.py` | `bodytwin/scripts/physics_exp/probes/probe_dma_split_shape_decisive.py` | same: header line rewritten, the two instruments named by what they do; `_out()` helper, `artifacts/` |
+| `certified_kernels/probe_l2_arbitration_endgame.py` | `bodytwin/scripts/physics_exp/probes/probe_l2_arbitration_endgame.py` | header caveat kept verbatim in substance, its date, round numbers and agent reference removed; the reference to a scratchpad calibration script dropped; `REP` retargeted to `artifacts/`; no gate or tolerance changed |
+| `fem/fno_3d.py` | `bodytwin/scripts/fno_3d.py` | Swedish docstring, comments and print/verdict strings translated; the roadmap and cloud-training paragraphs dropped; gates, weights and tolerances unchanged |
+| `fem/fno_tpu_compatible.py` | `bodytwin/scripts/fno_tpu_compatible.py` | Swedish docstring, comments and print/verdict strings translated; the accelerator-mapping narrative reduced to "matmul-only accelerators"; numbers and gates unchanged |
+| `lbm/g39_cfd_force_nilss_bed.py` | `CADtoSIMReady-G/scripts/physics_exp/g39_cfd_force_nilss_bed.py` | `G39_CACHE` default and the evidence path retargeted from a scratchpad path and `evidence/` to `artifacts/`; invocation line and the venv name in the provenance string replaced |
+| `lbm/g42_wake_benettin_dim.py` | `CADtoSIMReady-G/scripts/physics_exp/g42_wake_benettin_dim.py` | `SCRATCH` retargeted to `artifacts/`; `_emit` import path changed from `evidence/` to `_vendor/`; invocation line replaced |
+| `lbm/g61_modeA_Rec_cylinder_vs_ellipse.py` | `CADtoSIMReady-G/scripts/physics_exp/g61_modeA_Rec_cylinder_vs_ellipse.py` | `RESDIR` and the `_emit` import path retargeted to `artifacts/g61_runs` and `_vendor/`; invocation line replaced |
+| `reductions/d_1c_v_atomic_saturation_check.py` | `bodytwin/scripts/physics_exp/d_1c_v_atomic_saturation_check.py` | copied unchanged (already English, no platform paths) |
+| `warp_gpu/substep_value_probe.py` | `bodytwin/scripts/physics_exp/substep_value_probe.py` | Swedish docstring, comments and all print strings translated; the reference to an external agent report reworded as "the reported XPBD substepping result"; every number, gate and threshold unchanged |
+| `warp_gpu/warmstart_massratio.py` | `bodytwin/scripts/physics_exp/warmstart_massratio.py` | Swedish docstring, comments and print strings translated; the `sys.path` insert made relative to the file; the unrelated `/tmp/rnea_parity_franka.npz` precondition guard removed (a stale robot-spec file gate, not used by the physics) |
+| `warp_gpu/warmstart_value_probe.py` | `bodytwin/scripts/physics_exp/warmstart_value_probe.py` | Swedish docstring, comments and print strings translated; the instrument guard and its thresholds unchanged |
+| `wave_fdtd/xray_3d_dda.py` | `bodytwin/scripts/physics_exp/xray_3d_dda.py` | first docstring line rewritten (attribution removed); invocation line replaced |
+| `wave_fdtd/xray_tomography_sigma.py` | `bodytwin/scripts/physics_exp/xray_tomography_sigma.py` | first two docstring lines rewritten (attribution removed); invocation line replaced |
+| `docs/RUNNING.md` | - | 16 Status rows added; the count line updated to 292 module rows |
+| `tests/test_pass3_selftests.py` | - | 2 modules added to `CPU_MODULES`, 12 to `CUDA_MODULES`; `ARGS` entries for the three wake cells (`--validate`, `--validate`, `--smoke`) and 1800 s `TIMEOUTS` for two of them |

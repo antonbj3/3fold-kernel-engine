@@ -18,10 +18,16 @@ ARGS = {
     "certified_kernels/probe_tensorcore_precision_rung.py": ["--inv", "A"],
     # the full sweep runs far past any test budget; this is the module's own short self-test
     "lbm/g21_3d_wake_chaos_highRe.py": ["--validate"],
+    # the full sweeps run far past any test budget; these are the modules' own short paths
+    "lbm/g39_cfd_force_nilss_bed.py": ["--validate"],
+    "lbm/g61_modeA_Rec_cylinder_vs_ellipse.py": ["--validate"],
+    "lbm/g42_wake_benettin_dim.py": ["--smoke"],
 }
 
 # modules whose full run needs more than the default subprocess budget
-TIMEOUTS = {"lbm/g20_3d_wake_chaos_nilss_prereq.py": 1200}
+TIMEOUTS = {"lbm/g20_3d_wake_chaos_nilss_prereq.py": 1200,
+            "lbm/g42_wake_benettin_dim.py": 1800,
+            "lbm/g61_modeA_Rec_cylinder_vs_ellipse.py": 1800}
 
 MESH_SCRIPTS = ["fem/cad_to_femmesh.py", "fem/cad_to_tetmesh.py", "fem/cad_kirsch_mesh.py"]
 MESH_CONSUMERS = ("fem/warpfem_cad_elasticity.py", "fem/warpfem_mms_cad.py", "fem/warpfem_kirsch.py",
@@ -262,6 +268,9 @@ CPU_MODULES = [
     'lbm/differentiable_fsi_chain.py',
     'reductions/det_accumulation_probe.py',
     'wave_fdtd/goc_wave_verify.py',
+    # added by the next batch of the GPU-index sweep
+    'fem/fno_3d.py',
+    'fem/fno_tpu_compatible.py',
 ]
 
 CUDA_MODULES = [
@@ -329,6 +338,19 @@ CUDA_MODULES = [
     'lbm/g21_3d_wake_chaos_highRe.py',
     'lbm/probe_kam_resonance_dither_strides.py',
     'reductions/d_1c_iv_best_in_class_float4.py',
+    # added by the next batch of the GPU-index sweep
+    'certified_kernels/probe_dma_single_stream_gap.py',
+    'certified_kernels/probe_dma_split_shape_decisive.py',
+    'certified_kernels/probe_l2_arbitration_endgame.py',
+    'lbm/g39_cfd_force_nilss_bed.py',
+    'lbm/g42_wake_benettin_dim.py',
+    'lbm/g61_modeA_Rec_cylinder_vs_ellipse.py',
+    'reductions/d_1c_v_atomic_saturation_check.py',
+    'warp_gpu/substep_value_probe.py',
+    'warp_gpu/warmstart_massratio.py',
+    'warp_gpu/warmstart_value_probe.py',
+    'wave_fdtd/xray_3d_dda.py',
+    'wave_fdtd/xray_tomography_sigma.py',
 ]
 
 
