@@ -749,3 +749,35 @@ A separately downloaded official9.0 SDK is the next controlled toolchain variant
 the installed9.1 SDK and failed report stay frozen. Announced download, no driver
 change, no SDK source/binary vendoring. Same sample source from that release and
 same128x96/two-run/image/fault gates; no tolerance change. Build outside this repo.
+
+
+### Compatible SDK runtime result
+
+| quantity | first leg | second leg |
+|---|---|---|
+| process exit |0|0|
+| image dimensions / bytes |128x96 /36878|128x96 /36878|
+| distinct colors |1626|1626|
+| hit-blue pixels |1625|1625|
+| non-hit pixels |10663|10663|
+| image SHA256 |75bf1e37c2d3fb133770115870282ed8bc9bcbcd3651c8d382f5e9c021013b02|same|
+
+All4 preregistered gates PASS with the unmodified official SDK9.0 sample.
+No current-boot fault observed before, between or after launches. The installed
+SDK9.1 comparator and its zero-image ABI failure remain unchanged.
+Archive provenance: official v9.0.0,58314739 bytes,
+SHA2563fa55fb41e9f5b86bc5b26006ea56de8848b7380cf334132e0e87b92efb3a17e.
+SDK source and binaries stay external; no driver or hardware setting changed.
+
+Only image bytes are certified identical. Driver diagnostic stderr is not:
+lengths3484/993, differing byte positions3195; its hashes are
+retained in the report. No full-log determinism or timing claim is made.
+Evidence: reports/optix_sample_proof_sdk90.json and optix_sample_1.ppm/2.ppm.
+
+| module | status | evidence |
+|---|---|---|
+| `kernel_gen/optix_sample_probe.py` | VERIFIED-FRESH | SDK9.0 all4 gates PASS; two128x96 image payloads exact,1625 hit pixels, no observed fault. SDK9.1 runtime failure retained separately. |
+
+The toolchain is ready for a separate ray-query mechanism table. No shared field,
+motion or photon RT backend has yet been implemented, and no Euclidean distance,
+ray parity, fluence, SER or throughput comparison is implied by this triangle.
