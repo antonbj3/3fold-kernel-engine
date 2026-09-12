@@ -1,0 +1,18 @@
+{
+  "legs": [
+    {
+      "exit_code": 1,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "20c074237652b42bf7310f226b60a52683c8305450b2f8eb6f548573699f88d8"
+    }
+  ],
+  "gates": {
+    "both_processes_pass": false,
+    "valid_nontrivial_images": false,
+    "complete_output_bytes_exact": false,
+    "no_observed_current_boot_fault": true
+  },
+  "binary_sha256": "cec97ae93d2e07253c6053ee6d2d2c77f249faab80a9662f47ae2d90c1477702",
+  "journal_guard_requested": true,
+  "scope": "external unmodified SDK headless triangle toolchain only; no engine correctness or performance claim"
+}

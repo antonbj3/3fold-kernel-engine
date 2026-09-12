@@ -594,3 +594,4 @@ adds an int64 fixed-point accumulation path behind a module-level `DETERMINISTIC
 | `kernel_gen/stream_export_v1/stream_shim.cu` | Add native memory/array descriptors, fixed launch, repeated-output check and CUDA-event/wall timing. | Reproduce the frozen launch without linking Warp runtime. |
 | `kernel_gen/stream_export_v1/host_stream.c` | Add gcc-compiled C11 raw-input/output caller. | Demonstrate an actual C host rather than only a C++ declaration. |
 | `kernel_gen/stream_export_v1/build.sh` | Add separate gcc/nvcc build using existing licensed headers and explicit architecture. | Keep the prior reduction export and build frozen. |
+| `kernel_gen/optix_sample_probe.py` | Add a two-run headless external SDK sample probe with exact image bytes, nontrivial pixel gates and an optional current-boot fault guard. | Establish the installed RT toolchain before designing a shared backend; no SDK source or binary is vendored. |

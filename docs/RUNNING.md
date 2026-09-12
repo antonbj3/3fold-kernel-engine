@@ -704,3 +704,48 @@ relaxed to reinterpret a speedup as a pass. Evidence:
 Python submission gaps may dominate the small event interval; cache reuse also
 prevents treating its payload rate as DRAM throughput. Next mechanism test would
 compare captured launch batches. No external decode-engine integration yet.
+
+## Headless RT toolchain proof, before backend design
+
+The installed OptiX SDK's unmodified optixTriangle target configures and builds
+successfully with a single CPU build worker. No SDK source, binary or library is
+vendored by this experiment. This is a build observation, not an RT engine result.
+
+Preregistered runtime gates: launch the existing sample twice at128x96 with file
+output, both exits0; both outputs valid P6 RGB images of exactly128x96; each image
+has at least16 distinct colors and both hit-blue255 and non-hit-blue pixels;
+complete output bytes identical. No performance claim, no SER or field-distance
+certificate. A caller supplies OPTIX_TRIANGLE_BINARY; output reports contain
+hashes, not local installation paths. Local launches require an externally held
+shared GPU lock; optional journal guard rejects a current-boot Xid before each
+launch. No retries or hardware/settings changes after a fault.
+
+| module | status | evidence |
+|---|---|---|
+| `kernel_gen/optix_sample_probe.py` | CUDA-ONLY | Preregistered external sample runtime proof; no accepted image runs yet. |
+
+
+### Installed SDK runtime negative
+
+| observation | result |
+|---|---|
+| unmodified SDK9.1 configure/build | exit0 / exit0 |
+| first headless launch | exit1, OPTIX_ERROR_UNSUPPORTED_ABI_VERSION |
+| accepted images |0|
+| second launch |not attempted|
+| current-boot Xid guard |no fault observed|
+
+Evidence: reports/optix_sample_proof_sdk91.json. Runtime/valid-image/exact-repeat
+gates FAIL; the fault guard passes. No driver, module or system setting changes.
+
+| module | status | evidence |
+|---|---|---|
+| `kernel_gen/optix_sample_probe.py` | VERIFIED-FRESH | SDK9.1 fails ABI initialization,0 images, first exit1; no second attempt and no observed current-boot fault. |
+
+Official compatibility sources: [9.1 release](https://forums.developer.nvidia.com/t/optix-9-1-release/354119)
+requires R590; [9.0 release](https://github.com/NVIDIA/optix-sdk/releases/tag/v9.0.0)
+requires R570 or later. The installed R580 driver cannot provide the9.1 ABI.
+A separately downloaded official9.0 SDK is the next controlled toolchain variant;
+the installed9.1 SDK and failed report stay frozen. Announced download, no driver
+change, no SDK source/binary vendoring. Same sample source from that release and
+same128x96/two-run/image/fault gates; no tolerance change. Build outside this repo.
