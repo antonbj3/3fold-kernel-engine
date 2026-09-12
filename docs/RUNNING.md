@@ -172,6 +172,7 @@ SYNTHETIC-ONLY = the method was demonstrated on private input, and it ships with
 | src/kernel_engine/reductions/d_1c_real_reduction_roofline_torch.py | VERIFIED-FRESH | cub reduction 658 GB/s = 98 % of the 672 GB/s theoretical peak; copy 613 GB/s = 91 % |
 | src/kernel_engine/reductions/probe_kernel_determinism_cert.py | VERIFIED-FRESH |  |
 | src/kernel_engine/reductions/u_v54_gather_law_deterministic_reduction_vs_atomic_int64.py | VERIFIED-FRESH |  |
+| src/kernel_engine/kernel_gen/export/ (build.sh, host_int64_reduce.cu, warp_reference_run.py) | VERIFIED-FRESH | exported reduce_int64_atomic compiled with nvcc: output bit-identical to the Warp-launched original; 70.4/70.8 GB/s Warp vs 73.2/73.0 GB/s nvcc = 0.111/0.112 vs 0.116/0.116 of the 632 GB/s identity |
 | src/kernel_engine/thermo/biot_transient_conduction.py | VERIFIED-FRESH |  |
 | src/kernel_engine/thermo/bohm_sheath_criterion.py | VERIFIED-FRESH |  |
 | src/kernel_engine/thermo/d_nonnormal_thermo_price_of_amplification_probe.py | VERIFIED-FRESH |  |

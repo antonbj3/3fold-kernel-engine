@@ -515,3 +515,23 @@ the module docstring (arXiv 2510.26692). Synthetic inputs only.
 | `certified_kernels/kernelbench_addressing_census_provenance_gate_absent.py` | same import; the census reports per level how many kernels change class from `sequential` to `chunkable` (printed `[R5]` block, JSON key `R5_chunkable_recurrence`); gates G1-G3 and their numbers unchanged |
 | `tests/test_chunkable_recurrence_rule.py` | new pytest wrapper: chunked-vs-sequential equivalence, the transition classes, the byte floors, and cert-gate parity with and without `--no-chunkable-rule` |
 | `tests/test_pass3_selftests.py` | `certified_kernels/chunkable_recurrence_rule.py` added to `CPU_MODULES` |
+
+## Warp -> CUDA C++ export prototype
+
+The Warp code generator's output for `reduce_int64_atomic` (from
+`reductions/u_v54_gather_law_deterministic_reduction_vs_atomic_int64.py`) compiled offline with `nvcc`
+into a host program that links no Warp runtime, plus the verification that it stays bit-identical and
+keeps its bandwidth fraction. The generated `.cu` and the header closure are NVIDIA Warp output /
+Warp device headers, Apache-2.0; see `kernel_gen/export/THIRD_PARTY`.
+
+| file | change |
+| --- | --- |
+| `kernel_gen/export/reduce_int64_atomic_generated.cu` | Warp-generated CUDA C++ for the module, taken from the kernel cache unmodified except that `#define WP_NO_CRT` is commented out (offline `nvcc` has the real CRT headers, NVRTC does not); comment added at that line |
+| `kernel_gen/export/warp_native/` | the 35 Warp device headers the generated file includes (transitive closure from `nvcc -M`), copied byte-for-byte, Apache-2.0 |
+| `kernel_gen/export/export_shim.cu` | new: `extern "C" void wp_export_launch_reduce_int64(const int32_t*, const int64_t*, int64_t*, int n, int nb, int block_dim, cudaStream_t)` - builds `wp::launch_bounds_t<1>` and the three `wp::array_t<>` arguments and launches the generated kernel with Warp's own configuration (block 256, grid-stride grid) |
+| `kernel_gen/export/host_int64_reduce.cu` | new: CUDA-runtime-only host program; reads the two `.npy` inputs, launches through the shim, prints the slot sum, an FNV-1a hash of the output bytes and CUDA-event timing over 20 repetitions, writes `out_nvcc.bin` |
+| `kernel_gen/export/warp_reference_run.py` | new: Warp-side driver; writes `in_tgt.npy`, `in_qval.npy`, `out_warp.npy` and prints the same sum/hash/timing line for the Warp-launched original |
+| `kernel_gen/export/build.sh` | new: the exact `nvcc` command (`-O3 -std=c++17 -arch=sm_120a -DNDEBUG -DWP_ENABLE_CUDA=1 -diag-suppress 177,550 -Iwarp_native`) |
+| `kernel_gen/export/EXPORT.md` | new: export steps, the shim and Warp's launch ABI, the measured table, and what a foreign C engine needs to call the kernel |
+| `kernel_gen/export/THIRD_PARTY` | new: licence note for the copied Warp headers and generated source |
+| `tests/test_kernel_gen_export.py` | new pytest wrapper: builds with `nvcc`, runs both paths on the same input, asserts element-wise equality; skips without `nvcc` or a CUDA device |
