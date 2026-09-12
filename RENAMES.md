@@ -581,3 +581,5 @@ adds an int64 fixed-point accumulation path behind a module-level `DETERMINISTIC
 | `wave_fdtd/xray_tomography_sigma.py` | unchanged | added `DETERMINISTIC_ACCUMULATION`, `CN_SCALE = 2**43` and `LOSS_SCALE = 2**35` with overflow assertions, kernels `sensitivity_i64`, `dequant2`, `sq_resid_i64` and helpers `sensitivity_map`, `forward_loss_value` |
 | `docs/RUNNING.md` | - | 1 Status row added (`determinism_sweep_int64.py`), 8 Status notes extended with the determinism measurement, count line updated to 293 module rows, new section "Deterministic accumulation" with the per-site and per-selftest tables and the list of sites deliberately left on the float path |
 | `tests/test_determinism_sweep_int64.py` | - | new pytest wrapper for the sweep cell; skips without a CUDA device |
+
+| `certified_kernels/innovation_adjoint_baseline.py` | Add separate frozen-site/eight-selftest observer retaining returncodes, exact stdout hashes and aligned numeric deltas. | Measure all adjoint-carrying cases before design without changing the existing sweep or exemptions. |

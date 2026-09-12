@@ -466,3 +466,44 @@ It launches each touched accumulation kernel twice (float twin and int64 twin), 
 a subprocess and compares the normalised stdout hashes, writes `reports/determinism_sweep_int64_result.json`, and
 exits non-zero if any int64 site or any non-adjoint-carrying selftest differs. `tests/test_determinism_sweep_int64.py`
 wraps it and skips without a CUDA device.
+
+### Innovation target 5: frozen adjoint baseline, before design
+
+Run the existing eight site/selftest modules on Modal L4, unchanged. Use the
+existing site inputs and stdout normalizer. Each selftest executes twice in its
+own process; compare the full normalized text and report numerical deltas only
+when the nonnumeric text aligns. Printed deltas are diagnostic, not full-array
+adjoint certification. Preserve unaligned/failed outputs as failures, not zero.
+
+Fixed target gates: all int64 site deltas exactly0; every selftest exits0 twice;
+all eight normalized selftest hashes identical, including adjoint-carrying cases.
+The old sweep exempts four adjoint-carrying modules and does not gate returncodes;
+this new observer records those distinctions and exempts none. No baseline code,
+physical thresholds or tolerances change. No timing claim, no local GPU use.
+
+| module | status | evidence |
+|---|---|---|
+| `certified_kernels/innovation_adjoint_baseline.py` | VERIFIED-FRESH | L4 five/eight stdout pairs identical; FSI0.49, wave3D9e-8, tomography2e-7 printed deltas; flow-control exits1/1. |
+
+Measured frozen baseline on L4, two runs per selftest:
+
+| module | returncodes | normalized text identical | max aligned printed delta |
+|---|---|---|---|
+| lbm/differentiable_flow_control | 1/1 | True | 0 |
+| lbm/differentiable_lbm_probe | 0/0 | True | 0 |
+| lbm/differentiable_fsi_chain | 0/0 | False | 0.49 |
+| lbm/lbm3d_immersed_boundary | 0/0 | True | 0 |
+| wave_fdtd/diff_wave_3d | 0/0 | False | 9e-08 |
+| wave_fdtd/diff_wave_substrate | 0/0 | True | 0 |
+| wave_fdtd/xray_tomography_sigma | 0/0 | False | 2e-07 |
+| wave_fdtd/xray_3d_dda | 0/0 | True | 0 |
+
+Evidence: `reports/innovation_adjoint_baseline_l4.json`. All int64 site deltas
+are0; the all-eight text-identity and all-zero-returncode gates FAIL. Flow control's
+repeatable failure remains visible and is not an adjoint-order success claim.
+The 2-D wave's printed numbers agree on these runs; that is not proof that its
+unprinted full gradient arrays are identical. No numerical tolerance changed.
+3-D wave inspection shows reversed velocity stencils scatter up to six additions
+into a pressure-gradient cell. A separate gather adjoint can give each gradient
+cell one writer while accumulating time steps in a fixed reverse order; preserve
+the frozen forward kernels and its existing finite-difference gate.
