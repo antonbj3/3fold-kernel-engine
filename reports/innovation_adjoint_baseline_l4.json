@@ -1,0 +1,192 @@
+{
+  "sites": [
+    {
+      "module": "wave_fdtd/diff_wave_substrate",
+      "site": "focus_loss",
+      "float_delta": 0.0,
+      "int64_delta": 0.0
+    },
+    {
+      "module": "wave_fdtd/diff_wave_3d",
+      "site": "energy",
+      "float_delta": 3.814697265625e-06,
+      "int64_delta": 0.0
+    },
+    {
+      "module": "lbm/differentiable_flow_control",
+      "site": "track_loss",
+      "float_delta": 0.0,
+      "int64_delta": 0.0
+    },
+    {
+      "module": "lbm/differentiable_flow_control",
+      "site": "probe_ux",
+      "float_delta": 0.0,
+      "int64_delta": 0.0
+    },
+    {
+      "module": "lbm/differentiable_lbm_probe",
+      "site": "objective",
+      "float_delta": 4.76837158203125e-07,
+      "int64_delta": 0.0
+    },
+    {
+      "module": "lbm/differentiable_fsi_chain",
+      "site": "drag_force",
+      "float_delta": 1.430511474609375e-06,
+      "int64_delta": 0.0
+    },
+    {
+      "module": "lbm/lbm3d_immersed_boundary",
+      "site": "spread",
+      "float_delta": 5.820766091346741e-11,
+      "int64_delta": 0.0
+    },
+    {
+      "module": "wave_fdtd/xray_tomography_sigma",
+      "site": "sensitivity",
+      "float_delta": 1.52587890625e-05,
+      "int64_delta": 0.0
+    },
+    {
+      "module": "wave_fdtd/xray_tomography_sigma",
+      "site": "sq_resid",
+      "float_delta": 0.0,
+      "int64_delta": 0.0
+    },
+    {
+      "module": "wave_fdtd/xray_3d_dda",
+      "site": "backproject",
+      "float_delta": 1.3709068298339844e-06,
+      "int64_delta": 0.0
+    }
+  ],
+  "selftests": [
+    {
+      "module": "lbm/differentiable_flow_control",
+      "adjoint_carrying": false,
+      "returncodes": [
+        1,
+        1
+      ],
+      "hashes": [
+        "2cc3fdcc3e2430aaa1935b3fa66df3dffca19c0570388e258bd7de253928a34e",
+        "2cc3fdcc3e2430aaa1935b3fa66df3dffca19c0570388e258bd7de253928a34e"
+      ],
+      "identical": true,
+      "numeric_outputs_aligned": true,
+      "max_printed_numeric_delta": 0.0
+    },
+    {
+      "module": "lbm/differentiable_lbm_probe",
+      "adjoint_carrying": false,
+      "returncodes": [
+        0,
+        0
+      ],
+      "hashes": [
+        "dd6b065222e1a44647df1e9cc384112626f463391d1aae922882fdf95645ffe8",
+        "dd6b065222e1a44647df1e9cc384112626f463391d1aae922882fdf95645ffe8"
+      ],
+      "identical": true,
+      "numeric_outputs_aligned": true,
+      "max_printed_numeric_delta": 0.0
+    },
+    {
+      "module": "lbm/differentiable_fsi_chain",
+      "adjoint_carrying": true,
+      "returncodes": [
+        0,
+        0
+      ],
+      "hashes": [
+        "4d1e8d110512347811a5a165e82011a0596bbed351da6077d65b50083c6811c4",
+        "1448f29205fbc4f9009b90a6e98f34b3f6ee66de12886afde5a1288c320073e5"
+      ],
+      "identical": false,
+      "numeric_outputs_aligned": true,
+      "max_printed_numeric_delta": 0.49
+    },
+    {
+      "module": "lbm/lbm3d_immersed_boundary",
+      "adjoint_carrying": false,
+      "returncodes": [
+        0,
+        0
+      ],
+      "hashes": [
+        "b1288ec00db44091f5f506676994a3ef84cdf869daade1f55da000cf6ceb5bcf",
+        "b1288ec00db44091f5f506676994a3ef84cdf869daade1f55da000cf6ceb5bcf"
+      ],
+      "identical": true,
+      "numeric_outputs_aligned": true,
+      "max_printed_numeric_delta": 0.0
+    },
+    {
+      "module": "wave_fdtd/diff_wave_3d",
+      "adjoint_carrying": true,
+      "returncodes": [
+        0,
+        0
+      ],
+      "hashes": [
+        "68969d439f7a90a71b6a67aff05a7cd4e1cf33a1bd15f5d7825c36c7cd3cd8e3",
+        "a9fea176b5c505afd19c6c5da8fa7116406f13834ce5167d9c66fce20c7a68e6"
+      ],
+      "identical": false,
+      "numeric_outputs_aligned": true,
+      "max_printed_numeric_delta": 8.999999999999999e-08
+    },
+    {
+      "module": "wave_fdtd/diff_wave_substrate",
+      "adjoint_carrying": true,
+      "returncodes": [
+        0,
+        0
+      ],
+      "hashes": [
+        "a9f26b67d907a79a703c0da5681c961d25fc7846c414749e700d5a1c7e50e43c",
+        "a9f26b67d907a79a703c0da5681c961d25fc7846c414749e700d5a1c7e50e43c"
+      ],
+      "identical": true,
+      "numeric_outputs_aligned": true,
+      "max_printed_numeric_delta": 0.0
+    },
+    {
+      "module": "wave_fdtd/xray_tomography_sigma",
+      "adjoint_carrying": true,
+      "returncodes": [
+        0,
+        0
+      ],
+      "hashes": [
+        "d854fcb6566f79f8071238cf7d48dc32b28d2fa4a461fcc4a673254b883b4435",
+        "5dd07f5f9b67c65e86cd8932f7485511b0f1e1e25edc2582cf1591f6c8529122"
+      ],
+      "identical": false,
+      "numeric_outputs_aligned": true,
+      "max_printed_numeric_delta": 1.9999999999999809e-07
+    },
+    {
+      "module": "wave_fdtd/xray_3d_dda",
+      "adjoint_carrying": false,
+      "returncodes": [
+        0,
+        0
+      ],
+      "hashes": [
+        "5103b3102a31de18f5b5ed811130be8e797c5e8b23975e7e3e534bad6d4c1537",
+        "5103b3102a31de18f5b5ed811130be8e797c5e8b23975e7e3e534bad6d4c1537"
+      ],
+      "identical": true,
+      "numeric_outputs_aligned": true,
+      "max_printed_numeric_delta": 0.0
+    }
+  ],
+  "gates": {
+    "int64_sites_identical": true,
+    "all_selftests_exit_zero": false,
+    "all_eight_selftests_identical": false
+  },
+  "performance_measured": false
+}
