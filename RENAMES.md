@@ -380,3 +380,62 @@ Twelve modules that the second pass had deferred for a missing measured dataset.
 | `certified_kernels/kernelbench_addressing_census_provenance_gate_absent.py` | same three edits; `iter_corpus()` falls back to the stand-in corpus; JSON key `cell` -> `module`, gate key `G3_grounds_D_residual` -> `G3_input_keyed_not_testable_on_this_corpus` |
 | `wave_fdtd/acoustic_sigma_renderer.py` | Swedish docstring, comments, printed strings and verdict text translated; the hard-coded per-bearing counts in the closing verdict replaced by the computed values; the fail-loud data-availability check kept for the real-data branch |
 | the nine `thermo/p8_*.py` | run-command line in the docstring reduced to `python3 <file>`; cross-cell references and bracketed doc links removed |
+
+
+## Files copied in the GPU-index sweep (destination -> source path relative to the platform repository root)
+
+Thirty-seven modules selected from the index of GPU-importing platform scripts that were not yet in any
+staging repository: fluid/CFD, FEM, thermal, wave, allocation and kernel-certification rows only.
+
+| in this repository | source |
+| --- | --- |
+| src/kernel_engine/certified_kernels/aa_micro_bench.py | scripts/physics_exp/aa_micro_bench.py |
+| src/kernel_engine/certified_kernels/d_energy_exponent_substrate_invariant.py | scripts/physics_exp/d_energy_exponent_substrate_invariant.py |
+| src/kernel_engine/certified_kernels/gpu_duty_torch_v1.py | scripts/phys/gpu_duty_torch_v1.py |
+| src/kernel_engine/certified_kernels/module_const_launch_tune.py | scripts/physics_exp/module_const_launch_tune.py |
+| src/kernel_engine/certified_kernels/morton_3d_stencil.py | scripts/physics_exp/morton_3d_stencil.py |
+| src/kernel_engine/certified_kernels/morton_sparse_gather.py | scripts/physics_exp/morton_sparse_gather.py |
+| src/kernel_engine/certified_kernels/probe_compute_ladder_descent.py | scripts/physics_exp/probes/probe_compute_ladder_descent.py |
+| src/kernel_engine/certified_kernels/probe_exclusive_sweep_block.py | scripts/physics_exp/probes/probe_exclusive_sweep_block.py |
+| src/kernel_engine/certified_kernels/probe_l2_inband_endgame.py | scripts/physics_exp/probes/probe_l2_inband_endgame.py |
+| src/kernel_engine/certified_kernels/probe_sync_density_victim_model.py | scripts/physics_exp/probes/probe_sync_density_victim_model.py |
+| src/kernel_engine/certified_kernels/probe_sync_penalty_vs_priority.py | scripts/physics_exp/probes/probe_sync_penalty_vs_priority.py |
+| src/kernel_engine/certified_kernels/probe_timeslice_dma_fartail.py | scripts/physics_exp/probes/probe_timeslice_dma_fartail.py |
+| src/kernel_engine/certified_kernels/ser_fracture_compaction.py | scripts/physics_exp/ser_fracture_compaction.py |
+| src/kernel_engine/euler_hllc/lubrication_reynolds_bearing.py | scripts/lubrication_reynolds_bearing.py |
+| src/kernel_engine/fem/fsi_added_mass.py | scripts/fsi_added_mass.py |
+| src/kernel_engine/fem/fsi_pipe_flutter.py | scripts/fsi_pipe_flutter.py |
+| src/kernel_engine/fem/neuber_notch_plasticity.py | scripts/neuber_notch_plasticity.py |
+| src/kernel_engine/fem/plasticity_3d_j2.py | scripts/plasticity_3d_j2.py |
+| src/kernel_engine/fem/plasticity_return_mapping.py | scripts/plasticity_return_mapping.py |
+| src/kernel_engine/fem/thermal_buckling.py | scripts/thermal_buckling.py |
+| src/kernel_engine/fem/viscoelastic_preload_relaxation.py | scripts/viscoelastic_preload_relaxation.py |
+| src/kernel_engine/lbm/coupled_design_aero_struct.py | scripts/physics_exp/coupled_design_aero_struct.py |
+| src/kernel_engine/lbm/differentiable_flow_control.py | scripts/physics_exp/differentiable_flow_control.py |
+| src/kernel_engine/lbm/differentiable_fsi_chain.py | scripts/physics_exp/differentiable_fsi_chain.py |
+| src/kernel_engine/lbm/g18_cfd_nilss_prereq_wake_chaos.py | scripts/physics_exp/g18_cfd_nilss_prereq_wake_chaos.py |
+| src/kernel_engine/lbm/g19_forced_2d_wake_nilss_prereq.py | scripts/physics_exp/g19_forced_2d_wake_nilss_prereq.py |
+| src/kernel_engine/lbm/g20_3d_wake_chaos_nilss_prereq.py | scripts/physics_exp/g20_3d_wake_chaos_nilss_prereq.py |
+| src/kernel_engine/lbm/g21_3d_wake_chaos_highRe.py | scripts/physics_exp/g21_3d_wake_chaos_highRe.py |
+| src/kernel_engine/lbm/probe_kam_resonance_dither_strides.py | scripts/physics_exp/probes/probe_kam_resonance_dither_strides.py |
+| src/kernel_engine/reductions/d_1c_iv_best_in_class_float4.py | scripts/physics_exp/d_1c_iv_best_in_class_float4.py |
+| src/kernel_engine/reductions/det_accumulation_probe.py | scripts/physics_exp/det_accumulation_probe.py |
+| src/kernel_engine/wave_fdtd/coupled_multiphysics_calibration.py | scripts/physics_exp/coupled_multiphysics_calibration.py |
+| src/kernel_engine/wave_fdtd/goc_wave_verify.py | scripts/physics_exp/goc_wave_verify.py |
+| src/kernel_engine/wave_fdtd/sigma_guided_fwi.py | scripts/physics_exp/sigma_guided_fwi.py |
+| src/kernel_engine/wave_fdtd/twin_calibration_multisource.py | scripts/physics_exp/twin_calibration_multisource.py (dependency of coupled_multiphysics_calibration) |
+
+## Deliberate code changes in the GPU-index sweep
+
+| file | change |
+| --- | --- |
+| all thirty-seven | Swedish docstrings, comments, printed strings and verdict text translated to English; module docstrings trimmed to behaviour, I/O and gates; session, worktree and attribution references removed from prose (identifiers, JSON keys and CLI flags unchanged) |
+| all run-command lines | `.venv-newton/bin/python <platform path>` reduced to `python3 <file name>` |
+| `certified_kernels/probe_timeslice_dma_fartail.py` | evidence path `reports/probes/...` -> `artifacts/` next to the file; the scratch `RATE_DIR` for the disturber rate files -> `artifacts/idma/`, created on demand |
+| `certified_kernels/probe_exclusive_sweep_block.py` | `REP` -> `artifacts/` next to the file; `RATE_DIR` -> `artifacts/isweep/` |
+| `certified_kernels/probe_sync_density_victim_model.py` | `RATE_DIR` -> `artifacts/isync/` |
+| `certified_kernels/probe_l2_inband_endgame.py` | `RATE_DIR` -> `artifacts/` |
+| `certified_kernels/aa_micro_bench.py` | sibling-package bootstrap added for `lbm_gpu_fp16_half2` |
+| `certified_kernels/probe_thermal_rung.py` | copied, then removed: it loads `probe_compute_twin_v1.py` (796 lines) by path, which is not in this repository |
+| `certified_kernels/gpu_duty_torch_v1.py` | the module is a helper class with no gate of its own, so it is covered by a dedicated pytest case instead of being run as a script |
+- 2026-09-12: `inverse_design_wave.py` and `twin_calibration_wave.py` were staged here by the GPU-index sweep and removed again: both already ship in `3fold-physics/src/physics_engine/wave_optics/`, and a module lives in one repository only.

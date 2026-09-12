@@ -270,8 +270,43 @@ SYNTHETIC-ONLY = the method was demonstrated on private input, and it ships with
 | src/kernel_engine/wave_fdtd/wave_fdtd_3d.py | VERIFIED-FRESH |
 | src/kernel_engine/wave_fdtd/wave_fdtd_kache.py | VERIFIED-FRESH |
 | src/kernel_engine/wave_fdtd/wave_fdtd_verify.py | VERIFIED-FRESH |
+| src/kernel_engine/certified_kernels/aa_micro_bench.py | CUDA-ONLY |
+| src/kernel_engine/certified_kernels/d_energy_exponent_substrate_invariant.py | CUDA-ONLY |
+| src/kernel_engine/certified_kernels/gpu_duty_torch_v1.py | VERIFIED-FRESH |
+| src/kernel_engine/certified_kernels/module_const_launch_tune.py | VERIFIED-FRESH |
+| src/kernel_engine/certified_kernels/morton_3d_stencil.py | VERIFIED-FRESH |
+| src/kernel_engine/certified_kernels/morton_sparse_gather.py | VERIFIED-FRESH |
+| src/kernel_engine/certified_kernels/probe_compute_ladder_descent.py | CUDA-ONLY |
+| src/kernel_engine/certified_kernels/probe_exclusive_sweep_block.py | CUDA-ONLY |
+| src/kernel_engine/certified_kernels/probe_l2_inband_endgame.py | CUDA-ONLY |
+| src/kernel_engine/certified_kernels/probe_sync_density_victim_model.py | CUDA-ONLY |
+| src/kernel_engine/certified_kernels/probe_sync_penalty_vs_priority.py | CUDA-ONLY |
+| src/kernel_engine/certified_kernels/probe_timeslice_dma_fartail.py | CUDA-ONLY |
+| src/kernel_engine/certified_kernels/ser_fracture_compaction.py | CUDA-ONLY |
+| src/kernel_engine/euler_hllc/lubrication_reynolds_bearing.py | VERIFIED-FRESH |
+| src/kernel_engine/fem/fsi_added_mass.py | VERIFIED-FRESH |
+| src/kernel_engine/fem/fsi_pipe_flutter.py | VERIFIED-FRESH |
+| src/kernel_engine/fem/neuber_notch_plasticity.py | VERIFIED-FRESH |
+| src/kernel_engine/fem/plasticity_3d_j2.py | VERIFIED-FRESH |
+| src/kernel_engine/fem/plasticity_return_mapping.py | VERIFIED-FRESH |
+| src/kernel_engine/fem/thermal_buckling.py | VERIFIED-FRESH |
+| src/kernel_engine/fem/viscoelastic_preload_relaxation.py | VERIFIED-FRESH |
+| src/kernel_engine/lbm/coupled_design_aero_struct.py | CUDA-ONLY |
+| src/kernel_engine/lbm/differentiable_flow_control.py | VERIFIED-FRESH |
+| src/kernel_engine/lbm/differentiable_fsi_chain.py | VERIFIED-FRESH |
+| src/kernel_engine/lbm/g18_cfd_nilss_prereq_wake_chaos.py | CUDA-ONLY |
+| src/kernel_engine/lbm/g19_forced_2d_wake_nilss_prereq.py | CUDA-ONLY |
+| src/kernel_engine/lbm/g20_3d_wake_chaos_nilss_prereq.py | CUDA-ONLY |
+| src/kernel_engine/lbm/g21_3d_wake_chaos_highRe.py | CUDA-ONLY |
+| src/kernel_engine/lbm/probe_kam_resonance_dither_strides.py | CUDA-ONLY |
+| src/kernel_engine/reductions/d_1c_iv_best_in_class_float4.py | CUDA-ONLY |
+| src/kernel_engine/reductions/det_accumulation_probe.py | VERIFIED-FRESH |
+| src/kernel_engine/wave_fdtd/coupled_multiphysics_calibration.py | VERIFIED-FRESH |
+| src/kernel_engine/wave_fdtd/goc_wave_verify.py | VERIFIED-FRESH |
+| src/kernel_engine/wave_fdtd/sigma_guided_fwi.py | CUDA-ONLY |
+| src/kernel_engine/wave_fdtd/twin_calibration_multisource.py | VERIFIED-FRESH |
 
-243 modules: 180 VERIFIED-FRESH, 60 CUDA-ONLY, 3 SYNTHETIC-ONLY.
+278 modules: 198 VERIFIED-FRESH, 77 CUDA-ONLY, 3 SYNTHETIC-ONLY.
 
 
 ## Real datasets

@@ -233,6 +233,24 @@ CPU_MODULES = [
     'wave_fdtd/wave_fdtd_3d.py',
     'wave_fdtd/wave_fdtd_kache.py',
     'wave_fdtd/wave_fdtd_verify.py',
+    # added by the GPU-index sweep
+    'certified_kernels/d_energy_exponent_substrate_invariant.py',
+    'certified_kernels/module_const_launch_tune.py',
+    'certified_kernels/morton_3d_stencil.py',
+    'certified_kernels/morton_sparse_gather.py',
+    'euler_hllc/lubrication_reynolds_bearing.py',
+    'fem/fsi_added_mass.py',
+    'fem/fsi_pipe_flutter.py',
+    'fem/neuber_notch_plasticity.py',
+    'fem/plasticity_3d_j2.py',
+    'fem/plasticity_return_mapping.py',
+    'fem/thermal_buckling.py',
+    'fem/viscoelastic_preload_relaxation.py',
+    'lbm/differentiable_fsi_chain.py',
+    'reductions/det_accumulation_probe.py',
+    'wave_fdtd/coupled_multiphysics_calibration.py',
+    'wave_fdtd/goc_wave_verify.py',
+    'wave_fdtd/twin_calibration_multisource.py',
 ]
 
 CUDA_MODULES = [
@@ -289,6 +307,23 @@ CUDA_MODULES = [
     'warp_gpu/warp_rigid_ramp_gpu.py',
     'warp_gpu/warp_rigid_ramp_gpu_v2.py',
     'warp_gpu/warp_rl_env_gpu.py',
+    # added by the GPU-index sweep
+    'certified_kernels/aa_micro_bench.py',
+    'certified_kernels/probe_compute_ladder_descent.py',
+    'certified_kernels/probe_exclusive_sweep_block.py',
+    'certified_kernels/probe_l2_inband_endgame.py',
+    'certified_kernels/probe_sync_density_victim_model.py',
+    'certified_kernels/probe_sync_penalty_vs_priority.py',
+    'certified_kernels/probe_timeslice_dma_fartail.py',
+    'certified_kernels/ser_fracture_compaction.py',
+    'lbm/coupled_design_aero_struct.py',
+    'lbm/g18_cfd_nilss_prereq_wake_chaos.py',
+    'lbm/g19_forced_2d_wake_nilss_prereq.py',
+    'lbm/g20_3d_wake_chaos_nilss_prereq.py',
+    'lbm/g21_3d_wake_chaos_highRe.py',
+    'lbm/probe_kam_resonance_dither_strides.py',
+    'reductions/d_1c_iv_best_in_class_float4.py',
+    'wave_fdtd/sigma_guided_fwi.py',
 ]
 
 
@@ -309,3 +344,28 @@ def test_amr_octree_fv_reports_partial():
                           cwd=SRC, capture_output=True, text=True, timeout=600)
     assert proc.returncode == 1, proc.stdout[-2000:]
     assert "graded-octree AMR" in proc.stdout
+
+
+def test_gpu_duty_torch_v1_duty_cycle():
+    """The duty helper is a library, not a gated script: exercise it with a stub synchronise."""
+    import importlib.util
+    spec = importlib.util.spec_from_file_location(
+        "gpu_duty_torch_v1", os.path.join(SRC, "certified_kernels", "gpu_duty_torch_v1.py"))
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    d = mod.GpuDutyTorch(andel=0.5, block_ms=2.0, synk=lambda: None)
+    for _ in range(200):
+        d.steg()
+    rep = d.rapport()
+    assert rep["aktiv"] is True
+    assert rep["n_steg"] == 200
+    assert d.sovtid_s > 0.0 and rep["n_block_klara"] >= 1
+    assert mod.GpuDutyTorch(andel=1.0, synk=lambda: None).steg() is None
+
+
+def test_differentiable_flow_control_reports_partial():
+    """Its own gate reports PARTIAL and it exits 1 by design; the run must still produce the verdict."""
+    proc = subprocess.run([sys.executable, os.path.join(SRC, "lbm/differentiable_flow_control.py")],
+                          cwd=os.path.join(SRC, "lbm"), capture_output=True, text=True, timeout=900)
+    assert proc.returncode == 1, proc.stdout[-2000:]
+    assert "differentiable flow-control" in proc.stdout
