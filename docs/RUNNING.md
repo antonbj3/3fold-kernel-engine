@@ -581,7 +581,7 @@ No baseline or tolerance changes; no foreign-engine integration claimed.
 
 | module | status | evidence |
 |---|---|---|
-| `kernel_gen/innovation_lbm_stream_baseline.py` | CUDA-ONLY | Two-size/two-worker frozen stream measurement registered; queued after current adjoint job. |
+| `kernel_gen/innovation_lbm_stream_baseline.py` | VERIFIED-FRESH | L4 both sizes exact CPU/output bytes in two workers;1024 event0.348362/0.349317ms,216.72/216.13 payload GB/s. |
 
 Measured runtime-mode table, L4, two runs:
 
@@ -628,3 +628,62 @@ Bounded tomography evidence: `reports/innovation_tomography_record_bound_l4.json
 Both normalized hashes `13ef262907a11b88666150abc33db30ff14d74fb66ed4aeae5ecf9b83f2ec693`.
 Default overflow remains a measured failure; seven/eight successful pairs are now
 observed across the separate runs. No throughput or hidden-array identity claim.
+
+### Target 5 composed sweep, gates before execution
+
+Run all eight frozen selftests twice through the measured runtime wrapper,
+selecting the separately measured440-record wrapper only for tomography.
+Fixed independent gates: all eight normalized texts byte-identical; no runtime
+exceptions; all eight original physics selftests return0. The last gate retains
+flow control's physical negative without exemptions. Repeatability success and
+physical correctness are reported separately, and a failed physics gate still
+makes the harness return1. No hidden-array or cross-architecture identity claim.
+
+| module | status | evidence |
+|---|---|---|
+| `certified_kernels/innovation_runtime_bounded_sweep.py` | VERIFIED-FRESH | L4 all8 normalized outputs identical,0 runtime exceptions;7/8 physical passes, flow-control exit1 retained; overall physical gate FAIL. |
+
+Measured stream table before native export design, L4:
+
+| side | payload bytes | event ms, runs1/2 | wall ms, runs1/2 | payload GB/s, runs1/2 |
+|---|---|---|---|---|
+| 512 | 18874368 | 0.0433493/0.0431808 | 0.0442241/0.0439996 | 435.402/437.101 |
+| 1024 | 75497472 | 0.348362/0.349317 | 0.349239/0.350174 | 216.722/216.129 |
+
+All three instrument gates PASS. Evidence: `reports/innovation_lbm_stream_baseline_l4.json`.
+The512 payload-rate elevation is consistent with cache reuse; no off-chip peak
+fraction is inferred. The1024 case carries75.5 MB per launch and gives a more
+useful bandwidth-oriented export comparison. Both sizes remain fixed test cases.
+
+### Target 6 native stream export, gates before execution
+
+Export only the frozen stream forward function emitted by Warp1.17, preserving
+its generated operations and launch shape. Remove the NVRTC-only WP_NO_CRT macro
+for offline nvcc, strip source-location comments, retain existing licensed header
+closure. A separate CUDA shim constructs the same array/launch descriptors and
+exposes a C ABI. A gcc-compiled C host reads raw fixture arrays and calls the shim;
+no Warp or Python runtime is linked into the resulting executable.
+
+Fixed gates: both sizes match every frozen Warp output byte; two native runs
+byte-identical; two isolated Warp/native timing legs with empty-context checks
+between processes; native/Warp payload-bandwidth ratio in[0.9,1.1] in both legs
+at both sizes. Same10 warmups/30 CUDA-event and wall repetitions, allocations and
+transfers excluded on both sides. No clock, tolerance or baseline changes. These
+are same-device bandwidth ratios, not a DRAM peak-fraction measurement. A C-host
+result does not establish integration into a separate decode engine.
+
+| module | status | evidence |
+|---|---|---|
+| `kernel_gen/innovation_lbm_stream_export.py` | CUDA-ONLY | Separate C host/generated stream export ready for registered two-leg L4 correctness and bandwidth gates. |
+| `kernel_gen/stream_export_v1/stream_generated.cu` | CUDA-ONLY | Frozen forward operations exported; execution and exact-output comparison pending. |
+| `kernel_gen/stream_export_v1/stream_shim.cu` | CUDA-ONLY | Native C ABI with repeated-output and event/wall measurement prepared; pending execution. |
+| `kernel_gen/stream_export_v1/host_stream.c` | CUDA-ONLY | C11 host prepared for offline build and two-run execution. |
+
+Measured composed sweep, L4: all8/8 normalized selftest hashes match twice,
+0 runtime exceptions,7/8 original selftests exit0. Flow control alone exits1/1
+with identical hash and its previously recorded zero wake recovery. The harness
+therefore returns1. Target5 whole-selftest text repeatability is met under the
+explicit runtime/bound configuration; all-eight physical success is NOT met.
+Evidence: `reports/innovation_runtime_bounded_sweep_l4.json`. Hidden full arrays
+remain outside this sweep's scope; only the separate wave3D gather experiment
+checks its whole gradient and forward arrays. No defaults are promoted.
