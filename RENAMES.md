@@ -497,3 +497,21 @@ Files:
 - `src/kernel_engine/wave_fdtd/persona_design_acoustic_cavity_shape.py`
 - `src/kernel_engine/wave_fdtd/s1_acoustic_metamaterial_bandgap.py`
 - `docs/RUNNING.md`
+
+## Chunkable-recurrence rule (new code, no platform source)
+
+`src/kernel_engine/certified_kernels/chunkable_recurrence_rule.py` and
+`tests/test_chunkable_recurrence_rule.py` were written for this repository; they are not copies of any
+platform file. The module adds a fifth a-priori requirement to the requirement cert: the structure of a
+task's state transition (diagonal, diagonal-plus-low-rank / delta rule with or without a diagonal gate, or an
+explicitly associative scan -> `chunkable`; nonlinear state map -> `sequential`), the suggested chunk size and
+the sequential and chunked byte floors. The chunkwise (WY) form of the rank-1 delta-rule update is cited in
+the module docstring (arXiv 2510.26692). Synthetic inputs only.
+
+| file | change |
+| --- | --- |
+| `certified_kernels/chunkable_recurrence_rule.py` | new module: `detect_recurrence`, `recurrence_requirement`, `suggest_chunk_size`, `byte_floors`, the step-by-step and chunkwise gated delta-rule reference implementations, and a selftest with three gates |
+| `certified_kernels/apriori_requirement_cert_on_real_kernelbench.py` | imports `recurrence_requirement` (not re-implemented) and reports it as `[R5]` per file and as JSON key `R5_chunkable_recurrence`; new CLI flag `--no-chunkable-rule` reproduces the four-requirement cert exactly; `main()` takes an optional `argv`; gates G1-G3 and their numbers unchanged |
+| `certified_kernels/kernelbench_addressing_census_provenance_gate_absent.py` | same import; the census reports per level how many kernels change class from `sequential` to `chunkable` (printed `[R5]` block, JSON key `R5_chunkable_recurrence`); gates G1-G3 and their numbers unchanged |
+| `tests/test_chunkable_recurrence_rule.py` | new pytest wrapper: chunked-vs-sequential equivalence, the transition classes, the byte floors, and cert-gate parity with and without `--no-chunkable-rule` |
+| `tests/test_pass3_selftests.py` | `certified_kernels/chunkable_recurrence_rule.py` added to `CPU_MODULES` |

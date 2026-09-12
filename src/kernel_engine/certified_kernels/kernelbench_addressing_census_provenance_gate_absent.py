@@ -22,6 +22,11 @@ Gates:
   G3 G1 and G2: the input-keyed case cannot be tested on this corpus at any level; it needs a different corpus
      (sparse/graph/sort/hashing/scatter). This also quantifies an addressing-diversity gap in the benchmark.
 
+The census also reports the fifth a-priori requirement (`chunkable_recurrence_rule`): every kernel that carries
+state across a sequence was classed `sequential` before the rule existed, so the count of kernels whose class
+changes to `chunkable` under the transition-structure rule is reported per level. It is a report, not a gate;
+G1-G3 are unchanged by it.
+
   python3 kernelbench_addressing_census_provenance_gate_absent.py
 """
 import json
@@ -31,6 +36,7 @@ import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from apriori_requirement_cert_on_real_kernelbench import classify, apriori_cert, DISTRIBUTIONAL, parse_shapes, stand_in_corpus  # the router itself, imported, not re-implemented
+from chunkable_recurrence_rule import CHUNKABLE, NO_RECURRENCE, SEQUENTIAL, recurrence_requirement            # the fifth requirement, imported, not re-implemented
 
 _REPO_ROOT = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", ".."))
 CORPUS_ROOT = os.path.join(_REPO_ROOT, "data", "kernelbench")
@@ -89,6 +95,8 @@ def main():
     distributional_files = []   # path A: real classify() router says input-keyed
     regex_write_files = []      # path B: raw input-keyed-WRITE token present
     regex_read_files = []       # genuine data-dependent READ present
+    chunkable_files = []        # R5: composable transition -> was sequential before the rule, chunkable under it
+    sequential_files = []       # R5: nonlinear state map -> stays sequential
     total = 0
     for lvl, fn, src in iter_corpus():
         total += 1
@@ -104,6 +112,18 @@ def main():
             regex_write_files.append(f"{lvl}/{fn}")
         if DATA_DEP_READ.search(src):
             regex_read_files.append(f"{lvl}/{fn}")
+        req = recurrence_requirement(src, parse_shapes(src))                  # R5 - transition structure (read off the source, independent of the addressing router)
+        if req["recurrence_class"] != NO_RECURRENCE:
+            d.setdefault("recurrences", 0)
+            d["recurrences"] += 1
+            if req["recurrence_class"] == CHUNKABLE:
+                d["chunkable"] = d.get("chunkable", 0) + 1
+                chunkable_files.append({"kernel": f"{lvl}/{fn}", "form": req["transition_form"],
+                                        "evidence": req["evidence"], "chunk_size": req["chunk_size"],
+                                        "floors": req["floors"]})
+            else:
+                sequential_files.append({"kernel": f"{lvl}/{fn}", "form": req["transition_form"],
+                                         "evidence": req["evidence"]})
 
     n_distributional = len(distributional_files)
     n_regex_write = len(regex_write_files)
@@ -114,6 +134,22 @@ def main():
         if lvl in per_level:
             d = per_level[lvl]
             print(f"    {lvl}: {d['n']:>3} kernels — structural/fixed-addr (→COMPUTED) {d['structural']:>3}   input-keyed/distributional (→provenance-gated) {d['distributional']}")
+
+    # -------- R5 (reported, not gated): how many kernels change class from sequential to chunkable --------
+    n_rec = len(chunkable_files) + len(sequential_files)
+    print(f"\n[R5] FIFTH REQUIREMENT (chunkable recurrence) across the {total} kernels: {n_rec} carry state across a sequence.")
+    print(f"     Before the rule every one of them was classed SEQUENTIAL; under the transition-structure rule")
+    print(f"     {len(chunkable_files)} change class SEQUENTIAL -> CHUNKABLE and {len(sequential_files)} stay SEQUENTIAL (nonlinear state map):")
+    for r in chunkable_files:
+        fl = r["floors"]
+        floors = f"byte floor {fl['sequential_bytes']:,} -> {fl['chunked_bytes']:,} B (chunk {r['chunk_size']})" if fl else "floors not sized (shapes unparsed)"
+        print(f"       + {r['kernel']}: {r['form']} [{r['evidence']}] {floors}")
+    for r in sequential_files:
+        print(f"       . {r['kernel']}: {r['form']} [{r['evidence']}] -> stays sequential")
+    for lvl in LEVELS:
+        if lvl in per_level:
+            dd = per_level[lvl]
+            print(f"     {lvl}: recurrences {dd.get('recurrences', 0):>2}   chunkable {dd.get('chunkable', 0):>2}")
 
     # -------- G1: input-keyed cert-kind ABSENT — over-determined by the router bucket + a BROADER write-token net + a DISJOINT read-token probe --------
     # NB (symmetric QC): path B's token set ⊃ path A's DISTRIBUTIONAL tokens — so B is a WIDER net, not an independent one; its value is that broadening the net
@@ -162,6 +198,9 @@ def main():
         "input_keyed_write_count_pathA_router": n_distributional,
         "input_keyed_write_count_pathB_regex": n_regex_write,
         "input_keyed_write_files": distributional_files or regex_write_files,
+        "R5_chunkable_recurrence": {"recurrences": n_rec, "changed_sequential_to_chunkable": len(chunkable_files),
+                                    "stay_sequential": len(sequential_files), "of_total_kernels": total,
+                                    "chunkable_kernels": chunkable_files, "sequential_kernels": sequential_files},
         "data_dep_read_count": n_regex_read,
         "data_dep_read_files": regex_read_files,
         "injected_control": {"classify": op_inj, "verdict": verdict_inj, "flagged": router_flags_injected},

@@ -91,6 +91,7 @@ CPU_MODULES = [
     # timing-sensitive: its gate compares measured wall-clock crossovers and can fail on a loaded machine
     'amr_poisson/poisson_dispatch.py',
     'certified_kernels/apriori_requirement_cert_on_real_kernelbench.py',
+    'certified_kernels/chunkable_recurrence_rule.py',
     'certified_kernels/kernelbench_addressing_census_provenance_gate_absent.py',
     'certified_kernels/d_ensemble_coexecution_cert_contended_roofline.py',
     'certified_kernels/d_roofline_scene_eye.py',

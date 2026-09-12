@@ -57,6 +57,7 @@ SYNTHETIC-ONLY = the method was demonstrated on private input, and it ships with
 | src/kernel_engine/certified_kernels/d_cuda_transcendental_parity.py | VERIFIED-FRESH | bit-exact vs IEEE: cos 0.809, sin 0.839, exp 0.697, rsqrt 0.000; max abs err exp 3.81e-06 (~32 ULP); CUDA repeat x3 reproducible |
 | src/kernel_engine/certified_kernels/apriori_requirement_cert_on_real_kernelbench.py | VERIFIED-FRESH |  |
 | src/kernel_engine/certified_kernels/kernelbench_addressing_census_provenance_gate_absent.py | VERIFIED-FRESH |  |
+| src/kernel_engine/certified_kernels/chunkable_recurrence_rule.py | VERIFIED-FRESH | chunked vs sequential gated delta rule (d=64, T=512, chunk 64): max abs err 3.34e-06 on the outputs, 3.58e-07 on the final state, both inside the fp32 round-off budget; the nonlinear control stays sequential |
 | src/kernel_engine/certified_kernels/d_ensemble_coexecution_cert_contended_roofline.py | VERIFIED-FRESH |  |
 | src/kernel_engine/certified_kernels/d_r2_r4_dissociation_real_cuda.py | VERIFIED-FRESH | float-atomic R2 FAIL/R4 FAIL 3 GB/s; int64-atomic R2 PASS/R4 FAIL 8 GB/s; tree+atomic-final R2 FAIL/R4 PASS 558 GB/s (83 %) -> R2 and R4 dissociate |
 | src/kernel_engine/certified_kernels/d_roofline_scene_eye.py | VERIFIED-FRESH |  |
@@ -339,9 +340,22 @@ Real-data results reproduced in this repository on 2026-09-12 (CPU, `.venv-kerne
 - `p8_combustion_cert_watertight`: RMS-z vs Reynolds number correlation 0.94, monotone D 0.0 < E 0.3 < F 2.0σ, T/CO
   decoupling 3.6x in F.
 - `apriori_requirement_cert_on_real_kernelbench`: 89 of 100 level-1 problems parsed, 0 input-keyed, all structural ->
-  computed a-priori; histogram worst case 256x its uniform typical.
+  computed a-priori; histogram worst case 256x its uniform typical. Fifth requirement (R5, on by default,
+  `--no-chunkable-rule` turns it off): 5 of the 100 level-1 files carry state across a sequence and all 5 are chunkable
+  (associative scan), byte floor 524,288 -> 264,192 B at chunk 128; the G1-G3 verdicts are identical with the flag on
+  and off.
 - `kernelbench_addressing_census_provenance_gate_absent`: 270 kernels (100/100/50/20), input-keyed write count 0 on all
-  three paths; the injected bincount control routes to `distributional` and abstains.
+  three paths; the injected bincount control routes to `distributional` and abstains. Fifth requirement (R5, chunkable
+  recurrence): 17 of the 270 kernels carry state across a sequence and were all classed sequential before the rule; 7 of
+  them change class to chunkable (level1 5: `89_cumsum`, `90_cumprod`, `91_cumsum_reverse`, `92_cumsum_exclusive`,
+  `93_masked_cumsum`, byte floor 524,288 -> 264,192 B at chunk 128; level3 2: `48_Mamba2ReturnY`,
+  `49_Mamba2ReturnFinalState`, byte floor 303,104 -> 43,008 B at chunk 128), and 10 stay sequential (2 VanillaRNN, 4
+  LSTM, 4 GRU - nonlinear state map). Levels 2 and 4 hold no recurrence. Gates G1-G3 unchanged.
+- `chunkable_recurrence_rule`: synthetic gated-deltanet layer (per-channel diagonal gate, d=64, T=512, chunk 64),
+  chunked vs step-by-step max abs error 3.34e-06 on the outputs (|O|max 12.2, fp32 round-off budget 9.30e-05) and
+  3.58e-07 on the final state (budget 2.64e-05); the nonlinear recurrence h_t = tanh(W h_(t-1) + x_t) is classed
+  sequential and chunking it anyway gives max abs error 2.0; byte floors for a 64x64 state over T=512: 17,432,576 B
+  sequential -> 917,504 B chunked (19.0x total, state traffic 64x), suggested chunk 64 at an 80.0 KiB inner working set.
 
 `acoustic_sigma_renderer` stays SYNTHETIC-ONLY: the archive copy holds only the three TRAIN bearing codes, so the module's
 own data-availability gate would refuse the real run with

@@ -19,7 +19,13 @@ Gates:
      is B times its uniform typical, while a structural op's worst case equals its typical.
   G3 G1 and G2 together: the addressing, not the op name, picks the cert kind.
 
-  python3 apriori_requirement_cert_on_real_kernelbench.py
+Fifth requirement (chunkable recurrence, on by default, `--no-chunkable-rule` turns it off): a task that
+carries state across a sequence also gets its transition structure read off, by `chunkable_recurrence_rule`
+- a diagonal, diagonal-plus-low-rank or associative transition is `chunkable` (chunked byte floor), a
+nonlinear state map is `sequential`. It is reported per problem and in the JSON; G1-G3 are unchanged by it,
+and the flag exists so the four-requirement cert can be reproduced exactly.
+
+  python3 apriori_requirement_cert_on_real_kernelbench.py [--no-chunkable-rule]
 """
 import os
 
@@ -27,6 +33,10 @@ os.environ.setdefault("OMP_NUM_THREADS", "4")
 import glob
 import json
 import re
+import sys
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from chunkable_recurrence_rule import CHUNKABLE, NO_RECURRENCE, recurrence_requirement            # the fifth requirement, imported, not re-implemented
 
 _REPO_ROOT = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", ".."))
 CORPUS = os.path.join(_REPO_ROOT, "data", "kernelbench", "level1")
@@ -144,7 +154,9 @@ def apriori_cert(src, shapes):
     return op, round(ai, 3), f"CERTIFY MEMORY-bound (AI={round(ai,2)} ≪ ridge {RIDGE})"
 
 
-def main():
+def main(argv=None):
+    argv = sys.argv[1:] if argv is None else argv
+    chunkable_rule = "--no-chunkable-rule" not in argv
     print("=" * 122)
     print("a-priori requirement-cert on the KernelBench level-1 corpus (certified from the math, before any kernel)")
     print("=" * 122)
@@ -159,7 +171,10 @@ def main():
         if verdict is None:                                                                   # degenerate parse ⇒ skip (counted as unparsed; coverage reported honestly)
             continue
         parsed += 1
-        results.append({"problem": fname, "op": op, "ai": ai, "verdict": verdict})
+        row = {"problem": fname, "op": op, "ai": ai, "verdict": verdict}
+        if chunkable_rule:                                                                    # R5: transition structure -> chunkable / sequential (does not touch G1-G3)
+            row["recurrence"] = recurrence_requirement(src, shapes)["recurrence_class"]
+        results.append(row)
         if verdict.startswith("ABSTAIN"):
             counts["ABSTAIN"] += 1
         elif "compute-bound" in verdict:
@@ -194,6 +209,26 @@ def main():
     print(f"\n[G3] ADDRESSING-ROUTING on the corpus: the a-priori cert-kind is picked by the kernel's ADDRESSING —")
     print(f"     structural (all of level-1, incl. argmax) → COMPUTED; input-keyed (histogram/scatter, absent from level-1) → provenance-gated -> {g3}")
 
+    # ---- R5: the fifth requirement on the parsed corpus (reported, not gated) ----
+    # R5 is read off the TRANSITION STRUCTURE, not off the shapes, so it covers every file, parsed or not
+    # (the byte floors need shapes and stay None where the shapes did not parse).
+    r5 = {}
+    if chunkable_rule:
+        rec = [(fname, recurrence_requirement(src, parse_shapes(src))) for fname, src in files]
+        rec = [(f, q) for f, q in rec if q["recurrence_class"] != NO_RECURRENCE]
+        chunk_rows = [(f, q) for f, q in rec if q["recurrence_class"] == CHUNKABLE]
+        r5 = {"files_scanned": len(files), "recurrences": len(rec), "chunkable": len(chunk_rows),
+              "sequential": len(rec) - len(chunk_rows),
+              "chunkable_problems": [{"problem": f, "form": q["transition_form"], "evidence": q["evidence"],
+                                      "chunk_size": q["chunk_size"], "floors": q["floors"]} for f, q in chunk_rows],
+              "sequential_problems": [f for f, q in rec if q["recurrence_class"] != CHUNKABLE]}
+        print(f"\n[R5] FIFTH REQUIREMENT (chunkable recurrence, transition structure): {len(rec)} of {len(files)} level-1 files carry state across a sequence;")
+        print(f"     {len(chunk_rows)} have a composable transition -> CHUNKABLE (chunked byte floor), {len(rec) - len(chunk_rows)} have a nonlinear state map -> SEQUENTIAL")
+        for f, q in chunk_rows:
+            fl = q["floors"]
+            ratio = f", byte floor {fl['sequential_bytes']:,} -> {fl['chunked_bytes']:,} B" if fl else " (shapes unparsed -> floors not sized)"
+            print(f"       {f}: {q['transition_form']} (chunk {q['chunk_size']}){ratio}")
+
     ok = g1 and g2 and g3
     os.makedirs(ARTIFACTS, exist_ok=True)
     json.dump({
@@ -207,6 +242,7 @@ def main():
                   "structural op's worst case equals its typical. G3: the addressing picks the cert-kind."),
         "gates": {"G1_all_structural_computed": {"parsed": parsed, "total": len(files), "distributional_in_level1": len(dist), "argmax_reclassified": [r["problem"] for r in argmax_now], "counts": counts}, "G1": g1,
                   "G2_provenance_gate_binds_on_input_keyed": {"histogram_worst_over_typical": round(hist_ratio, 1), "structural_worst_eq_typical": bool(struct_worst == struct_typical)}, "G2": g2,
+                  "R5_chunkable_recurrence": r5 or "disabled (--no-chunkable-rule)",
                   "G3_grounding": {"parsed": parsed, "argmax_is_structural": "argmax/argmin = read-all + fixed write slot = structural = computed a-priori"}, "G3": g3, "verdict": "PASS" if ok else "FAIL"},
         "honest_scope": ("MEASURED: shapes and op class are parsed from the corpus files (regex + eval of the "
                          "module-level int expressions, no allocation, no GPU); coverage parsed/total is reported. "
