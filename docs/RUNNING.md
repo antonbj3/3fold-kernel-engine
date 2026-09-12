@@ -507,3 +507,38 @@ unprinted full gradient arrays are identical. No numerical tolerance changed.
 into a pressure-gradient cell. A separate gather adjoint can give each gradient
 cell one writer while accumulating time steps in a fixed reverse order; preserve
 the frozen forward kernels and its existing finite-difference gate.
+
+### Target 5 first fixed-order adjoint: design and gates before execution
+
+The L4 baseline wave3D printed delta9e-8 and source stencil fan-in motivate a
+separate gather adjoint. Reuse frozen forward kernels, same seed,N30,T46 andcs0.4.
+Store forward velocity history. Reverse pressure gathers both neighbouring
+contributions for each velocity gradient and accumulates the local material
+contribution in fixed reverse time order. Reverse velocity gathers its six
+pressure-gradient contributions in fixed axis order. One writer per output cell;
+no float atomic reductions in the new backward kernels. Seed the window-energy
+gradient analytically. The deterministic forward energy helper remains unchanged.
+
+Fixed gates: two entire gradient/forward arrays and result dictionaries byte-
+identical; exact final forward array vs baseline; finite gradient; existing three
+FD cells,eps1e-2 and relative error<0.05 unchanged. This is one fixed synthetic
+fixture, not closure of all eight selftests or a performance claim. Additional
+history storage is explicit; no baseline sources or tolerances change.
+
+| module | status | evidence |
+|---|---|---|
+| `wave_fdtd/diff_wave_3d_gather.py` | VERIFIED-FRESH | L4 two whole gradients/forwards identical; frozen forward exact; max FD relative error0.000258836922<0.05 PASS. |
+
+Measured gather-adjoint table, L4, two complete runs identical:
+
+| cell | gather derivative | unchanged FD derivative | relative error |
+|---|---|---|---|
+| 15,15,15 | 0.000385787629057 | 0.000385850047735 | 0.000161769264 |
+| 10,15,15 | -0.000683061603922 | -0.000683057481865 | 0.000006034715 |
+| 15,20,15 | -0.000131959473947 | -0.000131993638774 | 0.000258836922 |
+
+All four gates PASS; exact frozen forward. Full gradient hash
+`a786c35e0967b6417b3d6951ffa13d5ec70c51dfb54206e7504e9a5661c63eec`
+is identical in both runs. Evidence: `reports/diff_wave_3d_gather_l4.json`.
+This closes the measured one-fixture wave3D gradient repeatability experiment,
+not all eight modules; no timing claim or default replacement.

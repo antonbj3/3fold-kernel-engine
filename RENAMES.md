@@ -583,3 +583,4 @@ adds an int64 fixed-point accumulation path behind a module-level `DETERMINISTIC
 | `tests/test_determinism_sweep_int64.py` | - | new pytest wrapper for the sweep cell; skips without a CUDA device |
 
 | `certified_kernels/innovation_adjoint_baseline.py` | Add separate frozen-site/eight-selftest observer retaining returncodes, exact stdout hashes and aligned numeric deltas. | Measure all adjoint-carrying cases before design without changing the existing sweep or exemptions. |
+| `wave_fdtd/diff_wave_3d_gather.py` | Add separate one-writer gather adjoint with frozen forward kernels, explicit history and whole-gradient/FD gates. | Address the measured wave3D backward nondeterminism without modifying its reference. |

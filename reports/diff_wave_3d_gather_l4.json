@@ -1,0 +1,92 @@
+{
+  "legs": [
+    {
+      "energy": 0.061415174822315066,
+      "forward_byte_identity": true,
+      "gradient_sha256": "a786c35e0967b6417b3d6951ffa13d5ec70c51dfb54206e7504e9a5661c63eec",
+      "forward_sha256": "114416ec42a8b2f3a01eb85e6eda86a9607c66d1c8afa7f75ca90ec4b715b59f",
+      "finite": true,
+      "finite_difference": [
+        {
+          "cell": [
+            15,
+            15,
+            15
+          ],
+          "adjoint": 0.0003857876290567219,
+          "finite_difference": 0.000385850047734948,
+          "relative_error": 0.00016176926355391546
+        },
+        {
+          "cell": [
+            10,
+            15,
+            15
+          ],
+          "adjoint": -0.0006830616039223969,
+          "finite_difference": -0.0006830574818650348,
+          "relative_error": 6.03471518212594e-06
+        },
+        {
+          "cell": [
+            15,
+            20,
+            15
+          ],
+          "adjoint": -0.0001319594739470631,
+          "finite_difference": -0.00013199363877447468,
+          "relative_error": 0.000258836921763512
+        }
+      ],
+      "max_fd_relative_error": 0.000258836921763512
+    },
+    {
+      "energy": 0.061415174822315066,
+      "forward_byte_identity": true,
+      "gradient_sha256": "a786c35e0967b6417b3d6951ffa13d5ec70c51dfb54206e7504e9a5661c63eec",
+      "forward_sha256": "114416ec42a8b2f3a01eb85e6eda86a9607c66d1c8afa7f75ca90ec4b715b59f",
+      "finite": true,
+      "finite_difference": [
+        {
+          "cell": [
+            15,
+            15,
+            15
+          ],
+          "adjoint": 0.0003857876290567219,
+          "finite_difference": 0.000385850047734948,
+          "relative_error": 0.00016176926355391546
+        },
+        {
+          "cell": [
+            10,
+            15,
+            15
+          ],
+          "adjoint": -0.0006830616039223969,
+          "finite_difference": -0.0006830574818650348,
+          "relative_error": 6.03471518212594e-06
+        },
+        {
+          "cell": [
+            15,
+            20,
+            15
+          ],
+          "adjoint": -0.0001319594739470631,
+          "finite_difference": -0.00013199363877447468,
+          "relative_error": 0.000258836921763512
+        }
+      ],
+      "max_fd_relative_error": 0.000258836921763512
+    }
+  ],
+  "gates": {
+    "two_run_identity": true,
+    "frozen_forward_identity": true,
+    "finite": true,
+    "unchanged_fd_gate": true
+  },
+  "performance_measured": false,
+  "scope": "one fixed synthetic 3D wave fixture; other selftests unchanged"
+}
