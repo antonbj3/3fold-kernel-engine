@@ -96,6 +96,41 @@ def spread(Fk: wp.array2d(dtype=wp.float32), X: wp.array2d(dtype=wp.float32), fb
                 wp.atomic_add(fb, 0, ii, jj, kk, wt * Fk[m, 0]); wp.atomic_add(fb, 1, ii, jj, kk, wt * Fk[m, 1]); wp.atomic_add(fb, 2, ii, jj, kk, wt * Fk[m, 2])
 
 
+# Order-invariant accumulation: spread() is the only cross-thread accumulation in the step (every marker
+# scatters into the same 27 lattice cells with float atomics), so the whole rollout inherits its run-varying
+# order. Each contribution is rounded in float64 to an int64 fixed point and summed with integer atomics
+# (associative), then dequantised once into the float force field the collision reads.
+DETERMINISTIC_ACCUMULATION = True
+ACC_SCALE = 2.0 ** 55                                 # |fb| <= 1 lu-force per cell (driving a ~1e-6, U ~ 4e-3)
+assert 1.0 * ACC_SCALE < 2.0 ** 62, "fixed-point overflow"
+
+
+@wp.kernel
+def spread_i64(Fk: wp.array2d(dtype=wp.float32), X: wp.array2d(dtype=wp.float32), fq: wp.array4d(dtype=wp.int64),
+               dV: float, scale: wp.float64, nx: int, ny: int, nz: int):
+    m = wp.tid(); xb = int(wp.floor(X[m, 0])) - 1; yb = int(wp.floor(X[m, 1])) - 1; zb = int(wp.floor(X[m, 2])) - 1
+    for aa in range(3):
+        for bb in range(3):
+            for cc in range(3):
+                gx = xb + aa; gy = yb + bb; gz = zb + cc
+                wt = d1(X[m, 0] - float(gx)) * d1(X[m, 1] - float(gy)) * d1(X[m, 2] - float(gz)) * dV
+                ii = (gx % nx + nx) % nx; jj = (gy % ny + ny) % ny; kk = (gz % nz + nz) % nz
+                w64 = wp.float64(wt) * scale
+                wp.atomic_add(fq, 0, ii, jj, kk, wp.int64(wp.round(w64 * wp.float64(Fk[m, 0]))))
+                wp.atomic_add(fq, 1, ii, jj, kk, wp.int64(wp.round(w64 * wp.float64(Fk[m, 1]))))
+                wp.atomic_add(fq, 2, ii, jj, kk, wp.int64(wp.round(w64 * wp.float64(Fk[m, 2]))))
+
+
+@wp.kernel
+def dequant4(fq: wp.array4d(dtype=wp.int64), scale: wp.float64, fb: wp.array4d(dtype=wp.float32)):
+    q, i, j, k = wp.tid(); fb[q, i, j, k] = wp.float32(wp.float64(fq[q, i, j, k]) / scale)
+
+
+@wp.kernel
+def zero4i(fq: wp.array4d(dtype=wp.int64)):
+    q, i, j, k = wp.tid(); fq[q, i, j, k] = wp.int64(0)
+
+
 @wp.kernel
 def zero4(fb: wp.array4d(dtype=wp.float32)):
     q, i, j, k = wp.tid(); fb[q, i, j, k] = 0.0
@@ -118,6 +153,7 @@ def ibm_sphere_drag(R=5.0, L=40, tau=0.8, a=1e-6, steps=16000):
     f0 = np.broadcast_to(WI[:, None, None, None], (19, nx, ny, nz)).astype(np.float32).copy()
     fA = wp.array(f0, dtype=wp.float32, device=DEV); fB = wp.array(f0.copy(), dtype=wp.float32, device=DEV)
     fb = wp.zeros((3, nx, ny, nz), dtype=wp.float32, device=DEV); u = wp.zeros((3, nx, ny, nz), dtype=wp.float32, device=DEV)
+    fq = wp.zeros((3, nx, ny, nz), dtype=wp.int64, device=DEV)   # int64 fixed-point force field (order-invariant)
     Xd = wp.array(X, dtype=wp.float32, device=DEV); Uk = wp.zeros((nm, 3), dtype=wp.float32, device=DEV); Fk = wp.zeros((nm, 3), dtype=wp.float32, device=DEV)
     ex = wp.array(EI[:, 0], dtype=wp.int32, device=DEV); ey = wp.array(EI[:, 1], dtype=wp.int32, device=DEV); ez = wp.array(EI[:, 2], dtype=wp.int32, device=DEV); w = wp.array(WI, dtype=wp.float32, device=DEV)
     for s in range(steps):
@@ -125,8 +161,13 @@ def ibm_sphere_drag(R=5.0, L=40, tau=0.8, a=1e-6, steps=16000):
         wp.launch(comp_u, dim=(nx, ny, nz), inputs=[fA, fb, ex, ey, ez, a, u], device=DEV)
         wp.launch(interp, dim=nm, inputs=[u, Xd, Uk, nx, ny, nz], device=DEV)
         wp.launch(mkforce, dim=nm, inputs=[Uk, Fk], device=DEV)
-        wp.launch(zero4, dim=(3, nx, ny, nz), inputs=[fb], device=DEV)
-        wp.launch(spread, dim=nm, inputs=[Fk, Xd, fb, dV, nx, ny, nz], device=DEV)
+        if DETERMINISTIC_ACCUMULATION:
+            wp.launch(zero4i, dim=(3, nx, ny, nz), inputs=[fq], device=DEV)
+            wp.launch(spread_i64, dim=nm, inputs=[Fk, Xd, fq, dV, wp.float64(ACC_SCALE), nx, ny, nz], device=DEV)
+            wp.launch(dequant4, dim=(3, nx, ny, nz), inputs=[fq, wp.float64(ACC_SCALE), fb], device=DEV)
+        else:
+            wp.launch(zero4, dim=(3, nx, ny, nz), inputs=[fb], device=DEV)
+            wp.launch(spread, dim=nm, inputs=[Fk, Xd, fb, dV, nx, ny, nz], device=DEV)
     wp.synchronize()
     drag = -(Fk.numpy()[:, 0] * dV).sum(); U = u.numpy()[0].mean()
     c = (4. / 3.) * np.pi * (R / L) ** 3

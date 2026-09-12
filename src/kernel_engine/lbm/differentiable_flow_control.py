@@ -81,6 +81,57 @@ def probe_ux(f: wp.array3d(dtype=wp.float32), cx: wp.array(dtype=wp.float32),
     wp.atomic_add(out, 0, (mx / rho) * mask[i, j])
 
 
+# Order-invariant accumulation: float atomics are non-associative, so both reduced scalars (the tracking
+# loss and the probe velocity) depend on the run-varying order the blocks hit the accumulator. Each
+# contribution is rounded in float64 to an int64 fixed point and summed with integer atomics -> associative.
+DETERMINISTIC_ACCUMULATION = True
+ACC_SCALE = 2.0 ** 48                                  # |d| <= 1 and |ux| <= 1 (lattice units) -> |sum| <= NX*NY
+
+
+@wp.kernel
+def track_loss_i64(f: wp.array3d(dtype=wp.float32), cx: wp.array(dtype=wp.float32),
+                   mask: wp.array2d(dtype=wp.float32), target: float, scale: wp.float64,
+                   L: wp.array(dtype=wp.int64)):
+    i, j = wp.tid()
+    rho = float(0.0); mx = float(0.0)
+    for k in range(9):
+        fk = f[k, i, j]; rho += fk; mx += cx[k] * fk
+    d = (mx / rho - target) * mask[i, j]
+    wp.atomic_add(L, 0, wp.int64(wp.round(wp.float64(d) * wp.float64(d) * scale)))
+
+
+@wp.kernel
+def probe_ux_i64(f: wp.array3d(dtype=wp.float32), cx: wp.array(dtype=wp.float32),
+                 mask: wp.array2d(dtype=wp.float32), scale: wp.float64, out: wp.array(dtype=wp.int64)):
+    i, j = wp.tid()
+    rho = float(0.0); mx = float(0.0)
+    for k in range(9):
+        fk = f[k, i, j]; rho += fk; mx += cx[k] * fk
+    wp.atomic_add(out, 0, wp.int64(wp.round(wp.float64((mx / rho) * mask[i, j]) * scale)))
+
+
+def probe_ux_value(f, mask):
+    """Sum of ux over the masked probe cells (order-invariant when DETERMINISTIC_ACCUMULATION)."""
+    if not DETERMINISTIC_ACCUMULATION:
+        o = wp.zeros(1, dtype=wp.float32, device=DEV)
+        wp.launch(probe_ux, (NX, NY), inputs=[f, _cx, mask, o], device=DEV); wp.synchronize()
+        return float(o.numpy()[0])
+    o = wp.zeros(1, dtype=wp.int64, device=DEV)
+    wp.launch(probe_ux_i64, (NX, NY), inputs=[f, _cx, mask, wp.float64(ACC_SCALE), o], device=DEV); wp.synchronize()
+    return float(int(o.numpy()[0])) / ACC_SCALE
+
+
+def track_loss_value(L, f, target):
+    """Value of the tracking loss. The float array L stays for the adjoint (a quantiser has no useful
+    derivative, so the tape keeps the float accumulation); the reported value is the int64 one."""
+    if not DETERMINISTIC_ACCUMULATION:
+        return float(L.numpy()[0])
+    acc = wp.zeros(1, dtype=wp.int64, device=DEV)
+    wp.launch(track_loss_i64, (NX, NY), inputs=[f, _cx, _pmask, target, wp.float64(ACC_SCALE), acc], device=DEV)
+    wp.synchronize()
+    return float(int(acc.numpy()[0])) / ACC_SCALE
+
+
 def _equil(rho, ux, uy):
     nx, ny = rho.shape; f = np.empty((9, nx, ny), np.float32)
     usq = ux * ux + uy * uy
@@ -91,6 +142,7 @@ def _equil(rho, ux, uy):
 
 
 NX, NY, T, DRIVE, OMEGA = 80, 40, 60, 5e-5, 1.0
+assert float(NX * NY) * ACC_SCALE < 2.0 ** 62, "fixed-point overflow"
 _cx = wp.array(CX, dtype=wp.float32, device=DEV); _cy = wp.array(CY, dtype=wp.float32, device=DEV)
 _w = wp.array(WT, dtype=wp.float32, device=DEV); _opp = wp.array(OP, dtype=wp.int32, device=DEV)
 _X, _Y = np.meshgrid(np.arange(NX), np.arange(NY), indexing="ij")
@@ -121,14 +173,13 @@ def rollout(ctrl_np, target=None, tape=None, want_probe=False):
             wp.launch(track_loss, (NX, NY), inputs=[c, _cx, _pmask, target, L], device=DEV)
         return c
     if want_probe:
-        c = run(); wp.synchronize(); o = wp.zeros(1, dtype=wp.float32, device=DEV)
-        wp.launch(probe_ux, (NX, NY), inputs=[c, _cx, _pmask, o], device=DEV); wp.synchronize()
-        return float(o.numpy()[0]) / _nprobe
+        c = run(); wp.synchronize()
+        return probe_ux_value(c, _pmask) / _nprobe
     if rg:
-        with tape: run()
+        with tape: cend = run()
     else:
-        run()
-    wp.synchronize(); return L, ctrl
+        cend = run()
+    wp.synchronize(); return L, ctrl, cend
 
 
 def main():
@@ -142,20 +193,20 @@ def main():
         fp = wp.zeros((9, NX, NY), dtype=wp.float32, device=DEV); fn = wp.zeros((9, NX, NY), dtype=wp.float32, device=DEV)
         wp.launch(collide, (NX, NY), inputs=[cf, fp, _jet, zc, t, _cx, _cy, _w, DRIVE, OMEGA], device=DEV)
         wp.launch(stream, (NX, NY), inputs=[fp, fn, _solid, _cx, _cy, _opp, NX, NY], device=DEV); cf = fn
-    o = wp.zeros(1, dtype=wp.float32, device=DEV); wp.launch(probe_ux, (NX, NY), inputs=[cf, _cx, fm, o], device=DEV); wp.synchronize()
-    u_free = float(o.numpy()[0]) / float(free_mask.sum())
+    u_free = probe_ux_value(cf, fm) / float(free_mask.sum())
     target = 1.6 * u_wake                                   # well posed: the jet raises ux, so the target is higher and reachable
     print(f"\n  probe ux uncontrolled = {u_wake:.4e}; target = 1.6x = {target:.4e} (the jet raises ux, reachable)")
 
     # (a) instrument: adjoint dloss/dc[t] vs FD on selected steps
     c0 = np.full(T, 1.0, np.float32)
-    tape = wp.Tape(); L, ctrl = rollout(c0, target=target, tape=tape); tape.backward(loss=L)
+    tape = wp.Tape(); L, ctrl, _ = rollout(c0, target=target, tape=tape); tape.backward(loss=L)
     g = ctrl.grad.numpy().copy()
     print(f"\n  (a) adjoint dloss/dc[t] (the whole {T}-step sequence, 1 backward; ||g||={np.linalg.norm(g):.2e}); FD check on 3 steps:")
     eps = 1e-1; instr_ok = 0; nv = 0
     for ti in [5, 25, 50]:
         cp = c0.copy(); cp[ti] += eps; cm = c0.copy(); cm[ti] -= eps
-        Lp = float(rollout(cp, target=target)[0].numpy()[0]); Lm = float(rollout(cm, target=target)[0].numpy()[0])
+        Lp_a, _, Lp_f = rollout(cp, target=target); Lm_a, _, Lm_f = rollout(cm, target=target)
+        Lp = track_loss_value(Lp_a, Lp_f, target); Lm = track_loss_value(Lm_a, Lm_f, target)
         fd = (Lp - Lm) / (2 * eps); rel = abs(g[ti] - fd) / (abs(fd) + 1e-12); nv += 1; instr_ok += int(rel < 0.05)
         print(f"      c[{ti}]: adjoint {g[ti]:.3e} vs FD {fd:.3e} → rel {rel*100:.1f}% {'✓' if rel < 0.05 else ''}")
 
@@ -164,7 +215,7 @@ def main():
     print(f"\n  (b) STYR-OPTIMERING (jet-sekvens c[t], start 0):")
     print(f"  iter | loss | probe ux (target {target:.3e})")
     for it in range(50):
-        tape = wp.Tape(); L, ctrl = rollout(c, target=target, tape=tape); Lv = float(L.numpy()[0])
+        tape = wp.Tape(); L, ctrl, cend = rollout(c, target=target, tape=tape); Lv = track_loss_value(L, cend, target)
         tape.backward(loss=L); gg = ctrl.grad.numpy()
         if it % 10 == 0 or it == 49:
             pu = rollout(c, want_probe=True)

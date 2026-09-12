@@ -140,14 +140,14 @@ SYNTHETIC-ONLY = the method was demonstrated on private input, and it ships with
 | src/kernel_engine/lbm/d_integration_stitch_lbm_contact_scenario_cert.py | VERIFIED-FRESH |  |
 | src/kernel_engine/lbm/d_per_variable_precision_cert_lbm.py | VERIFIED-FRESH |  |
 | src/kernel_engine/lbm/d_static_deployment_gate_real_lbm.py | VERIFIED-FRESH |  |
-| src/kernel_engine/lbm/differentiable_lbm_probe.py | VERIFIED-FRESH |  |
+| src/kernel_engine/lbm/differentiable_lbm_probe.py | VERIFIED-FRESH | int64 fixed-point objective: two-launch max abs difference 0.0 (float atomics 3.58e-07) |
 | src/kernel_engine/lbm/double_diffusive_lbm.py | VERIFIED-FRESH |  |
 | src/kernel_engine/lbm/excitable_media_fhn.py | VERIFIED-FRESH |  |
 | src/kernel_engine/lbm/gpu_lbm_luftflode_v1.py | VERIFIED-FRESH | pipe Poiseuille: umax/umean 2.0085 vs 2.0 (0.42 % error), dp/dx error 3.45 %; both 5 % gates pass |
 | src/kernel_engine/lbm/gpu_lbm_utilization_cell.py | SYNTHETIC-ONLY | measures 2037-3198 MLUPS and 64162 pJ/site, then reads reports/probes/asic_fallback_feasibility.json; its producer asic_fallback_feasibility_cell.py is not shipped, so gate G2 cannot be evaluated here |
 | src/kernel_engine/lbm/hartmann_mhd_lbm.py | VERIFIED-FRESH |  |
 | src/kernel_engine/lbm/lbm3d_gpu.py | VERIFIED-FRESH |  |
-| src/kernel_engine/lbm/lbm3d_immersed_boundary.py | VERIFIED-FRESH | IBM drag 6.7013e-02 inside the Stokes-Hasimoto band [5.878e-02, 7.759e-02], confinement K(c)=1.530 |
+| src/kernel_engine/lbm/lbm3d_immersed_boundary.py | VERIFIED-FRESH | IBM drag 6.7013e-02 inside the Stokes-Hasimoto band [5.878e-02, 7.759e-02], confinement K(c)=1.530; int64 fixed-point force spreading: selftest reproduces bit-identically over two runs (float atomics: drag differs 1e-06) |
 | src/kernel_engine/lbm/lbm3d_poiseuille.py | VERIFIED-FRESH |  |
 | src/kernel_engine/lbm/lbm_aero_v0.py | VERIFIED-FRESH |  |
 | src/kernel_engine/lbm/lbm_compressible_boundary.py | VERIFIED-FRESH |  |
@@ -255,8 +255,8 @@ SYNTHETIC-ONLY = the method was demonstrated on private input, and it ships with
 | src/kernel_engine/wave_fdtd/diag_acoustic_mode.py | VERIFIED-FRESH |  |
 | src/kernel_engine/wave_fdtd/diag_acoustic_seed.py | VERIFIED-FRESH |  |
 | src/kernel_engine/wave_fdtd/diag_acoustic_spectrum.py | VERIFIED-FRESH |  |
-| src/kernel_engine/wave_fdtd/diff_wave_3d.py | VERIFIED-FRESH |  |
-| src/kernel_engine/wave_fdtd/diff_wave_substrate.py | VERIFIED-FRESH |  |
+| src/kernel_engine/wave_fdtd/diff_wave_3d.py | VERIFIED-FRESH | int64 fixed-point window energy: two-launch max abs difference 0.0 (float atomics 1.91e-06); the printed gradient still comes from Warp's backward pass |
+| src/kernel_engine/wave_fdtd/diff_wave_substrate.py | VERIFIED-FRESH | int64 fixed-point focus energy: two-launch max abs difference 0.0 (float atomics 2.38e-07); the printed gradient still comes from Warp's backward pass |
 | src/kernel_engine/wave_fdtd/elastodynamics_kache.py | VERIFIED-FRESH |  |
 | src/kernel_engine/wave_fdtd/goc_wave_transient.py | VERIFIED-FRESH |  |
 | src/kernel_engine/wave_fdtd/optics_coating.py | VERIFIED-FRESH |  |
@@ -294,8 +294,8 @@ SYNTHETIC-ONLY = the method was demonstrated on private input, and it ships with
 | src/kernel_engine/fem/thermal_buckling.py | VERIFIED-FRESH |  |
 | src/kernel_engine/fem/viscoelastic_preload_relaxation.py | VERIFIED-FRESH |  |
 | src/kernel_engine/lbm/coupled_design_aero_struct.py | VERIFIED-FRESH | combined aero+structure gradient matches central FD on 5/5 cells (<10 %); CG converged (<0.1 %); +89 % stiffness costs +89 % drag |
-| src/kernel_engine/lbm/differentiable_flow_control.py | VERIFIED-FRESH |  |
-| src/kernel_engine/lbm/differentiable_fsi_chain.py | VERIFIED-FRESH |  |
+| src/kernel_engine/lbm/differentiable_flow_control.py | VERIFIED-FRESH | int64 fixed-point loss and probe: selftest reproduces bit-identically over two runs (float atomics 7.45e-09 / 5.96e-08 per launch) |
+| src/kernel_engine/lbm/differentiable_fsi_chain.py | VERIFIED-FRESH | int64 fixed-point drag seam: two-launch max abs difference 0.0 (float atomics 4.77e-07); the calibration loop is driven by Warp's backward pass and still varies |
 | src/kernel_engine/lbm/g18_cfd_nilss_prereq_wake_chaos.py | VERIFIED-FRESH | the positive global-field lambda is convective amplification, not temporal chaos -> the 2-D laminar wake is not a NILSS bed |
 | src/kernel_engine/lbm/g19_forced_2d_wake_nilss_prereq.py | VERIFIED-FRESH | forced 2-D wake is lock-in or quasi-periodic over A/D 0.2-0.5 and f_e/f_shed 0.7-1.3, no robust chaos; honest-negative verdict = pass |
 | src/kernel_engine/lbm/g20_3d_wake_chaos_nilss_prereq.py | VERIFIED-FRESH | G1: rms(uz)/U 0.019 -> 0.074 at Re=300, lambda_z 4.0D vs Barkley-Henderson mode-A 3.96D; G2: broadband fraction 0.01/0.12 vs the 2-D baseline 0.25, twin-lambda 1.8e-05 -> boundary, honest-negative = pass; 678 s |
@@ -307,6 +307,7 @@ SYNTHETIC-ONLY = the method was demonstrated on private input, and it ships with
 | src/kernel_engine/_vendor/_emit.py | VERIFIED-FRESH | evidence-JSON writer used by the wake cells; exercised by g39/g42/g61 |
 | src/kernel_engine/certified_kernels/probe_dma_single_stream_gap.py | VERIFIED-FRESH | H1 (per-transfer overhead) false, H2 (stream-depth cap) true: 16/64/256 MiB chunks give 24.07/23.33/24.09 GB/s and the queued-depth arm gains 0.6 % |
 | src/kernel_engine/certified_kernels/probe_dma_split_shape_decisive.py | VERIFIED-FRESH | the instrument decides the split shape: interleaved-windowed enqueue 11.69/11.69 GB/s (even, agg 23.4), batch-enqueue-per-stream 23.4/11.7 GB/s (uneven, same 23.3-23.5 aggregate) |
+| src/kernel_engine/certified_kernels/determinism_sweep_int64.py | VERIFIED-FRESH | 10 int64 accumulation sites bit-identical over two launches, 5/8 selftests bit-identical over two runs, 3 adjoint-carrying reported |
 | src/kernel_engine/certified_kernels/probe_l2_arbitration_endgame.py | CUDA-ONLY | own verdict: "G-ctrl FAILED - sensors not calibrated; matrix uninterpretable" (hog +0.8/-0.8, stream +0.8/-0.825), the spatial-locality artefact its own header documents |
 | src/kernel_engine/fem/fno_3d.py | VERIFIED-FRESH | SpektralConv3d linear 3.9e-07, high mode (k=5 > kept 3) damped to 2.0e-16, held-out rel L2 0.982 -> 0.059, mesh-flexible on a 16^3 grid |
 | src/kernel_engine/fem/fno_tpu_compatible.py | VERIFIED-FRESH | truncated-DFT matmul equals the FFT spectral convolution to 1.9e-15 (mode block 2.2e-15), no torch.fft in the matmul path, autograd finite |
@@ -317,10 +318,10 @@ SYNTHETIC-ONLY = the method was demonstrated on private input, and it ships with
 | src/kernel_engine/warp_gpu/substep_value_probe.py | VERIFIED-FRESH | substepping win not confirmed: the substep path blows up at mass ratio 100x+ while the baseline is stable; per-body adaptive under-relaxation (relax <= 1/contacts) is stable 30x-1000x (106/342/420/420 mm) where fixed relax=0.25 blows up |
 | src/kernel_engine/warp_gpu/warmstart_massratio.py | VERIFIED-FRESH | honest negative: pre-applying the cached normal impulse destabilises relaxed Jacobi at every ratio (cold 151/421/420/421 mm at 20/50/100/300x, warm blows up) |
 | src/kernel_engine/warp_gpu/warmstart_value_probe.py | VERIFIED-FRESH | its own instrument guard fires: the warm branch diverges (KE 705.7 at vit4 vs cold 0.145 at vit40), so the value question is unresolved rather than negative |
-| src/kernel_engine/wave_fdtd/xray_3d_dda.py | VERIFIED-FRESH | internal 3-D field recovered from 24 external views at rel 8 %; error rises 6.6x from low-sigma to high-sigma regions, monotone |
-| src/kernel_engine/wave_fdtd/xray_tomography_sigma.py | VERIFIED-FRESH | 3/3 gates; mean absolute error by coverage-sigma quartile 0.015/0.016/0.017/0.059, monotone, top/bottom band 4.0x |
+| src/kernel_engine/wave_fdtd/xray_3d_dda.py | VERIFIED-FRESH | internal 3-D field recovered from 24 external views at rel 8 %; error rises 6.6x from low-sigma to high-sigma regions, monotone; int64 fixed-point back-projection: selftest reproduces bit-identically over two runs (float atomics 1.25e-06 per launch) |
+| src/kernel_engine/wave_fdtd/xray_tomography_sigma.py | VERIFIED-FRESH | 3/3 gates; mean absolute error by coverage-sigma quartile 0.015/0.016/0.017/0.059, monotone, top/bottom band 4.0x; int64 fixed-point sensitivity and residual loss: selftest reproduces bit-identically over two runs (float atomics 1.53e-05 / 4.06e-01 per launch); gate-1 finite-difference agreement improved from 8.58e-03 to 4.45e-05 |
 
-292 module rows: 266 VERIFIED-FRESH, 22 CUDA-ONLY, 4 SYNTHETIC-ONLY.
+293 module rows: 267 VERIFIED-FRESH, 22 CUDA-ONLY, 4 SYNTHETIC-ONLY.
 
 
 ## Real datasets
@@ -380,3 +381,88 @@ own data-availability gate would refuse the real run with
     samples). Re-fetch data/paderborn_kat_severity/ before trusting this script's output.
 
 It ships with the stand-in signal generator instead; no tolerance in it was changed.
+
+
+## Deterministic accumulation
+
+Float atomic addition is not associative, so a reduction built from `wp.atomic_add` on a float array returns a
+value that depends on the order in which blocks reach the accumulator, and that order varies from run to run.
+Each affected module now carries a module-level switch `DETERMINISTIC_ACCUMULATION = True`: every contribution is
+rounded in float64 to an int64 fixed point, summed with integer atomics (associative and commutative, so
+order-invariant), and converted back once. The scale is a power of two derived from the quantity's declared range,
+with an overflow assertion `|sum| x scale < 2^62` next to it. Setting the switch to `False` restores the float
+path for A/B comparison; no tolerance was changed.
+
+Measured on an RTX 5070 (Warp 1.17, CUDA 12.9). "site delta" = same input, two launches of the accumulation
+kernel, max abs difference of the result array. "time" = mean over 20 launches after 3 warm-up launches.
+
+| module | sites | float delta | int64 delta | time ratio int64/float |
+| --- | --- | --- | --- | --- |
+| lbm/differentiable_flow_control | track_loss, probe_ux | 7.45e-09, 5.96e-08 | 0.0, 0.0 | 0.98, 1.08 |
+| lbm/differentiable_lbm_probe | objective | 3.58e-07 | 0.0 | 1.41 |
+| lbm/differentiable_fsi_chain | drag_force | 4.77e-07 | 0.0 | 1.22 |
+| lbm/lbm3d_immersed_boundary | spread | 5.82e-11 | 0.0 | 1.58 |
+| wave_fdtd/diff_wave_3d | energy | 1.91e-06 | 0.0 | 1.09 |
+| wave_fdtd/diff_wave_substrate | focus_loss | 2.38e-07 | 0.0 | 1.22 |
+| wave_fdtd/xray_tomography_sigma | sensitivity, sq_resid | 1.53e-05, 4.06e-01 | 0.0, 0.0 | 1.50, 1.09 |
+| wave_fdtd/xray_3d_dda | backproject | 1.25e-06 | 0.0 | 2.41 |
+
+Whole-selftest reproduction (two runs, every printed number compared; float path = switch set to `False`):
+
+| module | float path max abs difference | int64 path max abs difference |
+| --- | --- | --- |
+| lbm/differentiable_flow_control | 1.0e-11 | 0.0 |
+| lbm/differentiable_lbm_probe | 0.0 | 0.0 |
+| lbm/differentiable_fsi_chain | 1.0e-02 | 3.5e-01 (gradient-descent loop, see below) |
+| lbm/lbm3d_immersed_boundary | 1.0e-06 | 0.0 |
+| wave_fdtd/diff_wave_3d | 4.2e-03 | 1.0e-06 (adjoint, see below) |
+| wave_fdtd/diff_wave_substrate | 6.4e-04 | 1.0e-07 (adjoint, see below) |
+| wave_fdtd/xray_tomography_sigma | 1.95 | 2.0e-07 (adjoint, see below) |
+| wave_fdtd/xray_3d_dda | 0.0 | 0.0 |
+
+Gates are unchanged or tighter: the immersed-boundary drag stays 6.8697e-02 inside the Stokes-Hasimoto band, the
+3-D X-ray recovery stays at 8.02 % with the same monotone sigma quartiles, the tomography gates stay 3/3 while the
+gate-1 adjoint-vs-finite-difference agreement improves from 8.58e-03 to 4.45e-05, the 3-D wave finite-difference
+agreement improves from 1.14e-03 to 1.62e-04, and the chained-FSI parameter recovery improves from 2.70 % to
+0.03-0.19 % error (its verdict moves from PARTIAL to VALIDATED because the finite-difference noise is gone).
+`differentiable_flow_control` still reports PARTIAL for the same reason as before (the jet recovers 0 % of the wake
+deficit); that is unrelated to accumulation.
+
+What was NOT changed, and why:
+
+- Gradient values printed after `tape.backward()`. Warp's generated adjoint kernels accumulate gradients with
+  float atomics inside Warp itself, not at a call site in this repository, and a quantiser has no useful
+  derivative, so the forward kernels used inside a tape keep the float accumulation. That is the residual in the
+  int64 column above: the forward and finite-difference numbers are bit-identical, the adjoint-driven iterates
+  (the 80-step parameter recovery in `differentiable_fsi_chain`, the 400-step reconstruction in
+  `xray_tomography_sigma`) are not.
+- `struct_loss` in `differentiable_fsi_chain` is launched with `dim=1`: one thread, no cross-thread accumulation,
+  already order-fixed.
+- Warp's own tree reductions are order-fixed: `wp.utils.array_sum` over 2^20 float32 values returned one distinct
+  value in 20 consecutive calls, and `torch.Tensor.sum()` over 2^24 float32 values likewise 1 distinct value in 20.
+- `certified_kernels/d_coupled_knob_ordering_advantage_real_cuda.py:248` builds its reference with a float64
+  `index_add_`; measured two-run divergence is 2.13e-14 absolute, 1.08e-15 relative, far below the tolerance the
+  cell checks, so it is left as is.
+- The probes that exist to DEMONSTRATE float-atomic non-determinism keep their float atomics by construction:
+  `reductions/det_accumulation_probe.py`, `reductions/u_v54_gather_law_deterministic_reduction_vs_atomic_int64.py`,
+  `certified_loop/d_cuda_scene_eyes_determinism_real_gpu.py`, `certified_loop/d_privatized_reduction_close_abstain.py`,
+  `certified_kernels/probe_compute_ladder_descent.py`, `certified_kernels/probe_l2_arbitration_endgame.py`,
+  `certified_kernels/probe_l2_inband_endgame.py`, `certified_kernels/d_roofline_scene_eye.py`,
+  `kernel_variants/kernelvarv_v1_f2_matvec.py` (whose float `atomic_add` is a planted defect for a detector).
+- The momentum-exchange force sums in the long wake/FSI sweeps (`lbm/lbm_fsi_gpu.py`, `lbm/lbm_fsi_viv.py`,
+  `lbm/lbm_fsi_bouzidi.py`, `lbm/g18_cfd_nilss_prereq_wake_chaos.py`, `lbm/g19_forced_2d_wake_nilss_prereq.py`,
+  `lbm/g20_3d_wake_chaos_nilss_prereq.py`, `lbm/g21_3d_wake_chaos_highRe.py`,
+  `lbm/g61_modeA_Rec_cylinder_vs_ellipse.py`, `lbm/coupled_design_aero_struct.py`) are the same pattern and do
+  affect reported numbers, but their selftests are multi-minute to multi-hour sweeps, so the two-run A/B that
+  justifies the change was not run for them in this pass; they keep the float path.
+- `fem/`, `euler_hllc/`, `thermo/` and `amr_poisson/` contain no `wp.atomic_add` on a float array; the FEM
+  assembly goes through `warp.fem`, and the torch reductions in those modules are `.sum()` (order-fixed above).
+
+Sweep cell:
+
+    PYTHONPATH=src python3 src/kernel_engine/certified_kernels/determinism_sweep_int64.py
+
+It launches each touched accumulation kernel twice (float twin and int64 twin), runs each touched selftest twice as
+a subprocess and compares the normalised stdout hashes, writes `reports/determinism_sweep_int64_result.json`, and
+exits non-zero if any int64 site or any non-adjoint-carrying selftest differs. `tests/test_determinism_sweep_int64.py`
+wraps it and skips without a CUDA device.

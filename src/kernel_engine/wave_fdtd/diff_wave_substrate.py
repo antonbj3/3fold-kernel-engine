@@ -46,6 +46,35 @@ def focus_loss(S: wp.array2d(dtype=wp.float32), lo: int, hi: int, out: wp.array(
         wp.atomic_add(out, 0, S[i, j] * S[i, j])      # energy focused in the central target window
 
 
+# Order-invariant accumulation: float atomics are non-associative, so the reported J depends on the
+# (run-varying) order in which blocks hit the accumulator. Rounding each contribution in float64 to an
+# int64 fixed point and summing with integer atomics is associative -> bit-identical run to run.
+DETERMINISTIC_ACCUMULATION = True
+ACC_SCALE = 2.0 ** 48                                 # |S| <= 1 (unit seed, non-amplifying leapfrog) -> |sum S^2| <= N*N
+assert float(N * N) * ACC_SCALE < 2.0 ** 62, "fixed-point overflow"
+
+
+@wp.kernel
+def focus_loss_i64(S: wp.array2d(dtype=wp.float32), lo: int, hi: int, scale: wp.float64,
+                   out: wp.array(dtype=wp.int64)):
+    i, j = wp.tid()
+    if i >= lo and i < hi and j >= lo and j < hi:
+        v = wp.float64(S[i, j]) * wp.float64(S[i, j])
+        wp.atomic_add(out, 0, wp.int64(wp.round(v * scale)))
+
+
+def focus_loss_value(loss, S):
+    """Value of the focus-energy J. With DETERMINISTIC_ACCUMULATION the sum is recomputed with int64
+    fixed-point atomics (order-invariant); the float array stays for the adjoint (a quantiser has no
+    useful derivative, so the tape keeps the float accumulation)."""
+    if not DETERMINISTIC_ACCUMULATION:
+        return float(loss.numpy()[0])
+    acc = wp.zeros(1, dtype=wp.int64, device=DEV)
+    wp.launch(focus_loss_i64, dim=(N, N), inputs=[S, 3 * N // 7, 4 * N // 7, wp.float64(ACC_SCALE), acc], device=DEV)
+    wp.synchronize()
+    return float(int(acc.numpy()[0])) / ACC_SCALE
+
+
 def forward(csq, tape_lists=None):
     """Run T-step out-of-place leapfrog; return loss array. If tape_lists given, append buffers (for grad)."""
     dx = 1.0 / (N - 1); dt = 0.4 * dx; csx = dt / dx; csy = dt / dx
@@ -78,10 +107,10 @@ def main():
 
     tape = wp.Tape()
     with tape:
-        loss, _ = forward(csq)
+        loss, S0 = forward(csq)
     tape.backward(loss=loss)
     g = csq.grad.numpy()
-    J0 = float(loss.numpy()[0])
+    J0 = focus_loss_value(loss, S0)
     print(f"\n  forward focus-energy J0 = {J0:.6e};  adjoint ∂J/∂c² computed (one backward pass).")
 
     # FD-verify at a few interior cells (central difference)
@@ -91,10 +120,10 @@ def main():
     maxrel = 0.0
     for (ci, cj) in cells:
         cp = csq0.copy(); cp[ci, cj] += eps
-        lp, _ = forward(wp.array(cp, dtype=wp.float32, device=DEV))
+        lp, Sp = forward(wp.array(cp, dtype=wp.float32, device=DEV))
         cm = csq0.copy(); cm[ci, cj] -= eps
-        lm, _ = forward(wp.array(cm, dtype=wp.float32, device=DEV))
-        fd = (float(lp.numpy()[0]) - float(lm.numpy()[0])) / (2 * eps)
+        lm, Sm = forward(wp.array(cm, dtype=wp.float32, device=DEV))
+        fd = (focus_loss_value(lp, Sp) - focus_loss_value(lm, Sm)) / (2 * eps)
         ad = float(g[ci, cj])
         rel = abs(ad - fd) / (abs(fd) + 1e-12)
         maxrel = max(maxrel, rel)

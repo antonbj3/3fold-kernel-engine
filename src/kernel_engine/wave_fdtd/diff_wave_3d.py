@@ -51,6 +51,35 @@ def energy(p: wp.array3d(dtype=wp.float32), lo: int, hi: int, out: wp.array(dtyp
         wp.atomic_add(out, 0, p[i, j, k] * p[i, j, k])
 
 
+# Order-invariant accumulation: float atomics are non-associative, so the reported J depends on the
+# (run-varying) order in which blocks reach the accumulator. Each contribution is rounded in float64 to an
+# int64 fixed point and summed with integer atomics -> associative -> bit-identical run to run.
+DETERMINISTIC_ACCUMULATION = True
+ACC_SCALE = 2.0 ** 45                                 # |p| <= 1 (unit seed, non-amplifying leapfrog) -> |sum p^2| <= N^3
+assert float(N ** 3) * ACC_SCALE < 2.0 ** 62, "fixed-point overflow"
+
+
+@wp.kernel
+def energy_i64(p: wp.array3d(dtype=wp.float32), lo: int, hi: int, scale: wp.float64,
+               out: wp.array(dtype=wp.int64)):
+    i, j, k = wp.tid()
+    if i >= lo and i < hi and j >= lo and j < hi and k >= lo and k < hi:
+        v = wp.float64(p[i, j, k]) * wp.float64(p[i, j, k])
+        wp.atomic_add(out, 0, wp.int64(wp.round(v * scale)))
+
+
+def energy_value(loss, p):
+    """Value of the window energy J. With DETERMINISTIC_ACCUMULATION the sum is recomputed with int64
+    fixed-point atomics (order-invariant); the float array stays for the adjoint, since a quantiser has
+    no useful derivative."""
+    if not DETERMINISTIC_ACCUMULATION:
+        return float(loss.numpy()[0])
+    acc = wp.zeros(1, dtype=wp.int64, device=DEV)
+    wp.launch(energy_i64, dim=(N, N, N), inputs=[p, 2 * N // 5, 3 * N // 5, wp.float64(ACC_SCALE), acc], device=DEV)
+    wp.synchronize()
+    return float(int(acc.numpy()[0])) / ACC_SCALE
+
+
 def forward(csq):
     cs = 0.4
     seed = np.zeros((N, N, N), np.float32)
@@ -71,7 +100,7 @@ def forward(csq):
         p, vx, vy, vz = pn, vxn, vyn, vzn
     loss = wp.zeros(1, dtype=wp.float32, device=DEV, requires_grad=True)
     wp.launch(energy, dim=(N, N, N), inputs=[p, 2 * N // 5, 3 * N // 5, loss], device=DEV)
-    return loss
+    return loss, p
 
 
 def main():
@@ -82,18 +111,18 @@ def main():
     csq = wp.array(csq0, dtype=wp.float32, device=DEV, requires_grad=True)
     tape = wp.Tape()
     with tape:
-        loss = forward(csq)
+        loss, p0 = forward(csq)
     tape.backward(loss=loss)
-    g = csq.grad.numpy(); J0 = float(loss.numpy()[0])
+    g = csq.grad.numpy(); J0 = energy_value(loss, p0)
     print(f"\n  J0={J0:.4e}; adjoint dJ/dc2 computed (one 3D backward pass).")
     eps = 1e-2; maxrel = 0.0
     cells = [(N // 2, N // 2, N // 2), (N // 3, N // 2, N // 2), (N // 2, 2 * N // 3, N // 2)]
     print(f"\n  {'voxel':>14} {'adjoint':>13} {'FD':>13} {'rel_err':>10}")
     for (ci, cj, ck) in cells:
         cp = csq0.copy(); cp[ci, cj, ck] += eps
-        lp = float(forward(wp.array(cp, dtype=wp.float32, device=DEV)).numpy()[0])
+        lp = energy_value(*forward(wp.array(cp, dtype=wp.float32, device=DEV)))
         cm = csq0.copy(); cm[ci, cj, ck] -= eps
-        lm = float(forward(wp.array(cm, dtype=wp.float32, device=DEV)).numpy()[0])
+        lm = energy_value(*forward(wp.array(cm, dtype=wp.float32, device=DEV)))
         fd = (lp - lm) / (2 * eps); ad = float(g[ci, cj, ck]); rel = abs(ad - fd) / (abs(fd) + 1e-12)
         maxrel = max(maxrel, rel)
         print(f"  {str((ci, cj, ck)):>14} {ad:>13.4e} {fd:>13.4e} {rel:>10.2e}")

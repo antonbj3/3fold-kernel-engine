@@ -560,3 +560,24 @@ matter). 15 modules plus one vendored dependency; `wave###_` prefixes were absen
 | `wave_fdtd/xray_tomography_sigma.py` | `bodytwin/scripts/physics_exp/xray_tomography_sigma.py` | first two docstring lines rewritten (attribution removed); invocation line replaced |
 | `docs/RUNNING.md` | - | 16 Status rows added; the count line updated to 292 module rows |
 | `tests/test_pass3_selftests.py` | - | 2 modules added to `CPU_MODULES`, 12 to `CUDA_MODULES`; `ARGS` entries for the three wake cells (`--validate`, `--validate`, `--smoke`) and 1800 s `TIMEOUTS` for two of them |
+
+
+## Deterministic accumulation sweep (2026-09-12)
+
+No new platform source: these are edits to already-shipped files plus one new cell and its test. Every edit
+adds an int64 fixed-point accumulation path behind a module-level `DETERMINISTIC_ACCUMULATION = True` switch
+(float path selectable by setting it to `False`); no identifier was renamed, no gate or tolerance changed.
+
+| file | platform source | edits |
+| --- | --- | --- |
+| `certified_kernels/determinism_sweep_int64.py` | - | new cell: launches every touched accumulation kernel twice (float twin and int64 twin) and asserts the int64 result array is bit-identical, runs each touched selftest twice as a subprocess and compares normalised stdout hashes, writes `reports/determinism_sweep_int64_result.json`, exits non-zero on any failure |
+| `lbm/differentiable_flow_control.py` | unchanged | added `DETERMINISTIC_ACCUMULATION`, `ACC_SCALE = 2**48` with an overflow assertion, kernels `track_loss_i64` and `probe_ux_i64`, helpers `probe_ux_value` and `track_loss_value`; `rollout` now also returns the final distribution field so the loss value can be recomputed order-invariantly; the float kernels stay for the tape |
+| `lbm/differentiable_fsi_chain.py` | unchanged | added `DETERMINISTIC_ACCUMULATION`, `ACC_SCALE = 2**48` with an overflow assertion and kernel `drag_force_i64`; `forward` uses the int64 seam value whenever it is not recording a tape |
+| `lbm/differentiable_lbm_probe.py` | unchanged | added `DETERMINISTIC_ACCUMULATION`, `ACC_SCALE = 2**49` with an overflow assertion, kernel `objective_i64` and helper `objective_value`; the inner `forward` now also returns the final distribution field |
+| `lbm/lbm3d_immersed_boundary.py` | unchanged | added `DETERMINISTIC_ACCUMULATION`, `ACC_SCALE = 2**55` with an overflow assertion and kernels `spread_i64`, `zero4i`, `dequant4`; the force-spreading step runs zero/spread/dequantise in int64 fixed point |
+| `wave_fdtd/diff_wave_3d.py` | unchanged | added `DETERMINISTIC_ACCUMULATION`, `ACC_SCALE = 2**45` with an overflow assertion, kernel `energy_i64` and helper `energy_value`; `forward` now returns `(loss, p)` so the reported value can be recomputed order-invariantly |
+| `wave_fdtd/diff_wave_substrate.py` | unchanged | added `DETERMINISTIC_ACCUMULATION`, `ACC_SCALE = 2**48` with an overflow assertion, kernel `focus_loss_i64` and helper `focus_loss_value`; the finite-difference checks and `J0` use the int64 value |
+| `wave_fdtd/xray_3d_dda.py` | unchanged | added `DETERMINISTIC_ACCUMULATION`, `ACC_SCALE = 2**35` with an overflow assertion, kernels `backproject_i64`, `dequant3` and helper `backproject_value`; the sensitivity map and every SIRT update go through it |
+| `wave_fdtd/xray_tomography_sigma.py` | unchanged | added `DETERMINISTIC_ACCUMULATION`, `CN_SCALE = 2**43` and `LOSS_SCALE = 2**35` with overflow assertions, kernels `sensitivity_i64`, `dequant2`, `sq_resid_i64` and helpers `sensitivity_map`, `forward_loss_value` |
+| `docs/RUNNING.md` | - | 1 Status row added (`determinism_sweep_int64.py`), 8 Status notes extended with the determinism measurement, count line updated to 293 module rows, new section "Deterministic accumulation" with the per-site and per-selftest tables and the list of sites deliberately left on the float path |
+| `tests/test_determinism_sweep_int64.py` | - | new pytest wrapper for the sweep cell; skips without a CUDA device |

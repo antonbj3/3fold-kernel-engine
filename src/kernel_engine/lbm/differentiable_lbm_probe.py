@@ -70,6 +70,35 @@ def objective(f: wp.array3d(dtype=wp.float32), cx: wp.array(dtype=wp.float32),
     wp.atomic_add(J, 0, (mx / rho) * mask[i, j])
 
 
+# Order-invariant accumulation: the objective is a float atomic sum, hence order-dependent (float addition
+# is not associative). Rounding each contribution in float64 to an int64 fixed point and summing with
+# integer atomics is associative -> the reported J is bit-identical run to run.
+DETERMINISTIC_ACCUMULATION = True
+ACC_SCALE = 2.0 ** 49                                  # |ux| <= 1 (lattice units) -> |sum| <= nx*ny <= 4096
+assert 4096.0 * ACC_SCALE < 2.0 ** 62, "fixed-point overflow"
+
+
+@wp.kernel
+def objective_i64(f: wp.array3d(dtype=wp.float32), cx: wp.array(dtype=wp.float32),
+                  mask: wp.array2d(dtype=wp.float32), scale: wp.float64, J: wp.array(dtype=wp.int64)):
+    i, j = wp.tid()
+    rho = float(0.0); mx = float(0.0)
+    for k in range(9):
+        fk = f[k, i, j]; rho += fk; mx += cx[k] * fk
+    wp.atomic_add(J, 0, wp.int64(wp.round(wp.float64((mx / rho) * mask[i, j]) * scale)))
+
+
+def objective_value(J, f, cx, mask, dim):
+    """Value of the flow objective. The float array J stays for the adjoint (a quantiser has no useful
+    derivative, so the tape keeps the float accumulation); the reported value is the int64 one."""
+    if not DETERMINISTIC_ACCUMULATION:
+        return float(J.numpy()[0])
+    acc = wp.zeros(1, dtype=wp.int64, device=DEV)
+    wp.launch(objective_i64, dim, inputs=[f, cx, mask, wp.float64(ACC_SCALE), acc], device=DEV)
+    wp.synchronize()
+    return float(int(acc.numpy()[0])) / ACC_SCALE
+
+
 def _equil(rho, ux, uy):
     nx, ny = rho.shape; f = np.empty((9, nx, ny), np.float32)
     usq = ux * ux + uy * uy
@@ -106,13 +135,13 @@ def main():
         else:
             run()
         wp.synchronize()
-        return J
+        return J, fs[-1]
 
     # ── AUTODIFF: ∂J/∂force via wp.Tape ──
     force = wp.array(np.full((nx, ny), 1e-4, np.float32), dtype=wp.float32, device=DEV, requires_grad=True)
     tape = wp.Tape()
-    J = forward(force, tape=tape)
-    J0 = float(J.numpy()[0])
+    J, f_end = forward(force, tape=tape)
+    J0 = objective_value(J, f_end, cx, mask, (nx, ny))
     tape.backward(loss=J)
     grad_ad = force.grad.numpy().copy()
     print(f"\n  J0 (sum ux, right region) = {J0:.6e};  autodiff dJ/dforce computed (||grad|| = {np.linalg.norm(grad_ad):.3e})")
@@ -126,8 +155,8 @@ def main():
     for (a, b) in cells:
         fp = fbase.copy(); fp[a, b] += eps
         fm = fbase.copy(); fm[a, b] -= eps
-        Jp = float(forward(wp.array(fp, dtype=wp.float32, device=DEV)).numpy()[0])
-        Jm = float(forward(wp.array(fm, dtype=wp.float32, device=DEV)).numpy()[0])
+        Jp = objective_value(*forward(wp.array(fp, dtype=wp.float32, device=DEV)), cx, mask, (nx, ny))
+        Jm = objective_value(*forward(wp.array(fm, dtype=wp.float32, device=DEV)), cx, mask, (nx, ny))
         fd = (Jp - Jm) / (2 * eps)
         ad = float(grad_ad[a, b])
         rel = abs(ad - fd) / (abs(fd) + 1e-12)

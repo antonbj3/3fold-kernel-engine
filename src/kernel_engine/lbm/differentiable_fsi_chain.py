@@ -89,6 +89,27 @@ def struct_loss(F: wp.array(dtype=wp.float32), compliance: float, d_obs: float, 
     wp.atomic_add(L, 0, (d - d_obs) * (d - d_obs))
 
 
+# Order-invariant accumulation: the drag seam F = sum(alpha*theta*|u|^2) is a float atomic sum over the
+# lattice, so its last bits depend on the run-varying block order. Rounding each contribution in float64 to
+# an int64 fixed point and summing with integer atomics is associative -> F is bit-identical run to run.
+# (struct_loss is launched with dim=1: a single thread, no cross-thread accumulation, already order-fixed.)
+DETERMINISTIC_ACCUMULATION = True
+ACC_SCALE = 2.0 ** 48                                 # alpha*|u|^2 <= 1.6 (lattice units) -> |F| <= 1.6*NX*NY
+
+
+@wp.kernel
+def drag_force_i64(f: wp.array3d(dtype=wp.float32), theta: wp.array2d(dtype=wp.float32),
+                   cx: wp.array(dtype=wp.float32), cy: wp.array(dtype=wp.float32), alpha: float,
+                   scale: wp.float64, F: wp.array(dtype=wp.int64)):
+    i, j = wp.tid()
+    rho = float(0.0); mx = float(0.0); my = float(0.0)
+    for k in range(9):
+        fk = f[k, i, j]; rho += fk; mx += cx[k] * fk; my += cy[k] * fk
+    ux = mx / rho; uy = my / rho
+    v = wp.float64(alpha) * wp.float64(theta[i, j]) * (wp.float64(ux) * wp.float64(ux) + wp.float64(uy) * wp.float64(uy))
+    wp.atomic_add(F, 0, wp.int64(wp.round(v * scale)))
+
+
 def _equil(rho, ux, uy):
     nx, ny = rho.shape; f = np.empty((9, nx, ny), np.float32)
     usq = ux * ux + uy * uy
@@ -99,6 +120,7 @@ def _equil(rho, ux, uy):
 
 
 NX, NY, T, DRIVE, ALPHA, COMPL = 64, 40, 110, 5e-5, 1.6, 4.0e3
+assert ALPHA * float(NX * NY) * ACC_SCALE < 2.0 ** 62, "fixed-point overflow"
 _cx = wp.array(CX, dtype=wp.float32, device=DEV); _cy = wp.array(CY, dtype=wp.float32, device=DEV)
 _w = wp.array(WT, dtype=wp.float32, device=DEV); _opp = wp.array(OP, dtype=wp.int32, device=DEV)
 _solid_np = np.zeros((NX, NY), np.int32); _solid_np[:, 0] = 1; _solid_np[:, -1] = 1
@@ -123,7 +145,13 @@ def forward(omega_v, d_obs=None, tape=None, frozen_F=0.0, use_frozen=0, want_d=F
             wp.launch(collide, (NX, NY), inputs=[c, fp, _theta, om, _cx, _cy, _w, DRIVE, ALPHA], device=DEV)
             wp.launch(stream, (NX, NY), inputs=[fp, fn, _solid, _cx, _cy, _opp, NX, NY], device=DEV)
             keep.append(fp); keep.append(fn); c = fn
-        wp.launch(drag_force, (NX, NY), inputs=[c, _theta, _cx, _cy, ALPHA, F], device=DEV)   # M1 -> seam
+        if DETERMINISTIC_ACCUMULATION and not rg:
+            acc = wp.zeros(1, dtype=wp.int64, device=DEV)                                    # order-invariant seam value
+            wp.launch(drag_force_i64, (NX, NY), inputs=[c, _theta, _cx, _cy, ALPHA, wp.float64(ACC_SCALE), acc], device=DEV)
+            wp.synchronize()
+            F.assign(np.array([float(int(acc.numpy()[0])) / ACC_SCALE], np.float32))
+        else:
+            wp.launch(drag_force, (NX, NY), inputs=[c, _theta, _cx, _cy, ALPHA, F], device=DEV)   # M1 -> seam (float, adjoint path)
         if not want_d:
             wp.launch(struct_loss, 1, inputs=[F, COMPL, d_obs, frozen_F, use_frozen, L], device=DEV)  # M2+M3
     if rg:

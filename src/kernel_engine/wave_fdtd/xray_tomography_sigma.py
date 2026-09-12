@@ -88,6 +88,78 @@ def sq_resid(proj: wp.array2d(dtype=wp.float32), obs: wp.array2d(dtype=wp.float3
     wp.atomic_add(loss, 0, r * r)
 
 
+# Order-invariant accumulation: both the sensitivity back-projection and the residual loss are float atomic
+# sums, so their last bits depend on the run-varying order the blocks reach the accumulators. Contributions
+# are rounded in float64 to an int64 fixed point and summed with integer atomics (associative).
+DETERMINISTIC_ACCUMULATION = True
+CN_SCALE = 2.0 ** 43          # bilinear weights <= 1 per sample -> |cn| <= NA*ND*NS per pixel
+LOSS_SCALE = 2.0 ** 35        # |r| <= 1e2 over NA*ND rays -> |loss| <= 1e8 (bound asserted below)
+assert float(NA * ND * NS) * CN_SCALE < 2.0 ** 62, "fixed-point overflow"
+assert 1.0e8 * LOSS_SCALE < 2.0 ** 62, "fixed-point overflow"
+
+
+@wp.kernel
+def sensitivity_i64(cq: wp.array2d(dtype=wp.int64), ang: wp.array(dtype=wp.float32),
+                    n: int, nd: int, ns: int, tmax: float, scale: wp.float64):
+    a, d = wp.tid()
+    c = float((n - 1)) * 0.5
+    th = ang[a]; ct = wp.cos(th); st = wp.sin(th)
+    t = (float(d) / float(nd - 1) - 0.5) * 2.0 * tmax
+    for k in range(ns):
+        u = (float(k) / float(ns - 1) - 0.5) * 2.0 * tmax
+        x = c + t * (-st) + u * ct
+        y = c + t * ct + u * st
+        if x >= 0.0 and x <= float(n - 1) and y >= 0.0 and y <= float(n - 1):
+            i0 = int(wp.floor(x)); j0 = int(wp.floor(y))
+            i1 = wp.min(i0 + 1, n - 1); j1 = wp.min(j0 + 1, n - 1)
+            fx = wp.float64(x - float(i0)); fy = wp.float64(y - float(j0))
+            one = wp.float64(1.0)
+            wp.atomic_add(cq, i0, j0, wp.int64(wp.round((one - fx) * (one - fy) * scale)))
+            wp.atomic_add(cq, i1, j0, wp.int64(wp.round(fx * (one - fy) * scale)))
+            wp.atomic_add(cq, i0, j1, wp.int64(wp.round((one - fx) * fy * scale)))
+            wp.atomic_add(cq, i1, j1, wp.int64(wp.round(fx * fy * scale)))
+
+
+@wp.kernel
+def dequant2(cq: wp.array2d(dtype=wp.int64), scale: wp.float64, cn: wp.array2d(dtype=wp.float32)):
+    i, j = wp.tid(); cn[i, j] = wp.float32(wp.float64(cq[i, j]) / scale)
+
+
+@wp.kernel
+def sq_resid_i64(proj: wp.array2d(dtype=wp.float32), obs: wp.array2d(dtype=wp.float32),
+                 scale: wp.float64, loss: wp.array(dtype=wp.int64)):
+    a, d = wp.tid()
+    r = wp.float64(proj[a, d]) - wp.float64(obs[a, d])
+    wp.atomic_add(loss, 0, wp.int64(wp.round(r * r * scale)))
+
+
+def sensitivity_map(ang):
+    """Diagonal of A^T A. With DETERMINISTIC_ACCUMULATION the back-projection is summed in int64 fixed
+    point, so the sigma map is bit-identical run to run."""
+    cn = wp.zeros((N, N), dtype=wp.float32, device=DEV)
+    if not DETERMINISTIC_ACCUMULATION:
+        wp.launch(sensitivity, dim=(NA, ND), inputs=[cn, ang, N, ND, NS, T], device=DEV)
+        return cn
+    cq = wp.zeros((N, N), dtype=wp.int64, device=DEV)
+    wp.launch(sensitivity_i64, dim=(NA, ND), inputs=[cq, ang, N, ND, NS, T, wp.float64(CN_SCALE)], device=DEV)
+    wp.launch(dequant2, dim=(N, N), inputs=[cq, wp.float64(CN_SCALE), cn], device=DEV)
+    wp.synchronize()
+    return cn
+
+
+def forward_loss_value(f, obs, ang):
+    """Loss value with order-invariant accumulation (used where only the number is needed, e.g. the FD
+    check); the float kernel stays for the tape, since a quantiser has no useful derivative."""
+    if not DETERMINISTIC_ACCUMULATION:
+        return float(forward_loss(f, obs, ang).numpy()[0])
+    proj = wp.zeros((NA, ND), dtype=wp.float32, device=DEV)
+    wp.launch(project, dim=(NA, ND), inputs=[f, proj, ang, N, ND, NS, T], device=DEV)
+    acc = wp.zeros(1, dtype=wp.int64, device=DEV)
+    wp.launch(sq_resid_i64, dim=(NA, ND), inputs=[proj, obs, wp.float64(LOSS_SCALE), acc], device=DEV)
+    wp.synchronize()
+    return float(int(acc.numpy()[0])) / LOSS_SCALE
+
+
 def forward_loss(f, obs, ang):
     proj = wp.zeros((NA, ND), dtype=wp.float32, device=DEV, requires_grad=True)
     wp.launch(project, dim=(NA, ND), inputs=[f, proj, ang, N, ND, NS, T], device=DEV)
@@ -146,9 +218,9 @@ def main():
     base = f.numpy()
     for (pi, pj) in probes:
         fp = base.copy(); fp[pi, pj] += eps
-        lp = float(forward_loss(wp.array(fp, dtype=wp.float32, device=DEV), obs, ang).numpy()[0])
+        lp = forward_loss_value(wp.array(fp, dtype=wp.float32, device=DEV), obs, ang)
         fm = base.copy(); fm[pi, pj] -= eps
-        lm = float(forward_loss(wp.array(fm, dtype=wp.float32, device=DEV), obs, ang).numpy()[0])
+        lm = forward_loss_value(wp.array(fm, dtype=wp.float32, device=DEV), obs, ang)
         fd = (lp - lm) / (2 * eps); ad = float(g[pi, pj]); rel = abs(ad - fd) / (abs(fd) + 1e-9)
         maxrel = max(maxrel, rel)
         print(f"  {str((pi, pj)):>12} {ad:>13.4e} {fd:>13.4e} {rel:>9.2e}")
@@ -171,8 +243,7 @@ def main():
     recon = f.numpy()
     sigma, cov = coverage_sigma()
     # principled σ: 1/sqrt(sensitivity) = Cramer-Rao variance proxy (diag A^T A)
-    cn = wp.zeros((N, N), dtype=wp.float32, device=DEV)
-    wp.launch(sensitivity, dim=(NA, ND), inputs=[cn, ang, N, ND, NS, T], device=DEV)
+    cn = sensitivity_map(ang)
     sens = cn.numpy()
     sigma_p = 1.0 / np.sqrt(sens + 1e-6)
     sigma_p = sigma_p / sigma_p.max()

@@ -85,6 +85,63 @@ def backproject(resid: wp.array3d(dtype=wp.float32), vol: wp.array3d(dtype=wp.fl
             wp.atomic_add(vol, i1, j1, k1, r * fx * fy * fz)
 
 
+# Order-invariant accumulation: backproject() scatters every ray sample into 8 voxels with float atomics, so
+# the sensitivity map and every SIRT update depend on the run-varying block order. Contributions are rounded
+# in float64 to an int64 fixed point, summed with integer atomics (associative), dequantised once.
+DETERMINISTIC_ACCUMULATION = True
+ACC_SCALE = 2.0 ** 35        # per voxel: <= NDIR*ND*ND*NS samples (2.5e6) x |r| <= 40 -> bound 1e8
+assert 1.0e8 * ACC_SCALE < 2.0 ** 62, "fixed-point overflow"
+
+
+@wp.kernel
+def backproject_i64(resid: wp.array3d(dtype=wp.float32), volq: wp.array3d(dtype=wp.int64),
+                    uu: wp.array(dtype=vec3), vv: wp.array(dtype=vec3), dd: wp.array(dtype=vec3),
+                    n: int, nd: int, ns: int, L: float, scale: wp.float64):
+    a, di, dj = wp.tid()
+    c = float(n - 1) * 0.5
+    cen = vec3(c, c, c)
+    su = (float(di) / float(nd - 1) - 0.5) * float(n) * 0.62
+    sv = (float(dj) / float(nd - 1) - 0.5) * float(n) * 0.62
+    base = cen + uu[a] * su + vv[a] * sv
+    r = wp.float64(resid[a, di, dj]) * scale
+    for s in range(ns):
+        t = (float(s) / float(ns - 1) - 0.5) * L
+        p = base + dd[a] * t
+        x = p[0]; y = p[1]; z = p[2]
+        if x >= 0.0 and y >= 0.0 and z >= 0.0 and x <= float(n - 1) and y <= float(n - 1) and z <= float(n - 1):
+            i = int(wp.floor(x)); j = int(wp.floor(y)); k = int(wp.floor(z))
+            i1 = wp.min(i + 1, n - 1); j1 = wp.min(j + 1, n - 1); k1 = wp.min(k + 1, n - 1)
+            fx = wp.float64(x - float(i)); fy = wp.float64(y - float(j)); fz = wp.float64(z - float(k))
+            gx = wp.float64(1.0) - fx; gy = wp.float64(1.0) - fy; gz = wp.float64(1.0) - fz
+            wp.atomic_add(volq, i, j, k, wp.int64(wp.round(r * gx * gy * gz)))
+            wp.atomic_add(volq, i1, j, k, wp.int64(wp.round(r * fx * gy * gz)))
+            wp.atomic_add(volq, i, j1, k, wp.int64(wp.round(r * gx * fy * gz)))
+            wp.atomic_add(volq, i1, j1, k, wp.int64(wp.round(r * fx * fy * gz)))
+            wp.atomic_add(volq, i, j, k1, wp.int64(wp.round(r * gx * gy * fz)))
+            wp.atomic_add(volq, i1, j, k1, wp.int64(wp.round(r * fx * gy * fz)))
+            wp.atomic_add(volq, i, j1, k1, wp.int64(wp.round(r * gx * fy * fz)))
+            wp.atomic_add(volq, i1, j1, k1, wp.int64(wp.round(r * fx * fy * fz)))
+
+
+@wp.kernel
+def dequant3(volq: wp.array3d(dtype=wp.int64), scale: wp.float64, vol: wp.array3d(dtype=wp.float32)):
+    i, j, k = wp.tid(); vol[i, j, k] = wp.float32(wp.float64(volq[i, j, k]) / scale)
+
+
+def backproject_value(resid, uu, vv, dd, L):
+    """Back-projected volume, order-invariant when DETERMINISTIC_ACCUMULATION."""
+    vol = wp.zeros((N, N, N), dtype=wp.float32, device=DEV)
+    if not DETERMINISTIC_ACCUMULATION:
+        wp.launch(backproject, dim=(NDIR, ND, ND), inputs=[resid, vol, uu, vv, dd, N, ND, NS, L], device=DEV)
+        return vol
+    volq = wp.zeros((N, N, N), dtype=wp.int64, device=DEV)
+    wp.launch(backproject_i64, dim=(NDIR, ND, ND),
+              inputs=[resid, volq, uu, vv, dd, N, ND, NS, L, wp.float64(ACC_SCALE)], device=DEV)
+    wp.launch(dequant3, dim=(N, N, N), inputs=[volq, wp.float64(ACC_SCALE), vol], device=DEV)
+    wp.synchronize()
+    return vol
+
+
 def directions():
     """K parallel-beam directions in a CONE around the equator (azimuth swept, polar≈90°±20°) → z under-sampled."""
     rng = np.random.default_rng(0)
@@ -122,8 +179,7 @@ def main():
 
     # sensitivity (coverage) = back-project ones → σ = 1/sqrt(coverage)
     ones = wp.array(np.ones((NDIR, ND, ND), np.float32), dtype=wp.float32, device=DEV)
-    sens = wp.zeros((N, N, N), dtype=wp.float32, device=DEV)
-    wp.launch(backproject, dim=(NDIR, ND, ND), inputs=[ones, sens, uu, vv, dd, N, ND, NS, L], device=DEV)
+    sens = backproject_value(ones, uu, vv, dd, L)
     sigma = 1.0 / np.sqrt(sens.numpy() + 1e-3); sigma /= sigma.max()
 
     # SIRT recovery — needs BOTH row (ray-length) and column (sensitivity) normalization or it overshoots/oscillates
@@ -138,8 +194,7 @@ def main():
         wp.launch(project, dim=(NDIR, ND, ND), inputs=[wp.array(u, dtype=wp.float32, device=DEV), proj,
                                                        uu, vv, dd, N, ND, NS, L], device=DEV)
         resid = wp.array(((obs.numpy() - proj.numpy()) / rsn).astype(np.float32), dtype=wp.float32, device=DEV)
-        upd = wp.zeros((N, N, N), dtype=wp.float32, device=DEV)
-        wp.launch(backproject, dim=(NDIR, ND, ND), inputs=[resid, upd, uu, vv, dd, N, ND, NS, L], device=DEV)
+        upd = backproject_value(resid, uu, vv, dd, L)
         u = np.clip(u + 1.0 * upd.numpy() / csn, 0, None).astype(np.float32)    # relax=1.0, row+col normalized
     rec = u
 
