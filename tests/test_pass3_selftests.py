@@ -41,9 +41,18 @@ def _cuda_available():
 CUDA = _cuda_available()
 
 
+# Gates that compare measured wall-clock crossovers; they can flip when the machine is loaded.
+# Such a module gets one re-run before its failure counts.
+TIMING_SENSITIVE = {"amr_poisson/poisson_dispatch.py"}
+
+
 def run(rel, timeout=600):
-    proc = subprocess.run([sys.executable, os.path.join(SRC, rel), *ARGS.get(rel, [])],
-                          cwd=SRC, capture_output=True, text=True, timeout=timeout)
+    attempts = 2 if rel in TIMING_SENSITIVE else 1
+    for i in range(attempts):
+        proc = subprocess.run([sys.executable, os.path.join(SRC, rel), *ARGS.get(rel, [])],
+                              cwd=SRC, capture_output=True, text=True, timeout=timeout)
+        if proc.returncode == 0:
+            return proc.stdout
     assert proc.returncode == 0, proc.stdout[-4000:] + proc.stderr[-4000:]
     return proc.stdout
 
