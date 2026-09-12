@@ -542,3 +542,63 @@ All four gates PASS; exact frozen forward. Full gradient hash
 is identical in both runs. Evidence: `reports/diff_wave_3d_gather_l4.json`.
 This closes the measured one-fixture wave3D gradient repeatability experiment,
 not all eight modules; no timing claim or default replacement.
+
+### Target 5 runtime segmented reduction, registered after baseline table
+
+Local Warp1.17 runtime inspection exposes RUN_TO_RUN mode: scatter records,
+sort by destination/thread, then fixed-order reduction, including generated
+backward kernels. A separate harness sets that mode before importing each frozen
+selftest, keeping the reference module list/normalizer and all original code.
+This tests runtime-provided machinery, not a new implementation of its algorithm.
+Use default record bounds; overflow or unsupported operations remain failures.
+
+Fixed gates: all eight selftests run twice, all normalized hashes identical,
+all returncodes0 and no runtime exceptions. Unchanged physics thresholds; flow
+control's known repeatable exit1 will still fail the all-zero-returncode gate.
+Do not call identical error traces successful determinism. Capability in the
+cloud package must be demonstrated, not inferred from its version string.
+No performance claim and no baseline/default modification.
+
+| module | status | evidence |
+|---|---|---|
+| `certified_kernels/innovation_runtime_adjoint.py` | VERIFIED-FRESH | L4 six/eight pairs exit0 and identical; flow-control repeatable exit1, tomography repeated RuntimeError; target FAIL despite matching hashes. |
+
+### Innovation target 6: frozen LBM stream mechanism before export design
+
+Measure the existing differentiable_lbm_probe.stream kernel, without collision,
+on512x512 and1024x1024 D2Q9 populations. Seed20260912, fixed wall mask and existing
+direction/opposite arrays. Compare every output byte against an independent CPU
+index/gather construction. Two isolated workers, two correctness launches each,
+then10 warmup +30 timed launches, both CUDA events and synchronized wall time.
+Strict empty-context guard before and after workers; no in-context device polling.
+Population read+write byte floor=72*N*N; direction/mask traffic and cache effects
+are excluded from that floor, so no peak-bandwidth fraction is claimed yet.
+
+Fixed instrument gates: exact CPU reference, identical repeated launch and worker
+hashes. Write the measured table before the native export design. The later C-host
+export gate remains exact bytes and bandwidth ratio within10% of the Warp launch.
+No baseline or tolerance changes; no foreign-engine integration claimed.
+
+| module | status | evidence |
+|---|---|---|
+| `kernel_gen/innovation_lbm_stream_baseline.py` | CUDA-ONLY | Two-size/two-worker frozen stream measurement registered; queued after current adjoint job. |
+
+Measured runtime-mode table, L4, two runs:
+
+| module | exit codes | identical hashes | exceptions |
+|---|---|---|---|
+| lbm/differentiable_flow_control | 1/1 | True | none |
+| lbm/differentiable_lbm_probe | 0/0 | True | none |
+| lbm/differentiable_fsi_chain | 0/0 | True | none |
+| lbm/lbm3d_immersed_boundary | 0/0 | True | none |
+| wave_fdtd/diff_wave_3d | 0/0 | True | none |
+| wave_fdtd/diff_wave_substrate | 0/0 | True | none |
+| wave_fdtd/xray_tomography_sigma | 1/1 | True | RuntimeError |
+| wave_fdtd/xray_3d_dda | 0/0 | True | none |
+
+Evidence: `reports/innovation_runtime_adjoint_l4.json`. Six/eight pairs pass both
+returncode and identity; FSI and both waves now reproduce. Flow control retains
+its physical exit1. Tomography produces matching RuntimeError traces: NOT a
+successful determinism result. All-eight successful completion remains open.
+A bounded single-worker diagnostic will expose its runtime failure before any
+record-capacity adjustment; default bounds and all tolerances remain unchanged.

@@ -584,3 +584,5 @@ adds an int64 fixed-point accumulation path behind a module-level `DETERMINISTIC
 
 | `certified_kernels/innovation_adjoint_baseline.py` | Add separate frozen-site/eight-selftest observer retaining returncodes, exact stdout hashes and aligned numeric deltas. | Measure all adjoint-carrying cases before design without changing the existing sweep or exemptions. |
 | `wave_fdtd/diff_wave_3d_gather.py` | Add separate one-writer gather adjoint with frozen forward kernels, explicit history and whole-gradient/FD gates. | Address the measured wave3D backward nondeterminism without modifying its reference. |
+| `certified_kernels/innovation_runtime_adjoint.py` | Add separate process harness selecting runtime RUN_TO_RUN before frozen-module imports, with exact text and strict error gates. | Test available segmented adjoint machinery against the measured baseline without editing reference modules. |
+| `kernel_gen/innovation_lbm_stream_baseline.py` | Add frozen D2Q9 stream measurement with independent CPU index oracle, two isolated workers and event/wall timings. | Establish the memory mechanism before a C-host export design. |
