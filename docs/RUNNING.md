@@ -602,3 +602,29 @@ its physical exit1. Tomography produces matching RuntimeError traces: NOT a
 successful determinism result. All-eight successful completion remains open.
 A bounded single-worker diagnostic will expose its runtime failure before any
 record-capacity adjustment; default bounds and all tolerances remain unchanged.
+
+### Target 5 tomography record bound, registered before completed execution
+
+The isolated L4 diagnostic fails in `project` backward with deterministic scatter
+buffer overflow: default capacity yields zero completed selftests. Source mechanism:
+110 samples per ray/thread, four bilinear field reads per sample, therefore at most
+440 field-gradient records per thread. This is an allocation bound, not a numeric
+tolerance. The separate bounded wrapper sets capacity440 before module creation;
+the default-mode comparator and frozen tomography source remain unchanged.
+
+Fixed gates: two normalized outputs exactly identical; both original selftests
+return0 (FD<0.05, covered error<0.25, monotonic quartiles and band>2 unchanged);
+no runtime exceptions; all three printed metrics present. Overflow remains a hard
+failure. Printed-output identity does not certify every hidden gradient byte.
+An initial submission was aborted during setup because the documentation append
+used the wrong working directory. Zero completed measurements from that submission
+are accepted; this registered text precedes the replacement submission.
+
+| module | status | evidence |
+|---|---|---|
+| `certified_kernels/innovation_tomography_record_bound.py` | VERIFIED-FRESH | L4 capacity440: two exit0 and exact output hashes; FD4.41e-5, covered error5.85%, quartile ratio4.0; original gates PASS. |
+
+Bounded tomography evidence: `reports/innovation_tomography_record_bound_l4.json`.
+Both normalized hashes `13ef262907a11b88666150abc33db30ff14d74fb66ed4aeae5ecf9b83f2ec693`.
+Default overflow remains a measured failure; seven/eight successful pairs are now
+observed across the separate runs. No throughput or hidden-array identity claim.

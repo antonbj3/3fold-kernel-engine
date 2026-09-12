@@ -1,0 +1,34 @@
+{
+  "runtime_mode": "RUN_TO_RUN",
+  "max_records": 440,
+  "derivation": "4 bilinear field reads per sample * 110 samples per ray/thread",
+  "legs": [
+    {
+      "returncode": 0,
+      "sha256": "13ef262907a11b88666150abc33db30ff14d74fb66ed4aeae5ecf9b83f2ec693",
+      "exception_classes": [],
+      "printed_metrics": {
+        "printed_max_fd_relative_error": 4.41e-05,
+        "printed_covered_error_percent": 5.85,
+        "printed_quartile_error_ratio": 4.0
+      }
+    },
+    {
+      "returncode": 0,
+      "sha256": "13ef262907a11b88666150abc33db30ff14d74fb66ed4aeae5ecf9b83f2ec693",
+      "exception_classes": [],
+      "printed_metrics": {
+        "printed_max_fd_relative_error": 4.41e-05,
+        "printed_covered_error_percent": 5.85,
+        "printed_quartile_error_ratio": 4.0
+      }
+    }
+  ],
+  "gates": {
+    "two_normalized_outputs_identical": true,
+    "both_original_selftests_pass": true,
+    "no_runtime_exceptions": true,
+    "all_metrics_present": true
+  },
+  "performance_measured": false
+}
