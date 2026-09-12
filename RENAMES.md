@@ -349,3 +349,34 @@ prefix removed; the source column above carries the original file name, so the m
 | `src/kernel_engine/lbm/gpu_lbm_luftflode_v1.py` | four boundary-condition/forcing comment blocks, one env-var comment, one ValueError message, one progress print string (identifiers `steg`/`andel`/`namn` and the history keys left unchanged) |
 | `src/kernel_engine/warp_gpu/warp_rigid_ramp_gpu_v2.py` | one inline comment |
 | `examples/kernelvarv_v2.json` | the prose `winner` value (variant names unchanged) |
+
+## Files copied in the dataset follow-up (destination -> source path relative to the platform repository root)
+
+Twelve modules that the second pass had deferred for a missing measured dataset. The datasets are now in
+`data/` (git-ignored, see docs/RUNNING.md "Real datasets").
+
+| in this repository | source |
+| --- | --- |
+| src/kernel_engine/certified_kernels/apriori_requirement_cert_on_real_kernelbench.py | scripts/physics_exp/apriori_requirement_cert_on_real_kernelbench.py |
+| src/kernel_engine/certified_kernels/kernelbench_addressing_census_provenance_gate_absent.py | scripts/physics_exp/kernelbench_addressing_census_provenance_gate_absent.py |
+| src/kernel_engine/thermo/p8_combustion_cert_pod_a90.py | scripts/physics_exp/p8_combustion_cert_pod_a90.py |
+| src/kernel_engine/thermo/p8_combustion_cert_watertight.py | scripts/physics_exp/p8_combustion_cert_watertight.py |
+| src/kernel_engine/thermo/p8_combustion_state_certification.py | scripts/physics_exp/p8_combustion_state_certification.py |
+| src/kernel_engine/thermo/p8_delft_conditional_variance.py | scripts/physics_exp/p8_delft_conditional_variance.py (dependency: `cond_stats`) |
+| src/kernel_engine/thermo/p8_delft_flamelet_render_match.py | scripts/physics_exp/p8_delft_flamelet_render_match.py (dependency: `dng_streams`) |
+| src/kernel_engine/thermo/p8_delft_species_flamelet.py | scripts/physics_exp/p8_delft_species_flamelet.py (dependency: `load_scatter`) |
+| src/kernel_engine/thermo/p8_ecn_combustion_energy.py | scripts/physics_exp/p8_ecn_combustion_energy.py |
+| src/kernel_engine/thermo/p8_flame_mixture_fraction_render_match.py | scripts/physics_exp/p8_flame_mixture_fraction_render_match.py (dependency: `burke_schumann`) |
+| src/kernel_engine/thermo/p8_sandia_extinction_flamelet_breakdown.py | scripts/physics_exp/p8_sandia_extinction_flamelet_breakdown.py (dependency: `load_yall`) |
+| src/kernel_engine/wave_fdtd/acoustic_sigma_renderer.py | scripts/acoustic_sigma_renderer.py |
+
+## Deliberate code changes in the dataset follow-up
+
+| file | change |
+| --- | --- |
+| all twelve | absolute platform dataset paths replaced by `data/<slug>/...` resolved from the repository root via `__file__` |
+| all twelve | a stand-in input path: when the slug directory is absent the module prints `SYNTHETIC INPUT` and runs the same pipeline on generated input (flamelet manifold with turbulent noise and an extinguished branch; a constant-volume pressure trace; KernelBench-form single-op modules; bearing vibration as broadband noise plus a defect-frequency impulse train) |
+| `certified_kernels/apriori_requirement_cert_on_real_kernelbench.py` | module docstring rewritten to behaviour + I/O + gates; session/adjudication prose removed from the prints and from the `claim`/`honest_scope`/`provenance` JSON fields; evidence written to `artifacts/` instead of `reports/`; corpus iteration moved into `iter_level1()` |
+| `certified_kernels/kernelbench_addressing_census_provenance_gate_absent.py` | same three edits; `iter_corpus()` falls back to the stand-in corpus; JSON key `cell` -> `module`, gate key `G3_grounds_D_residual` -> `G3_input_keyed_not_testable_on_this_corpus` |
+| `wave_fdtd/acoustic_sigma_renderer.py` | Swedish docstring, comments, printed strings and verdict text translated; the hard-coded per-bearing counts in the closing verdict replaced by the computed values; the fail-loud data-availability check kept for the real-data branch |
+| the nine `thermo/p8_*.py` | run-command line in the docstring reduced to `python3 <file>`; cross-cell references and bracketed doc links removed |

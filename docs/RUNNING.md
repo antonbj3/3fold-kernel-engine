@@ -55,6 +55,8 @@ SYNTHETIC-ONLY = the method was demonstrated on private input, and it ships with
 | src/kernel_engine/certified_kernels/d_avbd_gpu_certified_roofline.py | CUDA-ONLY |
 | src/kernel_engine/certified_kernels/d_coupled_knob_ordering_advantage_real_cuda.py | CUDA-ONLY |
 | src/kernel_engine/certified_kernels/d_cuda_transcendental_parity.py | CUDA-ONLY |
+| src/kernel_engine/certified_kernels/apriori_requirement_cert_on_real_kernelbench.py | VERIFIED-FRESH |
+| src/kernel_engine/certified_kernels/kernelbench_addressing_census_provenance_gate_absent.py | VERIFIED-FRESH |
 | src/kernel_engine/certified_kernels/d_ensemble_coexecution_cert_contended_roofline.py | VERIFIED-FRESH |
 | src/kernel_engine/certified_kernels/d_r2_r4_dissociation_real_cuda.py | CUDA-ONLY |
 | src/kernel_engine/certified_kernels/d_roofline_scene_eye.py | VERIFIED-FRESH |
@@ -189,6 +191,15 @@ SYNTHETIC-ONLY = the method was demonstrated on private input, and it ships with
 | src/kernel_engine/thermo/ising_thermo.py | VERIFIED-FRESH |
 | src/kernel_engine/thermo/joule_heating_thermal.py | VERIFIED-FRESH |
 | src/kernel_engine/thermo/kapitza_acoustic_mismatch.py | VERIFIED-FRESH |
+| src/kernel_engine/thermo/p8_combustion_cert_pod_a90.py | VERIFIED-FRESH |
+| src/kernel_engine/thermo/p8_combustion_cert_watertight.py | VERIFIED-FRESH |
+| src/kernel_engine/thermo/p8_combustion_state_certification.py | VERIFIED-FRESH |
+| src/kernel_engine/thermo/p8_delft_conditional_variance.py | VERIFIED-FRESH |
+| src/kernel_engine/thermo/p8_delft_flamelet_render_match.py | VERIFIED-FRESH |
+| src/kernel_engine/thermo/p8_delft_species_flamelet.py | VERIFIED-FRESH |
+| src/kernel_engine/thermo/p8_ecn_combustion_energy.py | VERIFIED-FRESH |
+| src/kernel_engine/thermo/p8_flame_mixture_fraction_render_match.py | VERIFIED-FRESH |
+| src/kernel_engine/thermo/p8_sandia_extinction_flamelet_breakdown.py | VERIFIED-FRESH |
 | src/kernel_engine/thermo/photoelasticity_isochromatics.py | VERIFIED-FRESH |
 | src/kernel_engine/thermo/photon_diffusion_escape.py | VERIFIED-FRESH |
 | src/kernel_engine/thermo/saffman_delbruck_diffusion.py | VERIFIED-FRESH |
@@ -237,6 +248,7 @@ SYNTHETIC-ONLY = the method was demonstrated on private input, and it ships with
 | src/kernel_engine/warp_gpu/warp_rigid_ramp_gpu_v2.py | CUDA-ONLY |
 | src/kernel_engine/warp_gpu/warp_rl_env_gpu.py | CUDA-ONLY |
 | src/kernel_engine/wave_fdtd/acoustic_emission.py | VERIFIED-FRESH |
+| src/kernel_engine/wave_fdtd/acoustic_sigma_renderer.py | SYNTHETIC-ONLY |
 | src/kernel_engine/wave_fdtd/acoustic_fdtd.py | VERIFIED-FRESH |
 | src/kernel_engine/wave_fdtd/diag_acoustic_mode.py | VERIFIED-FRESH |
 | src/kernel_engine/wave_fdtd/diag_acoustic_seed.py | VERIFIED-FRESH |
@@ -259,5 +271,50 @@ SYNTHETIC-ONLY = the method was demonstrated on private input, and it ships with
 | src/kernel_engine/wave_fdtd/wave_fdtd_kache.py | VERIFIED-FRESH |
 | src/kernel_engine/wave_fdtd/wave_fdtd_verify.py | VERIFIED-FRESH |
 
-231 modules: 169 VERIFIED-FRESH, 60 CUDA-ONLY, 2 SYNTHETIC-ONLY.
+243 modules: 180 VERIFIED-FRESH, 60 CUDA-ONLY, 3 SYNTHETIC-ONLY.
 
+
+## Real datasets
+
+The dataset files go in `data/<slug>/` at the repository root. `data/` is in `.gitignore` and nothing under it ships
+with the repository; each slug below names the public source and the exact files a module opens, so the runs recorded
+below can be reproduced. Sizes are what the 2026-09-12 run used (160 MB total); the upstream datasets are larger, only
+the files named here are needed. When a slug directory is absent the module prints `SYNTHETIC INPUT` and runs the same
+pipeline on generated input.
+
+| slug | public source | files needed | size | modules |
+| --- | --- | --- | --- | --- |
+| tnf-flames | TNF Workshop archives, tnfworkshop.org: Sandia piloted flames C-F (`pmCDEF.zip`) and Delft Flame III (`DATA_BASE_DELFT_FLAME_III_April_2003.zip`) | `pmCDEF.zip` (7.7 MB), `DATA_BASE_DELFT_FLAME_III_April_2003.zip` (170 KB) | 7.9 MB | p8_flame_mixture_fraction_render_match, p8_sandia_extinction_flamelet_breakdown, p8_delft_flamelet_render_match, p8_delft_species_flamelet, p8_delft_conditional_variance, p8_combustion_state_certification, p8_combustion_cert_pod_a90, p8_combustion_cert_watertight |
+| ecn-spray-a | Engine Combustion Network Spray A, ecn.sandia.gov (constant-volume pressure traces) | `press_reacting.txt` | 671 KB | p8_ecn_combustion_energy |
+| kernelbench | KernelBench, github.com/ScalingIntelligence/KernelBench (MIT), ICML 2025 | `level1/*.py` (100), `level2/*.py` (100), `level3/*.py` (50), `level4/*.py` (20) | 1.2 MB | apriori_requirement_cert_on_real_kernelbench (level1), kernelbench_addressing_census_provenance_gate_absent (all four levels) |
+| paderborn_kat_severity | Paderborn University KAt bearing data centre, mb.uni-paderborn.de (KAt-DataCenter) | `<code>/N15_M07_F10_<code>_*.mat` for the nine codes K001, KA01, KI01, K002, KA03, KI03, K003, KA04, KI04 (6 records each); only K001, KA01, KI01 are present here | 150 MB | acoustic_sigma_renderer (SYNTHETIC-ONLY, see below) |
+
+Real-data results reproduced in this repository on 2026-09-12 (CPU, `.venv-kernel`):
+
+- `p8_flame_mixture_fraction_render_match`: Sandia D30.Ycnd, ξ_st = 0.352 vs measured T-peak at ξ = 0.381; Burke-Schumann
+  over-predicts the peak T by 12%; peak 2022 K against ~300 K frozen mixing.
+- `p8_sandia_extinction_flamelet_breakdown`: conditional T rel-RMS at ξ_st D 0.047 -> E 0.059 -> F 0.219 (n = 9317 / 8576 /
+  10345 samples), monotone, F is 4.7x worse than D.
+- `p8_delft_flamelet_render_match`: DNG ξ_st = 0.072 vs measured T-peak ξ = 0.070; B-S over-predicts the peak by 1.29x;
+  lean-side NRMSE 18%.
+- `p8_delft_species_flamelet`: H2O peaks at ξ = 0.080 (ξ_st 0.072), lean-branch NRMSE 10%, B-S/measured peak ratio 1.28.
+- `p8_delft_conditional_variance`: H2O bulk median rel-RMS 0.24; at ξ_st CO 0.64 vs H2O 0.33.
+- `p8_ecn_combustion_energy`: Δp = 0.39 bar (cross-checked against the 0.25 bar absolute-column rise), ΔQ = 142 J vs fuel
+  energy 166 J, η_c = 0.85, identifiability range [0.48, 1.55].
+- `p8_combustion_state_certification`: 3 scalars x 6 ξ-bins = 18 constraints; RMS-z D 0.0 -> E 0.3 -> F 2.0σ; in F the
+  temperature is 3.6x further off the manifold than CO.
+- `p8_combustion_cert_pod_a90`: a90 = 1.18σ per constraint at 5% false-alarm; POD 0.05 for burning D, 1.00 for extinction F.
+- `p8_combustion_cert_watertight`: RMS-z vs Reynolds number correlation 0.94, monotone D 0.0 < E 0.3 < F 2.0σ, T/CO
+  decoupling 3.6x in F.
+- `apriori_requirement_cert_on_real_kernelbench`: 89 of 100 level-1 problems parsed, 0 input-keyed, all structural ->
+  computed a-priori; histogram worst case 256x its uniform typical.
+- `kernelbench_addressing_census_provenance_gate_absent`: 270 kernels (100/100/50/20), input-keyed write count 0 on all
+  three paths; the injected bincount control routes to `distributional` and abstains.
+
+`acoustic_sigma_renderer` stays SYNTHETIC-ONLY: the archive copy holds only the three TRAIN bearing codes, so the module's
+own data-availability gate would refuse the real run with
+
+    RuntimeError: DEGENERATE CALIB SET -- missing bearing .mat files for ['K002', 'KA03', 'KI03'] (CALIB collected 0
+    samples). Re-fetch data/paderborn_kat_severity/ before trusting this script's output.
+
+It ships with the stand-in signal generator instead; no tolerance in it was changed.
