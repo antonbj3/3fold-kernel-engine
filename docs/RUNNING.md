@@ -781,3 +781,47 @@ Evidence: reports/optix_sample_proof_sdk90.json and optix_sample_1.ppm/2.ppm.
 The toolchain is ready for a separate ray-query mechanism table. No shared field,
 motion or photon RT backend has yet been implemented, and no Euclidean distance,
 ray parity, fluence, SER or throughput comparison is implied by this triangle.
+
+## Signed RT winding candidate: design after contract measurement
+
+The field contract probe (field commit6b20bad) measured2520 parity mismatches for
+an overlapping box soup and512 for a nested soup. A vertical ray hit distance2
+also differs from nearest face distance0.25. Accordingly this separate native
+candidate uses built-in triangle traversal with any-hit signed-normal summation,
+not parity, and exports int32 winding counts. The host field adapter retains the
+frozen EDT and half-pitch correction. This is a winding seam, not a true-distance
+backend. Triangle/ray inputs are float32; precision losses are measured rather
+than hidden. Each primitive requests one any-hit invocation per trace; every hit
+is ignored after accumulation so traversal continues. Hits at ray parameter0
+are excluded, preserving the strict-above boundary convention in real arithmetic.
+
+Preregistered correctness gates, before native execution: two independent process
+runs return0; complete winding arrays repeat exactly; occupancy matches the frozen
+CPU path at every voxel in all five contract fixtures; complete reconstructed
+float32 EDT arrays match the frozen arrays; no current-boot Xid. No tolerance,
+timing claim, automatic retry, default promotion or true-distance claim. SDK and
+compiler are external inputs. The caller holds one shared GPU lock.
+
+Native signed RT winding v1 result: all five fixed gates PASS. Ten independent
+process runs return0; current-boot guards observe no fault. The five complete
+int32 winding arrays repeat exactly and their EDT outputs reproduce every frozen
+float32 sample. This covers these synthetic fixtures only.
+
+| case | voxels | occupancy mismatches, both legs | distance mismatches, both legs | full winding repeat |
+|---|---|---|---|---|
+| box | 9261 | 0 / 0 | 0 / 0 | exact |
+| offset | 10648 | 0 / 0 | 0 / 0 | exact |
+| reversed | 9261 | 0 / 0 | 0 / 0 | exact |
+| overlap | 12650 | 0 / 0 | 0 / 0 | exact |
+| nested | 9261 | 0 / 0 | 0 / 0 | exact |
+
+Evidence: field artifacts/field_rt_winding_v1.json and matching full-array NPZ.
+No throughput, general-mesh, float64 equivalence, true-distance or integration
+claim. Next: non-axis-aligned and scale/translation precision stress before timing.
+
+| module | status | evidence |
+|---|---|---|
+| `kernel_gen/rt_winding_v1/params.h` | SYNTHETIC-ONLY | Native build0; field integration probe five gates PASS on ten process runs, zero mask/EDT differences. |
+| `kernel_gen/rt_winding_v1/program.cu` | SYNTHETIC-ONLY | Native build0; field integration probe five gates PASS on ten process runs, zero mask/EDT differences. |
+| `kernel_gen/rt_winding_v1/host.cpp` | SYNTHETIC-ONLY | Native build0; field integration probe five gates PASS on ten process runs, zero mask/EDT differences. |
+| `kernel_gen/rt_winding_v1/build.sh` | SYNTHETIC-ONLY | Native build0; field integration probe five gates PASS on ten process runs, zero mask/EDT differences. |

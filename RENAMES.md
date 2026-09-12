@@ -595,3 +595,7 @@ adds an int64 fixed-point accumulation path behind a module-level `DETERMINISTIC
 | `kernel_gen/stream_export_v1/host_stream.c` | Add gcc-compiled C11 raw-input/output caller. | Demonstrate an actual C host rather than only a C++ declaration. |
 | `kernel_gen/stream_export_v1/build.sh` | Add separate gcc/nvcc build using existing licensed headers and explicit architecture. | Keep the prior reduction export and build frozen. |
 | `kernel_gen/optix_sample_probe.py` | Add a two-run headless external SDK sample probe with exact image bytes, nontrivial pixel gates and an optional current-boot fault guard. | Establish the installed RT toolchain before designing a shared backend; no SDK source or binary is vendored. |
+| `kernel_gen/rt_winding_v1/params.h` | Add native launch-parameter seam for triangle corners, ray origins and signed winding output. | Share a minimal host/device ABI beside existing exports. |
+| `kernel_gen/rt_winding_v1/program.cu` | Add built-in triangle any-hit signed winding, one invocation per primitive and strict positive ray parameter. | Preserve measured winding semantics instead of parity. |
+| `kernel_gen/rt_winding_v1/host.cpp` | Add bounded single-shot raw-fixture caller, GAS build and independent output arrays. | Execute the new backend without modifying Warp comparators. |
+| `kernel_gen/rt_winding_v1/build.sh` | Add external SDK/toolkit build with no vendored SDK files. | Reuse the measured compatible toolchain. |
