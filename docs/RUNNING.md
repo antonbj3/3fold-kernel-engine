@@ -674,10 +674,10 @@ result does not establish integration into a separate decode engine.
 
 | module | status | evidence |
 |---|---|---|
-| `kernel_gen/innovation_lbm_stream_export.py` | CUDA-ONLY | Separate C host/generated stream export ready for registered two-leg L4 correctness and bandwidth gates. |
-| `kernel_gen/stream_export_v1/stream_generated.cu` | CUDA-ONLY | Frozen forward operations exported; execution and exact-output comparison pending. |
-| `kernel_gen/stream_export_v1/stream_shim.cu` | CUDA-ONLY | Native C ABI with repeated-output and event/wall measurement prepared; pending execution. |
-| `kernel_gen/stream_export_v1/host_stream.c` | CUDA-ONLY | C11 host prepared for offline build and two-run execution. |
+| `kernel_gen/innovation_lbm_stream_export.py` | VERIFIED-FRESH | L4 all output bytes exact twice;1024 bandwidth ratio1.002739/1.002741 PASS;512 ratio1.890411/1.924847 FAIL fixed10% band. |
+| `kernel_gen/stream_export_v1/stream_generated.cu` | VERIFIED-FRESH | L4 generated body matches frozen Warp; both512/1024 outputs exact CPU/Warp bytes twice. |
+| `kernel_gen/stream_export_v1/stream_shim.cu` | VERIFIED-FRESH | L4 native event1024 .348877/.348672ms; exact outputs, both repeated launches identical. |
+| `kernel_gen/stream_export_v1/host_stream.c` | VERIFIED-FRESH | L4 actual gcc C11 caller built and ran twice per size; all output bytes exact; no Warp runtime linked. |
 
 Measured composed sweep, L4: all8/8 normalized selftest hashes match twice,
 0 runtime exceptions,7/8 original selftests exit0. Flow control alone exits1/1
@@ -687,3 +687,20 @@ explicit runtime/bound configuration; all-eight physical success is NOT met.
 Evidence: `reports/innovation_runtime_bounded_sweep_l4.json`. Hidden full arrays
 remain outside this sweep's scope; only the separate wave3D gather experiment
 checks its whole gradient and forward arrays. No defaults are promoted.
+
+Measured native export table, L4, same payload floor and isolated idle guards:
+
+| side | Warp event ms1/2 | C-host event ms1/2 | C-host wall ms1/2 | native/Warp bandwidth1/2 | fixed band |
+|---|---|---|---|---|---|
+| 512 | 0.0423936/0.0428373 | 0.0224256/0.0222549 | 0.0227301/0.0225956 | 1.890411/1.924847 | FAIL |
+| 1024 | 0.349833/0.349628 | 0.348877/0.348672 | 0.349258/0.349026 | 1.002739/1.002741 | PASS |
+
+All full outputs exact against the independent CPU construction and frozen Warp
+hashes; native and Warp repeats identical. The bandwidth-oriented1024 case meets
+the original10% target. The small case is faster but OUTSIDE the preregistered
+symmetric band, so the combined gate and harness FAIL (exit1). No tolerance was
+relaxed to reinterpret a speedup as a pass. Evidence:
+`reports/innovation_lbm_stream_export_l4.json`. Hypothesis, not measured attribution:
+Python submission gaps may dominate the small event interval; cache reuse also
+prevents treating its payload rate as DRAM throughput. Next mechanism test would
+compare captured launch batches. No external decode-engine integration yet.
