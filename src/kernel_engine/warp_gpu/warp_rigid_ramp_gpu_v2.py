@@ -29,7 +29,7 @@ def step_box_v2(xc: wp.array(dtype=wp.vec3), q: wp.array(dtype=wp.quat), vc: wp.
         for k in range(8):
             jnb[i, k] = 0.0; jt1b[i, k] = 0.0; jt2b[i, k] = 0.0
     for k in range(8):
-        jpb[i, k] = 0.0                                      # position-pass alltid per-steg
+        jpb[i, k] = 0.0                                      # position pass always per step
     for it in range(vit):
         for k in range(8):
             cx = float((k >> 2) & 1) - 0.5; cy = float((k >> 1) & 1) - 0.5; cz = float(k & 1) - 0.5

@@ -121,7 +121,7 @@ def main():
     rel_f = abs(f_meas - f1) / f1
     Earr = np.array(energies); edrift = float(np.abs(Earr - E0).max() / E0)
 
-    print(f"  Newmark: dt={dt:.2e}s, {nstep} steg ({N_PERIODS} perioder)")
+    print(f"  Newmark: dt={dt:.2e}s, {nstep} steps ({N_PERIODS} periods)")
     print(f"  (1) FFT frequency {f_meas:.2f} Hz vs modal f1 {f1:.2f} Hz -> relative error {rel_f:.2e} (tol {TOL_FREQ})")
     print(f"  (2) energi-drift max|E−E₀|/E₀ = {edrift:.2e} (tol {TOL_ENERGY})")
     ok = rel_f < TOL_FREQ and edrift < TOL_ENERGY

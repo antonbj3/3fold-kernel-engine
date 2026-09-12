@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""LBM GPU FP16 HALF2-PACKED (★OUTCLASS steg 2b) — REBUT/CONFIRM "Warp cannot coalesce 16-bit loads".
+"""LBM GPU FP16 HALF2-PACKED (★OUTCLASS step 2b) — REBUT/CONFIRM "Warp cannot coalesce 16-bit loads".
 
 BACKGROUND: lbm_gpu_fp16.py stores the 9 D2Q9 deviation populations as wp.array3d(dtype=wp.float16)
 in SoA layout (9,nx,ny). Measured ~6449 MLUPS = NO gain over FP32 fused (7345). HYPOTHESIS for the missing
@@ -213,7 +213,7 @@ def main():
           f"{'no worse than plain-FP16 accuracy (same deviation trick)' if V_ok else 'degraded'}  [steady@{st}, res={rs:.1e}]")
 
     # ── THROUGHPUT-SVEP: half2 vs plain-FP16 (~6449) vs FP32-fused (~7345) ──
-    print(f"\nTHROUGHPUT (half2-packed, 400 steg fixed):")
+    print(f"\nTHROUGHPUT (half2-packed, 400 steps fixed):")
     best = 0.0; rows = []
     for n in [512, 1024, 2048, 4096]:
         bsolid = np.zeros((n, n), bool); bsolid[:, 0] = True; bsolid[:, -1] = True

@@ -172,8 +172,8 @@ def main():
 
     def optimize(use_compliance):
         # PROJECTED GRADIENT (not OC): OC assumes a negative sensitivity (compliance); an ARBITRARY objective has
-        # BLANDAT-tecken kors-energi-sensitivitet → OC oscillerar (verifierat). Move-limiterat normaliserat
-        # steg + volym-projektion (Lagrange-skift via bisection) hanterar blandat tecken stabilt/monotont.
+        # MIXED-sign cross-energy sensitivity -> OC oscillates (verified). A move-limited normalised
+        # step + volume projection (Lagrange shift via bisection) handles mixed signs stably/monotonically.
         x = np.full(ncell, VOLFRAC); hist = []; maxres = 0.0
         for it in range(N_ITER):
             rho.dof_values.assign(x.astype(np.float32))

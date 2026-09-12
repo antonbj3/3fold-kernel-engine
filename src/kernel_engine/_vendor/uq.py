@@ -50,7 +50,7 @@ def shuffle_margin(y_true, y_pred, n_shuffle: int = 25, seed: int = 0,
     O(n_shuffle) INDEPENDENT of n, so it scales to trajectories / rollouts. The
     principle: a cheap gate that catches false-positive signal on EVERY world model.
 
-    y_true, y_pred: (N,) eller (N, d). n_shuffle slumpade radpermutationer av y_true.
+    y_true, y_pred: (N,) or (N, d). n_shuffle random row permutations of y_true.
     """
     yt = np.asarray(y_true, dtype=float)
     yp = np.asarray(y_pred, dtype=float)

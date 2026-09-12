@@ -155,7 +155,7 @@ def lbm_gpu(nx, ny, tau, solid_np, max_steps=200000, gforce=0.0, u_in=0.0, tol=1
             res = float(np.max(np.abs(uxn - ux_prev)) / (np.max(np.abs(uxn)) + 1e-30))
             ux_prev = uxn.copy()
             if verbose and (it % (check * 20) == 0):
-                print(f"      [{verbose} GPU] steg {it:>7}  res={res:.2e}", flush=True)
+                print(f"      [{verbose} GPU] step {it:>7}  res={res:.2e}", flush=True)
             if res < tol:
                 break
     wp.synchronize(); dt = time.time() - t0
@@ -204,7 +204,7 @@ def main():
     l2 = float(np.sqrt(np.mean((prof[inner] - u_ana[inner]) ** 2)) / (u_ana.max() + 1e-30)) * 100
     umax_lbm, umax_ana = float(prof.max()), float(u_ana.max())
     A_ok = l2 < 3.0 and abs(umax_lbm - umax_ana) / umax_ana < 0.03
-    print(f"\nA. POISEUILLE GPU (kanal {nx}×{ny}, τ={tau}): vs ANALYTISK parabel  [steady@{st} steg, res={rs:.1e}]")
+    print(f"\nA. POISEUILLE GPU (channel {nx}×{ny}, τ={tau}): vs ANALYTIC parabola  [steady@{st} steps, res={rs:.1e}]")
     print(f"   u_max GPU {umax_lbm:.3e} vs analytisk {umax_ana:.3e} ({abs(umax_lbm-umax_ana)/umax_ana*100:.1f}%); L2 {l2:.1f}% "
           f"{'✓ GPU-LBM = analytisk Navier-Stokes' if A_ok else '✗'}")
 
@@ -240,7 +240,7 @@ def main():
     # C = KVALITATIV recirkulation (reverse-flow + symmetrisk steady-wake). L/D = DIAGNOSTIK: 17%-blockage KONFINERAR
     # -> shortens the bubble vs UNCONFINED Taneda 0.05.Re (the wrong reference for a confined sim) + not fully converged (res>tol).
     C_ok = (min_wake < -1e-5) and asym < 0.05 and np.isfinite(ux2).all()
-    print(f"\nC. STEADY recirkulation GPU (D={2*cr}, Re≈{re:.0f}, blockage 17%)  [@{st2} steg, res={rs2:.1e}, {ml2:.0f} MLUPS]")
+    print(f"\nC. STEADY recirculation GPU (D={2*cr}, Re≈{re:.0f}, blockage 17%)  [@{st2} steps, res={rs2:.1e}, {ml2:.0f} MLUPS]")
     print(f"   reverse-flow min ux = {min_wake:+.5f} {'recirculation bubble captured' if min_wake < -1e-5 else 'no'}; asymmetry {asym*100:.1f}% {'steady-symmetric' if asym < 0.05 else 'no'}")
     print(f"   [diagnostic] L/D = {Lrec:.2f} vs UNCONFINED Taneda 0.05.Re = {Lrec_lit:.2f} - confinement (17% blockage) shortens the bubble and it is not fully converged; the quantitative aero anchor is the Strouhal number (gate D)")
 
@@ -253,11 +253,11 @@ def main():
     # a small asymmetry in cylinder position is NOT needed - float noise seeds shedding; probe off-axis behind
     sRe = SU * (2 * scr) / ((stau - 0.5) / 3.0)
     series, sml = measure_strouhal(snx, sny, stau, swalls, SU, px=scx + 6 * scr, py=scy + scr, total_steps=120000, warmup=40000, sample=20)
-    # FFT → dominant shedding-frekvens
+    # FFT -> dominant shedding frequency
     sig = series - series.mean()
     if len(sig) > 16 and np.std(sig) > 1e-6:
         win = np.hanning(len(sig)); spec = np.abs(np.fft.rfft(sig * win))
-        freqs = np.fft.rfftfreq(len(sig), d=20.0)          # frekvens i 1/steg (sample-intervall=20 steg)
+        freqs = np.fft.rfftfreq(len(sig), d=20.0)          # frequency in 1/step (sample interval = 20 steps)
         kpk = 1 + int(np.argmax(spec[1:]))
         f_shed = float(freqs[kpk])
         St = f_shed * (2 * scr) / SU
@@ -266,8 +266,8 @@ def main():
     St_roshko = 0.212 * (1.0 - 21.2 / sRe)                 # Roshko 1954: St=0.212(1−21.2/Re), Re 50–150
     D_ok = abs(St - St_roshko) < 0.03 and St > 0.1
     print(f"\nD. ★VON KÁRMÁN SHEDDING GPU (D={2*scr}, Re≈{sRe:.0f}, {sml:.0f} MLUPS, {len(series)} samples)")
-    print(f"   shedding-frekvens f = {f_shed:.2e}/steg → ★Strouhal St = {St:.3f} vs Roshko {St_roshko:.3f} "
-          f"{'✓ KVANTITATIV unsteady-aero (iconisk vortex-street-benchmark)' if D_ok else '✗ avviker'}")
+    print(f"   shedding frequency f = {f_shed:.2e}/step → ★Strouhal St = {St:.3f} vs Roshko {St_roshko:.3f} "
+          f"{'✓ QUANTITATIVE unsteady aero (iconic vortex-street benchmark)' if D_ok else '✗ deviates'}")
 
     all_ok = A_ok and B_ok and C_ok and D_ok
     print("\n" + "=" * 80)

@@ -25,7 +25,7 @@ ALPHA = 23.0e-6      # termisk utvidgning (Al), 1/K
 DELTA_T = 100.0      # K
 LX, LY = 2.0, 1.0
 NX, NY = 24, 12
-TOL_U = 1e-3         # rel: u ska vara ~0 (jmf termisk fri-expansions-skala α·ΔT·L)
+TOL_U = 1e-3         # rel: u must be ~0 (compare with the free thermal expansion scale α·ΔT·L)
 TOL_S = 2e-3
 
 
@@ -109,7 +109,7 @@ def main():
     fem_example_utils.bsr_cg(KT, b=rhsT, x=Tvec, quiet=True, tol=1e-10, max_iters=2000)
     T_field = fem.make_discrete_field(T_space); T_field.dof_values = Tvec
     Tmean = float(Tvec.numpy().mean())
-    print(f"  termisk solve: T_medel={Tmean:.3f} K (ska vara {DELTA_T})")
+    print(f"  thermal solve: T_mean={Tmean:.3f} K (must be {DELTA_T})")
 
     # === SOLVER 2: elasticitet med termisk last, fullt klampad (u=0 hela randen) ===
     u_space = fem.make_polynomial_space(geo, degree=1, dtype=wp.vec2)

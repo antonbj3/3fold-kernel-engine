@@ -49,10 +49,10 @@ OPPc = wp.constant(Vec19i(*OPP))
 
 
 
-# nice/ionice/CPU-affinitet ror inte GPU-schemalaggaren.
+# nice/ionice/CPU affinity do not affect the GPU scheduler.
 #
 #
-#   GPU_ANDEL_BLOCK_MS  float, mal-blocktid i ms, default 12.0
+#   GPU_ANDEL_BLOCK_MS  float, target block time in ms, default 12.0
 #
 # reports/probes/gpuduty1_v1.json).
 
@@ -287,11 +287,11 @@ def k_macro(
 
 
 # ═════════════════════════════════════════════════════════════════════════════════════════════
-#   (1) TRYCKRANDVILLKOR: k_bc_neem -- Guo/Zheng/Shi (2002) icke-jamvikts-EXTRAPOLATION.
-#       Inloppet satter HASTIGHET och later densiteten flyta (rho_b = rho hos grannen);
-#       det palagda flodet passerade).
-#   (2) PERIODISK RIKTNING: wrap i stream-steget per axel -> spannvidds-periodisk quasi-2D
-#   (3) KROKT RAND: Bouzidi/Firdaouss/Lallemand (2001) interpolerad bounce-back med per-lank-q.
+#   (1) PRESSURE BOUNDARY CONDITION: k_bc_neem -- Guo/Zheng/Shi (2002) non-equilibrium EXTRAPOLATION.
+#       The inlet sets VELOCITY and lets the density float (rho_b = rho of the neighbour);
+#       the imposed flow rate passed).
+#   (2) PERIODIC DIRECTION: wrap in the streaming step per axis -> spanwise-periodic quasi-2D
+#   (3) CURVED BOUNDARY: Bouzidi/Firdaouss/Lallemand (2001) interpolated bounce-back with per-link q.
 #       q = 0.5 overallt reproducerar EXAKT den gamla halvvags-bounce-backen.
 #   (4) KRAFT PER KROPP: momentbyte (Ladd/Mei-Luo) summerat over ENBART de randlankar vars
 
@@ -928,7 +928,7 @@ def run_lbm(mask, inlet_mask, outlet_mask, u_in_lu, rho_out_lu, tau, n_steps,
             outlet_inward_step=(outlet_inward_step if outlet_inward_step is not None else (1, 0, 0)),
             verbose=verbose, ramp_steps=ramp_steps)
     if rand != "v2":
-        raise ValueError(f"run_lbm: okand rand={rand!r} -- valj 'v2' (default) eller 'v1' (utfasad)")
+        raise ValueError(f"run_lbm: unknown rand={rand!r} -- choose 'v2' (default) or 'v1' (deprecated)")
     ins = inlet_inward_step
     outs = outlet_inward_step
     rap_in = rap_ut = None
@@ -1114,7 +1114,7 @@ def run_lbm_v2(mask, inlet_mask, outlet_mask, u_in_lu, rho_out_lu, tau, n_steps,
         u_np = u_out.numpy()
     inm = mask == 0
     if use_bf:
-        # Guo: u = (sum_i e_i f_i + F/2)/rho och F = rho*g  ->  u_sann = u_macro + g/2.
+        # Guo: u = (sum_i e_i f_i + F/2)/rho and F = rho*g  ->  u_true = u_macro + g/2.
         u_np = u_np.copy()
         u_np[..., 0] += 0.5 * bfx * inm
         u_np[..., 1] += 0.5 * bfy * inm
@@ -1147,9 +1147,9 @@ def run_lbm_v2(mask, inlet_mask, outlet_mask, u_in_lu, rho_out_lu, tau, n_steps,
 
 # ═════════════════════════════════════════════════════════════════════════════════════════════
 #        w = [1/4, 1/8 x6], c_sT^2 = 1/4, geq_i = w_i*T*(1 + 4*e_i.u), alpha = (tau_T-1/2)/4.
-#   (T2) Boussinesq-kraft F = (0, rho*gbeta*(T-T0), 0) i flodets kollisionssteg, lagd med GUOS
-#        forcering (Guo, Zheng & Shi 2002): u = (sum e_i f_i + F/2)/rho och
-#        S_i = (1 - 1/(2tau))*w_i*[3*(e_i - u) + 9*(e_i.u)*e_i].F  -- andra ordningen behalls.
+#   (T2) Boussinesq force F = (0, rho*gbeta*(T-T0), 0) in the flow collision step, applied with GUO
+#        forcing (Guo, Zheng & Shi 2002): u = (sum e_i f_i + F/2)/rho and
+#        S_i = (1 - 1/(2tau))*w_i*[3*(e_i - u) + 9*(e_i.u)*e_i].F  -- second order is retained.
 E7X = [0, 1, -1, 0, 0, 0, 0]
 E7Y = [0, 0, 0, 1, -1, 0, 0]
 E7Z = [0, 0, 0, 0, 0, 1, -1]
@@ -1319,7 +1319,7 @@ def run_lbm_termisk_v1(mask, twall, tbc, tau, tau_T, gbeta, T0, T_init, n_steps,
                 res = abs(sp - prev) / max(sp, 1e-12) if prev is not None else 1.0
                 hist.append({"step": steg, "mean_speed": sp, "residual": res})
                 if verbose:
-                    print(f"  [T] steg {steg}: mean|u|={sp:.6e} res={res:.2e}", flush=True)
+                    print(f"  [T] step {steg}: mean|u|={sp:.6e} res={res:.2e}", flush=True)
                 if prev is not None and res < conv_tol:
                     konv = True
                     break

@@ -7,7 +7,7 @@ warp.fem stack. Stokes (creeping, incompressible): -nu grad^2 u + grad p = f, di
 
 ANALYTIC-FIRST GATE (classical, exact): a plane channel of height H driven by a constant body force f=(G,0),
 no-slip on top and bottom (u=0), do-nothing inlet/outlet. Fully developed -> u_x(y)=(G/2nu).y(H-y) (a parabola),
-u_y=0, u_max=G·H²/(8ν). Q2 representerar parabeln EXAKT → FEM ska matcha till solver-tolerans (ej
+u_y=0, u_max=G·H²/(8ν). Q2 represents the parabola EXACTLY -> FEM must match to solver tolerance (no
 no threshold grazing; a strong clean gate). Single-gradient form (integral nu grad u : grad v) - its do-nothing BC is satisfied
 EXACTLY by Poiseuille (the D-form's is NOT, so it is the wrong choice here; derived by hand).
 

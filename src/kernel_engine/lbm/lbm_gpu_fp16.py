@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""LBM GPU FP16 (★OUTCLASS steg 2) — FP16-lagring + FP32-compute, FluidX3D-tier bandbredd.
+"""LBM GPU FP16 (★OUTCLASS step 2) — FP16 storage + FP32 compute, FluidX3D-tier bandwidth.
 
 LBM is MEMORY-bound: halving the stored bytes (FP32 to FP16) roughly doubles effective bandwidth and MLUPS.
 RISK: FP16 (10-bit mantissa, ~3 digits) loses precision in the SMALL non-equilibrium part that CARRIES the physics.
@@ -125,7 +125,7 @@ def run(nx, ny, tau, solid_np, max_steps, gforce=0.0, u_in=0.0, periodic_x=1, to
 
 
 def main():
-    print("=" * 80); print(f"LBM GPU FP16 (★OUTCLASS steg 2) — FP16-lagring(avvikelse) + FP32-compute, device={DEV}"); print("=" * 80)
+    print("=" * 80); print(f"LBM GPU FP16 (★OUTCLASS step 2) — FP16 storage(deviation) + FP32 compute, device={DEV}"); print("=" * 80)
 
     # -- VALIDATION: Poiseuille vs ANALYTIC (FP16 must NOT degrade past ~1%) --
     nx, ny = 10, 42; tau = 0.8; nu = (tau - 0.5) / 3.0; G = 2e-5
@@ -142,7 +142,7 @@ def main():
           f"{'FP16 holds precision (deviation trick works)' if V_ok else 'FP16 too coarse - keep FP32'}  [steady@{st}, res={rs:.1e}]")
 
     # ── THROUGHPUT vs FP32-fused-baseline (7345 peak) ──
-    print(f"\nTHROUGHPUT (FP16, 400 steg):")
+    print(f"\nTHROUGHPUT (FP16, 400 steps):")
     best = 0.0
     for n in [512, 1024, 2048, 4096]:
         bsolid = np.zeros((n, n), bool); bsolid[:, 0] = True; bsolid[:, -1] = True

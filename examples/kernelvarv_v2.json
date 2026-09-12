@@ -112,7 +112,7 @@
    "konsumentens_atoms_2x_gron": true
   },
   "overall_pass": true,
-  "winner": "warp_gpu_disk_offsets (inkopplad), torch_conv_disk (matt/gron, ej inkopplad -- beroendeyta-motivering ovan)"
+  "winner": "warp_gpu_disk_offsets (wired in), torch_conv_disk (measured/green, not wired in -- dependency-surface rationale above)"
  },
  "gpu_load_before": {
   "mem_used_mib": 7449,

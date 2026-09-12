@@ -330,3 +330,22 @@ prefix removed; the source column above carries the original file name, so the m
     directory it writes are now resolved next to the file.
 12. `allocation/d_goal_derived_representation.py` (from the first pass): one string field held a platform
     path; it now holds the bare file name.
+
+## Swedish-prose sweep 2026-09-12
+| File | Text changed |
+| --- | --- |
+| `src/kernel_engine/_vendor/uq.py` | one docstring line |
+| `src/kernel_engine/fem/warpfem_transient_structural.py` | one progress print string |
+| `src/kernel_engine/fem/spectral_fatigue.py` | one inline comment |
+| `src/kernel_engine/fem/warpfem_design_objective.py` | two-line comment on the projected-gradient step |
+| `src/kernel_engine/fem/warpfem_stokes_poiseuille.py` | module docstring (analytic gate line) |
+| `src/kernel_engine/fem/warpfem_modal.py` | module docstring (analytic gate line) |
+| `src/kernel_engine/fem/warpfem_thermoelastic.py` | one tolerance comment, one solver print string |
+| `src/kernel_engine/kernel_variants/kernelvarv_v1_f4_csg.py` | three-line correctness-gate comment |
+| `src/kernel_engine/lbm/lbm_voxel_aero.py` | two result/progress print strings |
+| `src/kernel_engine/lbm/lbm_voxel_aero_gpu.py` | four print strings, two inline comments |
+| `src/kernel_engine/lbm/lbm_gpu_fp16.py` | module docstring title, two print strings |
+| `src/kernel_engine/lbm/lbm_gpu_fp16_half2.py` | module docstring title, one print string |
+| `src/kernel_engine/lbm/gpu_lbm_luftflode_v1.py` | four boundary-condition/forcing comment blocks, one env-var comment, one ValueError message, one progress print string (identifiers `steg`/`andel`/`namn` and the history keys left unchanged) |
+| `src/kernel_engine/warp_gpu/warp_rigid_ramp_gpu_v2.py` | one inline comment |
+| `examples/kernelvarv_v2.json` | the prose `winner` value (variant names unchanged) |

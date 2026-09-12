@@ -347,9 +347,9 @@ def main():
         "medium_64x64x32": mk(64, 64, 32, pitch3d=0.18),
     }
 
-    # --- CORRECTNESS GATE: 1D-baslinje vs 3D-variant, BITIDENTISKT (ren funktionell kernel, ingen
-    # atomic, samma flyttalsordning per voxel -> exakt likhet forvantad). 3D-sparse provas SEPARAT
-    # (informativ, blockerar EJ vinnarvalet) -- se ORIENT-anteckning nedan varfor den dog. -----------
+    # --- CORRECTNESS GATE: 1D baseline vs 3D variant, BIT-IDENTICAL (pure functional kernel, no
+    # atomics, same floating-point order per voxel -> exact equality expected). 3D-sparse is tested SEPARATELY
+    # (informative, does NOT block the winner selection) -- see the ORIENT note below for why it died. --------
     correctness = {}
     sparse_diag = {}
     for name, case in cases.items():

@@ -70,7 +70,7 @@ def lbm_run(nx, ny, tau, max_steps=200000, gforce=0.0, solid=None, u_in=0.0, tol
             res = float(np.max(np.abs(ux - ux_prev)) / denom)
             ux_prev = ux.copy()
             if verbose and (it % (check * 20) == 0):
-                print(f"      [{verbose}] steg {it:>7}  res={res:.2e}", flush=True)
+                print(f"      [{verbose}] step {it:>7}  res={res:.2e}", flush=True)
             if res < tol:
                 break
     rho = f.sum(0); ux = (sum(C[i, 0] * f[i] for i in range(9))) / rho; uy = (sum(C[i, 1] * f[i] for i in range(9))) / rho
@@ -94,7 +94,7 @@ def main():
     l2 = float(np.sqrt(np.mean((prof[inner] - u_ana[inner]) ** 2)) / (u_ana.max() + 1e-30)) * 100
     umax_lbm, umax_ana = float(prof.max()), float(u_ana.max())
     A_ok = l2 < 3.0 and abs(umax_lbm - umax_ana) / umax_ana < 0.03
-    print(f"\nA. POISEUILLE (kanal {nx}×{ny}, τ={tau}, ν={nu:.4f}): LBM-profil vs ANALYTISK parabel  [steady@{st} steg, res={rs:.1e}]")
+    print(f"\nA. POISEUILLE (channel {nx}×{ny}, τ={tau}, ν={nu:.4f}): LBM profile vs ANALYTIC parabola  [steady@{st} steps, res={rs:.1e}]")
     print(f"   u_max: LBM {umax_lbm:.3e} vs analytisk {umax_ana:.3e} ({abs(umax_lbm-umax_ana)/umax_ana*100:.1f}%); profil-L2 {l2:.1f}% "
           f"{'✓ LBM reproducerar analytisk Navier-Stokes-parabel' if A_ok else '✗'}")
 

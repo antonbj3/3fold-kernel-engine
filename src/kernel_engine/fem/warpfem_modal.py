@@ -7,7 +7,7 @@ connects to the real-world gate: accelerometer resonances on a real machine are 
 sim-to-real gate). Generalised eigenvalue problem K phi = omega^2 M phi (M = consistent mass matrix).
 
 ANALYTIC-FIRST GATE: the first bending eigenfrequency of a slender cantilever beam (Euler-Bernoulli):
-f₁ = (β₁²/2π)·√(EI/(ρAL⁴)), β₁=1.875104, I=h³/12, A=h. Slank (L/h=10) → balkteori ~exakt; FEM ska
+f₁ = (β₁²/2π)·√(EI/(ρAL⁴)), β₁=1.875104, I=h³/12, A=h. Slender (L/h=10) -> beam theory ~exact; FEM
 must match within the beam-theory vs 2D-elasticity gap (Timoshenko shear, a few per cent). No threshold grazing.
 
   python3 warpfem_modal.py

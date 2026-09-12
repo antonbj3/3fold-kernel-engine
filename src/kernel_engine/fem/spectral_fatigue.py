@@ -75,7 +75,7 @@ def dirlik_damage_rate(mom, sigf, b):
     m0, m1, m2, m4 = mom; m = -1.0 / b; nu_p = np.sqrt(m4 / m2)
     S = np.linspace(1e-6, 12 * np.sqrt(m0), 4000)
     p = dirlik_pdf(S, m0, m1, m2, m4)
-    EaM = np.trapezoid(S ** m * p, S)                     # E[a^m] enligt Dirlik
+    EaM = np.trapezoid(S ** m * p, S)                     # E[a^m] per Dirlik
     return nu_p * 2.0 * sigf ** (-m) * EaM
 
 
