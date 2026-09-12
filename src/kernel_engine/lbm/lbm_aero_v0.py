@@ -1,4 +1,4 @@
-"""P-LBM-AERO-V0 -- the platform's OWN lattice-Boltzmann flow solver (we own the fluid physics, not
+"""P-LBM-AERO-V0 -- this project's OWN lattice-Boltzmann flow solver (we own the fluid physics, not
 OpenFOAM), validated stepwise, level by level, against externally published references. Numbers below are
 measured (see data/LBM_AERO_V0.json for the full tables); this docstring only summarizes.
 

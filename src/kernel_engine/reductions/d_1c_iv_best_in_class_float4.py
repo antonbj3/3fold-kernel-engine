@@ -1,6 +1,6 @@
-"""1c-iv codegen-QUALITY: close the 73%→best-in-class gap on REAL CUDA. The snap's hand-tree was deterministic+correct but
+"""Codegen QUALITY: close the 73%→best-in-class gap on REAL CUDA. The snap's hand-tree was deterministic+correct but
 only 73% peak (cub hits 92%). The lever is float4 VECTORIZED loads (4 floats/transaction). Generate a float4 deterministic
-tree reduction, compile via nvcc, measure vs the scalar tree (73%) and cub (torch.sum, 92%). If float4 ≈ cub, 1c-iv generates
+tree reduction, compile via nvcc, measure vs the scalar tree (73%) and cub (torch.sum, 92%). If float4 ≈ cub, the generator produces
 BEST-IN-CLASS + CERTIFIED (deterministic) kernels — the codegen-quality residual is closeable, mechanically. flock+contam-flag.
 """
 import torch, time
@@ -48,10 +48,10 @@ scalar = measure("scalar-tree (snap)", lambda: torch.sum(m.scalar_p(x)).item())
 flt4   = measure("float4-tree",        lambda: torch.sum(m.float4_p(x)).item())
 cub    = measure("cub (torch.sum)",    lambda: torch.sum(x).item())
 print("\n" + "="*92)
-print(f"  ⟹ 1c-iv codegen-QUALITY: scalar {scalar*100:.0f}% → float4 {flt4*100:.0f}% (vs cub {cub*100:.0f}%).")
+print(f"  ⟹ codegen QUALITY: scalar {scalar*100:.0f}% → float4 {flt4*100:.0f}% (vs cub {cub*100:.0f}%).")
 if flt4 >= 0.88:
     print(f"    float4 vectorization CLOSES the gap → BEST-IN-CLASS ({flt4*100:.0f}%) AND deterministic (certified). The 73% was")
-    print(f"    a codegen-quality gap, mechanically closeable (float4 loads). 1c-iv generates certified best-in-class kernels.")
+    print(f"    a codegen-quality gap, mechanically closeable (float4 loads). the generator produces certified best-in-class kernels.")
 else:
     print(f"    float4 improved to {flt4*100:.0f}% but not yet cub-level — more levers (grid/occupancy/shfl) remain. HONEST.")
 print("="*92)

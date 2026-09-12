@@ -1,4 +1,4 @@
-"""P3·G18 — CFD-NILSS PREREQUISITE de-risk (STEP 1, NOT the full NILSS): is the 2-D cylinder wake a viable NILSS bed?
+"""G18 — CFD-NILSS PREREQUISITE de-risk (STEP 1, NOT the full NILSS): is the 2-D cylinder wake a viable NILSS bed?
 The CFD-NILSS frontier rests on the two prerequisites G3/G6 established for ODEs: (a) the system must be ROBUSTLY (not
 fragile/island) chaotic for NILSS to apply (G4 measured low-order FSI chaos is fragile), and (b) the naive sensitivity
 must blow up ∝e^{λt} (the thing NILSS fixes). Check BOTH on the REAL GPU LBM wake BEFORE committing to a tangent-LBM +
@@ -209,7 +209,7 @@ def temporal_character(cl, D, U, dt=10):
 def main():
     print(f"device={DEV}, warp {wp.__version__}")
     print("=" * 100)
-    print("P3·G18 — CFD-NILSS PREREQUISITE de-risk: is the 2-D cylinder wake a viable NILSS bed? (GPU LBM, fixed cylinder)")
+    print("G18 — CFD-NILSS PREREQUISITE de-risk: is the 2-D cylinder wake a viable NILSS bed? (GPU LBM, fixed cylinder)")
     print("=" * 100)
     D, U = 24, 0.08
 

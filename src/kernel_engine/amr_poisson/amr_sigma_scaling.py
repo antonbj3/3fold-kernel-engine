@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """σ-ROUTED AMR (octree placement) — DOES the DOF-saving SCALE, or is it a constant factor?  (MEASURE, not narrate.)
-The octree→AMR an external model placement: put fine cells only where the solution has structure. The platform-genuine angle
+The octree→AMR an external model placement: put fine cells only where the solution has structure. The genuine angle
 is σ-ROUTING (the validated corrector-energy / gradient certificate decides WHERE to refine — sigma_recursive_
 federation did this single-level). The UNTESTED delta: the GEOMETRY says the saving depends on feature CODIMENSION
 — a blob (codim-0) gives only a constant patch-fraction saving; a sharp INTERFACE (codim-1, error concentrates on
@@ -155,7 +155,7 @@ def main():
     print("       reaches there) → BC-coupling cap. So at MATCHED accuracy there is NO DOF saving (AMR floors ~9%,")
     print("       cannot reach uniform's <2%). Presenting the raw DOF-ratio as a 'saving' would be the over-claim.")
     print(f"  VALIDATED component: the corrector-energy σ ROUTES the patch onto the feature ({hi_i:.0%} of top-σ on the")
-    print("       codim-1 interface) — the platform-genuine routing works; the LIMIT is the coupling, not the routing.")
+    print("       codim-1 interface) — the genuine routing works; the LIMIT is the coupling, not the routing.")
     print("  PRINCIPLED FIX (parallels the σ-FWI naive→D-optimal arc): FAC / multigrid inter-level coupling +")
     print("       multi-level base refinement → the real codim-1 1/h saving. That is the honest next build, NOT a")
     print("       dynamic-wave detour. Naive version measured-negative; do not ship it as an AMR win.")

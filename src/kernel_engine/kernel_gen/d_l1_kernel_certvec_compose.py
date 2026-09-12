@@ -2,13 +2,13 @@
 kernel-cert-vector. L0 (4 real-GPU eyes) is COMPLETE (d_cuda_scene_eyes_determinism_real_gpu.py,
 d_roofline_scene_eye.py: "L0 COMPLETE ... Next: L1 compose the kernel-cert-vector"). This is that L1 node.
 
-PLATFORM CONVENTION (reused, not invented — d_endtoend_composed_cert_demo.py): each eye emits a normalized
+SHARED CONVENTION (reused, not invented — d_endtoend_composed_cert_demo.py): each eye emits a normalized
 margin m = eye_value/eye_threshold, PASS iff m>=1 (chi=1, dimensionless). ROOT cert = MIN over the vector;
 BINDING eye = argmin (what L3 refines next). This script builds compose_l1() to that spec + watertight-tests
 the load-bearing assumption: MIN-across-independent-roots is gap-free IFF the 4 roots are DECORRELATED.
 
 SCOPE (read before use — this is the FACET axis, not the other two N1 axes already in flight):
-  - FACET axis (this file): do the 4 EYES for one kernel decorrelate? (D's thread, PLATFORM_COORD_LEDGER ~9650+)
+  - FACET axis (this file): do the 4 EYES for one kernel decorrelate? (the facet axis)
   - STAGE axis (H/C/B, NOT this file): directional-SVD across CAD->mesh->solve->QoI pipeline STAGES —
     a different composition problem (pinch-vector alignment across stages of ONE QoI, not across 4
     independent QoI-verdicts of one kernel). Out of scope here.
@@ -46,7 +46,7 @@ RHO_NOISE_SE_MULT  = 3.0    # AND within this many SEs of 0 (statistical, given 
 FLOOR_HIGH_RHO_MIN = 3.0    # at rho>=0.8, floor/product inflation must exceed this = "the floor bites"
 GAP_EQUAL_FACET_CAP = 2.05  # type-A gap ratio for EQUAL facets must stay <= ~2 at rho=1 (BOUNDED, not unbounded)
 ANCHOR_REL_TOL     = 0.20   # MC vs exact-theory (scipy) cross-check relative tolerance
-CHI = 1.0                   # cert threshold: margin >= 1 passes (platform convention)
+CHI = 1.0                   # cert threshold: margin >= 1 passes (project convention)
 
 
 # ================================================================================== (0) THE L1 COMPOSITION
@@ -197,7 +197,7 @@ mean_clip = {k: np.mean([c[k] for c in clip_fracs_all]) for k in EYES}
 for k in EYES:
     print(f"    {k:<14} {mean_clip[k]*100:.2f}% clipped  {'PASS (<2%)' if mean_clip[k] < 0.02 else 'FLAG (>=2%)'}")
 
-print(f"\n  binder-frequency (non-redundancy check, platform convention from d_endtoend_composed_cert_demo.py: "
+print(f"\n  binder-frequency (non-redundancy check, project convention from d_endtoend_composed_cert_demo.py: "
       f"each eye should bind sometimes, else it is dead weight): {binder_counts}")
 all_bind = all(c > 0 for c in binder_counts.values())
 print(f"    {'PASS all 4 eyes bind somewhere' if all_bind else 'FAIL some eye never binds'}")
@@ -224,7 +224,7 @@ for name, qv in examples:
 # Geometric (law-of-cosines) derivation: two error magnitudes a,b combine at "root-sharing angle" cos(th)=rho:
 #   true_worst = sqrt(a^2 + b^2 + 2*rho*a*b)      (rho=0 -> quadrature; rho=1 -> full coherent sum a+b;
 #                                                   rho=-1 -> destructive |a-b|)
-# Cross-validated against REAL platform numbers: rho=0.81 (det<->parity, real GPU) -> gap 1.14-1.19x median;
+# Cross-validated against real measured numbers: rho=0.81 (det<->parity, real GPU) -> gap 1.14-1.19x median;
 # H's independent bound: total <=~2x for EQUAL facets.
 print("\n[TEST C1] NEGATIVE CONTROL (type-A, typical-case gap true_worst/MIN) — geometric quadrature law")
 print("-" * 100)
@@ -259,7 +259,7 @@ for rho in [0.0, 0.3, 0.6, 0.81, 0.95, 0.99, 1.0]:
 # equal-facet cap check (H's independent bound: total <= ~2x for equal facets at full correlation)
 tw_eq, gap_eq_1 = typeA_gap(1.0, 1.0, 1.0)
 tw_eq0, gap_eq_0 = typeA_gap(1.0, 1.0, 0.0)
-print(f"\n  equal-facet (a=b) check: gap(rho=0)={gap_eq_0:.3f}x [quadrature baseline, cf. platform's independent "
+print(f"\n  equal-facet (a=b) check: gap(rho=0)={gap_eq_0:.3f}x [quadrature baseline, cf. the independent "
       f"'rho=0 equal-facet ~1.11 is a quadrature baseline'] , gap(rho=1)={gap_eq_1:.3f}x "
       f"{'PASS <=' + str(GAP_EQUAL_FACET_CAP) + ' (BOUNDED, not unbounded)' if gap_eq_1 <= GAP_EQUAL_FACET_CAP else 'FAIL unbounded'}")
 TEST_C1_PASS = gap_eq_1 <= GAP_EQUAL_FACET_CAP and 1.0 <= gap_eq_0 <= 1.5
@@ -373,7 +373,7 @@ print(f"""
   READ: in THIS synthetic (independent-noise-by-construction) 4-eye model, MIN-composition IS gap-free
   (TEST A: measured |rho_noise|<{RHO_NOISE_THRESH} for all 6 eye-pairs, all 4 eyes bind somewhere, no void-floor
   degeneracy). The negative control PROVES this is not a free lunch: forcing 2 eyes to share a root produces
-  BOTH (C1) a BOUNDED typical-case bias (matches the REAL platform's measured 1.14-1.19x at rho=0.81 when the
+  BOTH (C1) a BOUNDED typical-case bias (matches the real measured 1.14-1.19x at rho=0.81 when the
   facet-magnitude ratio is ~0.15-0.2, and stays <={GAP_EQUAL_FACET_CAP}x even for equal facets at rho=1 — bounded,
   not catastrophic) AND (C2) a much sharper TAIL false-accept floor (multi-fold inflation over the
   independence-assumed rate at rho=0.8, cross-validated against an EXACT scipy bivariate-normal formula, and
@@ -382,13 +382,13 @@ print(f"""
 
   CAVEAT (the falsifier, stated not buried): this is a SYNTHETIC model. It does NOT itself prove the 4 REAL
   CUDA scene-eyes are decorrelated -- that requires real GPU telemetry (out of scope, CPU-only constraint).
-  What IS established: (a) the compose_l1() function is a correct, reusable implementation of the platform's
+  What IS established: (a) the compose_l1() function is a correct, reusable implementation of this project's
   MIN/argmin/certify convention; (b) IF the real eyes' failure roots are independent (plausible by mechanism:
   scheduling nondeterminism / rounding / launch-latency / DRAM-bandwidth are physically disjoint for MOST
   kernels), the measured signature (rho_noise matrix near 0, both gap-types near their rho=0 baseline) is
   EXACTLY what TEST A predicts and what L3 should check against real telemetry; (c) the ALREADY-KNOWN real
   exception is determinism<->parity when BOTH stem from float-reduction-order sensitivity (real GPU, rho~0.8)
-  -- there the platform's own prior finding (not this file) already showed the gap stays mild (1.14-1.19x
+  -- there this project's own prior finding (not this file) already showed the gap stays mild (1.14-1.19x
   typical-case) even though NOT independent, i.e. the SPECIFIC known correlated case is not catastrophic,
   while the GENERAL tail-risk law (C2) says a rho this high should still be treated as a real, quantifiable,
   multi-fold false-accept risk for any PASS verdict that binds on exactly that pair.

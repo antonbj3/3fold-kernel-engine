@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""S1 FLAGSHIP #3 (metamaterial) — ACOUSTIC LOCALLY-RESONANT METAMATERIAL BANDGAP on the platform's
+"""S1 FLAGSHIP #3 (metamaterial) — ACOUSTIC LOCALLY-RESONANT METAMATERIAL BANDGAP on this project's
 validated acoustic FDTD leapfrog (wave_fdtd_kache.py). Completes the wave-engine trio {sorting (Gor'kov
 ARF), ultrasound (elastography), METAMATERIAL (this cell)} — all three run on the ONE validated wave
 substrate, this time via a coefficient EXTENSION (uniform host -> host + local resonator reaction),
@@ -16,7 +16,7 @@ dz/dt=v2-v, dv2/dt=-omega0^2 z - 2*zeta*omega0*v2, gives (eliminating v2 in the 
 which is NEGATIVE (evanescent, no propagating solution at constant bulk modulus) on the LORENTZ BAND
 omega in (omega0, omega0/sqrt(1-f)) — the hallmark locally-resonant "negative effective mass" bandgap,
 independent of any Bragg/periodicity effect. This is implemented as a homogenized ADE (auxiliary
-differential equation) reaction term added to the platform's momentum update at EVERY cell of a
+differential equation) reaction term added to this project's momentum update at EVERY cell of a
 "metamaterial region": U[i] -= [cb/(1-f)]*csx*(S[i+1]-S[i]) + dt*[f/(1-f)]*omega0^2*z[i], with the
 resonator state (z,v2) integrated by symplectic Euler alongside the leapfrog (same discretization as
 wave_fdtd_kache.py's update_scalar/update_vector, reduced to 1D since the source/medium are uniform in y
@@ -61,7 +61,7 @@ pattern), [[void-floor-artifact]] (forced the homogeneous-control null rather th
 base engine's acoustic<->EM coefficient-swap identity (this cell's ADE reaction is the acoustic analogue of
 Lorentz-dispersion EM metamaterials).
 
-MATCH: a homogenized locally-resonant array (ADE reaction on the platform's acoustic leapfrog) opens a
+MATCH: a homogenized locally-resonant array (ADE reaction on this project's acoustic leapfrog) opens a
 transmission bandgap whose center sits at f_gap/f_Bragg ~ 0.1-0.15 (measured below) — sub-wavelength, NOT
 Bragg — and a homogeneous same-mass non-resonant control shows no such gap, isolating the resonance as the
 mechanism.
@@ -176,7 +176,7 @@ def warp_2d_baseline(f_k, Ny=4):
 
 def main():
     print("=" * 108)
-    print("S1 FLAGSHIP #3 — ACOUSTIC LOCALLY-RESONANT METAMATERIAL BANDGAP (homogenized ADE on platform FDTD)")
+    print("S1 FLAGSHIP #3 — ACOUSTIC LOCALLY-RESONANT METAMATERIAL BANDGAP (homogenized ADE on this FDTD engine)")
     print("=" * 108)
     print(f"  f0={F0:.5f}  f1={F1:.5f} (Lorentz band)  f_Bragg={F_BRAGG:.4f}  f0/f_Bragg={F0/F_BRAGG:.4f}  "
           f"f1/f_Bragg={F1/F_BRAGG:.4f}  (a={A_PERIOD}=dx, conservative)")

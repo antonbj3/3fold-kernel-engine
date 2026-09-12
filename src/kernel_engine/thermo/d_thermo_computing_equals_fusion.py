@@ -2,7 +2,7 @@
 r"""d_thermo_computing_equals_fusion.py -- DOES THERMODYNAMIC-COMPUTING EQUILIBRIUM SAMPLING
                                            == THE MASQUERADE (x) COMPOSITION FUSION, EXACTLY?
 
-(an agent worktree, .  COLLECTION-MODE: external-hardware grounding of the fusion.  No commits.
+(COLLECTION-MODE: external-hardware grounding of the fusion.  No commits.
  CPU-only, self-contained, numpy + scipy only.  python = python3)
 
 ============================== THE EXTERNAL FACT (real hardware) ==============================

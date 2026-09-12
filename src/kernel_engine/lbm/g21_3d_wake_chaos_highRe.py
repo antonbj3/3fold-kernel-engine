@@ -1,4 +1,4 @@
-"""P3·G21 — CFD-NILSS PREREQUISITE de-risk STEP 4, the DECISIVE robust-chaos test (still NOT the full NILSS). G18 ruled out
+"""G21 — CFD-NILSS PREREQUISITE de-risk STEP 4, the DECISIVE robust-chaos test (still NOT the full NILSS). G18 ruled out
 the 2-D LAMINAR wake (temporally PERIODIC von-Kármán limit cycle), G19 the FORCED 2-D wake (lock-in/2-torus), and G20 showed
 the SMALL-domain 3-D wake at Re=220-300 DEVELOPS genuine spanwise structure (mode-A λ_z≈4D, rms uz→~0.07U) but only WEAK/
 TRANSIENT temporal chaos (broadband-frac 0.01/0.12 vs the 2-D ≲0.25 baseline; twin-λ≈1.8e-5). G20's own prescription: re-run
@@ -338,7 +338,7 @@ def main():
     validate = "--validate" in sys.argv
     print(f"device={DEV}, warp {wp.__version__}")
     print("=" * 116)
-    print("P3·G21 — CFD-NILSS PREREQ STEP 4 (DECISIVE): is the HIGHER-Re, LARGER-domain, LONGER-run 3-D wake a ROBUST broadband")
+    print("G21 — CFD-NILSS PREREQ STEP 4 (DECISIVE): is the HIGHER-Re, LARGER-domain, LONGER-run 3-D wake a ROBUST broadband")
     print("          temporal-chaos NILSS bed?  (GPU D3Q19 BGK-LBM cylinder wake, viscosity-ramp startup)")
     print("=" * 116)
     D, U = 28, 0.1

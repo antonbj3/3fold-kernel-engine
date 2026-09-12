@@ -1,4 +1,4 @@
-"""LBM MACH-CEILING — MEASURE where native BGK-LBM departs (not assert it). The platform is multi-method (LBM + HLLC-FV
+"""LBM MACH-CEILING — MEASURE where native BGK-LBM departs (not assert it). This project is multi-method (LBM + HLLC-FV
 + FDTD + ray + FFT); the honest rule (the author) is: depart from native LBM ONLY where it MEASURABLY loses. This measures the
 boundary for the most-invoked departure — compressibility/shock-capturing (why gas_flow_engine/detonation use HLLC, not LBM).
 
@@ -132,7 +132,7 @@ def main():
         print("LBM MACH-CEILING measured — the multi-method departure is justified BY MEASUREMENT:")
         print(f"  • native BGK-LBM is EXCELLENT at low Ma (err {errs[0]*100:.2f}% @Ma0.02, viscosity recovered) — NOT dismissed;")
         print(f"  • its absolute compressibility error grows ~Ma^{slope:.1f} (rel error ~Ma), crossing the 2% rel threshold at Ma≈{ceil:.2f};")
-        print(f"  • above that (and for any γ≠1 / shock-temperature physics, which isothermal LBM structurally lacks) the platform")
+        print(f"  • above that (and for any γ≠1 / shock-temperature physics, which isothermal LBM structurally lacks) this project")
         print(f"    departs to HLLC-Godunov (gas_flow_engine, validated vs exact Riemann) — measured boundary, not an assertion.")
         print(f"  ⇒ honest multi-method substrate: LBM where it MEASURABLY wins, Godunov-FV where LBM MEASURABLY loses. {'Render → /tmp/lbm_mach_ceiling.png' if rend else ''}")
     else:

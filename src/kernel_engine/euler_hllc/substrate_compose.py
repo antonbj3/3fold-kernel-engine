@@ -1,5 +1,5 @@
-"""SHARED-SUBSTRATE COMPOSITION + HOT-SWAP CONTRACT — the platform's actual core (rework after the honest design audit:
-the session validated PHYSICS PRIMITIVES as 16 standalone scripts with copy-pasted lattices; it did NOT prove the platform
+"""SHARED-SUBSTRATE COMPOSITION + HOT-SWAP CONTRACT — this project's actual core (rework after the honest design audit:
+the session validated PHYSICS PRIMITIVES as 16 standalone scripts with copy-pasted lattices; it did NOT prove this project
 COMPOSES). This builds the missing piece: ONE shared lattice substrate + a uniform Operator contract, then composes two
 VALIDATED modules into a genuine TWO-WAY coupling — and shows hot-swap.
 
@@ -196,7 +196,7 @@ def compose(ops, nx=120, ny=120, steps=16000, Ra=2e5, Pr=0.71, RH=0.85):
 
 def main():
     print("=" * 84)
-    print("SHARED-SUBSTRATE COMPOSITION + HOT-SWAP — does the platform actually COMPOSE? (cloud ⊗ radiation)")
+    print("SHARED-SUBSTRATE COMPOSITION + HOT-SWAP — does this project actually COMPOSE? (cloud ⊗ radiation)")
     print("=" * 84)
     tf = lambda: Thermofluid(0.0, 0.04); mo = lambda: MoistCondensation(0.06, 4.0, 0.5)
 
@@ -251,7 +251,7 @@ def main():
         ax[1].imshow(latA.field['T'].T, origin='lower', cmap='inferno', aspect='auto'); ax[1].set_title("T: + radiation (hot-swap ON)", fontsize=8)
         ax[2].imshow((latA.field['T']-latB.field['T']).T, origin='lower', cmap='RdBu_r', aspect='auto'); ax[2].set_title(f"ΔT from radiation (RMS {rms_dT:.3f})", fontsize=8)
         for a in ax: a.set_xticks([]); a.set_yticks([])
-        fig.suptitle("Platform composition: cloud ⊗ radiation on ONE shared substrate, hot-swappable", fontsize=10)
+        fig.suptitle("Composition: cloud ⊗ radiation on ONE shared substrate, hot-swappable", fontsize=10)
         fig.tight_layout(); fig.savefig("/tmp/compose.png"); plt.close(fig); rend = True
     except Exception as e:
         print(f"  (render skipped: {e})")
@@ -259,7 +259,7 @@ def main():
     ok = ops_have_no_lattice and ok2 and ok3 and ok4
     print("\n" + "=" * 84)
     if ok:
-        print("PLATFORM COMPOSITION validated — it actually composes + is GENERAL (not 16 isolated demos):")
+        print("COMPOSITION validated — it actually composes + is GENERAL (not 16 isolated demos):")
         print(f"  • ONE shared Lattice substrate; modules step the SAME fields through a uniform Operator.step(lat,dt) contract.")
         print(f"  • two-way coupling (thermofluid ⊗ moisture ⊗ radiation): q_c→radiation→T→buoyancy; HOT-SWAP Radiation↔Null")
         print(f"    measurably changes physics (cloud ΔT={dT:+.3f}, radiative SHADOW blocks {1-shadow:.0%}) without breaking conservation.")

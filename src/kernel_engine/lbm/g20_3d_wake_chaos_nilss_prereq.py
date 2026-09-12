@@ -1,4 +1,4 @@
-"""P3·G20 — CFD-NILSS PREREQUISITE de-risk STEP 3 (NOT the full NILSS): does the 3-D cylinder wake give ROBUST broadband
+"""G20 — CFD-NILSS PREREQUISITE de-risk STEP 3 (NOT the full NILSS): does the 3-D cylinder wake give ROBUST broadband
 TEMPORAL chaos — a viable NILSS bed? G18 ruled out the 2-D LAMINAR wake (temporally PERIODIC von-Kármán limit cycle) and
 G19 ruled out the FORCED 2-D wake (lock-in/quasi-periodic 2-torus). Their combined lesson: the 2-D route to turbulence is
 CLOSED; the genuine route is the 3-D SPANWISE secondary instabilities. This cell tests that route on a real 3-D GPU LBM.
@@ -246,7 +246,7 @@ def twin_temporal_lambda(a, b, dt=10):
 def main():
     print(f"device={DEV}, warp {wp.__version__}")
     print("=" * 108)
-    print("P3·G20 — CFD-NILSS PREREQ STEP 3: does the 3-D cylinder wake give ROBUST broadband TEMPORAL chaos? (GPU D3Q19 LBM)")
+    print("G20 — CFD-NILSS PREREQ STEP 3: does the 3-D cylinder wake give ROBUST broadband TEMPORAL chaos? (GPU D3Q19 LBM)")
     print("=" * 108)
     D, U = 20, 0.1
     BB_2D = 0.25                                                            # G18/G19 2-D periodic baseline: broadband-frac ≲0.25

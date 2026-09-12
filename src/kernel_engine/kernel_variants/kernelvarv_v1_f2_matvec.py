@@ -26,8 +26,7 @@ sys.path.insert(0, HERE)
 import os as _os, sys as _sys; _sys.path.insert(0, _os.path.join(_os.path.dirname(_os.path.abspath(__file__)), "..", "_vendor"))  # vendored deps
 from lastfalt_v1_fem import hex8_ke, build_grid, assemble_K_cpu  # noqa: E402
 
-ROOT = os.path.abspath(os.path.join(HERE, "..", ".."))
-OUT_DIR = os.path.join(ROOT, "reports/probes/kernelvarv_v1_sidofiler")
+OUT_DIR = os.path.join(HERE, "artifacts")
 os.makedirs(OUT_DIR, exist_ok=True)
 
 wp.init()

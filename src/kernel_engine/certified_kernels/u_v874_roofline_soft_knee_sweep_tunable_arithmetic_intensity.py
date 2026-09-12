@@ -1,9 +1,9 @@
-"""u_v874 -- Lane U (self-forced, GPU-timed, fresh window). U-1's original assignment wording asked for "local
+"""u_v874 -- GPU-timed roofline sweep. The original brief asked for "local
 regime-boundary sweeps (soft-knee/ridge) on the 5070" -- the roofline work done so far (u_compute_twin_roofline
 _ceiling_v1) only measured the TWO ENDPOINTS (pure compute peak via a giant GEMM, pure bandwidth peak via a
 device copy) and computed the ridge point ANALYTICALLY as their ratio (115.28 FLOP/byte). It never actually
-SWEPT arithmetic intensity to trace the real empirical curve NEAR the ridge -- so the "soft-knee" part of U-1's
-own wording was never directly measured. u_v872/873 later found a SEPARATE soft-knee (GPU occupancy-saturation
+SWEPT arithmetic intensity to trace the real empirical curve NEAR the ridge -- so the "soft-knee" part of that brief
+was never directly measured. u_v872/873 later found a SEPARATE soft-knee (GPU occupancy-saturation
 in the SIMT-tax K-sweep, a different workload/axis) -- this cell checks whether the SAME kind of soft-knee
 (gradual transition, not a sharp analytic corner) appears in the roofline's OWN native axis (arithmetic
 intensity itself), which u_872/873 never tested.
@@ -46,6 +46,7 @@ self-caught hang -- applying the fix forward, not just documenting it.
   python3 u_v874_roofline_soft_knee_sweep_tunable_arithmetic_intensity.py
 """
 import json
+import os
 import subprocess
 import sys
 import time
@@ -186,7 +187,9 @@ def main():
         "soft_knee_confirmed": soft_knee,
         "smi_pre": smi_pre, "smi_post": smi_post,
     }
-    OUT = "evidence/u_v874_roofline_soft_knee_results.json"
+    OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "artifacts",
+                       "u_v874_roofline_soft_knee_results.json")
+    os.makedirs(os.path.dirname(OUT), exist_ok=True)
     with open(OUT, "w") as f:
         json.dump(out, f, indent=2)
     print(f"\n  wrote {OUT}")

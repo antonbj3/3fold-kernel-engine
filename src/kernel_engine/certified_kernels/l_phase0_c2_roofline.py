@@ -28,7 +28,8 @@ import os, json, sys, subprocess, statistics
 import torch
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-EVID = os.path.join(HERE, "l_phase0_c2_roofline_evidence.json")
+EVID = os.path.join(HERE, "artifacts", "l_phase0_c2_roofline_evidence.json")
+os.makedirs(os.path.dirname(EVID), exist_ok=True)
 SPEC_PEAK_GBPS = 672.0   # RTX 5070 GDDR7 192-bit spec peak (external anchor; measured must be <= this)
 L2_MB = 48.0             # approx RTX 5070 L2 (Blackwell) — models >> this are DRAM-streaming
 
@@ -138,7 +139,7 @@ def main():
     contended_cpu = la1 > 4.0
 
     RUNTIME = {"model_line": "model identity omitted",
-               "effort": "xhigh", "requested": "an agent worktree Phase-0 cell #2 (Hong-Kung roofline), interactive operator, under gpu_lock"}
+               "effort": "xhigh", "requested": "Hong-Kung roofline cell, run under the GPU lock"}
 
     bw = measure_copy_bw()                               # read+write copy (reference)
     rbw = measure_read_bw()                              # READ-only (correct ref for read-dominated decode)

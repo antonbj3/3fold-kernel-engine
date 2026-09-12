@@ -678,8 +678,8 @@ def main():
         print(f"  (8) SAFETY ABORT TRIPPED at order={aborted_at}: {poller.abort_reason} -- remaining orders were")
         print("      not run; verdict above is based only on completed orders (see evidence JSON).")
 
-    os.makedirs(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "evidence"), exist_ok=True)
-    ev_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "evidence",
+    os.makedirs(os.path.join(os.path.dirname(os.path.abspath(__file__)), "artifacts"), exist_ok=True)
+    ev_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "artifacts",
                             "u_h5_thermal_roofline_twin_state_evidence.json")
     evidence["all_poller_samples"] = poller.samples
     evidence["all_pass_instrument_gates"] = all_pass

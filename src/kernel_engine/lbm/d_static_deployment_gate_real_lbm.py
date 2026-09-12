@@ -13,7 +13,7 @@ agree; over-determination, not eyeballing):
                    counts, x dtype-bytes -> bytes/voxel. CONSTANT/lookup tables (never written anywhere in the
                    file -- e.g. lattice directions cx/cy/w/opp) are excluded from the byte count, matching the
                    standard LBM roofline convention (small constant tables live in cache/registers, not DRAM)
-                   and the platform's own established number: 72 B/voxel = 9 f_i read + 9 write x4B (measured
+                   and this project's own established number: 72 B/voxel = 9 f_i read + 9 write x4B (measured
                    in d_certvector_on_real_lbm.py). Compared against that DAG-min where one has been derived;
                    report-only where it has not (no invented reference).
 
@@ -27,7 +27,7 @@ agree; over-determination, not eyeballing):
                        injectivity prover -- named explicitly in the static/runtime boundary section.
                      - wp.atomic_* -> classify the accumulator array's declared dtype: FLOAT-class (float32/64,
                        vecN/quat/matNN) -> order-dependent; INT-class (int32/64/uint*) -> order-invariant.
-                       EXTERNALLY ANCHORED: CPU-forced (CUDA_VISIBLE_DEVICES='') re-run of the platform's REAL,
+                       EXTERNALLY ANCHORED: CPU-forced (CUDA_VISIBLE_DEVICES='') re-run of this project's REAL,
                        committed det_accumulation_probe.py (not reimplemented) -- MEASURED below.
 
   R4 addressing:   file-scope write-provenance (per I's real corpus result: structural/fixed addressing -> a-

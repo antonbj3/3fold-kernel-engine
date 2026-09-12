@@ -1,9 +1,9 @@
-"""1c-iv + the SNAP: end-to-end certified-generation on REAL nvcc-compiled CUDA (torch cpp_extension). Composes the whole:
+"""End-to-end certified generation on REAL nvcc-compiled CUDA (torch cpp_extension). Composes the whole:
 generate two real reduction kernels — (A) optimal DETERMINISTIC block-tree (fixed-order) + (B) naive atomicAdd (non-det,
 contended) — compile via nvcc, then run the actual CERT-VECTOR on the compiled kernels: R2 determinism (bit-repeat),
 correctness (vs torch.sum), roofline (BW vs 672 GB/s theoretical). ★The verdict is a property of the COMPUTATION: for a
 determinism-REQUIRED sum (L∞/ill-cond), the cert CERTIFIES the tree and REJECTS the atomicAdd — on REAL hardware, not modeled.
-This is CORE-1 (roofline target) ⊕ cert-vector (R2⊕correct⊕roofline) ⊕ nvcc-codegen (1c-iv) snapping together. flock+contam-flag.
+This is CORE-1 (roofline target) ⊕ cert-vector (R2⊕correct⊕roofline) ⊕ nvcc-codegen snapping together. flock+contam-flag.
 """
 import torch, time
 from torch.utils.cpp_extension import load_inline
@@ -62,5 +62,5 @@ print("\n" + "="*96)
 print("  ⟹ THE SNAP (real hardware): the SAME cert-vector, run on two REAL nvcc-compiled reduction kernels, CERTIFIES the")
 print("    deterministic tree (bit-repeatable + correct + memory-bound) and REJECTS the atomicAdd (non-deterministic float")
 print("    order) for a determinism-REQUIRED computation — even though atomicAdd is 'correct on average'. CORE-1 roofline")
-print("    target ⊕ cert-vector (R2⊕correct⊕roofline) ⊕ nvcc-codegen (1c-iv) compose end-to-end. Not modeled — compiled + measured.")
+print("    target ⊕ cert-vector (R2⊕correct⊕roofline) ⊕ nvcc-codegen compose end-to-end. Not modeled — compiled + measured.")
 print("="*96)

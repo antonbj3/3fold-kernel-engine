@@ -439,3 +439,61 @@ staging repository: fluid/CFD, FEM, thermal, wave, allocation and kernel-certifi
 | `certified_kernels/probe_thermal_rung.py` | copied, then removed: it loads `probe_compute_twin_v1.py` (796 lines) by path, which is not in this repository |
 | `certified_kernels/gpu_duty_torch_v1.py` | the module is a helper class with no gate of its own, so it is covered by a dedicated pytest case instead of being run as a script |
 - 2026-09-12: `inverse_design_wave.py` and `twin_calibration_wave.py` were staged here by the GPU-index sweep and removed again: both already ship in `3fold-physics/src/physics_engine/wave_optics/`, and a module lives in one repository only.
+
+## CUDA verification run 2026-09-12 (code edits)
+
+| file | change |
+| --- | --- |
+| `kernel_variants/kernelvarv_v1_f2_matvec.py`, `kernel_variants/kernelvarv_v1_f4_csg.py`, `kernel_variants/kernelvarv_v2_f4_closing.py` | `OUT_DIR` retargeted from `<src>/reports/probes/kernelvarv_v1_sidofiler/` to `artifacts/` next to the file; the now-unused `ROOT` constant dropped; the stray `src/reports/` directory deleted |
+| `certified_kernels/u_v874_roofline_soft_knee_sweep_tunable_arithmetic_intensity.py` | evidence path `evidence/u_v874_roofline_soft_knee_results.json` (relative to the caller's working directory) -> `artifacts/` next to the file, created on demand; `import os` added |
+| `certified_kernels/u_v870_roofline_ceiling_long_window_sustained_throttle_recheck.py` | same change for `evidence/u_v870_roofline_long_window_results.json` |
+| `certified_loop/d_lbm_soa_certified_roofline_close.py` | `os.makedirs` added for the `artifacts/` directory it writes its evidence JSON into |
+| `lbm/gpu_lbm_utilization_cell.py` | `REPO` pointed at the repository root instead of `src/`, so `reports/probes/` resolves to the shipped directory |
+| `tests/test_pass3_selftests.py` | `run()` skips a CUDA case when the module's own GPU-idle guard aborted it (markers only, no guard weakened); `lbm/gpu_lbm_utilization_cell.py` moved to a dedicated case that skips while its predecessor artefact is absent; `certified_kernels/d_coupled_knob_ordering_advantage_real_cuda.py`, `lbm/lbm_fsi_viv.py` and `lbm/lbm_gpu_fp16.py` moved to dedicated cases that accept their designed non-zero exit and assert the verdict line, as `amr_octree_fv` already did |
+| `tests/test_selftests.py` | `kernelvarv_v1_f2_matvec` and `kernelvarv_v1_f4_csg` likewise accept their designed exit 1 and assert the JSON verdict |
+| `certified_kernels/l_phase0_c2_roofline.py` (prose) | the `RUNTIME["requested"]` string lost its worktree and author references: now "Hong-Kung roofline cell, run under the GPU lock" |
+| `certified_kernels/u_h5_thermal_roofline_twin_state.py` | evidence JSON `src/evidence/` -> `artifacts/` next to the file |
+| `certified_kernels/l_phase0_c2_roofline.py`, `certified_kernels/probe_sync_density_victim_model.py` | evidence JSON written next to the module -> `artifacts/`, created on demand, so a run leaves nothing outside the ignored output directories |
+| `tests/test_pass3_selftests.py` (run budgets) | `lbm/g21_3d_wake_chaos_highRe.py` is run with its own `--validate` short self-test (the full 288x176x224 sweep exceeds 1500 s); `lbm/g20_3d_wake_chaos_nilss_prereq.py` gets a 1200 s subprocess budget (measured 678 s) |
+| `requirements.txt` | `mujoco` and `mujoco-warp` added as optional extras (for `warp_gpu/mujoco_warp_bench.py`); the optional `wgpu` comment now names both modules that need it |
+- 2026-09-12: `wave_fdtd/sigma_guided_fwi.py`, `wave_fdtd/twin_calibration_multisource.py` and
+  `wave_fdtd/coupled_multiphysics_calibration.py` moved to `3fold-physics/src/physics_engine/wave_optics/`:
+  they import `twin_calibration_wave`, which ships there, and the chain
+  `coupled_multiphysics_calibration -> twin_calibration_multisource -> sigma_guided_fwi` is wave calibration,
+  not a kernel cell. Their rows moved to that repository's RUNNING.md, RENAMES.md and tests.
+
+## Prose sweep 2026-09-12 (placeholders, platform wording)
+
+Comments, docstrings and printed narrative only. No identifier, filename, JSON key or CLI flag changed.
+Prose uses of "the platform" replaced with plain wording; internal milestone tags and ledger references dropped.
+
+Files:
+
+- `src/kernel_engine/amr_poisson/poisson_dispatch.py`
+- `src/kernel_engine/amr_poisson/amr_sigma_scaling.py`
+- `src/kernel_engine/certified_kernels/d_1c_iv_end_to_end_real_cuda_cert.py`
+- `src/kernel_engine/certified_kernels/d_avbd_gpu_certified_roofline.py`
+- `src/kernel_engine/certified_kernels/d_ensemble_coexecution_cert_contended_roofline.py`
+- `src/kernel_engine/certified_kernels/u_v870_roofline_ceiling_long_window_sustained_throttle_recheck.py`
+- `src/kernel_engine/certified_kernels/u_v874_roofline_soft_knee_sweep_tunable_arithmetic_intensity.py`
+- `src/kernel_engine/certified_loop/d_lbm_soa_certified_roofline_close.py`
+- `src/kernel_engine/euler_hllc/substrate_compose.py`
+- `src/kernel_engine/kernel_gen/d_l1_kernel_certvec_compose.py`
+- `src/kernel_engine/lbm/d_certvector_on_real_lbm.py`
+- `src/kernel_engine/lbm/d_integration_stitch_lbm_contact_scenario_cert.py`
+- `src/kernel_engine/lbm/d_static_deployment_gate_real_lbm.py`
+- `src/kernel_engine/lbm/g18_cfd_nilss_prereq_wake_chaos.py`
+- `src/kernel_engine/lbm/g19_forced_2d_wake_nilss_prereq.py`
+- `src/kernel_engine/lbm/g20_3d_wake_chaos_nilss_prereq.py`
+- `src/kernel_engine/lbm/g21_3d_wake_chaos_highRe.py`
+- `src/kernel_engine/lbm/lbm_aero_v0.py`
+- `src/kernel_engine/lbm/lbm_mach_ceiling.py`
+- `src/kernel_engine/lbm/thermofluid_lbm_rayleigh.py`
+- `src/kernel_engine/reductions/d_1c_iv_best_in_class_float4.py`
+- `src/kernel_engine/thermo/d_thermo_computing_equals_fusion.py`
+- `src/kernel_engine/thermo/thermoelectric_seebeck.py`
+- `src/kernel_engine/tropical_sdf/JxA_contact_param_over_determination_material_physics_leg_lifts_the_motion_regime_null.py`
+- `src/kernel_engine/warp_gpu/gpu_fracture_determinism_sigma.py`
+- `src/kernel_engine/wave_fdtd/persona_design_acoustic_cavity_shape.py`
+- `src/kernel_engine/wave_fdtd/s1_acoustic_metamaterial_bandgap.py`
+- `docs/RUNNING.md`

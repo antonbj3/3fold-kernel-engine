@@ -51,7 +51,8 @@ MIB = 1024 * 1024
 DEV = "cuda:0"
 HERE = os.path.dirname(os.path.abspath(__file__))
 SELF = os.path.abspath(__file__)
-REP = os.path.join(HERE, "probe_sync_density_victim_model.json")
+REP = os.path.join(HERE, "artifacts", "probe_sync_density_victim_model.json")
+os.makedirs(os.path.dirname(REP), exist_ok=True)
 RATE_DIR = os.path.join(HERE, "artifacts", "isync")
 os.makedirs(RATE_DIR, exist_ok=True)
 

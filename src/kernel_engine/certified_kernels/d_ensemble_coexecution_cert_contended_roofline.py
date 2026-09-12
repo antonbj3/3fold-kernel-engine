@@ -54,7 +54,7 @@ print(f"  • Certified-optimal SCHEDULE = pair COMPLEMENTARY kernels: {'+'.join
 print(f"    the memory-bound and compute-bound overlap on DISJOINT resources (water-filling the shared bottleneck). This is")
 print(f"    the author's 'distribute load / pick algorithms': schedule to DECORRELATE resource demand, don't pile hogs.")
 print(f"  • ⟹ ensemble throughput is a CO-EXECUTION cert (shared-resource accounting), composing UP via N1 like the")
-print(f"    federation scenario-cert — the platform certifies the SCHEDULE, not just each kernel. Same water-filling as")
+print(f"    federation scenario-cert — this project certifies the SCHEDULE, not just each kernel. Same water-filling as")
 print(f"    the diffusion-gen floor and the cert-budget price-vector: allocate the scarce resource to the binding demand.")
 print("=" * 100)
 import sys; sys.exit(0)

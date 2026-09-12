@@ -6,10 +6,9 @@ binds or a layer leaks (measure, don't assume the reference files compose for fr
 
 Builds on (read, not re-litigated): d_per_variable_precision_cert_lbm.py (kappa_u ~ 1/rho, VERIFIED here again),
 d_ensemble_coexecution_cert_contended_roofline.py (water-fill schedule), d_federation_scenario_cert.py (N1-MIN),
-d_computation_level_requirement_cert.py (R1..R4 schema). Also folds in the FRESHEST fleet corrections (
-ledger): A-V57-18 (R3=null-space, DISTINCT from R2=conditioning -- do not conflate); H's SOLVE-vs-READ split
+d_computation_level_requirement_cert.py (R1..R4 schema). Also folds in the freshest corrections: R3=null-space, DISTINCT from R2=conditioning (do not conflate); the SOLVE-vs-READ split
 (a solved system self-bounds; a signed cancellation READ does not) -- contact's determinism-need here is modeled
-as the READ (net-force cancellation), the unbounded face, consistent with H's correction.
+as the READ (net-force cancellation), the unbounded face, consistent with that split.
 
 External anchors used (cited, not fabricated):
   - 578 GB/s = D-measured real copy BW (d_ensemble_coexecution_cert_contended_roofline.py, d_n42_streaming_optimal_mintraffic.py)
@@ -21,7 +20,7 @@ External anchors used (cited, not fabricated):
     scratchpad/probe_contact_scatter_bw.py (real GPU run, not modeled) -- external anchor for the contact component,
     not a from-memory citation.
 
-Pre-registered thresholds (reused from established platform convention, NOT tuned to make this probe pass):
+Pre-registered thresholds (reused from established project convention, NOT tuned to make this probe pass):
   SIG_EPS=1e-3 (A-V57-4 forward-noise convention), DELTA=1e-2 (QoI tolerance), ROOF_BEST=0.85, ROOF_OK=0.30.
 CPU-only numpy. This is a composed CERTIFICATE over real solver structure (analytic + numerically-verified
 conditioning, real cited GPU anchors) -- NOT a running GPU simulation. no fit.
@@ -191,7 +190,7 @@ print(f"  monotonic (kappa strictly non-decreasing as r falls)? {monotonic}  <- 
 print(f"  -> crossover at r* between {r_sweep[r_sweep.index(r_star)-1] if r_star else '?'} and {r_star}: a resting/stacked body")
 print(f"     with net-force at just ~{ (r_star or 0.1)*100:.0f}% of its gross contact-force magnitude (a MILD near-equilibrium,")
 print(f"     not an extreme edge case -- true static equilibrium (r->0) is the norm for a body at rest) sits in the")
-print(f"     ★REQUIRED regime -- this is H's READ/cancellation face (unbounded, ledger ), consistent with the")
+print(f"     ★REQUIRED regime -- this is the READ/cancellation face (unbounded), consistent with the")
 print(f"     task's given 'contact-impulse ill-conditioned scatter, determinism-REQUIRED' framing, now DERIVED from a")
 print(f"     measured kappa (monotonic, reproducible) rather than asserted.")
 

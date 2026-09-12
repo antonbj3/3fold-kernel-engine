@@ -45,7 +45,7 @@ import time
 import numpy as np
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-REPO = os.path.abspath(os.path.join(HERE, "..", ".."))
+REPO = os.path.abspath(os.path.join(HERE, "..", "..", ".."))
 sys.path.insert(0, HERE)
 OUT_PATH = os.path.join(REPO, "reports", "probes", "gpu_lbm_utilization.json")
 ASIC_PATH = os.path.join(REPO, "reports", "probes", "asic_fallback_feasibility.json")

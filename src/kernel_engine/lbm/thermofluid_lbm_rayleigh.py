@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """NATIVE ON-GRID MULTIPHYSICS COUPLING — coupled thermo-fluid LBM (Boussinesq), validated against the ANALYTIC
-critical Rayleigh number Ra_c. The platform thesis: LBM-fluid and a thermal advection-diffusion lattice live on the
+critical Rayleigh number Ra_c. The thesis here: LBM-fluid and a thermal advection-diffusion lattice live on the
 SAME grid, so they couple LOCALLY per-cell (buoyancy force from local T; T advected by local u) — one substrate, not a
 fragile inter-solver handoff. scene_eyes is BUILT IN: the Rayleigh-Bénard onset is an analytic control — the system
 MUST stay pure-conduction (u≈0, Nu≈1) below Ra_c and convect (u>0, Nu>1) above it. No narration can fake that.

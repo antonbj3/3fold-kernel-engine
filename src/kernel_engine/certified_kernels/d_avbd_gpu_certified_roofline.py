@@ -1,5 +1,5 @@
 """d_avbd_gpu_certified_roofline.py — BUILD-TARGET (§D ★KEY GAP): the FIRST at-roofline CERTIFIED non-fluid
-DEFORMABLE (VBD/AVBD-class) GPU kernel, certified the way the platform's LBM is (LBM: 94-99% of copy-roofline
+DEFORMABLE (VBD/AVBD-class) GPU kernel, certified the way this project's LBM is (LBM: 94-99% of copy-roofline
 at the 72 B/voxel floor). Real compiled CUDA (nvcc via load_inline, ONE compile unit).
 
 REPRESENTATION (chosen so the R1 traffic floor derives cleanly from the stencil, like LBM's 72 B/voxel):

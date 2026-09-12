@@ -22,291 +22,288 @@
 
 One row per shipped module. VERIFIED-FRESH = its self-test ran in this repository's venv on CPU and
 reproduced its numbers. CUDA-ONLY = not runnable here until the GPU driver is fixed (either it refuses
-without a device, or its CPU fallback exceeds the time budget); last verified in the platform.
+without a device, or its CPU fallback exceeds the time budget); last verified in the source project.
 SYNTHETIC-ONLY = the method was demonstrated on private input, and it ships with a synthetic input and a test.
 
-| module | status |
-| --- | --- |
-| src/kernel_engine/_vendor/goal_oriented_culling.py | VERIFIED-FRESH |
-| src/kernel_engine/_vendor/lastfalt_v1_fem.py | VERIFIED-FRESH |
-| src/kernel_engine/_vendor/render_match_scaffold.py | SYNTHETIC-ONLY |
-| src/kernel_engine/_vendor/report_sigma.py | VERIFIED-FRESH |
-| src/kernel_engine/_vendor/uq.py | VERIFIED-FRESH |
-| src/kernel_engine/allocation/d_fpga_bitwidth_waterfilling.py | VERIFIED-FRESH |
-| src/kernel_engine/allocation/d_goal_derived_representation.py | VERIFIED-FRESH |
-| src/kernel_engine/allocation/d_pair_rep_waterfill_goalderived.py | VERIFIED-FRESH |
-| src/kernel_engine/allocation/d_poxel_waterfilling_unification.py | VERIFIED-FRESH |
-| src/kernel_engine/allocation/d_self_tuning_sensitivity_kernel.py | VERIFIED-FRESH |
-| src/kernel_engine/allocation/fpga_bitwidth_waterfilling_is_precision_floor_allocation_marginal_modes_need_more_bits.py | VERIFIED-FRESH |
-| src/kernel_engine/allocation/l_phase1_quant_x_cert_waterfill.py | VERIFIED-FRESH |
-| src/kernel_engine/allocation/l_waterfill_deploygap.py | VERIFIED-FRESH |
-| src/kernel_engine/allocation/l_waterfill_sufficiency.py | VERIFIED-FRESH |
-| src/kernel_engine/allocation/price_vector_waterfilling_multicommodity_capacity_allocation.py | VERIFIED-FRESH |
-| src/kernel_engine/allocation/probe_fair_vs_waterfill_knobs.py | CUDA-ONLY |
-| src/kernel_engine/allocation/reservation_waterfill_survival.py | VERIFIED-FRESH |
-| src/kernel_engine/allocation/sigmin_price_vector_waterfilling.py | VERIFIED-FRESH |
-| src/kernel_engine/allocation/sigmin_waterfill_bstar_stop.py | VERIFIED-FRESH |
-| src/kernel_engine/amr_poisson/amr_octree_fv.py | VERIFIED-FRESH |
-| src/kernel_engine/amr_poisson/amr_sigma_scaling.py | VERIFIED-FRESH |
-| src/kernel_engine/amr_poisson/lbm_poisson.py | VERIFIED-FRESH |
-| src/kernel_engine/amr_poisson/lightning_dbm.py | CUDA-ONLY |
-| src/kernel_engine/amr_poisson/poisson_dispatch.py | VERIFIED-FRESH |
-| src/kernel_engine/certified_kernels/d_1c_iv_end_to_end_real_cuda_cert.py | CUDA-ONLY |
-| src/kernel_engine/certified_kernels/d_avbd_gpu_certified_roofline.py | CUDA-ONLY |
-| src/kernel_engine/certified_kernels/d_coupled_knob_ordering_advantage_real_cuda.py | CUDA-ONLY |
-| src/kernel_engine/certified_kernels/d_cuda_transcendental_parity.py | CUDA-ONLY |
-| src/kernel_engine/certified_kernels/apriori_requirement_cert_on_real_kernelbench.py | VERIFIED-FRESH |
-| src/kernel_engine/certified_kernels/kernelbench_addressing_census_provenance_gate_absent.py | VERIFIED-FRESH |
-| src/kernel_engine/certified_kernels/d_ensemble_coexecution_cert_contended_roofline.py | VERIFIED-FRESH |
-| src/kernel_engine/certified_kernels/d_r2_r4_dissociation_real_cuda.py | CUDA-ONLY |
-| src/kernel_engine/certified_kernels/d_roofline_scene_eye.py | VERIFIED-FRESH |
-| src/kernel_engine/certified_kernels/d_wave92_B_friction_gate_roofline.py | VERIFIED-FRESH |
-| src/kernel_engine/certified_kernels/diag_fp16_bandwidth.py | CUDA-ONLY |
-| src/kernel_engine/certified_kernels/fem_sass_roofline.py | CUDA-ONLY |
-| src/kernel_engine/certified_kernels/l_phase0_c2_roofline.py | CUDA-ONLY |
-| src/kernel_engine/certified_kernels/probe_cuda_machinery_port_first_node.py | CUDA-ONLY |
-| src/kernel_engine/certified_kernels/probe_rung3_warp_scheduler.py | CUDA-ONLY |
-| src/kernel_engine/certified_kernels/probe_tensorcore_precision_rung.py | CUDA-ONLY |
-| src/kernel_engine/certified_kernels/u_compute_twin_roofline_ceiling_v1.py | CUDA-ONLY |
-| src/kernel_engine/certified_kernels/u_h5_thermal_roofline_twin_state.py | CUDA-ONLY |
-| src/kernel_engine/certified_kernels/u_v870_roofline_ceiling_long_window_sustained_throttle_recheck.py | CUDA-ONLY |
-| src/kernel_engine/certified_kernels/u_v874_roofline_soft_knee_sweep_tunable_arithmetic_intensity.py | CUDA-ONLY |
-| src/kernel_engine/certified_loop/d_1c_v_autonomy_loop_end_to_end_real_cuda.py | CUDA-ONLY |
-| src/kernel_engine/certified_loop/d_cuda_scene_eyes_determinism_real_gpu.py | VERIFIED-FRESH |
-| src/kernel_engine/certified_loop/d_lbm_soa_certified_roofline_close.py | CUDA-ONLY |
-| src/kernel_engine/certified_loop/d_privatized_reduction_close_abstain.py | VERIFIED-FRESH |
-| src/kernel_engine/certified_loop/d_vulkan_port_certified_kernel.py | CUDA-ONLY |
-| src/kernel_engine/euler_hllc/axisym_ns_solver.py | VERIFIED-FRESH |
-| src/kernel_engine/euler_hllc/detonation_cellular.py | VERIFIED-FRESH |
-| src/kernel_engine/euler_hllc/detonation_znd.py | VERIFIED-FRESH |
-| src/kernel_engine/euler_hllc/gas_flow_engine.py | VERIFIED-FRESH |
-| src/kernel_engine/euler_hllc/goc_baseline_honesty.py | VERIFIED-FRESH |
-| src/kernel_engine/euler_hllc/jeans_instability.py | VERIFIED-FRESH |
-| src/kernel_engine/euler_hllc/pa_adjoint_vs_cheap_goal.py | VERIFIED-FRESH |
-| src/kernel_engine/euler_hllc/pa_adjoint_vs_cheap_proxies.py | VERIFIED-FRESH |
-| src/kernel_engine/euler_hllc/phenomenon_registry.py | VERIFIED-FRESH |
-| src/kernel_engine/euler_hllc/sigma_solver_routing.py | VERIFIED-FRESH |
-| src/kernel_engine/euler_hllc/substrate_compose.py | CUDA-ONLY |
-| src/kernel_engine/euler_hllc/traffic_flow_lwr.py | VERIFIED-FRESH |
-| src/kernel_engine/fem/buckling_euler_column.py | VERIFIED-FRESH |
-| src/kernel_engine/fem/cad_kirsch_mesh.py | VERIFIED-FRESH |
-| src/kernel_engine/fem/cad_to_femmesh.py | VERIFIED-FRESH |
-| src/kernel_engine/fem/cad_to_tetmesh.py | VERIFIED-FRESH |
-| src/kernel_engine/fem/euler_buckling.py | VERIFIED-FRESH |
-| src/kernel_engine/fem/fatigue_life.py | VERIFIED-FRESH |
-| src/kernel_engine/fem/fem3d_elasticity.py | VERIFIED-FRESH |
-| src/kernel_engine/fem/fem3d_modal.py | VERIFIED-FRESH |
-| src/kernel_engine/fem/fem3d_orthotropic.py | VERIFIED-FRESH |
-| src/kernel_engine/fem/fem3d_thermoelastic.py | VERIFIED-FRESH |
-| src/kernel_engine/fem/fracture_lefm.py | VERIFIED-FRESH |
-| src/kernel_engine/fem/spectral_fatigue.py | VERIFIED-FRESH |
-| src/kernel_engine/fem/viscoelasticity_creep.py | VERIFIED-FRESH |
-| src/kernel_engine/fem/warpfem_acoustic_design.py | VERIFIED-FRESH |
-| src/kernel_engine/fem/warpfem_acoustic_modal.py | VERIFIED-FRESH |
-| src/kernel_engine/fem/warpfem_adjoint_arbitrary.py | VERIFIED-FRESH |
-| src/kernel_engine/fem/warpfem_cad_elasticity.py | VERIFIED-FRESH |
-| src/kernel_engine/fem/warpfem_compliant_inverter.py | VERIFIED-FRESH |
-| src/kernel_engine/fem/warpfem_compute_router.py | CUDA-ONLY |
-| src/kernel_engine/fem/warpfem_coupled_adjoint.py | VERIFIED-FRESH |
-| src/kernel_engine/fem/warpfem_design_gradient.py | VERIFIED-FRESH |
-| src/kernel_engine/fem/warpfem_design_objective.py | CUDA-ONLY |
-| src/kernel_engine/fem/warpfem_elasticity_validate.py | VERIFIED-FRESH |
-| src/kernel_engine/fem/warpfem_em_magnetostatics.py | VERIFIED-FRESH |
-| src/kernel_engine/fem/warpfem_field_surrogate.py | CUDA-ONLY |
-| src/kernel_engine/fem/warpfem_field_surrogate_fallbevis_v1.py | VERIFIED-FRESH |
-| src/kernel_engine/fem/warpfem_kirsch.py | VERIFIED-FRESH |
-| src/kernel_engine/fem/warpfem_mms_3d.py | VERIFIED-FRESH |
-| src/kernel_engine/fem/warpfem_mms_cad.py | VERIFIED-FRESH |
-| src/kernel_engine/fem/warpfem_mms_cad3d.py | CUDA-ONLY |
-| src/kernel_engine/fem/warpfem_mms_elasticity.py | VERIFIED-FRESH |
-| src/kernel_engine/fem/warpfem_modal.py | VERIFIED-FRESH |
-| src/kernel_engine/fem/warpfem_navier_stokes.py | CUDA-ONLY |
-| src/kernel_engine/fem/warpfem_stokes_poiseuille.py | VERIFIED-FRESH |
-| src/kernel_engine/fem/warpfem_stress3d.py | CUDA-ONLY |
-| src/kernel_engine/fem/warpfem_surrogate.py | CUDA-ONLY |
-| src/kernel_engine/fem/warpfem_thermoelastic.py | VERIFIED-FRESH |
-| src/kernel_engine/fem/warpfem_topopt.py | CUDA-ONLY |
-| src/kernel_engine/fem/warpfem_transient_heat_energy.py | VERIFIED-FRESH |
-| src/kernel_engine/fem/warpfem_transient_structural.py | VERIFIED-FRESH |
-| src/kernel_engine/kernel_gen/d_crossbackend_kernel_port_verify.py | CUDA-ONLY |
-| src/kernel_engine/kernel_gen/d_l1_kernel_certvec_compose.py | VERIFIED-FRESH |
-| src/kernel_engine/kernel_variants/kernelvarv_v1_f2_matvec.py | CUDA-ONLY |
-| src/kernel_engine/kernel_variants/kernelvarv_v1_f4_csg.py | CUDA-ONLY |
-| src/kernel_engine/kernel_variants/kernelvarv_v2_f4_closing.py | SYNTHETIC-ONLY |
-| src/kernel_engine/lbm/acoustic_streaming.py | VERIFIED-FRESH |
-| src/kernel_engine/lbm/cloud_morphology.py | CUDA-ONLY |
-| src/kernel_engine/lbm/d_certvector_on_real_lbm.py | VERIFIED-FRESH |
-| src/kernel_engine/lbm/d_integration_stitch_lbm_contact_scenario_cert.py | VERIFIED-FRESH |
-| src/kernel_engine/lbm/d_per_variable_precision_cert_lbm.py | VERIFIED-FRESH |
-| src/kernel_engine/lbm/d_static_deployment_gate_real_lbm.py | VERIFIED-FRESH |
-| src/kernel_engine/lbm/differentiable_lbm_probe.py | VERIFIED-FRESH |
-| src/kernel_engine/lbm/double_diffusive_lbm.py | VERIFIED-FRESH |
-| src/kernel_engine/lbm/excitable_media_fhn.py | VERIFIED-FRESH |
-| src/kernel_engine/lbm/gpu_lbm_luftflode_v1.py | CUDA-ONLY |
-| src/kernel_engine/lbm/gpu_lbm_utilization_cell.py | CUDA-ONLY |
-| src/kernel_engine/lbm/hartmann_mhd_lbm.py | VERIFIED-FRESH |
-| src/kernel_engine/lbm/lbm3d_gpu.py | VERIFIED-FRESH |
-| src/kernel_engine/lbm/lbm3d_immersed_boundary.py | CUDA-ONLY |
-| src/kernel_engine/lbm/lbm3d_poiseuille.py | VERIFIED-FRESH |
-| src/kernel_engine/lbm/lbm_aero_v0.py | VERIFIED-FRESH |
-| src/kernel_engine/lbm/lbm_compressible_boundary.py | VERIFIED-FRESH |
-| src/kernel_engine/lbm/lbm_fsi_bouzidi.py | CUDA-ONLY |
-| src/kernel_engine/lbm/lbm_fsi_gpu.py | CUDA-ONLY |
-| src/kernel_engine/lbm/lbm_fsi_viv.py | CUDA-ONLY |
-| src/kernel_engine/lbm/lbm_gpu_fast.py | CUDA-ONLY |
-| src/kernel_engine/lbm/lbm_gpu_fp16.py | CUDA-ONLY |
-| src/kernel_engine/lbm/lbm_gpu_fp16_half2.py | CUDA-ONLY |
-| src/kernel_engine/lbm/lbm_lattice.py | VERIFIED-FRESH |
-| src/kernel_engine/lbm/lbm_mach_ceiling.py | VERIFIED-FRESH |
-| src/kernel_engine/lbm/lbm_mrt_stability.py | CUDA-ONLY |
-| src/kernel_engine/lbm/lbm_voxel_aero.py | VERIFIED-FRESH |
-| src/kernel_engine/lbm/lbm_voxel_aero_gpu.py | CUDA-ONLY |
-| src/kernel_engine/lbm/magnetic_induction_lattice.py | VERIFIED-FRESH |
-| src/kernel_engine/lbm/moist_convection_lbm.py | CUDA-ONLY |
-| src/kernel_engine/lbm/probe_lbm_fp16_steady_dither.py | CUDA-ONLY |
-| src/kernel_engine/lbm/rayleigh_taylor_lbm.py | VERIFIED-FRESH |
-| src/kernel_engine/lbm/reaction_diffusion_turing.py | VERIFIED-FRESH |
-| src/kernel_engine/lbm/rte_lbm.py | VERIFIED-FRESH |
-| src/kernel_engine/lbm/thermofluid_lbm_rayleigh.py | CUDA-ONLY |
-| src/kernel_engine/reductions/d_1c_real_reduction_roofline_torch.py | CUDA-ONLY |
-| src/kernel_engine/reductions/probe_kernel_determinism_cert.py | VERIFIED-FRESH |
-| src/kernel_engine/reductions/u_v54_gather_law_deterministic_reduction_vs_atomic_int64.py | VERIFIED-FRESH |
-| src/kernel_engine/thermo/biot_transient_conduction.py | VERIFIED-FRESH |
-| src/kernel_engine/thermo/bohm_sheath_criterion.py | VERIFIED-FRESH |
-| src/kernel_engine/thermo/d_nonnormal_thermo_price_of_amplification_probe.py | VERIFIED-FRESH |
-| src/kernel_engine/thermo/d_thermo_computing_equals_fusion.py | VERIFIED-FRESH |
-| src/kernel_engine/thermo/d_thermo_datahole_law.py | VERIFIED-FRESH |
-| src/kernel_engine/thermo/d_thermo_voi_law_multiworld.py | VERIFIED-FRESH |
-| src/kernel_engine/thermo/debye_specific_heat.py | VERIFIED-FRESH |
-| src/kernel_engine/thermo/diffusion_induced_stress.py | VERIFIED-FRESH |
-| src/kernel_engine/thermo/explosion_combustion.py | VERIFIED-FRESH |
-| src/kernel_engine/thermo/fizeau_drag.py | VERIFIED-FRESH |
-| src/kernel_engine/thermo/fourier_conduction.py | VERIFIED-FRESH |
-| src/kernel_engine/thermo/heat_pipe_capillary_limit.py | VERIFIED-FRESH |
-| src/kernel_engine/thermo/heat_pipe_sigma_budget.py | VERIFIED-FRESH |
-| src/kernel_engine/thermo/heat_pump_cop.py | VERIFIED-FRESH |
-| src/kernel_engine/thermo/heat_pump_sigma_budget.py | VERIFIED-FRESH |
-| src/kernel_engine/thermo/hopf_reaction_diffusion.py | VERIFIED-FRESH |
-| src/kernel_engine/thermo/induction_heating_skin.py | VERIFIED-FRESH |
-| src/kernel_engine/thermo/ising_thermo.py | VERIFIED-FRESH |
-| src/kernel_engine/thermo/joule_heating_thermal.py | VERIFIED-FRESH |
-| src/kernel_engine/thermo/kapitza_acoustic_mismatch.py | VERIFIED-FRESH |
-| src/kernel_engine/thermo/p8_combustion_cert_pod_a90.py | VERIFIED-FRESH |
-| src/kernel_engine/thermo/p8_combustion_cert_watertight.py | VERIFIED-FRESH |
-| src/kernel_engine/thermo/p8_combustion_state_certification.py | VERIFIED-FRESH |
-| src/kernel_engine/thermo/p8_delft_conditional_variance.py | VERIFIED-FRESH |
-| src/kernel_engine/thermo/p8_delft_flamelet_render_match.py | VERIFIED-FRESH |
-| src/kernel_engine/thermo/p8_delft_species_flamelet.py | VERIFIED-FRESH |
-| src/kernel_engine/thermo/p8_ecn_combustion_energy.py | VERIFIED-FRESH |
-| src/kernel_engine/thermo/p8_flame_mixture_fraction_render_match.py | VERIFIED-FRESH |
-| src/kernel_engine/thermo/p8_sandia_extinction_flamelet_breakdown.py | VERIFIED-FRESH |
-| src/kernel_engine/thermo/photoelasticity_isochromatics.py | VERIFIED-FRESH |
-| src/kernel_engine/thermo/photon_diffusion_escape.py | VERIFIED-FRESH |
-| src/kernel_engine/thermo/saffman_delbruck_diffusion.py | VERIFIED-FRESH |
-| src/kernel_engine/thermo/sommerfeld_electron_heat.py | VERIFIED-FRESH |
-| src/kernel_engine/thermo/soret_thermodiffusion.py | VERIFIED-FRESH |
-| src/kernel_engine/thermo/thermocouple_seebeck.py | VERIFIED-FRESH |
-| src/kernel_engine/thermo/thermoelectric_seebeck.py | VERIFIED-FRESH |
-| src/kernel_engine/thermo/tidal_heating.py | VERIFIED-FRESH |
-| src/kernel_engine/thermo/wheatstone_bridge.py | VERIFIED-FRESH |
-| src/kernel_engine/thermo/wkb_quantization.py | VERIFIED-FRESH |
-| src/kernel_engine/tropical_sdf/2jet_sdf_curvature_decouples_v6.py | VERIFIED-FRESH |
-| src/kernel_engine/tropical_sdf/JxA_contact_param_over_determination_material_physics_leg_lifts_the_motion_regime_null.py | VERIFIED-FRESH |
-| src/kernel_engine/tropical_sdf/certified_generative_support_placement_worstcase_sigmamin_robust_dfc.py | VERIFIED-FRESH |
-| src/kernel_engine/tropical_sdf/contact_cert_chi_from_sdf_error.py | VERIFIED-FRESH |
-| src/kernel_engine/tropical_sdf/contact_dof_cert_identify_or_abstain.py | VERIFIED-FRESH |
-| src/kernel_engine/tropical_sdf/contact_orientation_gauge_emergence.py | VERIFIED-FRESH |
-| src/kernel_engine/tropical_sdf/contact_penalty_conditioning_omega_max_side_accuracy_cost_tradeoff_completes_sim_conditioning.py | VERIFIED-FRESH |
-| src/kernel_engine/tropical_sdf/engine_contact_manifold_rank_twist_selfstress_2point_reduction.py | VERIFIED-FRESH |
-| src/kernel_engine/tropical_sdf/engine_manifold_reduction_needs_3points_not_2_wrench_span.py | VERIFIED-FRESH |
-| src/kernel_engine/tropical_sdf/engine_which_3_points_Eoptimal_sigmamin_manifold_not_max_area.py | VERIFIED-FRESH |
-| src/kernel_engine/tropical_sdf/friction_mu_is_a_sigma_min_null_under_stick_lifted_only_by_slip_events_contact_sim_ready.py | VERIFIED-FRESH |
-| src/kernel_engine/tropical_sdf/mma_capstone_validity_band_sweep.py | VERIFIED-FRESH |
-| src/kernel_engine/tropical_sdf/mma_topopt_capstone_stress_constrained_dfc_positive.py | VERIFIED-FRESH |
-| src/kernel_engine/tropical_sdf/restitution_null_lifted_by_impact_friction_and_restitution_are_decorrelated_contact_nulls.py | VERIFIED-FRESH |
-| src/kernel_engine/tropical_sdf/so_arm100_contact_sim_cost_from_tropical_sdf_backend_hertz_stiffness_sets_stable_dt_stability_verified.py | VERIFIED-FRESH |
-| src/kernel_engine/tropical_sdf/stress_constrained_compliance_topopt_dfc_positive.py | VERIFIED-FRESH |
-| src/kernel_engine/tropical_sdf/stress_objective_topopt_design_for_certifiability_positive.py | VERIFIED-FRESH |
-| src/kernel_engine/tropical_sdf/topopt_stress_frontier_forced_number_not_honest_label.py | VERIFIED-FRESH |
-| src/kernel_engine/tropical_sdf/topopt_stress_vs_compliance_design_for_certifiability.py | VERIFIED-FRESH |
-| src/kernel_engine/tropical_sdf/tropical_sdf_SIMT_tax_cost_model_compute_bound_vs_voxel_bandwidth_bound_crossover_Kstar.py | VERIFIED-FRESH |
-| src/kernel_engine/tropical_sdf/tropical_sdf_backend_computes_full_v6_contact_geometry_ladder_2jet_curvature_anisotropy_on_so_arm100.py | VERIFIED-FRESH |
-| src/kernel_engine/tropical_sdf/tropical_sdf_backend_min_of_capsules_beats_voxel_3x_bytes_matched_penetration_so_arm100.py | VERIFIED-FRESH |
-| src/kernel_engine/tropical_sdf/tropical_sdf_so_arm100_geometry_backend_v2_config_driven_posing_plus_contact_normal_gradient.py | VERIFIED-FRESH |
-| src/kernel_engine/tropical_sdf/tropical_sdf_swept_volume_continuous_collision_detection_min_over_trajectory.py | VERIFIED-FRESH |
-| src/kernel_engine/warp_gpu/gpu_fracture_determinism_sigma.py | VERIFIED-FRESH |
-| src/kernel_engine/warp_gpu/mujoco_warp_bench.py | CUDA-ONLY |
-| src/kernel_engine/warp_gpu/rigid2d_primal_vbd_gpu.py | CUDA-ONLY |
-| src/kernel_engine/warp_gpu/warp_bodybody_colored_gpu.py | CUDA-ONLY |
-| src/kernel_engine/warp_gpu/warp_bodybody_jacobi_gpu.py | CUDA-ONLY |
-| src/kernel_engine/warp_gpu/warp_bodybody_scale_gpu.py | CUDA-ONLY |
-| src/kernel_engine/warp_gpu/warp_cylinder_roll_gpu.py | CUDA-ONLY |
-| src/kernel_engine/warp_gpu/warp_granular_friction.py | CUDA-ONLY |
-| src/kernel_engine/warp_gpu/warp_granular_gpu.py | CUDA-ONLY |
-| src/kernel_engine/warp_gpu/warp_mesh_roll_gpu.py | CUDA-ONLY |
-| src/kernel_engine/warp_gpu/warp_rigid_ramp_gpu.py | CUDA-ONLY |
-| src/kernel_engine/warp_gpu/warp_rigid_ramp_gpu_v2.py | CUDA-ONLY |
-| src/kernel_engine/warp_gpu/warp_rl_env_gpu.py | CUDA-ONLY |
-| src/kernel_engine/wave_fdtd/acoustic_emission.py | VERIFIED-FRESH |
-| src/kernel_engine/wave_fdtd/acoustic_sigma_renderer.py | SYNTHETIC-ONLY |
-| src/kernel_engine/wave_fdtd/acoustic_fdtd.py | VERIFIED-FRESH |
-| src/kernel_engine/wave_fdtd/diag_acoustic_mode.py | VERIFIED-FRESH |
-| src/kernel_engine/wave_fdtd/diag_acoustic_seed.py | VERIFIED-FRESH |
-| src/kernel_engine/wave_fdtd/diag_acoustic_spectrum.py | VERIFIED-FRESH |
-| src/kernel_engine/wave_fdtd/diff_wave_3d.py | VERIFIED-FRESH |
-| src/kernel_engine/wave_fdtd/diff_wave_substrate.py | VERIFIED-FRESH |
-| src/kernel_engine/wave_fdtd/elastodynamics_kache.py | VERIFIED-FRESH |
-| src/kernel_engine/wave_fdtd/goc_wave_transient.py | VERIFIED-FRESH |
-| src/kernel_engine/wave_fdtd/optics_coating.py | VERIFIED-FRESH |
-| src/kernel_engine/wave_fdtd/optics_fdtd.py | VERIFIED-FRESH |
-| src/kernel_engine/wave_fdtd/persona_design_acoustic.py | VERIFIED-FRESH |
-| src/kernel_engine/wave_fdtd/persona_design_acoustic_cavity_shape.py | VERIFIED-FRESH |
-| src/kernel_engine/wave_fdtd/persona_design_acoustic_inverse.py | VERIFIED-FRESH |
-| src/kernel_engine/wave_fdtd/persona_design_acoustic_shape_adjoint.py | VERIFIED-FRESH |
-| src/kernel_engine/wave_fdtd/persona_design_lbm_acoustic.py | VERIFIED-FRESH |
-| src/kernel_engine/wave_fdtd/s1_acoustic_metamaterial_bandgap.py | VERIFIED-FRESH |
-| src/kernel_engine/wave_fdtd/thermoacoustic_rijke_dde.py | VERIFIED-FRESH |
-| src/kernel_engine/wave_fdtd/vibroacoustic.py | VERIFIED-FRESH |
-| src/kernel_engine/wave_fdtd/wave_fdtd_3d.py | VERIFIED-FRESH |
-| src/kernel_engine/wave_fdtd/wave_fdtd_kache.py | VERIFIED-FRESH |
-| src/kernel_engine/wave_fdtd/wave_fdtd_verify.py | VERIFIED-FRESH |
-| src/kernel_engine/certified_kernels/aa_micro_bench.py | CUDA-ONLY |
-| src/kernel_engine/certified_kernels/d_energy_exponent_substrate_invariant.py | CUDA-ONLY |
-| src/kernel_engine/certified_kernels/gpu_duty_torch_v1.py | VERIFIED-FRESH |
-| src/kernel_engine/certified_kernels/module_const_launch_tune.py | VERIFIED-FRESH |
-| src/kernel_engine/certified_kernels/morton_3d_stencil.py | VERIFIED-FRESH |
-| src/kernel_engine/certified_kernels/morton_sparse_gather.py | VERIFIED-FRESH |
-| src/kernel_engine/certified_kernels/probe_compute_ladder_descent.py | CUDA-ONLY |
-| src/kernel_engine/certified_kernels/probe_exclusive_sweep_block.py | CUDA-ONLY |
-| src/kernel_engine/certified_kernels/probe_l2_inband_endgame.py | CUDA-ONLY |
-| src/kernel_engine/certified_kernels/probe_sync_density_victim_model.py | CUDA-ONLY |
-| src/kernel_engine/certified_kernels/probe_sync_penalty_vs_priority.py | CUDA-ONLY |
-| src/kernel_engine/certified_kernels/probe_timeslice_dma_fartail.py | CUDA-ONLY |
-| src/kernel_engine/certified_kernels/ser_fracture_compaction.py | CUDA-ONLY |
-| src/kernel_engine/euler_hllc/lubrication_reynolds_bearing.py | VERIFIED-FRESH |
-| src/kernel_engine/fem/fsi_added_mass.py | VERIFIED-FRESH |
-| src/kernel_engine/fem/fsi_pipe_flutter.py | VERIFIED-FRESH |
-| src/kernel_engine/fem/neuber_notch_plasticity.py | VERIFIED-FRESH |
-| src/kernel_engine/fem/plasticity_3d_j2.py | VERIFIED-FRESH |
-| src/kernel_engine/fem/plasticity_return_mapping.py | VERIFIED-FRESH |
-| src/kernel_engine/fem/thermal_buckling.py | VERIFIED-FRESH |
-| src/kernel_engine/fem/viscoelastic_preload_relaxation.py | VERIFIED-FRESH |
-| src/kernel_engine/lbm/coupled_design_aero_struct.py | CUDA-ONLY |
-| src/kernel_engine/lbm/differentiable_flow_control.py | VERIFIED-FRESH |
-| src/kernel_engine/lbm/differentiable_fsi_chain.py | VERIFIED-FRESH |
-| src/kernel_engine/lbm/g18_cfd_nilss_prereq_wake_chaos.py | CUDA-ONLY |
-| src/kernel_engine/lbm/g19_forced_2d_wake_nilss_prereq.py | CUDA-ONLY |
-| src/kernel_engine/lbm/g20_3d_wake_chaos_nilss_prereq.py | CUDA-ONLY |
-| src/kernel_engine/lbm/g21_3d_wake_chaos_highRe.py | CUDA-ONLY |
-| src/kernel_engine/lbm/probe_kam_resonance_dither_strides.py | CUDA-ONLY |
-| src/kernel_engine/reductions/d_1c_iv_best_in_class_float4.py | CUDA-ONLY |
-| src/kernel_engine/reductions/det_accumulation_probe.py | VERIFIED-FRESH |
-| src/kernel_engine/wave_fdtd/coupled_multiphysics_calibration.py | VERIFIED-FRESH |
-| src/kernel_engine/wave_fdtd/goc_wave_verify.py | VERIFIED-FRESH |
-| src/kernel_engine/wave_fdtd/sigma_guided_fwi.py | CUDA-ONLY |
-| src/kernel_engine/wave_fdtd/twin_calibration_multisource.py | VERIFIED-FRESH |
+| module | status | note |
+| --- | --- | --- |
+| src/kernel_engine/_vendor/goal_oriented_culling.py | VERIFIED-FRESH |  |
+| src/kernel_engine/_vendor/lastfalt_v1_fem.py | VERIFIED-FRESH |  |
+| src/kernel_engine/_vendor/render_match_scaffold.py | SYNTHETIC-ONLY |  |
+| src/kernel_engine/_vendor/report_sigma.py | VERIFIED-FRESH |  |
+| src/kernel_engine/_vendor/uq.py | VERIFIED-FRESH |  |
+| src/kernel_engine/allocation/d_fpga_bitwidth_waterfilling.py | VERIFIED-FRESH |  |
+| src/kernel_engine/allocation/d_goal_derived_representation.py | VERIFIED-FRESH |  |
+| src/kernel_engine/allocation/d_pair_rep_waterfill_goalderived.py | VERIFIED-FRESH |  |
+| src/kernel_engine/allocation/d_poxel_waterfilling_unification.py | VERIFIED-FRESH |  |
+| src/kernel_engine/allocation/d_self_tuning_sensitivity_kernel.py | VERIFIED-FRESH |  |
+| src/kernel_engine/allocation/fpga_bitwidth_waterfilling_is_precision_floor_allocation_marginal_modes_need_more_bits.py | VERIFIED-FRESH |  |
+| src/kernel_engine/allocation/l_phase1_quant_x_cert_waterfill.py | VERIFIED-FRESH |  |
+| src/kernel_engine/allocation/l_waterfill_deploygap.py | VERIFIED-FRESH |  |
+| src/kernel_engine/allocation/l_waterfill_sufficiency.py | VERIFIED-FRESH |  |
+| src/kernel_engine/allocation/price_vector_waterfilling_multicommodity_capacity_allocation.py | VERIFIED-FRESH |  |
+| src/kernel_engine/allocation/probe_fair_vs_waterfill_knobs.py | CUDA-ONLY | aborted by own idle guard (desktop GPU processes present) |
+| src/kernel_engine/allocation/reservation_waterfill_survival.py | VERIFIED-FRESH |  |
+| src/kernel_engine/allocation/sigmin_price_vector_waterfilling.py | VERIFIED-FRESH |  |
+| src/kernel_engine/allocation/sigmin_waterfill_bstar_stop.py | VERIFIED-FRESH |  |
+| src/kernel_engine/amr_poisson/amr_octree_fv.py | VERIFIED-FRESH |  |
+| src/kernel_engine/amr_poisson/amr_sigma_scaling.py | VERIFIED-FRESH |  |
+| src/kernel_engine/amr_poisson/lbm_poisson.py | VERIFIED-FRESH |  |
+| src/kernel_engine/amr_poisson/lightning_dbm.py | CUDA-ONLY | own verdict: charge-em DBM stays BUILDLIST -- mass-radius D=1.57+-0.12 at N=300 is variance-dominated, not the 1.71 target; eta-morphology D 1.78 -> 1.60 -> 1.23 validated |
+| src/kernel_engine/amr_poisson/poisson_dispatch.py | VERIFIED-FRESH |  |
+| src/kernel_engine/certified_kernels/d_1c_iv_end_to_end_real_cuda_cert.py | VERIFIED-FRESH | reduce_det (tree) 509 GB/s = 76 % peak, run-to-run spread 0 -> CERTIFY; reduce_atomic spread 5.3e+01 -> REJECT |
+| src/kernel_engine/certified_kernels/d_avbd_gpu_certified_roofline.py | VERIFIED-FRESH | colored Gauss-Seidel CERTIFIED at 104.3 % of the 603 GB/s copy roofline (Jacobi 51.2 %, not certified); stiffness-ratio advantage grows 5.03x, mass-ratio advantage does not (0.75); 215 s |
+| src/kernel_engine/certified_kernels/d_coupled_knob_ordering_advantage_real_cuda.py | CUDA-ONLY | own verdict: "ORDERING CAUSALLY BUYS ITERATIONS ON REAL COUPLED CUDA KNOBS: REFUTED" (exit 1 by design); guided certified 0/3, naive-primary 0/3 at 6 certs, blind-random 14/20 |
+| src/kernel_engine/certified_kernels/d_cuda_transcendental_parity.py | VERIFIED-FRESH | bit-exact vs IEEE: cos 0.809, sin 0.839, exp 0.697, rsqrt 0.000; max abs err exp 3.81e-06 (~32 ULP); CUDA repeat x3 reproducible |
+| src/kernel_engine/certified_kernels/apriori_requirement_cert_on_real_kernelbench.py | VERIFIED-FRESH |  |
+| src/kernel_engine/certified_kernels/kernelbench_addressing_census_provenance_gate_absent.py | VERIFIED-FRESH |  |
+| src/kernel_engine/certified_kernels/d_ensemble_coexecution_cert_contended_roofline.py | VERIFIED-FRESH |  |
+| src/kernel_engine/certified_kernels/d_r2_r4_dissociation_real_cuda.py | VERIFIED-FRESH | float-atomic R2 FAIL/R4 FAIL 3 GB/s; int64-atomic R2 PASS/R4 FAIL 8 GB/s; tree+atomic-final R2 FAIL/R4 PASS 558 GB/s (83 %) -> R2 and R4 dissociate |
+| src/kernel_engine/certified_kernels/d_roofline_scene_eye.py | VERIFIED-FRESH |  |
+| src/kernel_engine/certified_kernels/d_wave92_B_friction_gate_roofline.py | VERIFIED-FRESH |  |
+| src/kernel_engine/certified_kernels/diag_fp16_bandwidth.py | VERIFIED-FRESH | half2 peaks 8641 MLUPS at N=1024 and settles at ~6400; plain FP16 46 % of FP32 bandwidth, half2 67 %, ~0.87x FP32-fused MLUPS at production grids |
+| src/kernel_engine/certified_kernels/fem_sass_roofline.py | VERIFIED-FRESH | FEM quadrature crosses the ridge at AI~6 (nq=4..256 compute-bound); LBM stencil AI 0.23, bandwidth-capped at 2239 GB/s (L2-optimistic) |
+| src/kernel_engine/certified_kernels/l_phase0_c2_roofline.py | CUDA-ONLY | own verdict: G3 "BW anchored to spec" FALSE (measured read 676 GB/s outside 0.5-1.0x the 672 GB/s spec -> instrument or spec wrong); G1/G2 pass, MBU sweep 0.07 -> 0.92 |
+| src/kernel_engine/certified_kernels/probe_cuda_machinery_port_first_node.py | VERIFIED-FRESH | max_rel 3.22e-07 vs the true MLE; fp64 GPU 9.6x a single CPU core (0.6x per 16 fair cores); verdict PORTED-AND-WORTH-IT |
+| src/kernel_engine/certified_kernels/probe_rung3_warp_scheduler.py | VERIFIED-FRESH | occupancy equals the resource-partition formula exactly (incl. 1024 -> 66.67 %); Hill 0.35-0.62 vs null 0.034; own ABSTAIN on rung-3 tail structure (xi gap 1.00, not sign-stable) |
+| src/kernel_engine/certified_kernels/probe_tensorcore_precision_rung.py | CUDA-ONLY | aborted by own idle guard (desktop GPU processes present) |
+| src/kernel_engine/certified_kernels/u_compute_twin_roofline_ceiling_v1.py | VERIFIED-FRESH | bf16 GEMM 58604.6 GFLOP/s sustained (drift +0.02 %), device-to-device copy 564.1 GB/s, ridge 103.89 FLOP/byte |
+| src/kernel_engine/certified_kernels/u_h5_thermal_roofline_twin_state.py | CUDA-ONLY | own verdict: not-C -- ridge 1.930 -> 2.072 FLOP/byte is a 7.4 % shift, below the pre-registered 10 % ("-> FAIL"); all 6 instrument gates pass; 336 s |
+| src/kernel_engine/certified_kernels/u_v870_roofline_ceiling_long_window_sustained_throttle_recheck.py | VERIFIED-FRESH | 45 s sustained: 54149.8 GFLOP/s (late decile 53465.4, drift -11.1 %) and 500.6 GB/s (late decile 515.7, drift +2.2 %); ridge 108.18 vs the 3 s value 115.28 FLOP/byte |
+| src/kernel_engine/certified_kernels/u_v874_roofline_soft_knee_sweep_tunable_arithmetic_intensity.py | VERIFIED-FRESH | near-ridge efficiency 59.2 % vs 102.7 % far from the ridge -> soft knee confirmed on the roofline axis |
+| src/kernel_engine/certified_loop/d_1c_v_autonomy_loop_end_to_end_real_cuda.py | VERIFIED-FRESH | deficit-guided certified in 2 iterations, min-of-10 roofline 93.6 % >= 85 %; random mutation 100 %/20 seeds, mean 4.4 iterations (2.2x); wrong-tile bug caught (relerr 50 %); 131.6 s |
+| src/kernel_engine/certified_loop/d_cuda_scene_eyes_determinism_real_gpu.py | VERIFIED-FRESH |  |
+| src/kernel_engine/certified_loop/d_lbm_soa_certified_roofline_close.py | VERIFIED-FRESH | fusion 2601 -> 6416 MLUPS (2.47x), layout AoS -> SoA 6416 -> 8185 MLUPS (1.28x); Poiseuille <1 %, bit-repeat x3 true; SUPPORTED |
+| src/kernel_engine/certified_loop/d_privatized_reduction_close_abstain.py | VERIFIED-FRESH |  |
+| src/kernel_engine/certified_loop/d_vulkan_port_certified_kernel.py | CUDA-ONLY | own verdict: "Gate-1 bit-exact sweep: FAIL" on subnormal inputs (Vulkan flushes to zero, CUDA does not); the other facets transfer (CUDA 90.0 %, Vulkan 94.1 % of theoretical) |
+| src/kernel_engine/euler_hllc/axisym_ns_solver.py | VERIFIED-FRESH |  |
+| src/kernel_engine/euler_hllc/detonation_cellular.py | VERIFIED-FRESH |  |
+| src/kernel_engine/euler_hllc/detonation_znd.py | VERIFIED-FRESH |  |
+| src/kernel_engine/euler_hllc/gas_flow_engine.py | VERIFIED-FRESH |  |
+| src/kernel_engine/euler_hllc/goc_baseline_honesty.py | VERIFIED-FRESH |  |
+| src/kernel_engine/euler_hllc/jeans_instability.py | VERIFIED-FRESH |  |
+| src/kernel_engine/euler_hllc/pa_adjoint_vs_cheap_goal.py | VERIFIED-FRESH |  |
+| src/kernel_engine/euler_hllc/pa_adjoint_vs_cheap_proxies.py | VERIFIED-FRESH |  |
+| src/kernel_engine/euler_hllc/phenomenon_registry.py | VERIFIED-FRESH |  |
+| src/kernel_engine/euler_hllc/sigma_solver_routing.py | VERIFIED-FRESH |  |
+| src/kernel_engine/euler_hllc/substrate_compose.py | VERIFIED-FRESH | hot-swap radiation changes cloud dT by +0.262 and blocks 16 % as shadow; chemistry module burns 100 % of the fuel (dT +0.228); tracer conserved to 1e-02 |
+| src/kernel_engine/euler_hllc/traffic_flow_lwr.py | VERIFIED-FRESH |  |
+| src/kernel_engine/fem/buckling_euler_column.py | VERIFIED-FRESH |  |
+| src/kernel_engine/fem/cad_kirsch_mesh.py | VERIFIED-FRESH |  |
+| src/kernel_engine/fem/cad_to_femmesh.py | VERIFIED-FRESH |  |
+| src/kernel_engine/fem/cad_to_tetmesh.py | VERIFIED-FRESH |  |
+| src/kernel_engine/fem/euler_buckling.py | VERIFIED-FRESH |  |
+| src/kernel_engine/fem/fatigue_life.py | VERIFIED-FRESH |  |
+| src/kernel_engine/fem/fem3d_elasticity.py | VERIFIED-FRESH |  |
+| src/kernel_engine/fem/fem3d_modal.py | VERIFIED-FRESH |  |
+| src/kernel_engine/fem/fem3d_orthotropic.py | VERIFIED-FRESH |  |
+| src/kernel_engine/fem/fem3d_thermoelastic.py | VERIFIED-FRESH |  |
+| src/kernel_engine/fem/fracture_lefm.py | VERIFIED-FRESH |  |
+| src/kernel_engine/fem/spectral_fatigue.py | VERIFIED-FRESH |  |
+| src/kernel_engine/fem/viscoelasticity_creep.py | VERIFIED-FRESH |  |
+| src/kernel_engine/fem/warpfem_acoustic_design.py | VERIFIED-FRESH |  |
+| src/kernel_engine/fem/warpfem_acoustic_modal.py | VERIFIED-FRESH |  |
+| src/kernel_engine/fem/warpfem_adjoint_arbitrary.py | VERIFIED-FRESH |  |
+| src/kernel_engine/fem/warpfem_cad_elasticity.py | VERIFIED-FRESH |  |
+| src/kernel_engine/fem/warpfem_compliant_inverter.py | VERIFIED-FRESH |  |
+| src/kernel_engine/fem/warpfem_compute_router.py | VERIFIED-FRESH | in-distribution conformal coverage 0.905+-0.020, high-frequency OOD AUROC 1.00 (caught 100 %), structured OOD 14 %; 6293x faster in distribution |
+| src/kernel_engine/fem/warpfem_coupled_adjoint.py | VERIFIED-FRESH |  |
+| src/kernel_engine/fem/warpfem_design_gradient.py | VERIFIED-FRESH |  |
+| src/kernel_engine/fem/warpfem_design_objective.py | VERIFIED-FRESH | point objective J 6.645e-04 -> 3.859e-05 (94 %, monotone), residual guard max 7.8e-11; distance to the compliance design 0.20 |
+| src/kernel_engine/fem/warpfem_elasticity_validate.py | VERIFIED-FRESH |  |
+| src/kernel_engine/fem/warpfem_em_magnetostatics.py | VERIFIED-FRESH |  |
+| src/kernel_engine/fem/warpfem_field_surrogate.py | VERIFIED-FRESH | held-out field-shape median relative error 10.6 % (p90 15.3 %) at 751x (21.2 ms -> 28.3 us) |
+| src/kernel_engine/fem/warpfem_field_surrogate_fallbevis_v1.py | VERIFIED-FRESH |  |
+| src/kernel_engine/fem/warpfem_kirsch.py | VERIFIED-FRESH |  |
+| src/kernel_engine/fem/warpfem_mms_3d.py | VERIFIED-FRESH |  |
+| src/kernel_engine/fem/warpfem_mms_cad.py | VERIFIED-FRESH |  |
+| src/kernel_engine/fem/warpfem_mms_cad3d.py | VERIFIED-FRESH | field error 2.43e-05 (tol 0.005) on the gmsh tet volume, CG residual 1.00e-12, 10059 P2 nodes |
+| src/kernel_engine/fem/warpfem_mms_elasticity.py | VERIFIED-FRESH |  |
+| src/kernel_engine/fem/warpfem_modal.py | VERIFIED-FRESH |  |
+| src/kernel_engine/fem/warpfem_navier_stokes.py | VERIFIED-FRESH | Kovasznay Re=40: field error 7.63e-04 (tol 0.03), saddle residual 7.01e-07 |
+| src/kernel_engine/fem/warpfem_stokes_poiseuille.py | VERIFIED-FRESH |  |
+| src/kernel_engine/fem/warpfem_stress3d.py | VERIFIED-FRESH | equilibrium gate: mean sigma_xx 1.1058e+06 vs applied, rel 4.23e-07; max von Mises 3.186e+06 Pa at the hole |
+| src/kernel_engine/fem/warpfem_surrogate.py | CUDA-ONLY | own verdict: "USABLE (BUT MARGINAL / seed-dependent) ... NOT a robust pass" -- held-out median 7.6 % grazes the 10 % gate, p90 19.7 %, fair speedup 172x |
+| src/kernel_engine/fem/warpfem_thermoelastic.py | VERIFIED-FRESH |  |
+| src/kernel_engine/fem/warpfem_topopt.py | VERIFIED-FRESH | compliance 2.531e+04 -> 3.330e+03 (87 % stiffer) at volume fraction 0.40 |
+| src/kernel_engine/fem/warpfem_transient_heat_energy.py | VERIFIED-FRESH |  |
+| src/kernel_engine/fem/warpfem_transient_structural.py | VERIFIED-FRESH |  |
+| src/kernel_engine/kernel_gen/d_crossbackend_kernel_port_verify.py | VERIFIED-FRESH | CUDA vs Vulkan bit-exact 1.0000, max abs delta 0.00e+00 on the 3-point fma stencil (needs wgpu) |
+| src/kernel_engine/kernel_gen/d_l1_kernel_certvec_compose.py | VERIFIED-FRESH |  |
+| src/kernel_engine/kernel_variants/kernelvarv_v1_f2_matvec.py | CUDA-ONLY | own verdict: overall_pass false, exit 1 by design -- correctness/determinism/benchmark gates pass (1.54x) but the race counter-evidence gate did not fire |
+| src/kernel_engine/kernel_variants/kernelvarv_v1_f4_csg.py | CUDA-ONLY | own verdict: overall_pass false, exit 1 by design -- no live variant clears the 1.2x benchmark gate; winner 1d_baseline |
+| src/kernel_engine/kernel_variants/kernelvarv_v2_f4_closing.py | SYNTHETIC-ONLY |  |
+| src/kernel_engine/lbm/acoustic_streaming.py | VERIFIED-FRESH |  |
+| src/kernel_engine/lbm/cloud_morphology.py | CUDA-ONLY | own verdict: honest-negative, exit 1 by design -- cloud fraction 0.6 % is a degenerate one-row layer so box-D=1.000 is trivial and the fractal instrument is not exercised; water drift 1.8e-03 conserved; 495 s |
+| src/kernel_engine/lbm/d_certvector_on_real_lbm.py | VERIFIED-FRESH |  |
+| src/kernel_engine/lbm/d_integration_stitch_lbm_contact_scenario_cert.py | VERIFIED-FRESH |  |
+| src/kernel_engine/lbm/d_per_variable_precision_cert_lbm.py | VERIFIED-FRESH |  |
+| src/kernel_engine/lbm/d_static_deployment_gate_real_lbm.py | VERIFIED-FRESH |  |
+| src/kernel_engine/lbm/differentiable_lbm_probe.py | VERIFIED-FRESH |  |
+| src/kernel_engine/lbm/double_diffusive_lbm.py | VERIFIED-FRESH |  |
+| src/kernel_engine/lbm/excitable_media_fhn.py | VERIFIED-FRESH |  |
+| src/kernel_engine/lbm/gpu_lbm_luftflode_v1.py | VERIFIED-FRESH | pipe Poiseuille: umax/umean 2.0085 vs 2.0 (0.42 % error), dp/dx error 3.45 %; both 5 % gates pass |
+| src/kernel_engine/lbm/gpu_lbm_utilization_cell.py | SYNTHETIC-ONLY | measures 2037-3198 MLUPS and 64162 pJ/site, then reads reports/probes/asic_fallback_feasibility.json; its producer asic_fallback_feasibility_cell.py is not shipped, so gate G2 cannot be evaluated here |
+| src/kernel_engine/lbm/hartmann_mhd_lbm.py | VERIFIED-FRESH |  |
+| src/kernel_engine/lbm/lbm3d_gpu.py | VERIFIED-FRESH |  |
+| src/kernel_engine/lbm/lbm3d_immersed_boundary.py | VERIFIED-FRESH | IBM drag 6.7013e-02 inside the Stokes-Hasimoto band [5.878e-02, 7.759e-02], confinement K(c)=1.530 |
+| src/kernel_engine/lbm/lbm3d_poiseuille.py | VERIFIED-FRESH |  |
+| src/kernel_engine/lbm/lbm_aero_v0.py | VERIFIED-FRESH |  |
+| src/kernel_engine/lbm/lbm_compressible_boundary.py | VERIFIED-FRESH |  |
+| src/kernel_engine/lbm/lbm_fsi_bouzidi.py | VERIFIED-FRESH | interpolated bounce-back changes St by 1 % only (Re93 0.1744, Re139 0.1915 vs Williamson 0.1606/0.1800); the modules own hypothesis "Bouzidi tightens St below 2 %" is falsified |
+| src/kernel_engine/lbm/lbm_fsi_gpu.py | VERIFIED-FRESH | St 0.178/0.189/0.213 at Re 93/139/209, ~7 % median vs Williamson-1989; no shedding at Re~56 (correct onset) |
+| src/kernel_engine/lbm/lbm_fsi_viv.py | CUDA-ONLY | own verdict: exit 1 by design -- frequency capture validated but no amplitude peak (A/D 0.025-0.043, monotone); large-amplitude lock-in needs higher Re |
+| src/kernel_engine/lbm/lbm_gpu_fast.py | VERIFIED-FRESH | fused SoA 10352 MLUPS = 111 % of the FP32 ceiling 9333 (5.8x the baseline); Poiseuille L2 0.0 % |
+| src/kernel_engine/lbm/lbm_gpu_fp16.py | CUDA-ONLY | own verdict: "FP16 storage wins = PARTIAL (precision holds no - throughput 8923 MLUPS yes)", Poiseuille L2 9.22 %, exit 1 by design |
+| src/kernel_engine/lbm/lbm_gpu_fp16_half2.py | VERIFIED-FRESH | half2 7858 MLUPS = 42 % of the FP16 ceiling, 1.22x plain FP16 and 1.07x FP32-fused; Poiseuille L2 9.22 % |
+| src/kernel_engine/lbm/lbm_lattice.py | VERIFIED-FRESH |  |
+| src/kernel_engine/lbm/lbm_mach_ceiling.py | VERIFIED-FRESH |  |
+| src/kernel_engine/lbm/lbm_mrt_stability.py | VERIFIED-FRESH | MRT stays stable to >=23.3x lower viscosity than BGK (diverges at nu=2.33e-03) at the same grid/Mach/float32; TRT ties BGK |
+| src/kernel_engine/lbm/lbm_voxel_aero.py | VERIFIED-FRESH |  |
+| src/kernel_engine/lbm/lbm_voxel_aero_gpu.py | VERIFIED-FRESH | Strouhal 0.175 (Roshko), Poiseuille validated, 156x the CPU implementation |
+| src/kernel_engine/lbm/magnetic_induction_lattice.py | VERIFIED-FRESH |  |
+| src/kernel_engine/lbm/moist_convection_lbm.py | VERIFIED-FRESH | cloud forms (q_c max 6.911, cloudy fraction 0.83 %), water drift 2e-03, heat 3e-16; enhancement stays 1.00x -> the moist-boundary-layer fix is falsified (condensation is pinned to the cold-top sink); 416 s |
+| src/kernel_engine/lbm/probe_lbm_fp16_steady_dither.py | VERIFIED-FRESH | G1 golden-stride dither 295.2x pass, G2 win (deterministic bias is DC); G3: not 1/K (ramp bowl 0.064 % at K=3 up to 6.49 %); G4 control: dither hurts the unsteady case 7.15x |
+| src/kernel_engine/lbm/rayleigh_taylor_lbm.py | VERIFIED-FRESH |  |
+| src/kernel_engine/lbm/reaction_diffusion_turing.py | VERIFIED-FRESH |  |
+| src/kernel_engine/lbm/rte_lbm.py | VERIFIED-FRESH |  |
+| src/kernel_engine/lbm/thermofluid_lbm_rayleigh.py | VERIFIED-FRESH | marginal Ra_c 1825/1782/1761 at ny 40/52/64, Richardson p=2 (R2=1.000) -> Ra_inf 1719, 0.7 % from the continuum 1707.76 |
+| src/kernel_engine/reductions/d_1c_real_reduction_roofline_torch.py | VERIFIED-FRESH | cub reduction 658 GB/s = 98 % of the 672 GB/s theoretical peak; copy 613 GB/s = 91 % |
+| src/kernel_engine/reductions/probe_kernel_determinism_cert.py | VERIFIED-FRESH |  |
+| src/kernel_engine/reductions/u_v54_gather_law_deterministic_reduction_vs_atomic_int64.py | VERIFIED-FRESH |  |
+| src/kernel_engine/thermo/biot_transient_conduction.py | VERIFIED-FRESH |  |
+| src/kernel_engine/thermo/bohm_sheath_criterion.py | VERIFIED-FRESH |  |
+| src/kernel_engine/thermo/d_nonnormal_thermo_price_of_amplification_probe.py | VERIFIED-FRESH |  |
+| src/kernel_engine/thermo/d_thermo_computing_equals_fusion.py | VERIFIED-FRESH |  |
+| src/kernel_engine/thermo/d_thermo_datahole_law.py | VERIFIED-FRESH |  |
+| src/kernel_engine/thermo/d_thermo_voi_law_multiworld.py | VERIFIED-FRESH |  |
+| src/kernel_engine/thermo/debye_specific_heat.py | VERIFIED-FRESH |  |
+| src/kernel_engine/thermo/diffusion_induced_stress.py | VERIFIED-FRESH |  |
+| src/kernel_engine/thermo/explosion_combustion.py | VERIFIED-FRESH |  |
+| src/kernel_engine/thermo/fizeau_drag.py | VERIFIED-FRESH |  |
+| src/kernel_engine/thermo/fourier_conduction.py | VERIFIED-FRESH |  |
+| src/kernel_engine/thermo/heat_pipe_capillary_limit.py | VERIFIED-FRESH |  |
+| src/kernel_engine/thermo/heat_pipe_sigma_budget.py | VERIFIED-FRESH |  |
+| src/kernel_engine/thermo/heat_pump_cop.py | VERIFIED-FRESH |  |
+| src/kernel_engine/thermo/heat_pump_sigma_budget.py | VERIFIED-FRESH |  |
+| src/kernel_engine/thermo/hopf_reaction_diffusion.py | VERIFIED-FRESH |  |
+| src/kernel_engine/thermo/induction_heating_skin.py | VERIFIED-FRESH |  |
+| src/kernel_engine/thermo/ising_thermo.py | VERIFIED-FRESH |  |
+| src/kernel_engine/thermo/joule_heating_thermal.py | VERIFIED-FRESH |  |
+| src/kernel_engine/thermo/kapitza_acoustic_mismatch.py | VERIFIED-FRESH |  |
+| src/kernel_engine/thermo/p8_combustion_cert_pod_a90.py | VERIFIED-FRESH |  |
+| src/kernel_engine/thermo/p8_combustion_cert_watertight.py | VERIFIED-FRESH |  |
+| src/kernel_engine/thermo/p8_combustion_state_certification.py | VERIFIED-FRESH |  |
+| src/kernel_engine/thermo/p8_delft_conditional_variance.py | VERIFIED-FRESH |  |
+| src/kernel_engine/thermo/p8_delft_flamelet_render_match.py | VERIFIED-FRESH |  |
+| src/kernel_engine/thermo/p8_delft_species_flamelet.py | VERIFIED-FRESH |  |
+| src/kernel_engine/thermo/p8_ecn_combustion_energy.py | VERIFIED-FRESH |  |
+| src/kernel_engine/thermo/p8_flame_mixture_fraction_render_match.py | VERIFIED-FRESH |  |
+| src/kernel_engine/thermo/p8_sandia_extinction_flamelet_breakdown.py | VERIFIED-FRESH |  |
+| src/kernel_engine/thermo/photoelasticity_isochromatics.py | VERIFIED-FRESH |  |
+| src/kernel_engine/thermo/photon_diffusion_escape.py | VERIFIED-FRESH |  |
+| src/kernel_engine/thermo/saffman_delbruck_diffusion.py | VERIFIED-FRESH |  |
+| src/kernel_engine/thermo/sommerfeld_electron_heat.py | VERIFIED-FRESH |  |
+| src/kernel_engine/thermo/soret_thermodiffusion.py | VERIFIED-FRESH |  |
+| src/kernel_engine/thermo/thermocouple_seebeck.py | VERIFIED-FRESH |  |
+| src/kernel_engine/thermo/thermoelectric_seebeck.py | VERIFIED-FRESH |  |
+| src/kernel_engine/thermo/tidal_heating.py | VERIFIED-FRESH |  |
+| src/kernel_engine/thermo/wheatstone_bridge.py | VERIFIED-FRESH |  |
+| src/kernel_engine/thermo/wkb_quantization.py | VERIFIED-FRESH |  |
+| src/kernel_engine/tropical_sdf/2jet_sdf_curvature_decouples_v6.py | VERIFIED-FRESH |  |
+| src/kernel_engine/tropical_sdf/JxA_contact_param_over_determination_material_physics_leg_lifts_the_motion_regime_null.py | VERIFIED-FRESH |  |
+| src/kernel_engine/tropical_sdf/certified_generative_support_placement_worstcase_sigmamin_robust_dfc.py | VERIFIED-FRESH |  |
+| src/kernel_engine/tropical_sdf/contact_cert_chi_from_sdf_error.py | VERIFIED-FRESH |  |
+| src/kernel_engine/tropical_sdf/contact_dof_cert_identify_or_abstain.py | VERIFIED-FRESH |  |
+| src/kernel_engine/tropical_sdf/contact_orientation_gauge_emergence.py | VERIFIED-FRESH |  |
+| src/kernel_engine/tropical_sdf/contact_penalty_conditioning_omega_max_side_accuracy_cost_tradeoff_completes_sim_conditioning.py | VERIFIED-FRESH |  |
+| src/kernel_engine/tropical_sdf/engine_contact_manifold_rank_twist_selfstress_2point_reduction.py | VERIFIED-FRESH |  |
+| src/kernel_engine/tropical_sdf/engine_manifold_reduction_needs_3points_not_2_wrench_span.py | VERIFIED-FRESH |  |
+| src/kernel_engine/tropical_sdf/engine_which_3_points_Eoptimal_sigmamin_manifold_not_max_area.py | VERIFIED-FRESH |  |
+| src/kernel_engine/tropical_sdf/friction_mu_is_a_sigma_min_null_under_stick_lifted_only_by_slip_events_contact_sim_ready.py | VERIFIED-FRESH |  |
+| src/kernel_engine/tropical_sdf/mma_capstone_validity_band_sweep.py | VERIFIED-FRESH |  |
+| src/kernel_engine/tropical_sdf/mma_topopt_capstone_stress_constrained_dfc_positive.py | VERIFIED-FRESH |  |
+| src/kernel_engine/tropical_sdf/restitution_null_lifted_by_impact_friction_and_restitution_are_decorrelated_contact_nulls.py | VERIFIED-FRESH |  |
+| src/kernel_engine/tropical_sdf/so_arm100_contact_sim_cost_from_tropical_sdf_backend_hertz_stiffness_sets_stable_dt_stability_verified.py | VERIFIED-FRESH |  |
+| src/kernel_engine/tropical_sdf/stress_constrained_compliance_topopt_dfc_positive.py | VERIFIED-FRESH |  |
+| src/kernel_engine/tropical_sdf/stress_objective_topopt_design_for_certifiability_positive.py | VERIFIED-FRESH |  |
+| src/kernel_engine/tropical_sdf/topopt_stress_frontier_forced_number_not_honest_label.py | VERIFIED-FRESH |  |
+| src/kernel_engine/tropical_sdf/topopt_stress_vs_compliance_design_for_certifiability.py | VERIFIED-FRESH |  |
+| src/kernel_engine/tropical_sdf/tropical_sdf_SIMT_tax_cost_model_compute_bound_vs_voxel_bandwidth_bound_crossover_Kstar.py | VERIFIED-FRESH |  |
+| src/kernel_engine/tropical_sdf/tropical_sdf_backend_computes_full_v6_contact_geometry_ladder_2jet_curvature_anisotropy_on_so_arm100.py | VERIFIED-FRESH |  |
+| src/kernel_engine/tropical_sdf/tropical_sdf_backend_min_of_capsules_beats_voxel_3x_bytes_matched_penetration_so_arm100.py | VERIFIED-FRESH |  |
+| src/kernel_engine/tropical_sdf/tropical_sdf_so_arm100_geometry_backend_v2_config_driven_posing_plus_contact_normal_gradient.py | VERIFIED-FRESH |  |
+| src/kernel_engine/tropical_sdf/tropical_sdf_swept_volume_continuous_collision_detection_min_over_trajectory.py | VERIFIED-FRESH |  |
+| src/kernel_engine/warp_gpu/gpu_fracture_determinism_sigma.py | VERIFIED-FRESH |  |
+| src/kernel_engine/warp_gpu/mujoco_warp_bench.py | VERIFIED-FRESH | MuJoCo-Warp 306-320 steps/s; 5.01M box-steps/s at N=16384 (needs mujoco + mujoco-warp, now in requirements.txt) |
+| src/kernel_engine/warp_gpu/rigid2d_primal_vbd_gpu.py | VERIFIED-FRESH | penetration <=1.5e-8, top-angle difference 0.0 deg, force error <=0.1 %, finite 100 % at mass ratio 1e4; 214977 stacks/s at B=65536 |
+| src/kernel_engine/warp_gpu/warp_bodybody_colored_gpu.py | VERIFIED-FRESH | colored Gauss-Seidel stable over mass ratios 30-1000x; 196 mm at 100x with 40 iterations matches relaxed Jacobi at ~300 (7x fewer iterations) |
+| src/kernel_engine/warp_gpu/warp_bodybody_jacobi_gpu.py | VERIFIED-FRESH | N=125: 49582 box-steps/s (1.65x real time); Coulomb drift 0.404 m vs 0.408 analytic (1 %); K=8 tower stable |
+| src/kernel_engine/warp_gpu/warp_bodybody_scale_gpu.py | VERIFIED-FRESH | N=125: 71.2 steps/s, 8904 box-steps/s, 1123 contacts, 27 colours, stable |
+| src/kernel_engine/warp_gpu/warp_cylinder_roll_gpu.py | VERIFIED-FRESH | travel 0.575/1.132/1.656 m at 10/20/30 deg vs theory 0.57/1.12/1.63 |
+| src/kernel_engine/warp_gpu/warp_granular_friction.py | VERIFIED-FRESH | repose angle 1.4/5.0/6.4/6.5 deg for mu 0/0.3/0.6/1.0 |
+| src/kernel_engine/warp_gpu/warp_granular_gpu.py | VERIFIED-FRESH | 7207 steps/s at 10k particles (30x real time), 2110 steps/s at 200k |
+| src/kernel_engine/warp_gpu/warp_mesh_roll_gpu.py | VERIFIED-FRESH | sphere-mesh travel 0.485/1.019/1.560 m at 10/20/30 deg (theory 0.61/1.20/1.75 for a=5/7 g sin), v ~ omega r |
+| src/kernel_engine/warp_gpu/warp_rigid_ramp_gpu.py | VERIFIED-FRESH | transition angle follows atan(mu) within 0.5 deg for mu 0.2-1.0; controls: mu=0 slides, mu=2 sticks |
+| src/kernel_engine/warp_gpu/warp_rigid_ramp_gpu_v2.py | VERIFIED-FRESH | 3-D cone brakes lateral slip to 3.4 cm drift with atan(mu) preserved (<=1.5 deg); warm start 2.35 vs cold 2.88 deg at one iteration |
+| src/kernel_engine/warp_gpu/warp_rl_env_gpu.py | VERIFIED-FRESH | 46.6M env-steps/s at 131072 envs; P-controller mean distance 1.52 -> 0.38 m |
+| src/kernel_engine/wave_fdtd/acoustic_emission.py | VERIFIED-FRESH |  |
+| src/kernel_engine/wave_fdtd/acoustic_sigma_renderer.py | SYNTHETIC-ONLY |  |
+| src/kernel_engine/wave_fdtd/acoustic_fdtd.py | VERIFIED-FRESH |  |
+| src/kernel_engine/wave_fdtd/diag_acoustic_mode.py | VERIFIED-FRESH |  |
+| src/kernel_engine/wave_fdtd/diag_acoustic_seed.py | VERIFIED-FRESH |  |
+| src/kernel_engine/wave_fdtd/diag_acoustic_spectrum.py | VERIFIED-FRESH |  |
+| src/kernel_engine/wave_fdtd/diff_wave_3d.py | VERIFIED-FRESH |  |
+| src/kernel_engine/wave_fdtd/diff_wave_substrate.py | VERIFIED-FRESH |  |
+| src/kernel_engine/wave_fdtd/elastodynamics_kache.py | VERIFIED-FRESH |  |
+| src/kernel_engine/wave_fdtd/goc_wave_transient.py | VERIFIED-FRESH |  |
+| src/kernel_engine/wave_fdtd/optics_coating.py | VERIFIED-FRESH |  |
+| src/kernel_engine/wave_fdtd/optics_fdtd.py | VERIFIED-FRESH |  |
+| src/kernel_engine/wave_fdtd/persona_design_acoustic.py | VERIFIED-FRESH |  |
+| src/kernel_engine/wave_fdtd/persona_design_acoustic_cavity_shape.py | VERIFIED-FRESH |  |
+| src/kernel_engine/wave_fdtd/persona_design_acoustic_inverse.py | VERIFIED-FRESH |  |
+| src/kernel_engine/wave_fdtd/persona_design_acoustic_shape_adjoint.py | VERIFIED-FRESH |  |
+| src/kernel_engine/wave_fdtd/persona_design_lbm_acoustic.py | VERIFIED-FRESH |  |
+| src/kernel_engine/wave_fdtd/s1_acoustic_metamaterial_bandgap.py | VERIFIED-FRESH |  |
+| src/kernel_engine/wave_fdtd/thermoacoustic_rijke_dde.py | VERIFIED-FRESH |  |
+| src/kernel_engine/wave_fdtd/vibroacoustic.py | VERIFIED-FRESH |  |
+| src/kernel_engine/wave_fdtd/wave_fdtd_3d.py | VERIFIED-FRESH |  |
+| src/kernel_engine/wave_fdtd/wave_fdtd_kache.py | VERIFIED-FRESH |  |
+| src/kernel_engine/wave_fdtd/wave_fdtd_verify.py | VERIFIED-FRESH |  |
+| src/kernel_engine/certified_kernels/aa_micro_bench.py | VERIFIED-FRESH | median own/pull 0.99x (26907 vs 26872 MLUPS at N=2048) -> conversion-bound; AA co-location not worth building |
+| src/kernel_engine/certified_kernels/d_energy_exponent_substrate_invariant.py | VERIFIED-FRESH | p_CPU mean 0.942 (cv 0.109), p_GPU mean 1.869 (cv 0.020), between-substrate dp 0.927 -> ACCEPT_invariant, NULL does not fire |
+| src/kernel_engine/certified_kernels/gpu_duty_torch_v1.py | VERIFIED-FRESH |  |
+| src/kernel_engine/certified_kernels/module_const_launch_tune.py | VERIFIED-FRESH |  |
+| src/kernel_engine/certified_kernels/morton_3d_stencil.py | VERIFIED-FRESH |  |
+| src/kernel_engine/certified_kernels/morton_sparse_gather.py | VERIFIED-FRESH |  |
+| src/kernel_engine/certified_kernels/probe_compute_ladder_descent.py | VERIFIED-FRESH | atomic_f64 spread 3.702e-08 (122.6 ulp) vs tree_f64 0; coalesced 608 vs strided 147 GB/s (4.13x); launch latency p99 120.8 us |
+| src/kernel_engine/certified_kernels/probe_exclusive_sweep_block.py | CUDA-ONLY | aborted by own idle guard (desktop GPU processes present) |
+| src/kernel_engine/certified_kernels/probe_l2_inband_endgame.py | CUDA-ONLY | aborted by own idle guard (desktop GPU processes present) |
+| src/kernel_engine/certified_kernels/probe_sync_density_victim_model.py | CUDA-ONLY | aborted by own idle guard (desktop GPU processes present) |
+| src/kernel_engine/certified_kernels/probe_sync_penalty_vs_priority.py | VERIFIED-FRESH | sync penalty 3.277 ms at priority 0 vs 0.491 ms at high priority (85 % reduction); H_A true, H_B (15 % invariance) false |
+| src/kernel_engine/certified_kernels/probe_timeslice_dma_fartail.py | CUDA-ONLY | aborted by own idle guard (desktop GPU processes present) |
+| src/kernel_engine/certified_kernels/ser_fracture_compaction.py | VERIFIED-FRESH | compaction up to 8.6x, peak at active fraction ~0.031 (one active lane per warp); 2.0x on the dense set |
+| src/kernel_engine/euler_hllc/lubrication_reynolds_bearing.py | VERIFIED-FRESH |  |
+| src/kernel_engine/fem/fsi_added_mass.py | VERIFIED-FRESH |  |
+| src/kernel_engine/fem/fsi_pipe_flutter.py | VERIFIED-FRESH |  |
+| src/kernel_engine/fem/neuber_notch_plasticity.py | VERIFIED-FRESH |  |
+| src/kernel_engine/fem/plasticity_3d_j2.py | VERIFIED-FRESH |  |
+| src/kernel_engine/fem/plasticity_return_mapping.py | VERIFIED-FRESH |  |
+| src/kernel_engine/fem/thermal_buckling.py | VERIFIED-FRESH |  |
+| src/kernel_engine/fem/viscoelastic_preload_relaxation.py | VERIFIED-FRESH |  |
+| src/kernel_engine/lbm/coupled_design_aero_struct.py | VERIFIED-FRESH | combined aero+structure gradient matches central FD on 5/5 cells (<10 %); CG converged (<0.1 %); +89 % stiffness costs +89 % drag |
+| src/kernel_engine/lbm/differentiable_flow_control.py | VERIFIED-FRESH |  |
+| src/kernel_engine/lbm/differentiable_fsi_chain.py | VERIFIED-FRESH |  |
+| src/kernel_engine/lbm/g18_cfd_nilss_prereq_wake_chaos.py | VERIFIED-FRESH | the positive global-field lambda is convective amplification, not temporal chaos -> the 2-D laminar wake is not a NILSS bed |
+| src/kernel_engine/lbm/g19_forced_2d_wake_nilss_prereq.py | VERIFIED-FRESH | forced 2-D wake is lock-in or quasi-periodic over A/D 0.2-0.5 and f_e/f_shed 0.7-1.3, no robust chaos; honest-negative verdict = pass |
+| src/kernel_engine/lbm/g20_3d_wake_chaos_nilss_prereq.py | VERIFIED-FRESH | G1: rms(uz)/U 0.019 -> 0.074 at Re=300, lambda_z 4.0D vs Barkley-Henderson mode-A 3.96D; G2: broadband fraction 0.01/0.12 vs the 2-D baseline 0.25, twin-lambda 1.8e-05 -> boundary, honest-negative = pass; 678 s |
+| src/kernel_engine/lbm/g21_3d_wake_chaos_highRe.py | VERIFIED-FRESH | reduced case only (--validate, the modules own short self-test): Re=150 St 0.210, <C_D> 1.62, broadband 0.04; Re=400 ramp 16.11 ms/step, rms(uz)/U 0.0012 finite. The full 288x176x224 sweep exceeds 1500 s here (no phase completed) |
+| src/kernel_engine/lbm/probe_kam_resonance_dither_strides.py | CUDA-ONLY | own verdict: G1 (KAM ordering) FAIL -0.609 and G2 (non-coprime tier) FAIL 0.48x; G3 14.5x and G4 4/5 pass -> "literal-metric FALSIFIED, signal in spirit" |
+| src/kernel_engine/reductions/d_1c_iv_best_in_class_float4.py | VERIFIED-FRESH | scalar tree 597 GB/s (89 %), float4 tree 638 GB/s (95 %), cub 650 GB/s (97 %); all deterministic and correct |
+| src/kernel_engine/reductions/det_accumulation_probe.py | VERIFIED-FRESH |  |
+| src/kernel_engine/wave_fdtd/goc_wave_verify.py | VERIFIED-FRESH |  |
 
-278 modules: 198 VERIFIED-FRESH, 77 CUDA-ONLY, 3 SYNTHETIC-ONLY.
+275 modules: 253 VERIFIED-FRESH, 18 CUDA-ONLY, 4 SYNTHETIC-ONLY.
 
 
 ## Real datasets

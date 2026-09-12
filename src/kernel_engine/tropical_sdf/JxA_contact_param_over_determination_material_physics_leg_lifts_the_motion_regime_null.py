@@ -1,6 +1,6 @@
 """
-cell 663 — J⊕A CONTACT-PARAM over-determination: A's substrate-PHYSICS (material) leg LIFTS J's regime-gated MOTION null (executes D's
-highest-decorrelation directive ledger-17638, cad-assembly-generative ↔ substrate-physics, yt-decorr 0.84). The contact parameters
+cell 663 — J⊕A CONTACT-PARAM over-determination: A's substrate-PHYSICS (material) leg LIFTS J's regime-gated MOTION null (highest-decorrelation pairing:
+cad-assembly-generative ↔ substrate-physics, yt-decorr 0.84). The contact parameters
 {μ (friction), e (restitution)} are certified on two MAXIMALLY-DECORRELATED substrates:
   • J-MOTION leg (this lane, REAL mechanism): identifies {μ,e} from observed dynamics — but REGIME-GATED (μ needs a SLIP event, e
     needs an IMPACT event; w661/w662). An event-free capture (stick-only, no collision) leaves BOTH a σ_min-null.

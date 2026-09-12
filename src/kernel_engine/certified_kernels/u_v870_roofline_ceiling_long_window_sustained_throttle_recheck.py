@@ -1,5 +1,5 @@
-"""u_v870 -- Lane U (self-forced, GPU-timed via GPU_TIMING_LOCK). U-2's original roofline ceiling measurement
-(u_compute_twin_roofline_ceiling_v1,  13:17) used only a 3-SECOND sustained window (172 GEMM iters
+"""u_v870 -- GPU-timed via GPU_TIMING_LOCK. The original roofline ceiling measurement
+(u_compute_twin_roofline_ceiling_v1) used only a 3-SECOND sustained window (172 GEMM iters
 for compute, 1525 copies for bandwidth) -- early-vs-late delta within that window was negligible (+0.03%
 compute, +0.22% bandwidth). But H5's own established finding (cited in that cell's own prereg, never actually
 re-tested here) is that thermal/power-cap throttling on THIS machine can take ~220s of sustained load to bind
@@ -19,6 +19,7 @@ confirmed idle via nvidia-smi (4% util, 48C) beforehand; released after.
   python3 u_v870_roofline_ceiling_long_window_sustained_throttle_recheck.py
 """
 import json
+import os
 import subprocess
 import sys
 import time
@@ -195,7 +196,9 @@ def main():
         "ridge_point_flop_per_byte": ridge_ai, "ridge_delta_vs_original_pct": ridge_delta_pct,
         "throttle_detected_45s": throttle_detected,
     }
-    OUT = "evidence/u_v870_roofline_long_window_results.json"
+    OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "artifacts",
+                       "u_v870_roofline_long_window_results.json")
+    os.makedirs(os.path.dirname(OUT), exist_ok=True)
     with open(OUT, "w") as f:
         json.dump(out, f, indent=2)
     print(f"\n  wrote {OUT}")

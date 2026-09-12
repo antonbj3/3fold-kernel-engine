@@ -1,4 +1,4 @@
-"""P3·G19 — CFD-NILSS PREREQUISITE de-risk STEP 2 (NOT the full NILSS): is a TRANSVERSELY-FORCED 2-D cylinder wake a
+"""G19 — CFD-NILSS PREREQUISITE de-risk STEP 2 (NOT the full NILSS): is a TRANSVERSELY-FORCED 2-D cylinder wake a
 viable NILSS bed? G18 ruled out the 2-D LAMINAR wake (temporally PERIODIC von-Kármán limit cycle, fragile) and named two
 routes to a chaotic bed: (i) 3-D (heavy), (ii) FORCED/high-Re 2-D (cheaper). This checks (ii) before any 3-D plunge.
 
@@ -212,7 +212,7 @@ def twin_lambda_cl(fw, A_D, fr, warm=30000, sample=40000, eps_seed=7):
 def main():
     print(f"device={DEV}, warp {wp.__version__}")
     print("=" * 100)
-    print("P3·G19 — CFD-NILSS PREREQUISITE STEP 2: is a FORCED 2-D cylinder wake a viable (robustly-chaotic) NILSS bed?")
+    print("G19 — CFD-NILSS PREREQUISITE STEP 2: is a FORCED 2-D cylinder wake a viable (robustly-chaotic) NILSS bed?")
     print("=" * 100)
     fw = ForcedWake(Re=100)
     print(f"  Re=100 τ={fw.tau:.4f}, natural f_shed={fw.f_shed:.2e}/step, grid {fw.nx}x{fw.ny}, D={fw.D}")

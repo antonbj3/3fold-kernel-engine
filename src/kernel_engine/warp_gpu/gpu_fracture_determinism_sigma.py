@@ -2,7 +2,7 @@
 DETERMINISTIC GPU MATERIAL-FRACTURE and sigma-ATTRIBUTION (a seed) — the MEASURED, honest result.
 ================================================================================
 a colleague Staniszewski (@bonzajplc): the hard part of GPU fracture is "dynamic AND DETERMINISTIC fracturing on
-GPU". The platform already has the two ingredients separately: det_accumulation_probe.py (int64-fixed-point
+GPU". This project already has the two ingredients separately: det_accumulation_probe.py (int64-fixed-point
 atomics are order-invariant, validated vs the contact_engine 0.32mm float jitter) and fracture_fiber_bundle.py
 (Weibull material-sigma). The HYPOTHESIS I set out to prove: float-atomics non-determinism CONTAMINATES the
 material-sigma attribution in a GPU fracture sim.

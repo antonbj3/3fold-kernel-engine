@@ -1,4 +1,4 @@
-"""CERT-VECTOR on a REAL platform kernel (C's GPU-LBM) — the non-greenfield outclass demonstration.
+"""CERT-VECTOR on a REAL production kernel (C's GPU-LBM) — the non-greenfield outclass demonstration.
 Not a toy reduction: apply the full cert-vector to C's real lbm_gpu_fast (FluidX3D-class, C-validated 0.0% L2, 79% roofline).
 The field would report "7345 MLUPS, fast" (benchmark). The cert-vector reports determinism ⊕ correctness ⊕ optimal-bound ⊕
 honest-abstain — the addition the field lacks. My unique contribution here = the DETERMINISM-GATE (C didn't gate on it);

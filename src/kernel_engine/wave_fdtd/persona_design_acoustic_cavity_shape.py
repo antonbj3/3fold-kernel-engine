@@ -113,7 +113,7 @@ def main():
     allok = g0 and g1 and g2 and g3
     print("\n" + "=" * 96)
     if allok:
-        print("VERDICT: the platform can now GRADE the acoustic resonance of an ARBITRARY cavity geometry, not just a")
+        print("VERDICT: this project can now GRADE the acoustic resonance of an ARBITRARY cavity geometry, not just a")
         print(f"  rectangle. A mounting boss shifts the true fundamental {100*shift:.0f}% from the rectangle formula's prediction — so")
         print(f"  acoustic design of real (obstacle-bearing, shaped) cavities REQUIRES the geometry-aware oracle, and cavity")
         print(f"  shape tunes the resonance over a {span:.1f}× range. A new generative-grading axis (acoustic resonance on arbitrary")

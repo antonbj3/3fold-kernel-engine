@@ -1,6 +1,6 @@
 """THERMOELECTRIC — Seebeck generator + Peltier cooler (charge↔thermal coupling, a missing edge in the graph). ★A
 temperature difference drives an electric EMF (Seebeck V=S·ΔT); a current carries heat (Peltier), so a current can COOL a
-junction. The platform-relevant, non-tautological results are the DRIVEN ones: the open-circuit voltage emerges, the
+junction. The project-relevant, non-tautological results are the DRIVEN ones: the open-circuit voltage emerges, the
 generator power peaks at a MATCHED load (max-power-transfer), and the conversion efficiency is governed by the figure of
 merit ZT — the iconic thermoelectric result, bounded by Carnot. (The Kelvin/Onsager relation Π=S·T is IMPOSED by Onsager
 symmetry — labeled by-construction, NOT presented as an emergent gate; audit-lesson applied proactively.)

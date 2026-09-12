@@ -29,7 +29,7 @@ print(f"nvidia-smi @ start: {SMI}")
 print("CONTAM-FLAG: GPU shared (desktop resident). flock held for this whole run; roofline % may carry a small negative"
       " bias vs fully-idle — flagged, not corrected.\n")
 
-# ---------------- PRE-REGISTERED CONSTANTS (platform convention, not tuned) ----------------
+# ---------------- PRE-REGISTERED CONSTANTS (project convention, not tuned) ----------------
 FLOOR_B = 72.0            # B/voxel, D2Q9 fused: 9 reads + 9 writes x 4B (R1 floor, stitch + lbm_gpu_fast)
 TRAFFIC_MULT = 1.1        # cert: B_model <= 1.1 x floor
 ROOF_BEST = 0.85          # cert: achieved BW >= 85% of measured copy roofline
@@ -677,6 +677,7 @@ def _clean(o):
 
 import os
 out = os.path.join(os.path.dirname(os.path.abspath(__file__)), "artifacts", "d_lbm_soa_certified_evidence.json")
+os.makedirs(os.path.dirname(out), exist_ok=True)
 with open(out, "w") as fh:
     json.dump(_clean(evidence), fh, indent=1)
 print(f"  evidence -> {out}")

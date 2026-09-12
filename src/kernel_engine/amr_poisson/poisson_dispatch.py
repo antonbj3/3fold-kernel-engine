@@ -1,4 +1,4 @@
-"""POISSON SOLVER AUTO-DISPATCH — the platform moat in miniature: given a Poisson problem's REQUIREMENTS (grid size N,
+"""POISSON SOLVER AUTO-DISPATCH — the project's moat in miniature: given a Poisson problem's REQUIREMENTS (grid size N,
 boundary STRUCTURE, tolerance), pick the OPTIMAL solver from a portfolio rather than hard-wiring one. The right algorithm
 beats a faster implementation of the wrong one — and the crossover is MEASURED, not assumed. (Complements lbm_poisson.py,
 which validates the LBM-Poisson kernel + its one cost-comparison; this is the SELECTION layer over the direct/spectral

@@ -24,8 +24,7 @@ from scipy import ndimage
 from skimage.morphology import binary_closing, disk
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-ROOT = os.path.abspath(os.path.join(HERE, "..", ".."))
-OUT_DIR = os.path.join(ROOT, "reports/probes/kernelvarv_v1_sidofiler")
+OUT_DIR = os.path.join(HERE, "artifacts")
 os.makedirs(OUT_DIR, exist_ok=True)
 
 import warp as wp
