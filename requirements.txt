@@ -4,6 +4,10 @@ pyyaml
 warp-lang
 torch
 scikit-image
+scikit-learn
+matplotlib
 pytest
 # optional, only for the Vulkan cross-API port:
 # wgpu
+# optional, only for the CAD meshing script (cad_to_femmesh.py):
+# gmsh

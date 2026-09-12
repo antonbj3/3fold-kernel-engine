@@ -70,3 +70,263 @@ paths, model names, and any reference to a laboratory, customer or person.
    (about 1243 x 1201 pixels). The other two cases and all gates are unchanged.
 3. `render_match_scaffold.py`: the self-test used an unpublished domain module; it now runs a
    self-contained linear example.
+
+## Jargon table, additions
+
+| internal | public |
+| --- | --- |
+| kache (the one-thread-per-voxel/particle thesis) | one thread per voxel / per particle |
+| reality-grind | real-world gate |
+| fallbevis | planted-fault test |
+| fantom / fantom-claim | false positive / overclaim |
+| leveransyta | delivery surface |
+| flaskhals | bottleneck |
+| kolv | piston |
+| FAS I / FAS J | the combustion stage / the gas-flow stage |
+| waveNNN (a numbered predecessor cell) | cell NNN |
+| verdikt / grind / ankare | verdict / gate / anchor |
+
+## Files copied in the second extraction pass (destination -> source path relative to the platform repository root)
+
+| in this repository | source |
+| --- | --- |
+| src/kernel_engine/_vendor/goal_oriented_culling.py | scripts/physics_exp/goal_oriented_culling.py |
+| src/kernel_engine/_vendor/report_sigma.py | scripts/physics_exp/probes/report_sigma.py |
+| src/kernel_engine/_vendor/uq.py | src/cad2simready/uq.py |
+| src/kernel_engine/allocation/d_pair_rep_waterfill_goalderived.py | scripts/physics_exp/d_pair_rep_waterfill_goalderived.py |
+| src/kernel_engine/allocation/fpga_bitwidth_waterfilling_is_precision_floor_allocation_marginal_modes_need_more_bits.py | scripts/physics_exp/fpga_bitwidth_waterfilling_is_precision_floor_allocation_marginal_modes_need_more_bits.py |
+| src/kernel_engine/allocation/l_phase1_quant_x_cert_waterfill.py | scripts/physics_exp/l_phase1_quant_x_cert_waterfill.py |
+| src/kernel_engine/allocation/l_waterfill_deploygap.py | scripts/modal/l_waterfill_deploygap.py |
+| src/kernel_engine/allocation/l_waterfill_sufficiency.py | scripts/modal/l_waterfill_sufficiency.py |
+| src/kernel_engine/allocation/price_vector_waterfilling_multicommodity_capacity_allocation.py | scripts/physics_exp/price_vector_waterfilling_multicommodity_capacity_allocation.py |
+| src/kernel_engine/allocation/probe_fair_vs_waterfill_knobs.py | scripts/physics_exp/probes/probe_fair_vs_waterfill_knobs.py |
+| src/kernel_engine/allocation/reservation_waterfill_survival.py | scripts/physics_exp/reservation_waterfill_survival.py |
+| src/kernel_engine/allocation/sigmin_price_vector_waterfilling.py | scripts/physics_exp/sigmin_price_vector_waterfilling.py |
+| src/kernel_engine/allocation/sigmin_waterfill_bstar_stop.py | scripts/physics_exp/sigmin_waterfill_bstar_stop.py |
+| src/kernel_engine/amr_poisson/amr_octree_fv.py | scripts/physics_exp/amr_octree_fv.py |
+| src/kernel_engine/amr_poisson/amr_sigma_scaling.py | scripts/physics_exp/amr_sigma_scaling.py |
+| src/kernel_engine/amr_poisson/lbm_poisson.py | scripts/physics_exp/lbm_poisson.py |
+| src/kernel_engine/amr_poisson/lightning_dbm.py | scripts/physics_exp/lightning_dbm.py |
+| src/kernel_engine/amr_poisson/poisson_dispatch.py | scripts/physics_exp/poisson_dispatch.py |
+| src/kernel_engine/certified_kernels/d_1c_iv_end_to_end_real_cuda_cert.py | scripts/physics_exp/d_1c_iv_end_to_end_real_cuda_cert.py |
+| src/kernel_engine/certified_kernels/d_avbd_gpu_certified_roofline.py | scripts/physics_exp/d_avbd_gpu_certified_roofline.py |
+| src/kernel_engine/certified_kernels/d_coupled_knob_ordering_advantage_real_cuda.py | scripts/physics_exp/d_coupled_knob_ordering_advantage_real_cuda.py |
+| src/kernel_engine/certified_kernels/d_cuda_transcendental_parity.py | scripts/physics_exp/d_cuda_transcendental_parity.py |
+| src/kernel_engine/certified_kernels/d_ensemble_coexecution_cert_contended_roofline.py | scripts/physics_exp/d_ensemble_coexecution_cert_contended_roofline.py |
+| src/kernel_engine/certified_kernels/d_r2_r4_dissociation_real_cuda.py | scripts/physics_exp/d_r2_r4_dissociation_real_cuda.py |
+| src/kernel_engine/certified_kernels/d_roofline_scene_eye.py | scripts/physics_exp/d_roofline_scene_eye.py |
+| src/kernel_engine/certified_kernels/d_wave92_B_friction_gate_roofline.py | scripts/physics_exp/d_wave92_B_friction_gate_roofline.py |
+| src/kernel_engine/certified_kernels/diag_fp16_bandwidth.py | scripts/physics_exp/diag_fp16_bandwidth.py |
+| src/kernel_engine/certified_kernels/fem_sass_roofline.py | scripts/physics_exp/fem_sass_roofline.py |
+| src/kernel_engine/certified_kernels/l_phase0_c2_roofline.py | scripts/physics_exp/l_phase0_c2_roofline.py |
+| src/kernel_engine/certified_kernels/probe_cuda_machinery_port_first_node.py | scripts/physics_exp/probes/probe_cuda_machinery_port_first_node.py |
+| src/kernel_engine/certified_kernels/probe_rung3_warp_scheduler.py | scripts/physics_exp/probes/probe_rung3_warp_scheduler.py |
+| src/kernel_engine/certified_kernels/probe_tensorcore_precision_rung.py | scripts/physics_exp/probes/probe_tensorcore_precision_rung.py |
+| src/kernel_engine/certified_kernels/u_compute_twin_roofline_ceiling_v1.py | scripts/physics_exp/u_compute_twin_roofline_ceiling_v1.py |
+| src/kernel_engine/certified_kernels/u_h5_thermal_roofline_twin_state.py | scripts/physics_exp/u_h5_thermal_roofline_twin_state.py |
+| src/kernel_engine/certified_kernels/u_v870_roofline_ceiling_long_window_sustained_throttle_recheck.py | scripts/physics_exp/u_v870_roofline_ceiling_long_window_sustained_throttle_recheck.py |
+| src/kernel_engine/certified_kernels/u_v874_roofline_soft_knee_sweep_tunable_arithmetic_intensity.py | scripts/physics_exp/u_v874_roofline_soft_knee_sweep_tunable_arithmetic_intensity.py |
+| src/kernel_engine/euler_hllc/axisym_ns_solver.py | scripts/physics_exp/axisym_ns_solver.py |
+| src/kernel_engine/euler_hllc/detonation_cellular.py | scripts/physics_exp/detonation_cellular.py |
+| src/kernel_engine/euler_hllc/detonation_znd.py | scripts/physics_exp/detonation_znd.py |
+| src/kernel_engine/euler_hllc/gas_flow_engine.py | scripts/physics_exp/gas_flow_engine.py |
+| src/kernel_engine/euler_hllc/goc_baseline_honesty.py | scripts/physics_exp/goc_baseline_honesty.py |
+| src/kernel_engine/euler_hllc/jeans_instability.py | scripts/physics_exp/jeans_instability.py |
+| src/kernel_engine/euler_hllc/pa_adjoint_vs_cheap_goal.py | scripts/physics_exp/pa_adjoint_vs_cheap_goal.py |
+| src/kernel_engine/euler_hllc/pa_adjoint_vs_cheap_proxies.py | scripts/physics_exp/pa_adjoint_vs_cheap_proxies.py |
+| src/kernel_engine/euler_hllc/phenomenon_registry.py | scripts/physics_exp/phenomenon_registry.py |
+| src/kernel_engine/euler_hllc/sigma_solver_routing.py | scripts/physics_exp/sigma_solver_routing.py |
+| src/kernel_engine/euler_hllc/substrate_compose.py | scripts/physics_exp/substrate_compose.py |
+| src/kernel_engine/euler_hllc/traffic_flow_lwr.py | scripts/physics_exp/traffic_flow_lwr.py |
+| src/kernel_engine/fem/buckling_euler_column.py | scripts/buckling_euler_column.py |
+| src/kernel_engine/fem/cad_kirsch_mesh.py | scripts/cad_kirsch_mesh.py |
+| src/kernel_engine/fem/cad_to_femmesh.py | scripts/cad_to_femmesh.py |
+| src/kernel_engine/fem/cad_to_tetmesh.py | scripts/cad_to_tetmesh.py |
+| src/kernel_engine/fem/euler_buckling.py | scripts/physics_exp/euler_buckling.py |
+| src/kernel_engine/fem/fatigue_life.py | scripts/fatigue_life.py |
+| src/kernel_engine/fem/fem3d_elasticity.py | scripts/fem3d_elasticity.py |
+| src/kernel_engine/fem/fem3d_modal.py | scripts/fem3d_modal.py |
+| src/kernel_engine/fem/fem3d_orthotropic.py | scripts/fem3d_orthotropic.py |
+| src/kernel_engine/fem/fem3d_thermoelastic.py | scripts/fem3d_thermoelastic.py |
+| src/kernel_engine/fem/fracture_lefm.py | scripts/fracture_lefm.py |
+| src/kernel_engine/fem/spectral_fatigue.py | scripts/spectral_fatigue.py |
+| src/kernel_engine/fem/viscoelasticity_creep.py | scripts/viscoelasticity_creep.py |
+| src/kernel_engine/fem/warpfem_acoustic_design.py | scripts/warpfem_acoustic_design.py |
+| src/kernel_engine/fem/warpfem_acoustic_modal.py | scripts/warpfem_acoustic_modal.py |
+| src/kernel_engine/fem/warpfem_adjoint_arbitrary.py | scripts/warpfem_adjoint_arbitrary.py |
+| src/kernel_engine/fem/warpfem_cad_elasticity.py | scripts/warpfem_cad_elasticity.py |
+| src/kernel_engine/fem/warpfem_compliant_inverter.py | scripts/warpfem_compliant_inverter.py |
+| src/kernel_engine/fem/warpfem_compute_router.py | scripts/warpfem_compute_router.py |
+| src/kernel_engine/fem/warpfem_coupled_adjoint.py | scripts/warpfem_coupled_adjoint.py |
+| src/kernel_engine/fem/warpfem_design_gradient.py | scripts/warpfem_design_gradient.py |
+| src/kernel_engine/fem/warpfem_design_objective.py | scripts/warpfem_design_objective.py |
+| src/kernel_engine/fem/warpfem_elasticity_validate.py | scripts/warpfem_elasticity_validate.py |
+| src/kernel_engine/fem/warpfem_em_magnetostatics.py | scripts/warpfem_em_magnetostatics.py |
+| src/kernel_engine/fem/warpfem_field_surrogate.py | scripts/warpfem_field_surrogate.py |
+| src/kernel_engine/fem/warpfem_field_surrogate_fallbevis_v1.py | scripts/gemini_verify/warpfem_field_surrogate_fallbevis_v1.py |
+| src/kernel_engine/fem/warpfem_kirsch.py | scripts/warpfem_kirsch.py |
+| src/kernel_engine/fem/warpfem_mms_3d.py | scripts/warpfem_mms_3d.py |
+| src/kernel_engine/fem/warpfem_mms_cad.py | scripts/warpfem_mms_cad.py |
+| src/kernel_engine/fem/warpfem_mms_cad3d.py | scripts/warpfem_mms_cad3d.py |
+| src/kernel_engine/fem/warpfem_mms_elasticity.py | scripts/warpfem_mms_elasticity.py |
+| src/kernel_engine/fem/warpfem_modal.py | scripts/warpfem_modal.py |
+| src/kernel_engine/fem/warpfem_navier_stokes.py | scripts/warpfem_navier_stokes.py |
+| src/kernel_engine/fem/warpfem_stokes_poiseuille.py | scripts/warpfem_stokes_poiseuille.py |
+| src/kernel_engine/fem/warpfem_stress3d.py | scripts/warpfem_stress3d.py |
+| src/kernel_engine/fem/warpfem_surrogate.py | scripts/warpfem_surrogate.py |
+| src/kernel_engine/fem/warpfem_thermoelastic.py | scripts/warpfem_thermoelastic.py |
+| src/kernel_engine/fem/warpfem_topopt.py | scripts/warpfem_topopt.py |
+| src/kernel_engine/fem/warpfem_transient_heat_energy.py | scripts/warpfem_transient_heat_energy.py |
+| src/kernel_engine/fem/warpfem_transient_structural.py | scripts/warpfem_transient_structural.py |
+| src/kernel_engine/kernel_gen/d_crossbackend_kernel_port_verify.py | scripts/physics_exp/d_crossbackend_kernel_port_verify.py |
+| src/kernel_engine/kernel_gen/d_l1_kernel_certvec_compose.py | scripts/physics_exp/d_l1_kernel_certvec_compose.py |
+| src/kernel_engine/lbm/acoustic_streaming.py | scripts/physics_exp/acoustic_streaming.py |
+| src/kernel_engine/lbm/cloud_morphology.py | scripts/physics_exp/cloud_morphology.py |
+| src/kernel_engine/lbm/d_certvector_on_real_lbm.py | scripts/physics_exp/d_certvector_on_real_lbm.py |
+| src/kernel_engine/lbm/d_integration_stitch_lbm_contact_scenario_cert.py | scripts/physics_exp/d_integration_stitch_lbm_contact_scenario_cert.py |
+| src/kernel_engine/lbm/d_per_variable_precision_cert_lbm.py | scripts/physics_exp/d_per_variable_precision_cert_lbm.py |
+| src/kernel_engine/lbm/d_static_deployment_gate_real_lbm.py | scripts/physics_exp/d_static_deployment_gate_real_lbm.py |
+| src/kernel_engine/lbm/differentiable_lbm_probe.py | scripts/physics_exp/differentiable_lbm_probe.py |
+| src/kernel_engine/lbm/double_diffusive_lbm.py | scripts/physics_exp/double_diffusive_lbm.py |
+| src/kernel_engine/lbm/excitable_media_fhn.py | scripts/physics_exp/excitable_media_fhn.py |
+| src/kernel_engine/lbm/gpu_lbm_utilization_cell.py | scripts/physics_exp/gpu_lbm_utilization_cell.py |
+| src/kernel_engine/lbm/hartmann_mhd_lbm.py | scripts/physics_exp/hartmann_mhd_lbm.py |
+| src/kernel_engine/lbm/lbm3d_immersed_boundary.py | scripts/physics_exp/lbm3d_immersed_boundary.py |
+| src/kernel_engine/lbm/lbm_aero_v0.py | scripts/physics_exp/lbm_aero_v0.py |
+| src/kernel_engine/lbm/lbm_compressible_boundary.py | scripts/physics_exp/lbm_compressible_boundary.py |
+| src/kernel_engine/lbm/lbm_fsi_bouzidi.py | scripts/physics_exp/lbm_fsi_bouzidi.py |
+| src/kernel_engine/lbm/lbm_fsi_gpu.py | scripts/physics_exp/lbm_fsi_gpu.py |
+| src/kernel_engine/lbm/lbm_fsi_viv.py | scripts/physics_exp/lbm_fsi_viv.py |
+| src/kernel_engine/lbm/lbm_gpu_fp16.py | scripts/physics_exp/lbm_gpu_fp16.py |
+| src/kernel_engine/lbm/lbm_gpu_fp16_half2.py | scripts/physics_exp/lbm_gpu_fp16_half2.py |
+| src/kernel_engine/lbm/lbm_mach_ceiling.py | scripts/physics_exp/lbm_mach_ceiling.py |
+| src/kernel_engine/lbm/lbm_mrt_stability.py | scripts/physics_exp/lbm_mrt_stability.py |
+| src/kernel_engine/lbm/lbm_voxel_aero.py | scripts/physics_exp/lbm_voxel_aero.py |
+| src/kernel_engine/lbm/lbm_voxel_aero_gpu.py | scripts/physics_exp/lbm_voxel_aero_gpu.py |
+| src/kernel_engine/lbm/magnetic_induction_lattice.py | scripts/physics_exp/magnetic_induction_lattice.py |
+| src/kernel_engine/lbm/moist_convection_lbm.py | scripts/physics_exp/moist_convection_lbm.py |
+| src/kernel_engine/lbm/probe_lbm_fp16_steady_dither.py | scripts/physics_exp/probes/probe_lbm_fp16_steady_dither.py |
+| src/kernel_engine/lbm/rayleigh_taylor_lbm.py | scripts/physics_exp/rayleigh_taylor_lbm.py |
+| src/kernel_engine/lbm/reaction_diffusion_turing.py | scripts/physics_exp/reaction_diffusion_turing.py |
+| src/kernel_engine/lbm/rte_lbm.py | scripts/physics_exp/rte_lbm.py |
+| src/kernel_engine/lbm/thermofluid_lbm_rayleigh.py | scripts/physics_exp/thermofluid_lbm_rayleigh.py |
+| src/kernel_engine/reductions/d_1c_real_reduction_roofline_torch.py | scripts/physics_exp/d_1c_real_reduction_roofline_torch.py |
+| src/kernel_engine/reductions/probe_kernel_determinism_cert.py | scripts/physics_exp/probes/probe_kernel_determinism_cert.py |
+| src/kernel_engine/reductions/u_v54_gather_law_deterministic_reduction_vs_atomic_int64.py | scripts/physics_exp/u_v54_gather_law_deterministic_reduction_vs_atomic_int64.py |
+| src/kernel_engine/thermo/biot_transient_conduction.py | scripts/physics_exp/biot_transient_conduction.py |
+| src/kernel_engine/thermo/bohm_sheath_criterion.py | scripts/physics_exp/bohm_sheath_criterion.py |
+| src/kernel_engine/thermo/d_nonnormal_thermo_price_of_amplification_probe.py | scripts/physics_exp/d_nonnormal_thermo_price_of_amplification_probe.py |
+| src/kernel_engine/thermo/d_thermo_computing_equals_fusion.py | scripts/physics_exp/d_thermo_computing_equals_fusion.py |
+| src/kernel_engine/thermo/d_thermo_datahole_law.py | scripts/physics_exp/d_thermo_datahole_law.py |
+| src/kernel_engine/thermo/d_thermo_voi_law_multiworld.py | scripts/physics_exp/d_thermo_voi_law_multiworld.py |
+| src/kernel_engine/thermo/debye_specific_heat.py | scripts/physics_exp/debye_specific_heat.py |
+| src/kernel_engine/thermo/diffusion_induced_stress.py | scripts/physics_exp/diffusion_induced_stress.py |
+| src/kernel_engine/thermo/explosion_combustion.py | scripts/physics_exp/explosion_combustion.py |
+| src/kernel_engine/thermo/fizeau_drag.py | scripts/physics_exp/fizeau_drag.py |
+| src/kernel_engine/thermo/fourier_conduction.py | scripts/physics_exp/fourier_conduction.py |
+| src/kernel_engine/thermo/heat_pipe_capillary_limit.py | scripts/physics_exp/heat_pipe_capillary_limit.py |
+| src/kernel_engine/thermo/heat_pipe_sigma_budget.py | scripts/physics_exp/heat_pipe_sigma_budget.py |
+| src/kernel_engine/thermo/heat_pump_cop.py | scripts/physics_exp/heat_pump_cop.py |
+| src/kernel_engine/thermo/heat_pump_sigma_budget.py | scripts/physics_exp/heat_pump_sigma_budget.py |
+| src/kernel_engine/thermo/hopf_reaction_diffusion.py | scripts/physics_exp/hopf_reaction_diffusion.py |
+| src/kernel_engine/thermo/induction_heating_skin.py | scripts/physics_exp/induction_heating_skin.py |
+| src/kernel_engine/thermo/ising_thermo.py | scripts/physics_exp/ising_thermo.py |
+| src/kernel_engine/thermo/joule_heating_thermal.py | scripts/physics_exp/joule_heating_thermal.py |
+| src/kernel_engine/thermo/kapitza_acoustic_mismatch.py | scripts/physics_exp/kapitza_acoustic_mismatch.py |
+| src/kernel_engine/thermo/photoelasticity_isochromatics.py | scripts/physics_exp/photoelasticity_isochromatics.py |
+| src/kernel_engine/thermo/photon_diffusion_escape.py | scripts/physics_exp/photon_diffusion_escape.py |
+| src/kernel_engine/thermo/saffman_delbruck_diffusion.py | scripts/physics_exp/saffman_delbruck_diffusion.py |
+| src/kernel_engine/thermo/sommerfeld_electron_heat.py | scripts/physics_exp/sommerfeld_electron_heat.py |
+| src/kernel_engine/thermo/soret_thermodiffusion.py | scripts/physics_exp/soret_thermodiffusion.py |
+| src/kernel_engine/thermo/thermocouple_seebeck.py | scripts/physics_exp/thermocouple_seebeck.py |
+| src/kernel_engine/thermo/thermoelectric_seebeck.py | scripts/physics_exp/thermoelectric_seebeck.py |
+| src/kernel_engine/thermo/tidal_heating.py | scripts/physics_exp/tidal_heating.py |
+| src/kernel_engine/thermo/wheatstone_bridge.py | scripts/physics_exp/wheatstone_bridge.py |
+| src/kernel_engine/thermo/wkb_quantization.py | scripts/physics_exp/wkb_quantization.py |
+| src/kernel_engine/tropical_sdf/2jet_sdf_curvature_decouples_v6.py | scripts/wave195_2jet_sdf_curvature_decouples_v6.py |
+| src/kernel_engine/tropical_sdf/JxA_contact_param_over_determination_material_physics_leg_lifts_the_motion_regime_null.py | scripts/wave663_JxA_contact_param_over_determination_material_physics_leg_lifts_the_motion_regime_null.py |
+| src/kernel_engine/tropical_sdf/certified_generative_support_placement_worstcase_sigmamin_robust_dfc.py | scripts/wave302_certified_generative_support_placement_worstcase_sigmamin_robust_dfc.py |
+| src/kernel_engine/tropical_sdf/contact_cert_chi_from_sdf_error.py | scripts/wave199_contact_cert_chi_from_sdf_error.py |
+| src/kernel_engine/tropical_sdf/contact_dof_cert_identify_or_abstain.py | scripts/wave198_contact_dof_cert_identify_or_abstain.py |
+| src/kernel_engine/tropical_sdf/contact_orientation_gauge_emergence.py | scripts/wave197_contact_orientation_gauge_emergence.py |
+| src/kernel_engine/tropical_sdf/contact_penalty_conditioning_omega_max_side_accuracy_cost_tradeoff_completes_sim_conditioning.py | scripts/wave488_contact_penalty_conditioning_omega_max_side_accuracy_cost_tradeoff_completes_sim_conditioning.py |
+| src/kernel_engine/tropical_sdf/engine_contact_manifold_rank_twist_selfstress_2point_reduction.py | scripts/wave288_engine_contact_manifold_rank_twist_selfstress_2point_reduction.py |
+| src/kernel_engine/tropical_sdf/engine_manifold_reduction_needs_3points_not_2_wrench_span.py | scripts/wave289_engine_manifold_reduction_needs_3points_not_2_wrench_span.py |
+| src/kernel_engine/tropical_sdf/engine_which_3_points_Eoptimal_sigmamin_manifold_not_max_area.py | scripts/wave290_engine_which_3_points_Eoptimal_sigmamin_manifold_not_max_area.py |
+| src/kernel_engine/tropical_sdf/friction_mu_is_a_sigma_min_null_under_stick_lifted_only_by_slip_events_contact_sim_ready.py | scripts/wave661_friction_mu_is_a_sigma_min_null_under_stick_lifted_only_by_slip_events_contact_sim_ready.py |
+| src/kernel_engine/tropical_sdf/mma_capstone_validity_band_sweep.py | scripts/wave246_mma_capstone_validity_band_sweep.py |
+| src/kernel_engine/tropical_sdf/mma_topopt_capstone_stress_constrained_dfc_positive.py | scripts/wave245_mma_topopt_capstone_stress_constrained_dfc_positive.py |
+| src/kernel_engine/tropical_sdf/restitution_null_lifted_by_impact_friction_and_restitution_are_decorrelated_contact_nulls.py | scripts/wave662_restitution_null_lifted_by_impact_friction_and_restitution_are_decorrelated_contact_nulls.py |
+| src/kernel_engine/tropical_sdf/so_arm100_contact_sim_cost_from_tropical_sdf_backend_hertz_stiffness_sets_stable_dt_stability_verified.py | scripts/wave530_so_arm100_contact_sim_cost_from_tropical_sdf_backend_hertz_stiffness_sets_stable_dt_stability_verified.py |
+| src/kernel_engine/tropical_sdf/stress_constrained_compliance_topopt_dfc_positive.py | scripts/wave237_stress_constrained_compliance_topopt_dfc_positive.py |
+| src/kernel_engine/tropical_sdf/stress_objective_topopt_design_for_certifiability_positive.py | scripts/wave236_stress_objective_topopt_design_for_certifiability_positive.py |
+| src/kernel_engine/tropical_sdf/topopt_stress_frontier_forced_number_not_honest_label.py | scripts/wave250_topopt_stress_frontier_forced_number_not_honest_label.py |
+| src/kernel_engine/tropical_sdf/topopt_stress_vs_compliance_design_for_certifiability.py | scripts/wave235_topopt_stress_vs_compliance_design_for_certifiability.py |
+| src/kernel_engine/tropical_sdf/tropical_sdf_SIMT_tax_cost_model_compute_bound_vs_voxel_bandwidth_bound_crossover_Kstar.py | scripts/wave505_tropical_sdf_SIMT_tax_cost_model_compute_bound_vs_voxel_bandwidth_bound_crossover_Kstar.py |
+| src/kernel_engine/tropical_sdf/tropical_sdf_backend_computes_full_v6_contact_geometry_ladder_2jet_curvature_anisotropy_on_so_arm100.py | scripts/wave528_tropical_sdf_backend_computes_full_v6_contact_geometry_ladder_2jet_curvature_anisotropy_on_so_arm100.py |
+| src/kernel_engine/tropical_sdf/tropical_sdf_backend_min_of_capsules_beats_voxel_3x_bytes_matched_penetration_so_arm100.py | scripts/wave496_tropical_sdf_backend_min_of_capsules_beats_voxel_3x_bytes_matched_penetration_so_arm100.py |
+| src/kernel_engine/tropical_sdf/tropical_sdf_so_arm100_geometry_backend_v2_config_driven_posing_plus_contact_normal_gradient.py | scripts/wave527_tropical_sdf_so_arm100_geometry_backend_v2_config_driven_posing_plus_contact_normal_gradient.py |
+| src/kernel_engine/tropical_sdf/tropical_sdf_swept_volume_continuous_collision_detection_min_over_trajectory.py | scripts/wave540_tropical_sdf_swept_volume_continuous_collision_detection_min_over_trajectory.py |
+| src/kernel_engine/warp_gpu/gpu_fracture_determinism_sigma.py | scripts/physics_exp/gpu_fracture_determinism_sigma.py |
+| src/kernel_engine/warp_gpu/mujoco_warp_bench.py | scripts/physics_exp/mujoco_warp_bench.py |
+| src/kernel_engine/warp_gpu/rigid2d_primal_vbd_gpu.py | scripts/physics_exp/rigid2d_primal_vbd_gpu.py |
+| src/kernel_engine/warp_gpu/warp_bodybody_colored_gpu.py | scripts/physics_exp/warp_bodybody_colored_gpu.py |
+| src/kernel_engine/warp_gpu/warp_bodybody_jacobi_gpu.py | scripts/physics_exp/warp_bodybody_jacobi_gpu.py |
+| src/kernel_engine/warp_gpu/warp_bodybody_scale_gpu.py | scripts/physics_exp/warp_bodybody_scale_gpu.py |
+| src/kernel_engine/warp_gpu/warp_cylinder_roll_gpu.py | scripts/physics_exp/warp_cylinder_roll_gpu.py |
+| src/kernel_engine/warp_gpu/warp_granular_friction.py | scripts/physics_exp/warp_granular_friction.py |
+| src/kernel_engine/warp_gpu/warp_granular_gpu.py | scripts/physics_exp/warp_granular_gpu.py |
+| src/kernel_engine/warp_gpu/warp_mesh_roll_gpu.py | scripts/physics_exp/warp_mesh_roll_gpu.py |
+| src/kernel_engine/warp_gpu/warp_rigid_ramp_gpu.py | scripts/physics_exp/warp_rigid_ramp_gpu.py |
+| src/kernel_engine/warp_gpu/warp_rigid_ramp_gpu_v2.py | scripts/physics_exp/warp_rigid_ramp_gpu_v2.py |
+| src/kernel_engine/warp_gpu/warp_rl_env_gpu.py | scripts/physics_exp/warp_rl_env_gpu.py |
+| src/kernel_engine/wave_fdtd/acoustic_emission.py | scripts/acoustic_emission.py |
+| src/kernel_engine/wave_fdtd/acoustic_fdtd.py | scripts/physics_exp/acoustic_fdtd.py |
+| src/kernel_engine/wave_fdtd/diag_acoustic_mode.py | scripts/physics_exp/diag_acoustic_mode.py |
+| src/kernel_engine/wave_fdtd/diag_acoustic_seed.py | scripts/physics_exp/diag_acoustic_seed.py |
+| src/kernel_engine/wave_fdtd/diag_acoustic_spectrum.py | scripts/physics_exp/diag_acoustic_spectrum.py |
+| src/kernel_engine/wave_fdtd/diff_wave_3d.py | scripts/physics_exp/diff_wave_3d.py |
+| src/kernel_engine/wave_fdtd/diff_wave_substrate.py | scripts/physics_exp/diff_wave_substrate.py |
+| src/kernel_engine/wave_fdtd/elastodynamics_kache.py | scripts/physics_exp/elastodynamics_kache.py |
+| src/kernel_engine/wave_fdtd/goc_wave_transient.py | scripts/physics_exp/goc_wave_transient.py |
+| src/kernel_engine/wave_fdtd/optics_coating.py | scripts/physics_exp/optics_coating.py |
+| src/kernel_engine/wave_fdtd/optics_fdtd.py | scripts/physics_exp/optics_fdtd.py |
+| src/kernel_engine/wave_fdtd/persona_design_acoustic.py | scripts/physics_exp/persona_design_acoustic.py |
+| src/kernel_engine/wave_fdtd/persona_design_acoustic_cavity_shape.py | scripts/physics_exp/persona_design_acoustic_cavity_shape.py |
+| src/kernel_engine/wave_fdtd/persona_design_acoustic_inverse.py | scripts/physics_exp/persona_design_acoustic_inverse.py |
+| src/kernel_engine/wave_fdtd/persona_design_acoustic_shape_adjoint.py | scripts/physics_exp/persona_design_acoustic_shape_adjoint.py |
+| src/kernel_engine/wave_fdtd/persona_design_lbm_acoustic.py | scripts/physics_exp/persona_design_lbm_acoustic.py |
+| src/kernel_engine/wave_fdtd/s1_acoustic_metamaterial_bandgap.py | scripts/physics_exp/s1_acoustic_metamaterial_bandgap.py |
+| src/kernel_engine/wave_fdtd/thermoacoustic_rijke_dde.py | scripts/physics_exp/thermoacoustic_rijke_dde.py |
+| src/kernel_engine/wave_fdtd/vibroacoustic.py | scripts/physics_exp/vibroacoustic.py |
+| src/kernel_engine/wave_fdtd/wave_fdtd_3d.py | scripts/physics_exp/wave_fdtd_3d.py |
+| src/kernel_engine/wave_fdtd/wave_fdtd_kache.py | scripts/physics_exp/wave_fdtd_kache.py |
+| src/kernel_engine/wave_fdtd/wave_fdtd_verify.py | scripts/physics_exp/wave_fdtd_verify.py |
+
+212 files.
+
+The `scripts/wave*` cells are copied into `src/kernel_engine/tropical_sdf/` with the `wave<NNN>_` filename
+prefix removed; the source column above carries the original file name, so the mapping stays exact.
+
+## Deliberate code changes in the second pass
+
+4. Sibling imports: the platform keeps these modules in one flat directory, this repository splits them into
+   packages by solver class. Files that import a sibling module by bare name gained one block at the top of
+   the import section that puts the relevant package directories on `sys.path` when the file is run as a
+   script. No import name changed.
+5. `warpfem_compute_router.py`: the conformal-UQ helper it loads by path now resolves to
+   `src/kernel_engine/_vendor/uq.py` instead of the platform's `src/cad2simready/uq.py`.
+6. `l_waterfill_deploygap.py` and `l_waterfill_sufficiency.py` wrote their evidence JSON to a platform
+   directory; they now write to `artifacts/` next to themselves (created on demand).
+7. Absolute paths (`/home/...`, worktree roots, scratch directories) were rewritten to repository-relative
+   paths or to `python3`; dates, worktree/session identifiers and personal names were removed from prose.
+8. Five tropical-SDF cells load a sibling cell by file name; since the `wave<NNN>_` prefix was dropped, those
+   loads now resolve the renamed file next to them.
+9. Seventeen modules wrote evidence JSON to a platform `reports/` path; they now write to `artifacts/` next
+   to themselves. `artifacts/`, `data/` and `reports/` are gitignored.
+10. `reductions/probe_kernel_determinism_cert.py` and `lbm/d_static_deployment_gate_real_lbm.py` reach a
+    module that now lives in a different package; both gained the directory of that package on `sys.path`.
+11. `fem/warpfem_field_surrogate_fallbevis_v1.py`: the source script it checks for and the side-file
+    directory it writes are now resolved next to the file.
+12. `allocation/d_goal_derived_representation.py` (from the first pass): one string field held a platform
+    path; it now holds the bare file name.

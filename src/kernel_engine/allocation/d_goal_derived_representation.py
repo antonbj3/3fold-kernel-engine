@@ -959,7 +959,7 @@ evidence = dict(
     meta=dict(
         cell="d_goal_derived_representation",
         date="2026-07-07",
-        script="scripts/physics_exp/d_goal_derived_representation.py",
+        script="d_goal_derived_representation.py",
         seed_provenance="goal-derived allocation seed; chi-theorem (storable<=>identifiable<=>detectable) + "
                         "M* distinguishability count + cert-driven-AMR-identifiability-oracle => representation "
                         "= water-filling bytes along the goal's Fisher spectrum",
