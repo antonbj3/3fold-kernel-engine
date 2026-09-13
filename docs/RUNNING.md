@@ -22,10 +22,10 @@ Status values: VERIFIED-FRESH = the module's own gates passed in the recorded ru
 
 ## Status
 
-One row per shipped module. VERIFIED-FRESH = its self-test ran in this repository's venv on CPU and
-reproduced its numbers. CUDA-ONLY = not runnable here until the GPU driver is fixed (either it refuses
-without a device, or its CPU fallback exceeds the time budget); last verified in the source project.
-SYNTHETIC-ONLY = the method was demonstrated on private input, and it ships with a synthetic input and a test.
+One row per shipped module. VERIFIED-FRESH requires every own gate to pass in the
+recorded scope; OWN-GATE-FAIL retains measured own-gate failures. CUDA-ONLY means
+GPU execution is not yet verified; SYNTHETIC-ONLY limits passing evidence to
+synthetic inputs. The hardware and decisive values are stated with each new result.
 
 | module | status | note |
 | --- | --- | --- |
@@ -296,7 +296,7 @@ SYNTHETIC-ONLY = the method was demonstrated on private input, and it ships with
 | src/kernel_engine/fem/thermal_buckling.py | VERIFIED-FRESH |  |
 | src/kernel_engine/fem/viscoelastic_preload_relaxation.py | VERIFIED-FRESH |  |
 | src/kernel_engine/lbm/coupled_design_aero_struct.py | VERIFIED-FRESH | combined aero+structure gradient matches central FD on 5/5 cells (<10 %); CG converged (<0.1 %); +89 % stiffness costs +89 % drag |
-| src/kernel_engine/lbm/differentiable_flow_control.py | VERIFIED-FRESH | int64 fixed-point loss and probe: selftest reproduces bit-identically over two runs (float atomics 7.45e-09 / 5.96e-08 per launch) |
+| src/kernel_engine/lbm/differentiable_flow_control.py | OWN-GATE-FAIL | Own selftest exit1/1, zero printed wake recovery; int64 fixed-point loss and probe: selftest reproduces bit-identically over two runs (float atomics 7.45e-09 / 5.96e-08 per launch) |
 | src/kernel_engine/lbm/differentiable_fsi_chain.py | VERIFIED-FRESH | int64 fixed-point drag seam: two-launch max abs difference 0.0 (float atomics 4.77e-07); the calibration loop is driven by Warp's backward pass and still varies |
 | src/kernel_engine/lbm/g18_cfd_nilss_prereq_wake_chaos.py | VERIFIED-FRESH | the positive global-field lambda is convective amplification, not temporal chaos -> the 2-D laminar wake is not a NILSS bed |
 | src/kernel_engine/lbm/g19_forced_2d_wake_nilss_prereq.py | VERIFIED-FRESH | forced 2-D wake is lock-in or quasi-periodic over A/D 0.2-0.5 and f_e/f_shed 0.7-1.3, no robust chaos; honest-negative verdict = pass |
@@ -485,7 +485,7 @@ physical thresholds or tolerances change. No timing claim, no local GPU use.
 
 | module | status | evidence |
 |---|---|---|
-| `certified_kernels/innovation_adjoint_baseline.py` | VERIFIED-FRESH | L4 five/eight stdout pairs identical; FSI0.49, wave3D9e-8, tomography2e-7 printed deltas; flow-control exits1/1. |
+| `certified_kernels/innovation_adjoint_baseline.py` | OWN-GATE-FAIL | L4 five/eight stdout pairs identical; FSI0.49, wave3D9e-8, tomography2e-7 printed deltas; flow-control exits1/1. |
 
 Measured frozen baseline on L4, two runs per selftest:
 
@@ -563,7 +563,7 @@ No performance claim and no baseline/default modification.
 
 | module | status | evidence |
 |---|---|---|
-| `certified_kernels/innovation_runtime_adjoint.py` | VERIFIED-FRESH | L4 six/eight pairs exit0 and identical; flow-control repeatable exit1, tomography repeated RuntimeError; target FAIL despite matching hashes. |
+| `certified_kernels/innovation_runtime_adjoint.py` | OWN-GATE-FAIL | L4 six/eight pairs exit0 and identical; flow-control repeatable exit1, tomography repeated RuntimeError; target FAIL despite matching hashes. |
 
 ### Innovation target 6: frozen LBM stream mechanism before export design
 
@@ -643,7 +643,7 @@ makes the harness return1. No hidden-array or cross-architecture identity claim.
 
 | module | status | evidence |
 |---|---|---|
-| `certified_kernels/innovation_runtime_bounded_sweep.py` | VERIFIED-FRESH | L4 all8 normalized outputs identical,0 runtime exceptions;7/8 physical passes, flow-control exit1 retained; overall physical gate FAIL. |
+| `certified_kernels/innovation_runtime_bounded_sweep.py` | OWN-GATE-FAIL | L4 all8 normalized outputs identical,0 runtime exceptions;7/8 physical passes, flow-control exit1 retained; overall physical gate FAIL. |
 
 Measured stream table before native export design, L4:
 
@@ -1044,3 +1044,130 @@ SDK9.1 produced unsupported ABI initialization with zero images; that failed
 attempt is retained above. SDK9.0 produced two identical images and4/4 passing
 gates. No SDK is vendored. Machine-specific installation location belongs in the
 private integration handoff, not public source or build defaults.
+
+## C2 whole-selftest adjoints: remaining mechanism and gates
+
+The frozen bounded runtime sweep reports8/8 identical normalized selftest texts,
+zero runtime exceptions and7/8 physical passes. Flow control retains exit1/1
+and zero printed wake recovery. Normalized text alone does not prove full-array
+identity. The existing runtime fixed-order scatter reduction and the derived
+440-record tomography bound are retained as measured mechanisms.
+
+Before changing the failed control driver, measure its zero-control loss and
+full gradient, the original6000-times-gradient update, and the wake response
+to constant controls0,1,8. Re-run the original three finite-difference probes
+with unchanged epsilon0.1 and relative threshold0.05 (at least2/3).
+Observer gates: two entire dictionaries and gradient hashes identical; all
+values finite, positive target deficit, nonzero gradient, original FD gate.
+This observer does not claim a successful control optimization or full-suite
+physical pass. All GPU work is on isolated Modal workers.
+
+Measured flow scale, Modal NVIDIA L4/Warp1.17.0, two entire outputs identical:
+
+| quantity | measured value |
+|---|---|
+| zero-control probe | 0.00237007876858115 |
+| control1 probe | 0.00242696513887495 |
+| control8 probe | 0.00282614436000586 |
+| target (unchanged1.6 multiplier) | 0.00379212602972984 |
+| control8 recovery | 0.320710572626332 |
+| zero-control maximum gradient | 1.92014368849414e-07 |
+| original maximum control update | 0.00115208618808538 |
+| FD relative errors, steps5/25/50 | 0.863645871083/0.253779738317/0.0172608903433 |
+
+| module | status | evidence |
+|---|---|---|
+| `certified_kernels/innovation_flow_scale_probe.py` | OWN-GATE-FAIL | L4 and H100 four/five gates pass; identical baseline values, original FD only1/3 meets5%, needs2/3; control8 recovery0.320710573. |
+
+### C2 separate precision and scaled-control driver
+
+The two small derivatives are approximately2e-9 while their finite-difference
+perturbations propagate through float32 populations; the large derivative passes.
+This motivates testing float64 populations/control/loss arithmetic beside the
+frozen float32 solver. Keep the original lattice, direction/weight values,
+initial populations,60 steps,jet/probe masks,target multiplier,FD epsilon0.1,
+5% FD threshold (at least2/3),control bounds[0,8],maximum coordinate step0.5,
+50 optimization iterations and recovery>0.3. No prior physical tolerance changes.
+
+The new driver scales each nonzero gradient coordinate to a bounded sign step,
+with up to8 halvings to accept only nonincreasing reported loss. Full-gradient
+fixed ordering uses the already measured runtime RUN_TO_RUN reduction; no
+claim of a new reduction algorithm. Own gates additionally require finite
+arrays,bounded controls and nonincreasing accepted loss. The original module
+and its failed selftest remain frozen and unpromoted.
+
+### C2 full-array fixed-order suite, gates before execution
+
+The separate suite uses the exact eight-slot frozen module list, selecting
+`lbm/differentiable_flow_control_fixed64` explicitly in the failed flow-control
+slot and retaining the other seven reference modules. The original flow module
+is not changed or relabelled as passing. Each worker selects RUN_TO_RUN before
+module import, with the measured440-record capacity only for tomography.
+
+The observer records every numeric array returned by Warp numpy readback, plus
+every primal and gradient array present in Tape.gradients after each complete
+backward pass. Metadata includes ordinal,role,shape,dtype,byte count and SHA256
+of every contiguous array; memory addresses are excluded. It changes no values.
+There is no inference of full-array identity from rounded printed numbers.
+
+Fixed gates: eight selected selftests exit0 twice with no runtime exceptions;
+all observed array-byte hash sequences and normalized full-selftest texts match;
+every observed numeric value is finite; all eight produce observed arrays; all
+six tape-using cases produce backward/gradient records; all ten frozen int64
+sites return exactly0 difference. Physics thresholds inside every module stay
+unchanged. This is a correctness-only heavy run; record the actual cloud GPU.
+The original float32 flow failure, default tomography overflow and previous
+text-only suite failures remain in their own rows.
+
+First H100 suite attempt completed0 selftest slots: enabling fixed ordering for
+the ancillary frozen float sensitivity diagnostic overflowed its default record
+capacity. This is retained as an initial failed attempt, not a determinism result.
+The int64 site control now uses its original runtime mode, including ordinary
+float diagnostics; only int64 deltas are gated there, exactly as preregistered.
+The eight adjoint workers still require RUN_TO_RUN and tomography capacity440.
+No integer, array, FD, recovery or returncode gate is changed.
+
+C2 final suite, Modal NVIDIA H100 80GB HBM3, driver580.95.05, Warp1.17.0,
+2026-09-13:5/5 suite gates PASS, all eight selected selftests exit0 twice and
+all normalized texts and observed array-byte hash sequences match exactly.
+The separate flow variant is selected explicitly; the frozen flow module
+retains its own failure. Seven other source modules are unchanged.
+
+| suite slot | observed arrays per leg | backward passes per leg | two runs / own physics |
+|---|---|---|---|
+| `lbm/differentiable_flow_control_fixed64` | 28269 | 51 | exact / PASS |
+| `lbm/differentiable_lbm_probe` | 402 | 1 | exact / PASS |
+| `lbm/differentiable_fsi_chain` | 84608 | 84 | exact / PASS |
+| `lbm/lbm3d_immersed_boundary` | 2 | 0 | exact / PASS |
+| `wave_fdtd/diff_wave_3d` | 910 | 1 | exact / PASS |
+| `wave_fdtd/diff_wave_substrate` | 1384 | 1 | exact / PASS |
+| `wave_fdtd/xray_tomography_sigma` | 5622 | 401 | exact / PASS |
+| `wave_fdtd/xray_3d_dda` | 183 | 0 | exact / PASS |
+
+There are121380 array observations and6400352992 observed bytes per leg.
+This includes complete numeric readbacks and all tape primal/gradient arrays
+after every backward pass, not an assertion about unobserved temporary memory.
+All ten frozen int64-site numeric deltas are0; their float diagnostics remain
+not gated and keep the original runtime mode. No throughput measurement.
+
+Flow variant: original FD relative errors at steps5/25/50 are
+1.45674145833e-6,2.44885264992e-5,1.87891588381e-7 (all below0.05).
+Wake recovery0.425832791820 exceeds the unchanged0.3 gate; all6/6 own gates
+pass, including original bounds[0,8],maximum step0.5 and accepted loss monotonicity.
+The original float32 FD/recovery failures remain in their own rows.
+
+| module | status | evidence |
+|---|---|---|
+| `lbm/differentiable_flow_control_fixed64.py` | VERIFIED-FRESH | H100 6/6 own gates; FD max2.44885265e-5, wake recovery0.425832792; full observed arrays identical in two suite workers. |
+| `certified_kernels/fixed_order_selftests_v1.py` | VERIFIED-FRESH | H100 5/5 suite gates;8/8 selected selftests exit0 twice,121380 observed arrays per leg exact;10 int64 numeric deltas0. |
+
+Reproduce: `PYTHONPATH=src python src/kernel_engine/certified_kernels/fixed_order_selftests_v1.py`.
+Compact report: `reports/fixed_order_selftests_v1_h100.json`; complete per-array
+records: `reports/fixed_order_selftests_v1_h100.json.gz`, losslessly compressed
+and checksummed by the compact report. The compression preserves all records.
+Flow details: `reports/differentiable_flow_control_fixed64_h100.json`.
+
+Same-H100 reference control: the frozen float32 flow probe reproduces every L4
+value and gradient byte, including failed FD0.863645871083/0.253779738317.
+Evidence: `reports/innovation_flow_scale_probe_h100.json`. The precision
+comparison therefore also holds on the same GPU as the successful suite.
