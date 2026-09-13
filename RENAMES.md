@@ -623,3 +623,6 @@ SDK location convention: OPTIX_ROOT selects an external SDK9.0 installation; com
 | kernel_gen/vulkan_winding_v1/winding.comp | Add uncommitted-candidate signed ray-query accumulation with float64 projected orientation; OptiX shader frozen. |
 | kernel_gen/vulkan_winding_v1/host.cpp | Add separate Vulkan BLAS/TLAS and compute host with matching explicit binary I/O and opt-in software diagnosis. |
 | kernel_gen/vulkan_winding_v1/probe.py | Add seven preregistered five-fixture oracle/occupancy/EDT/repeat/hardware gates; software execution cannot pass hardware acceptance. |
+
+| `certified_kernels/chunkable_stability_v1.py` | Add numerical transition-norm refusal policy and twelve frozen-WY boundary observations, full-array repeat hashes and nonnormal/unknown controls. | Separate algebraic composability from finite-precision suitability; frozen rule and tolerances unchanged. |
+| `tests/test_chunkable_stability.py` | Add measured expansive-recurrence regression with nonnormal and missing-evidence controls. | Prevent syntax-only numerical certification. |
