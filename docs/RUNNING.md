@@ -1202,7 +1202,7 @@ across vendors, subnormal-equivalence or throughput claim follows from discovery
 
 | Module | Evidence status | Measured result |
 |---|---|---|
-| kernel_gen/vulkan_winding_v1/features.cpp | OWN-GATE-FAIL | 1/2 gates; reports/vulkan_features_l4.json. Tables repeat, but hardware devices0; only type4 software implementation, despite all four required features being true. |
+| kernel_gen/vulkan_winding_v1/features.cpp | SYNTHETIC-ONLY | 2/2 fresh hardware inventory gates; exact repeat, hardware ray-query/AS/address/float64 available; reports/vulkan_features_hardware.json. Earlier cloud1/2 hardware0 retained. |
 
 | Container | Hardware devices | Software devices | Required features on hardware | Full repeat |
 |---|---:|---:|---|---|
@@ -1296,9 +1296,9 @@ are a read/write floor; cached small-grid traffic is not a DRAM peak fraction.
 
 | Module | Evidence status | Measured result |
 |---|---|---|
-| kernel_gen/vulkan_winding_v1/host.cpp | OWN-GATE-FAIL | 6/7 gates, reports/vulkan_winding_software.json; all5 fixtures/two runs exact,0 count/occupancy/EDT differences; hardware unavailable. |
-| kernel_gen/vulkan_winding_v1/winding.comp | OWN-GATE-FAIL | Same6/7 full candidate gates; nonopaque candidate accumulation matches independent signed ray sums, software execution only. |
-| kernel_gen/vulkan_winding_v1/probe.py | OWN-GATE-FAIL | 102162 voxel results across10 runs, all correctness gates pass; hardware gate remains false. |
+| kernel_gen/vulkan_winding_v1/host.cpp | SYNTHETIC-ONLY | 7/7 hardware gates, reports/vulkan_winding_hardware.json; five fixtures/two full runs exact,0 count/occupancy/EDT differences. |
+| kernel_gen/vulkan_winding_v1/winding.comp | SYNTHETIC-ONLY | Same7/7 full hardware gates; nonopaque ray-query counts exact; normal-coordinate synthetic scope. |
+| kernel_gen/vulkan_winding_v1/probe.py | SYNTHETIC-ONLY | 102162 hardware voxel results across10 runs, full arrays exact/repeated; all30 saved arrays match prior software run too. |
 
 | Fixture | Voxels per run | Signed-count differences | Occupancy differences | EDT differences | Full repeat |
 |---|---:|---:|---:|---:|---|
@@ -1330,3 +1330,29 @@ FIELD_REFERENCE_SOURCE to the frozen field-engine mesh-to-SDF module; run the
 probe.py beside the host. Its optional --allow-software flag is diagnostic only.
 Normal host invocation rejects software-only availability. Files are written only
 to the explicit output argument (host) or reports directory (probe main).
+
+### Vulkan hardware correctness closure
+
+The original seven gates ran unchanged on actual hardware after the cloud ICD
+limitation. A bounded externally coordinated window built the frozen host/shader,
+read features twice and ran all five fixtures twice. No driver/settings changes.
+Kernel journal guards before/after every native child observed no current-boot
+fault. This is correctness, not throughput; background idleness was not certified
+for timing. Earlier cloud hardware absence and software6/7 remain historical
+negative evidence, not a hardware-backend algorithm failure.
+
+| Fixture | Voxels per leg | Signed count differences | Occupancy differences | EDT differences |
+|---|---:|---:|---:|---:|
+| Box | 9261 | 0 | 0 | 0 |
+| Offset | 10648 | 0 | 0 | 0 |
+| Reversed | 9261 | 0 | 0 | 0 |
+| Overlap | 12650 | 0 | 0 | 0 |
+| Nested | 9261 | 0 | 0 | 0 |
+
+All30 full saved arrays also match the prior software Vulkan run. The report's
+binary_sha256 names the external journal-guard launcher; native_binary_sha256
+names the compiled host. No launcher paths or private input are shipped.
+Float32 denormal-preserve/flush-zero feature flags are both0 on the measured
+hardware; subnormal behavior and cross-vendor portability remain unverified.
+Hardware throughput and direct same-input OptiX comparison remain separate gates;
+this does not establish a CUDA-to-Vulkan bandwidth or speed claim.
