@@ -78,7 +78,7 @@ synthetic inputs. The hardware and decisive values are stated with each new resu
 | src/kernel_engine/certified_loop/d_cuda_scene_eyes_determinism_real_gpu.py | VERIFIED-FRESH |  |
 | src/kernel_engine/certified_loop/d_lbm_soa_certified_roofline_close.py | VERIFIED-FRESH | fusion 2601 -> 6416 MLUPS (2.47x), layout AoS -> SoA 6416 -> 8185 MLUPS (1.28x); Poiseuille <1 %, bit-repeat x3 true; SUPPORTED |
 | src/kernel_engine/certified_loop/d_privatized_reduction_close_abstain.py | VERIFIED-FRESH |  |
-| src/kernel_engine/certified_loop/d_vulkan_port_certified_kernel.py | CUDA-ONLY | own verdict: "Gate-1 bit-exact sweep: FAIL" on subnormal inputs (Vulkan flushes to zero, CUDA does not); the other facets transfer (CUDA 90.0 %, Vulkan 94.1 % of theoretical) |
+| src/kernel_engine/certified_loop/d_vulkan_port_certified_kernel.py | OWN-GATE-FAIL | DenormPreserve32 attempt: fresh hardware property shaderDenormPreserveFloat32=0 (reports/vulkan_denorm_preserve_v1/report.json). Vulkan VUID06297 prohibits this mode; no valid Gate-1 rerun possible, no shader/dispatch attempted. Prior Gate-1 remains12/16 bit-exact cells; all four subnormal sizes fail. Existing source and gates unchanged; no new throughput claim. |
 | src/kernel_engine/euler_hllc/axisym_ns_solver.py | VERIFIED-FRESH |  |
 | src/kernel_engine/euler_hllc/detonation_cellular.py | VERIFIED-FRESH |  |
 | src/kernel_engine/euler_hllc/detonation_znd.py | VERIFIED-FRESH |  |
@@ -1645,3 +1645,5 @@ this loop, such as repeated process/context setup, while preserving complete
 end-to-end measurement. Existing persistent-handle results are a separate scope;
 changing timing boundaries would not close this batch gate. No RT source change
 or GPU rerun was made for this bound.
+
+E 2026-09-13: Vulkan denormal-preservation attempt CLOSED on measured capability refusal. The unchanged existing feature inventory ran under the shared flock in0.1128s and found one hardware device with float32 preservation0; this is inventory latency, not kernel timing. The requested execution mode is prohibited by https://docs.vulkan.org/spec/latest/appendices/spirvenv.html#VUID-RuntimeSpirv-shaderDenormPreserveFloat32-06297. Gate-1 was not rerun with an unsupported mode. Historical full-size subnormal mismatches64/1024/2048/2048 remain; no tolerance/domain change, runtime implementation, README edit or push. Stop after this negative; Hankel-on-device not started.

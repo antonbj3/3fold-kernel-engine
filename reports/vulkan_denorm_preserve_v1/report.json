@@ -1,0 +1,97 @@
+{
+  "status": "OWN-GATE-FAIL",
+  "requested_mode": "DenormPreserve 32 via VK_KHR_shader_float_controls / Vulkan 1.2",
+  "fresh_observation": {
+    "timestamp_utc": "2026-09-13T19:45:09.835028+00:00",
+    "scope": "Read-only instance/device-property inventory; no logical device, CUDA context, command submission or GPU kernel",
+    "source": "src/kernel_engine/kernel_gen/vulkan_winding_v1/features.cpp",
+    "source_sha256": "385192e22c9cfcfb52e4f76760766d6459eb7086e239bdd688cda54572c020ef",
+    "exit_code": 0,
+    "seconds": 0.11281189799774438,
+    "stdout": "{\"devices\":[{\"type\":2,\"api\":4211000,\"ray_extension\":1,\"as_extension\":1,\"ray_query\":1,\"acceleration_structure\":1,\"buffer_device_address\":1,\"float64\":1,\"float32_denorm_preserve\":0,\"float32_flush_zero\":0},{\"type\":4,\"api\":4206847,\"ray_extension\":0,\"as_extension\":0,\"ray_query\":0,\"acceleration_structure\":0,\"buffer_device_address\":1,\"float64\":1,\"float32_denorm_preserve\":0,\"float32_flush_zero\":0}],\"hardware_ready\":true}\n",
+    "stderr": ""
+  },
+  "inventory": {
+    "devices": [
+      {
+        "type": 2,
+        "api": 4211000,
+        "ray_extension": 1,
+        "as_extension": 1,
+        "ray_query": 1,
+        "acceleration_structure": 1,
+        "buffer_device_address": 1,
+        "float64": 1,
+        "float32_denorm_preserve": 0,
+        "float32_flush_zero": 0
+      },
+      {
+        "type": 4,
+        "api": 4206847,
+        "ray_extension": 0,
+        "as_extension": 0,
+        "ray_query": 0,
+        "acceleration_structure": 0,
+        "buffer_device_address": 1,
+        "float64": 1,
+        "float32_denorm_preserve": 0,
+        "float32_flush_zero": 0
+      }
+    ],
+    "hardware_ready": true
+  },
+  "required_property_supported": false,
+  "gate1_rerun": false,
+  "reason": "All enumerated hardware devices report shaderDenormPreserveFloat32=VK_FALSE; the requested execution mode is prohibited. Stopped before shader/pipeline creation instead of launching an invalid mode.",
+  "specification": "https://docs.vulkan.org/spec/latest/appendices/spirvenv.html#VUID-RuntimeSpirv-shaderDenormPreserveFloat32-06297",
+  "valid_usage_id": "VUID-RuntimeSpirv-shaderDenormPreserveFloat32-06297",
+  "previous_gate1": {
+    "source": "examples/d_vulkan_certified_port_evidence.json",
+    "sha256": "afc3172f76ec56dbc335002cb1d49dd66078826c4febadefb497962fb78893b3",
+    "pass_value": false,
+    "passing_cells": 12,
+    "total_cells": 16,
+    "subnormal_rows": [
+      {
+        "n": 65536,
+        "pattern": "subnormal_scale",
+        "bit_exact_frac": 0.96875,
+        "max_abs_delta": 5.294384512665498e-36,
+        "cuda_vs_oracle": 1.0,
+        "vk_vs_oracle": 0.96875,
+        "n_mismatch": 64
+      },
+      {
+        "n": 1048576,
+        "pattern": "subnormal_scale",
+        "bit_exact_frac": 0.5,
+        "max_abs_delta": 5.415713552386479e-36,
+        "cuda_vs_oracle": 1.0,
+        "vk_vs_oracle": 0.5,
+        "n_mismatch": 1024
+      },
+      {
+        "n": 16777216,
+        "pattern": "subnormal_scale",
+        "bit_exact_frac": 0.0,
+        "max_abs_delta": 4.1817471106815104e-35,
+        "cuda_vs_oracle": 1.0,
+        "vk_vs_oracle": 0.0,
+        "n_mismatch": 2048
+      },
+      {
+        "n": 67108864,
+        "pattern": "subnormal_scale",
+        "bit_exact_frac": 0.0,
+        "max_abs_delta": 1.6546388199812842e-34,
+        "cuda_vs_oracle": 1.0,
+        "vk_vs_oracle": 0.0,
+        "n_mismatch": 2048
+      }
+    ]
+  },
+  "current_source_sha256": "1e680c08a37164fe24af93b51da7786df53a2923d52d88be6c52ace23a221d0c",
+  "source_changed": false,
+  "before_after_kernel_seconds": null,
+  "scope": "One capability attempt, read-only local instance/property inventory under the existing flock; no CUDA/logical device/dispatch and no new numerical Gate-1 result. No speedup or certification promotion. First measured no closes this item; Hankel not started."
+}
