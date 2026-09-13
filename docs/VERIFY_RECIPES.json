@@ -119,5 +119,32 @@
     "sources": {
       "src/kernel_engine/certified_kernels/chunkable_roundoff_guard_v2.py": "49c878897805612ddc5ad4646dd5ea4831a6a3a08a1e080e04b82b6413f92040"
     }
+  },
+  {
+    "argv": [
+      "python",
+      "scripts/kernel_float_provenance_v1.py"
+    ],
+    "cwd": ".",
+    "expected": {
+      "exit_code": 0,
+      "json_equal": {
+        "/compared_rows": 20,
+        "/gates/complete_pair_inventory": true,
+        "/gates/matrix_integrity": true,
+        "/gates/no_unattributed_difference": true,
+        "/pair_comparisons": 120
+      },
+      "json_length": {
+        "/differences": 0
+      },
+      "report": "reports/kernel_float_provenance_v1/catalogue.json"
+    },
+    "key": "scripts/kernel_float_provenance_v1.py",
+    "note_sha256": "5db86a39e75c68f10bcdeb3690f7ad29d90f5a886809c99ca04890e3530805de",
+    "runtime": "cpu",
+    "sources": {
+      "scripts/kernel_float_provenance_v1.py": "7adfda7d5b6ae46bb21f6f28b58f6b8401e0afd45ca4a94f859ab3ea76d4b6c8"
+    }
   }
 ]

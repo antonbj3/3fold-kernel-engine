@@ -1568,6 +1568,11 @@ to each of the20 VERIFIED-FRESH matrix rows; they are not20 distinct modules.
 
 ## Floating-point provenance catalogue: VERIFIED-FRESH
 
+| Module | Status | Evidence |
+|---|---|---|
+| `scripts/kernel_float_provenance_v1.py` | VERIFIED-FRESH | CPU3/3 observation gates;20 certified rows and120 pair comparisons, zero observed differences. No operation classification inferred outside these fixed fixtures. |
+
+
 `reports/kernel_float_provenance_v1/catalogue.json`:3/3 observation gates;20rows/120pair comparisons, zero differing records. FMA/transcendental/reduction-order categories are empty because no operation difference was observed within this certified kernel fixture scope. Float-atomic diagnostic controls and motion/photon families are excluded. No universal operation-portability claim. The catalogue refuses invented classification: a future mismatch remains unresolved until frozen inputs and intermediate operations are replayed. Two negative/coverage controls pass. Reproduce on CPU with `python scripts/kernel_float_provenance_v1.py`.
 
 ## Complete signed-certificate replay: VERIFIED-FRESH
@@ -1595,7 +1600,7 @@ rows, not all VERIFIED-FRESH entries or all repositories in queued item27.
 
 | Module | Status | Decisive observation |
 |---|---|---|
-| `scripts/verification_inventory_v1.py` | OWN-GATE-FAIL | 288 VERIFIED-FRESH declarations resolve without duplicate aliases; 4 explicit recipes, 284 still unmapped. Inventory performs no numerical execution. |
-| `scripts/verify_declared_v1.py` | OWN-GATE-FAIL | Full repository coverage remains incomplete. Selected CPU scope: 3/3 declarations pass twice with exact numerical report hashes; ten runner/inventory controls pass. Strict make verify refuses incomplete coverage before execution. |
+| `scripts/verification_inventory_v1.py` | OWN-GATE-FAIL | 289 VERIFIED-FRESH declarations resolve without duplicate aliases; 5 explicit recipes, 284 still unmapped. Inventory performs no numerical execution. |
+| `scripts/verify_declared_v1.py` | OWN-GATE-FAIL | Full repository coverage remains incomplete. Selected CPU scope: 4/4 declarations pass twice with exact numerical report hashes; ten runner/inventory controls pass. Strict make verify refuses incomplete coverage before execution. |
 
 Commands, evidence schema and CPU/Modal scope: `docs/VERIFICATION.md`.

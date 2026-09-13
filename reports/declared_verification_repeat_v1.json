@@ -61,10 +61,26 @@
         "key": "src/kernel_engine/certified_kernels/chunkable_roundoff_guard_v2.py",
         "report_sha256": "2a90d7c6a5cfd70570f1d92faeae142b42634db5d935d7d5a78677053d8d1cf6",
         "returncode": 0
+      },
+      {
+        "checks": {
+          "equal:/compared_rows": true,
+          "equal:/gates/complete_pair_inventory": true,
+          "equal:/gates/matrix_integrity": true,
+          "equal:/gates/no_unattributed_difference": true,
+          "equal:/pair_comparisons": true,
+          "exit_code": true,
+          "fresh_execution_evidence": true,
+          "length:/differences": true
+        },
+        "error": null,
+        "key": "scripts/kernel_float_provenance_v1.py",
+        "report_sha256": "1b9b43a9b459a2ba4f528b0a156fd52f529a233ec1a2dc9b64e51cfb95e9ab36",
+        "returncode": 0
       }
     ]
   },
   "independent_numerical_reports_exact": true,
   "scope": "Numerical reports and gates repeat exactly; pytest stdout timing text is diagnostic and may differ",
-  "verified_recipe_rows": 3
+  "verified_recipe_rows": 4
 }

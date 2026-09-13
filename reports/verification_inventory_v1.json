@@ -3,10 +3,10 @@
     "group_requires_recipe": 1,
     "non_python": 7,
     "python_library": 45,
-    "python_main_candidate": 235
+    "python_main_candidate": 236
   },
-  "declared_verified_rows": 288,
-  "document_sha256": "06e190fef3b2ce9b2f1f79cfae8fd15fcfb2ab151d07df747e7c0619f37e6a83",
+  "declared_verified_rows": 289,
+  "document_sha256": "b3ddd968fd4963ee6ce3b819ddda697eabc823a25c5956af329fe1ecfc25397c",
   "duplicates": [],
   "gates": {
     "all_source_members_resolve": true,
@@ -5394,6 +5394,25 @@
       "note_sha256": "f66a7766bfc634a2ae0c29688111ca4da5af52be2a0f89be661d6cdbc2590828",
       "numerical_execution": "NOT_RUN",
       "verification_recipe": "UNSPECIFIED"
+    },
+    {
+      "key": "scripts/kernel_float_provenance_v1.py",
+      "kind": "python_main_candidate",
+      "label": "scripts/kernel_float_provenance_v1.py",
+      "line": 1573,
+      "members": [
+        {
+          "kind": "python_main_candidate",
+          "main_lines": [
+            38
+          ],
+          "path": "scripts/kernel_float_provenance_v1.py",
+          "sha256": "7adfda7d5b6ae46bb21f6f28b58f6b8401e0afd45ca4a94f859ab3ea76d4b6c8"
+        }
+      ],
+      "note_sha256": "5db86a39e75c68f10bcdeb3690f7ad29d90f5a886809c99ca04890e3530805de",
+      "numerical_execution": "NOT_RUN",
+      "verification_recipe": "DECLARED"
     }
   ],
   "schema": 1,
