@@ -1565,3 +1565,7 @@ This fresh replay covers export:512 only; other rows retain their prior four-dev
 measurements. Signature trust and the selftest fixture-definition input limitation
 are explicit in `docs/KERNEL_CERTIFICATES.md`. That document attaches one certificate
 to each of the20 VERIFIED-FRESH matrix rows; they are not20 distinct modules.
+
+## Floating-point provenance catalogue: VERIFIED-FRESH
+
+`reports/kernel_float_provenance_v1/catalogue.json`:3/3 observation gates;20rows/120pair comparisons, zero differing records. FMA/transcendental/reduction-order categories are empty because no operation difference was observed within this certified kernel fixture scope. Float-atomic diagnostic controls and motion/photon families are excluded. No universal operation-portability claim. The catalogue refuses invented classification: a future mismatch remains unresolved until frozen inputs and intermediate operations are replayed. Two negative/coverage controls pass. Reproduce on CPU with `python scripts/kernel_float_provenance_v1.py`.

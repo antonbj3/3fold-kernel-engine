@@ -651,3 +651,6 @@ SDK location convention: OPTIX_ROOT selects an external SDK9.0 installation; com
 
 | `scripts/kernel_certificates_v1.py` | Add Ed25519-signed row certificates, explicit trust-key verification, retained-evidence binding and fresh native-export replay. | Make four-device finite observations independently checkable. |
 | `tests/test_kernel_certificates.py` | Add deterministic signing and seven tamper/coverage/key/gate controls. | Refuse altered or incompletely supported certificates. |
+
+| `scripts/kernel_float_provenance_v1.py` | Add bounded difference catalogue derived from complete checked four-device evidence. | Report an empty catalogue honestly and preserve unresolved attribution if a mismatch appears. |
+| `tests/test_kernel_float_provenance.py` | Add empty, mismatched and incomplete matrix controls. | Prevent invented instruction-level explanations from output hashes. |
