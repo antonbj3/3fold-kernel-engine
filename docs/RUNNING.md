@@ -884,3 +884,68 @@ cost separately and include required transfers/EDT for whole-call comparisons.
 |---|---|---|
 | `kernel_gen/rt_winding_phase_probe/host.cpp` | SYNTHETIC-ONLY | Build0, eight processes0, exact frozen outputs; all8 whole-speed FAIL; phase table retained. |
 | `kernel_gen/rt_winding_phase_probe/build.sh` | SYNTHETIC-ONLY | Build0, eight processes0, exact frozen outputs; all8 whole-speed FAIL; phase table retained. |
+
+## Reused-context batch v1: design after native phase table
+
+The preceding phase table measures initialization134–213ms, context61–63ms and
+pipeline12.5ms versus launch/sync0.052–0.063ms. Separate batch host therefore
+retains context, pipeline and GAS for exactly64 identical queries. Every query
+reuploads all ray origins, launches unchanged PTX, synchronizes and copies all
+winding counts to the host; every array is compared exactly to the first. Mesh
+and rays remain fixed for this mechanism experiment. This is not a public mutable
+query API or an independent set of64 geometries. Original host remains frozen.
+
+Before execution: two complete batches per fixed fixture must yield exact full
+arrays and match CPU mask/EDT, every query must repeat exactly, phase values
+finite/nonnegative, idle/fault guards pass. Whole batch time includes one startup,
+geometry preparation/I/O, all64 ray upload/launch/readbacks and64 CPU EDT/surface
+reconstructions. Divide by64 and compare with the mean of64 full frozen CPU
+selector calls; require faster in both legs/all cases. Setup remains included,
+not discarded. Fixed64 is not tuned after results. No general speed claim.
+
+Measured fixed64 context-reuse table; all times per query except where named:
+
+| case | leg | CPU mean ms | native total/64 ms | ratio | native upload/launch/readback mean ms |
+|---|---|---|---|---|---|
+| sphere | 1 | 9.016938 | 14.733381 | 1.633967 | 0.102874 |
+| sphere_fine | 1 | 9.634500 | 11.548295 | 1.198640 | 0.110216 |
+| sphere_overlap | 1 | 12.319462 | 14.922455 | 1.211291 | 0.135080 |
+| subdivided_rotated_box | 1 | 8.257692 | 11.813627 | 1.430621 | 0.103378 |
+| sphere | 2 | 7.853162 | 11.592415 | 1.476146 | 0.102517 |
+| sphere_fine | 2 | 8.395122 | 11.382494 | 1.355846 | 0.107672 |
+| sphere_overlap | 2 | 11.308501 | 15.075160 | 1.333082 | 0.137713 |
+| subdivided_rotated_box | 2 | 9.639023 | 11.687982 | 1.212569 | 0.103525 |
+
+Six/seven gates PASS; all8 total-speed comparisons FAIL. All64 native result
+arrays compare exactly within each process; full CPU64-call distance results,
+64 native-side EDT reconstructions and the two complete native runs are exact.
+The final full arrays match frozen reference hashes. No output or PTX change.
+
+Per-query native upload/launch/readback mean0.102517–0.137713ms demonstrates
+context reuse on this fixed repeated input, but it excludes one-time setup and
+CPU EDT. Whole total/64 includes those required costs and remains slower by
+1.198640–1.633967 in this run. Fixed64 and the failed gate are retained. These
+figures are neither a general API certificate nor evidence of faster one-off
+queries. The host exports only the final array after internally checking all64;
+it is not an interactive API that can accept changed queries between launches.
+
+The phase JSON contains query_mean/min/max summaries nested within the batch
+phase; do not sum those summary fields as disjoint phases. native_process_ms is
+whole64-query child process time, while native_adapter_total_ms is whole batch/64.
+Existing compiler cache/no warmup retained. UTC/monotonic actual lock interval
+2026-09-13T01:12:45.715432+00:00–2026-09-13T01:12:57.854180+00:00;
+idle/fault guards pass, overlap audit requested and not yet received. No complete
+background-idle claim. Native phase table from the preceding run separately
+received confirmation of no coordinated heavy work in its actual interval.
+
+Evidence: field artifacts/field_rt_batch_v1.json, matching full arrays and
+field_rt_batch_events.jsonl; kernel reports/rt_winding_batch_v1.json mirrors the
+metrics. Next: a callable ownership/lifecycle seam with changed-query correctness,
+then representative query amortization and EDT mechanism work. Do not infer an
+optimal batch size or loosen64 from this failed experiment. Stable single-shot
+API and every prior negative remain unchanged.
+
+| module | status | evidence |
+|---|---|---|
+| `kernel_gen/rt_winding_batch_v1/host.cpp` | SYNTHETIC-ONLY | Build0, fixed64 full-query repeats exact, all8 total-speed FAIL; query mean0.102517–0.137713ms excludes setup/EDT. |
+| `kernel_gen/rt_winding_batch_v1/build.sh` | SYNTHETIC-ONLY | Build0, fixed64 full-query repeats exact, all8 total-speed FAIL; query mean0.102517–0.137713ms excludes setup/EDT. |

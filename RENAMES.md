@@ -601,3 +601,5 @@ adds an int64 fixed-point accumulation path behind a module-level `DETERMINISTIC
 | `kernel_gen/rt_winding_v1/build.sh` | Add external SDK/toolkit build with no vendored SDK files. | Reuse the measured compatible toolchain. |
 | `kernel_gen/rt_winding_phase_probe/host.cpp` | Add separate native phase timestamps and GAS-completion boundary beside the frozen host, reusing unchanged launch parameters/PTX. | Attribute measured lifecycle cost before persistent API design. |
 | `kernel_gen/rt_winding_phase_probe/build.sh` | Add external SDK/toolkit CPU build for observer only. | Preserve the verified native executable and device program. |
+| `kernel_gen/rt_winding_batch_v1/host.cpp` | Add separate fixed64-query context/pipeline/GAS reuse with full upload/readback and exact within-batch comparisons. | Test amortization suggested by the measured phase table without modifying the stable host/PTX. |
+| `kernel_gen/rt_winding_batch_v1/build.sh` | Add external-toolchain build for separate batch caller. | Preserve prior binaries and launch program. |
