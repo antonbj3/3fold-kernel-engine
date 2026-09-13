@@ -987,3 +987,40 @@ CPU agreement. Next measure host-memory layout before any implementation change.
 | `kernel_gen/rt_winding_api_v1/api.h` | SYNTHETIC-ONLY | Build0; initial caller five/seven gates PASS, CPU agreement fails33289 mask samples; not promoted. |
 | `kernel_gen/rt_winding_api_v1/api.cpp` | SYNTHETIC-ONLY | Build0; initial caller five/seven gates PASS, CPU agreement fails33289 mask samples; not promoted. |
 | `kernel_gen/rt_winding_api_v1/build.sh` | SYNTHETIC-ONLY | Build0; initial caller five/seven gates PASS, CPU agreement fails33289 mask samples; not promoted. |
+
+Contiguous caller result: all seven fixed gates PASS. Eight freshly created
+handles,32 full changed-query calls in phase order0/1/2/0,32 short prefix calls,
+24 invalid zero/overflow/NaN calls and16 destroy calls (including null repeats).
+Every full mask/EDT equals its frozen CPU reference, complete winding arrays
+repeat across handles. Short output suffixes and invalid-query sentinels remain
+untouched. No current-boot fault observed. No timing claim.
+
+| quantity | initial pointer caller | separate contiguous caller |
+|---|---|---|
+| maximum mask differences |33289|0|
+| maximum EDT differences |65142|0|
+| fixed gates passed |5/7|7/7|
+| native library SHA |7e019e51887ae23961a288d3bcdafcd4a15cd90ce57fcc7abe1728499362f524|same|
+
+Evidence: field artifacts/field_rt_api_contiguous_v1.json, full arrays and
+field_rt_api_contiguous_events.jsonl; mirrored metrics in kernel reports.
+Previous failure remains frozen. This certifies changed-query correctness on
+these fixtures with fixed capacity and same-thread handles. It does not certify
+thread/context switching, device loss, allocation-failure cleanup, arbitrary
+pointer validity or production concurrency. Destroy frees owned OptiX/buffer
+resources; CUDA runtime primary context lifetime is managed by the runtime.
+
+C ABI buffers MUST be C-contiguous float32 triangle[M,3,3]/ray[R,3] and int32
+output[R]; the raw ABI cannot inspect NumPy strides or validate pointer length.
+The caller retains arrays through each synchronous call. This requirement is
+satisfied explicitly by the separate verified caller. Library performs no explicit
+report writes; external compiler caches still apply. Stable single-shot host/PTX
+and fixed64 speed negatives remain unchanged. Next library wrapper should enforce
+shape/dtype/contiguity and same-thread lifetime before public caller adoption;
+performance requires a separate timestamped changed-query measurement.
+
+| module | status | evidence |
+|---|---|---|
+| `kernel_gen/rt_winding_api_v1/api.h` | SYNTHETIC-ONLY | Separate contiguous caller seven/seven gates PASS,32 full queries exact; earlier pointer-layout negative retained. |
+| `kernel_gen/rt_winding_api_v1/api.cpp` | SYNTHETIC-ONLY | Separate contiguous caller seven/seven gates PASS,32 full queries exact; earlier pointer-layout negative retained. |
+| `kernel_gen/rt_winding_api_v1/build.sh` | SYNTHETIC-ONLY | Separate contiguous caller seven/seven gates PASS,32 full queries exact; earlier pointer-layout negative retained. |
