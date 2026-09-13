@@ -1,0 +1,60 @@
+[
+  {
+    "argv": [
+      "python",
+      "scripts/kernel_certificate_replay_v2.py",
+      "--trusted-key",
+      "reports/kernel_certificates_v1/public_key.pem"
+    ],
+    "cwd": ".",
+    "expected": {
+      "exit_code": 0,
+      "json_equal": {
+        "/gates/all_rows_match": true,
+        "/gates/capture_own_gates": true,
+        "/gates/complete_inventory": true,
+        "/gates/original_source_identity": true
+      },
+      "json_length": {
+        "/rows": 20
+      },
+      "report": "reports/kernel_certificate_replay_v2/verification.json"
+    },
+    "key": "src/kernel_engine/certified_kernels/kernel_matrix_capture_v1.py",
+    "note_sha256": "29ed123cb3b250dcf09a55604e9db1add9deb1d52871f84f76ec65e7f022d5ff",
+    "runtime": "modal",
+    "sources": {
+      "src/kernel_engine/certified_kernels/kernel_matrix_capture_v1.py": "87a8fa2d294438e105aaccbff318d67fc36fa71fc7f4006b1e7fba9127c68641"
+    }
+  },
+  {
+    "argv": [
+      "python",
+      "src/kernel_engine/certified_kernels/kernel_matrix_report_v1.py",
+      "reports/kernel_matrix_v1/l4",
+      "reports/kernel_matrix_v1/a10g",
+      "reports/kernel_matrix_v1/h100"
+    ],
+    "cwd": ".",
+    "expected": {
+      "exit_code": 0,
+      "json_equal": {
+        "/gates/all_own_numerical_gates": true,
+        "/gates/cross_sku_exact": true,
+        "/gates/full_coverage": true,
+        "/gates/source_and_version_identity": true,
+        "/gates/three_distinct_skus": true
+      },
+      "json_length": {
+        "/rows": 20
+      },
+      "report": "reports/kernel_matrix_v1/matrix.json"
+    },
+    "key": "src/kernel_engine/certified_kernels/kernel_matrix_report_v1.py",
+    "note_sha256": "2d9e09c5b48002625e25f0d455ddf6f436f106799b3c4d5fb6fb5f847fd3a46e",
+    "runtime": "cpu",
+    "sources": {
+      "src/kernel_engine/certified_kernels/kernel_matrix_report_v1.py": "af97d2e6e217b7463d517eeee045820a78a3f976ed5896dd0253bc5b00094209"
+    }
+  }
+]

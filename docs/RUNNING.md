@@ -1590,3 +1590,12 @@ signing key is uploaded and no local GPU is used. Existing signed certificates a
 numerical baselines remain unchanged. Reproduction and public-key trust requirements
 are in `docs/KERNEL_CERTIFICATES.md`. This is complete coverage of the20certificate
 rows, not all VERIFIED-FRESH entries or all repositories in queued item27.
+
+## Verification entrypoint readiness: OWN-GATE-FAIL
+
+| Module | Status | Decisive observation |
+|---|---|---|
+| `scripts/verification_inventory_v1.py` | OWN-GATE-FAIL | 288 VERIFIED-FRESH declarations resolve without duplicate aliases; 2 explicit recipes, 286 still unmapped. Inventory performs no numerical execution. |
+| `scripts/verify_declared_v1.py` | OWN-GATE-FAIL | Full repository coverage remains incomplete. Selected CPU scope: 1/1 recipes pass twice with exact numerical report hashes; six runner/inventory controls pass. Strict make verify refuses incomplete coverage before execution. |
+
+Commands, evidence schema and CPU/Modal scope: `docs/VERIFICATION.md`.

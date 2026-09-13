@@ -1,0 +1,28 @@
+{
+  "evidence": {
+    "gates": {
+      "nonempty_selected": true,
+      "selected_gates": true
+    },
+    "rows": [
+      {
+        "checks": {
+          "equal:/gates/all_own_numerical_gates": true,
+          "equal:/gates/cross_sku_exact": true,
+          "equal:/gates/full_coverage": true,
+          "equal:/gates/source_and_version_identity": true,
+          "equal:/gates/three_distinct_skus": true,
+          "exit_code": true,
+          "length:/rows": true
+        },
+        "error": null,
+        "key": "src/kernel_engine/certified_kernels/kernel_matrix_report_v1.py",
+        "report_sha256": "cfc2a2d4ae2fc7c20614732c4bd157a7f9ba7a3756a9ad382b2154a152cce0cd",
+        "returncode": 0
+      }
+    ]
+  },
+  "independent_numerical_reports_exact": true,
+  "scope": "Numerical reports and gates repeat exactly; pytest stdout timing text is diagnostic and may differ",
+  "verified_recipe_rows": 1
+}

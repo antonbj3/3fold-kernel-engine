@@ -657,3 +657,9 @@ SDK location convention: OPTIX_ROOT selects an external SDK9.0 installation; com
 
 | `scripts/kernel_certificate_replay_v2.py` | Add complete fresh twenty-row capture and signed input/output/runtime/source comparison, with CPU replay audit. | Extend the prior selected-export verifier without changing certificates or numerical baselines. |
 | `tests/test_kernel_certificate_replay.py` | Add ten signed-replay controls including source/input/output/runtime/coverage failures and stale-success removal. | Refuse fresh observations that do not support the signed claim. |
+
+| `scripts/verification_inventory_v1.py` | Add source-resolved status inventory with AST entrypoint classification and explicit missing-recipe failure. | Prevent a future verify command from silently accepting library/group rows or merely finding a main guard. |
+| `tests/test_verification_inventory.py` | Add four nonexecution, alias/group, path-boundary and recipe-drift controls. | Verify readiness scanning without importing numerical modules. |
+| `scripts/verify_declared_v1.py` | Add bounded execution of declared runtime recipes and decisive JSON/pytest result checks. | Make mapped rows reproducible while reporting incomplete repository coverage explicitly. |
+| `tests/test_verify_declared.py` | Add decisive-value/type, exit, test-count and missing-evidence controls. | Prevent an exit-zero result from overriding failed or absent evidence. |
+| `Makefile` | Add strict full verification and explicitly scoped declared/inventory targets. | Refuse full success until recipe coverage is complete. |
