@@ -3,6 +3,6 @@
   "complete_repository_coverage": false,
   "numerical_execution": "NOT_RUN",
   "declared_rows": 288,
-  "selected_recipes": 2,
+  "selected_recipes": 3,
   "reason": "Missing, stale or unavailable-runtime recipes"
 }

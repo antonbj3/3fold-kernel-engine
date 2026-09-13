@@ -1,6 +1,6 @@
 # Explicit verification recipes
 
-The full repository gate is OWN-GATE-FAIL: 3/288 declared VERIFIED-FRESH rows have explicit recipes; 285 remain unmapped. This is partial queue item27. All declared source members resolve and there are no duplicate declarations. A main guard identifies only a candidate, never numerical success.
+The full repository gate is OWN-GATE-FAIL: 4/288 declared VERIFIED-FRESH rows have explicit recipes; 284 remain unmapped. This is partial queue item27. All declared source members resolve and there are no duplicate declarations. A main guard identifies only a candidate, never numerical success.
 
 Run from the repository root with its installed environment:
 
@@ -10,7 +10,7 @@ make verify-declared PYTHON=python
 make verify PYTHON=python
 ```
 
-The inventory exits1 for incomplete coverage. The selected target executes CPU recipes by default: 2 passed in each of two independent runs, with exact generated numerical report hashes. Full `make verify` refuses incomplete coverage before running children (script exit1, make exit2). Seven focused tests pass:
+The inventory exits1 for incomplete coverage. The selected target executes CPU recipes by default: 3 declarations passed in each of two independent runs, with exact generated numerical report hashes. Full `make verify` refuses incomplete coverage before running children (script exit1, make exit2). Ten focused tests pass:
 
 ```sh
 python -m pytest -q tests/test_verification_inventory.py tests/test_verify_declared.py
@@ -34,3 +34,7 @@ The selected result's VERIFIED-FRESH status applies only to its listed recipes. 
 Recipes may declare `pythonpath` as a list of existing repository directories. The runner resolves these to absolute paths before spawning workers, so temporary working directories preserve package imports. Outside paths, files and missing directories are rejected.
 
 The added recurrence stability recipe checks all nine original observer gates and12 cases. Expansive transitions remain refused, including the existing output-budget violation; this is a bounded synthetic CPU screen, not a general stability certificate.
+
+Identical argv, working directory, runtime, explicit Python import paths and report destination share a single child execution within one verifier invocation. All selected declaration pins are validated before any child starts. Each row retains its own expected gates and values, and records `executed_by`, `reused_execution` and the fresh report hash. A changed report invalidates reuse. The cache is empty on every new invocation; prior reports never qualify. Failed shared children remain failed on every row expecting success.
+
+The legacy roundoff guard recipe uses `scripts/verify_roundoff_artifact_v1.py` to remove the old JSON, run the unchanged artifact producer and copy its fresh receipt into reports. Its7 original gates, two8-case legs and measured error437.3193359375 are required. The original JSON/NPZ artifacts remain byte-identical. Three CPU declarations use3 child commands; the fourth declared recipe requires Modal and was not rerun here.

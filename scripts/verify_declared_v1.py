@@ -33,6 +33,44 @@ def check_expected(root,expected,code,stdout):
     return checks
 
 
+def run_recipes(root,selected,runtime):
+    env=dict(os.environ,OPENBLAS_NUM_THREADS='1',OMP_NUM_THREADS='1')
+    if runtime=='cpu':env['CUDA_VISIBLE_DEVICES']=''
+    cache={};rows=[]
+    for recipe in selected:
+        signature=json.dumps({k:recipe.get(k) for k in ('argv','cwd','runtime','pythonpath')} | {'report':recipe['expected'].get('report')},sort_keys=True)
+        reused=signature in cache
+        if not reused:
+            if 'report' in recipe['expected']:
+                target=(root/recipe['expected']['report']).resolve()
+                if not target.is_relative_to(root/'reports'):raise ValueError('Fresh report must stay under reports')
+                target.unlink(missing_ok=True)
+            argv=list(recipe['argv'])
+            if argv[0]=='python':argv[0]=sys.executable
+            child_env=dict(env)
+            if recipe.get('pythonpath'):
+                child_env['PYTHONPATH']=os.pathsep.join(str((root/v).resolve()) for v in recipe['pythonpath'])
+            if recipe['runtime']=='cpu':child_env['CUDA_VISIBLE_DEVICES']=''
+            child=subprocess.Popen(argv,cwd=root/recipe['cwd'],env=child_env,stdout=subprocess.PIPE,stderr=subprocess.PIPE,start_new_session=True)
+            try:stdout,stderr=child.communicate(timeout=900);code=child.returncode
+            except subprocess.TimeoutExpired:
+                os.killpg(child.pid,signal.SIGKILL);stdout,stderr=child.communicate();code=124
+            report_path=root/recipe['expected']['report'] if 'report' in recipe['expected'] else None
+            report_hash=hashlib.sha256(report_path.read_bytes()).hexdigest() if report_path and report_path.is_file() else None
+            cache[signature]=(code,stdout,stderr,report_hash,recipe['key'])
+        code,stdout,stderr,report_hash,executed_by=cache[signature]
+        try:checks=check_expected(root,recipe['expected'],code,stdout.decode(errors='replace'));error=None
+        except (KeyError,ValueError,FileNotFoundError,TypeError,IndexError) as exc:checks={'evidence_read':False};error=type(exc).__name__
+        report_path=root/recipe['expected']['report'] if 'report' in recipe['expected'] else None
+        current_hash=hashlib.sha256(report_path.read_bytes()).hexdigest() if report_path and report_path.is_file() else None
+        checks['fresh_execution_evidence']=current_hash==report_hash
+        rows.append(dict(key=recipe['key'],executed_by=executed_by,reused_execution=reused,checks=checks,returncode=code,error=error,
+            stdout_sha256=hashlib.sha256(stdout).hexdigest(),stderr_sha256=hashlib.sha256(stderr).hexdigest(),
+            report_sha256=hashlib.sha256((root/recipe['expected']['report']).read_bytes()).hexdigest() if 'report' in recipe['expected'] and (root/recipe['expected']['report']).is_file() else None))
+        print(recipe['key']+' '+('PASS' if all(checks.values()) else 'FAIL'),flush=True)
+    return rows
+
+
 def main():
     p=argparse.ArgumentParser(description=__doc__);p.add_argument('--runtime',choices=['cpu','modal'],default='cpu');p.add_argument('--require-complete',action='store_true');args=p.parse_args()
     root=Path(__file__).resolve().parents[1];state=inventory(root)
@@ -42,32 +80,10 @@ def main():
     if args.require_complete and (not all(state['gates'].values()) or len(selected)!=state['declared_verified_rows']):
         out.write_text(json.dumps(dict(status='OWN-GATE-FAIL',complete_repository_coverage=False,numerical_execution='NOT_RUN',declared_rows=state['declared_verified_rows'],selected_recipes=len(selected),reason='Missing, stale or unavailable-runtime recipes'),indent=2)+'\n')
         print('Full verification refused: incomplete recipe coverage',flush=True);return 1
-    env=dict(os.environ,OPENBLAS_NUM_THREADS='1',OMP_NUM_THREADS='1')
-    if args.runtime=='cpu':env['CUDA_VISIBLE_DEVICES']=''
-    for recipe in selected:
-        if not valid.get(recipe['key']):raise ValueError('Stale or invalid declared recipe')
-        if 'report' in recipe['expected']:
-            target=(root/recipe['expected']['report']).resolve()
-            if not target.is_relative_to(root/'reports'):raise ValueError('Fresh report must stay under reports')
-            target.unlink(missing_ok=True)
-        argv=list(recipe['argv'])
-        if argv[0]=='python':argv[0]=sys.executable
-        child_env=dict(env)
-        if recipe.get('pythonpath'):
-            child_env['PYTHONPATH']=os.pathsep.join(str((root/v).resolve()) for v in recipe['pythonpath'])
-        if recipe['runtime']=='cpu':child_env['CUDA_VISIBLE_DEVICES']=''
-        child=subprocess.Popen(argv,cwd=root/recipe['cwd'],env=child_env,stdout=subprocess.PIPE,stderr=subprocess.PIPE,start_new_session=True)
-        try:stdout,stderr=child.communicate(timeout=900);code=child.returncode
-        except subprocess.TimeoutExpired:
-            os.killpg(child.pid,signal.SIGKILL);stdout,stderr=child.communicate();code=124
-        try:checks=check_expected(root,recipe['expected'],code,stdout.decode(errors='replace'));error=None
-        except (KeyError,ValueError,FileNotFoundError,TypeError,IndexError) as exc:checks={'evidence_read':False};error=type(exc).__name__
-        rows.append(dict(key=recipe['key'],checks=checks,returncode=code,error=error,
-            stdout_sha256=hashlib.sha256(stdout).hexdigest(),stderr_sha256=hashlib.sha256(stderr).hexdigest(),
-            report_sha256=hashlib.sha256((root/recipe['expected']['report']).read_bytes()).hexdigest() if 'report' in recipe['expected'] and (root/recipe['expected']['report']).is_file() else None))
-        print(recipe['key']+' '+('PASS' if all(checks.values()) else 'FAIL'),flush=True)
+    if any(not valid.get(recipe['key']) for recipe in selected):raise ValueError('Stale or invalid declared recipe')
+    rows=run_recipes(root,selected,args.runtime)
     gates=dict(nonempty_selected=bool(selected),selected_gates=bool(rows) and all(all(r['checks'].values()) for r in rows))
-    result=dict(schema=1,runtime=args.runtime,runner_sha256=hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),recipes_sha256=hashlib.sha256((root/'docs/VERIFY_RECIPES.json').read_bytes()).hexdigest(),gates=gates,rows=rows,declared_verified_rows=state['declared_verified_rows'],
+    result=dict(schema=2,executions=sum(not r['reused_execution'] for r in rows),runtime=args.runtime,runner_sha256=hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),recipes_sha256=hashlib.sha256((root/'docs/VERIFY_RECIPES.json').read_bytes()).hexdigest(),gates=gates,rows=rows,declared_verified_rows=state['declared_verified_rows'],
                 complete_repository_coverage=state['gates']['explicit_recipe_coverage'] and len(rows)==state['declared_verified_rows'],
                 status='VERIFIED-FRESH' if all(gates.values()) else 'OWN-GATE-FAIL',
                 scope='Fresh selected declared recipes only. Unmapped rows and recipes for another runtime are NOT RUN, never implicitly passed.')

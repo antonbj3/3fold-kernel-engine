@@ -666,3 +666,7 @@ SDK location convention: OPTIX_ROOT selects an external SDK9.0 installation; com
 
 | `scripts/verification_inventory_v1.py`, `scripts/verify_declared_v1.py` | Validate and apply explicit repository-relative Python import paths. | Reproduce documented chain package imports in independent workers without implicit shell environment. |
 | `tests/test_verification_inventory.py` | Add import-path boundary, missing-directory and malformed-type controls. | Reject invalid declared worker environments before execution. |
+
+| `scripts/verify_declared_v1.py` | Reuse an identical command only within the current invocation; preserve each declaration gate and evidence identity. | Avoid redundant certifier runs while rejecting changed reports and failed shared children. |
+| `tests/test_verify_declared.py` | Add real-child sharing, per-row failure, stale-report and invocation-isolation controls. | Prove reuse cannot substitute another row's numerical expectations or an earlier run. |
+| `scripts/verify_roundoff_artifact_v1.py` | Run the frozen legacy guard and publish its fresh JSON under reports. | Preserve the existing artifact producer and make its seven gates explicit in the verifier. |

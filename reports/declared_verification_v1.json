@@ -1,11 +1,12 @@
 {
   "complete_repository_coverage": false,
   "declared_verified_rows": 288,
+  "executions": 3,
   "gates": {
     "nonempty_selected": true,
     "selected_gates": true
   },
-  "recipes_sha256": "153dd79d519bc94fefce30d4101729643287181e9a50141566e4501a9a54a24e",
+  "recipes_sha256": "c0d2eb9f1ac3b0acb6adc5d9eebbcadc58da7fbad1ff82b4a455f38e1f588382",
   "rows": [
     {
       "checks": {
@@ -15,12 +16,15 @@
         "equal:/gates/source_and_version_identity": true,
         "equal:/gates/three_distinct_skus": true,
         "exit_code": true,
+        "fresh_execution_evidence": true,
         "length:/rows": true
       },
       "error": null,
+      "executed_by": "src/kernel_engine/certified_kernels/kernel_matrix_report_v1.py",
       "key": "src/kernel_engine/certified_kernels/kernel_matrix_report_v1.py",
       "report_sha256": "cfc2a2d4ae2fc7c20614732c4bd157a7f9ba7a3756a9ad382b2154a152cce0cd",
       "returncode": 0,
+      "reused_execution": false,
       "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
       "stdout_sha256": "79c9dc3ae0c592011aa746a6d62de2e37773d0a636e213c30c20647163c217f4"
     },
@@ -36,19 +40,47 @@
         "equal:/gates/stable_control": true,
         "equal:/gates/unknown_refusal": true,
         "exit_code": true,
+        "fresh_execution_evidence": true,
         "length:/cases": true
       },
       "error": null,
+      "executed_by": "src/kernel_engine/certified_kernels/chunkable_stability_v1.py",
       "key": "src/kernel_engine/certified_kernels/chunkable_stability_v1.py",
       "report_sha256": "ce37358adbef62d5caaefa95bc8d63ad94fa5cd222937c6576e39330f91b980c",
       "returncode": 0,
+      "reused_execution": false,
       "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
       "stdout_sha256": "92bf32ceff2ccd35929c25c8ef2cf825a5865227b7e9e7bdefe723054ca4f653"
+    },
+    {
+      "checks": {
+        "equal:/gates/coverage": true,
+        "equal:/gates/error_blowup": true,
+        "equal:/gates/exact_full_repeats": true,
+        "equal:/gates/expansive_eigenvalue": true,
+        "equal:/gates/stable_control": true,
+        "equal:/gates/stable_roundoff_failure_retained": true,
+        "equal:/gates/syntax_accepts_numeric_refuses": true,
+        "equal:/legs/0/rows/7/max_output_error": true,
+        "exit_code": true,
+        "fresh_execution_evidence": true,
+        "length:/legs": true,
+        "length:/legs/0/rows": true,
+        "length:/legs/1/rows": true
+      },
+      "error": null,
+      "executed_by": "src/kernel_engine/certified_kernels/chunkable_roundoff_guard_v2.py",
+      "key": "src/kernel_engine/certified_kernels/chunkable_roundoff_guard_v2.py",
+      "report_sha256": "2a90d7c6a5cfd70570f1d92faeae142b42634db5d935d7d5a78677053d8d1cf6",
+      "returncode": 0,
+      "reused_execution": false,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "524b33aed7e3ef113752e30952726573da66aec2155e0796239f4cc2661688e8"
     }
   ],
-  "runner_sha256": "5de7a63b8c5a3ac68d55e6fbbe5729de6ffb57eb79cf32b266e3fd61c63d9a04",
+  "runner_sha256": "85f73904aaff6ff649fe72543c4eb3bd8a4122255731faf0a0234505c2e80fef",
   "runtime": "cpu",
-  "schema": 1,
+  "schema": 2,
   "scope": "Fresh selected declared recipes only. Unmapped rows and recipes for another runtime are NOT RUN, never implicitly passed.",
   "status": "VERIFIED-FRESH"
 }

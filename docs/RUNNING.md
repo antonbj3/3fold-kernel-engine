@@ -1595,7 +1595,7 @@ rows, not all VERIFIED-FRESH entries or all repositories in queued item27.
 
 | Module | Status | Decisive observation |
 |---|---|---|
-| `scripts/verification_inventory_v1.py` | OWN-GATE-FAIL | 288 VERIFIED-FRESH declarations resolve without duplicate aliases; 3 explicit recipes, 285 still unmapped. Inventory performs no numerical execution. |
-| `scripts/verify_declared_v1.py` | OWN-GATE-FAIL | Full repository coverage remains incomplete. Selected CPU scope: 2/2 recipes pass twice with exact numerical report hashes; seven runner/inventory controls pass. Strict make verify refuses incomplete coverage before execution. |
+| `scripts/verification_inventory_v1.py` | OWN-GATE-FAIL | 288 VERIFIED-FRESH declarations resolve without duplicate aliases; 4 explicit recipes, 284 still unmapped. Inventory performs no numerical execution. |
+| `scripts/verify_declared_v1.py` | OWN-GATE-FAIL | Full repository coverage remains incomplete. Selected CPU scope: 3/3 declarations pass twice with exact numerical report hashes; ten runner/inventory controls pass. Strict make verify refuses incomplete coverage before execution. |
 
 Commands, evidence schema and CPU/Modal scope: `docs/VERIFICATION.md`.

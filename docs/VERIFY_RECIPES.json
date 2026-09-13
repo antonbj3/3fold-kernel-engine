@@ -87,5 +87,37 @@
     "sources": {
       "src/kernel_engine/certified_kernels/chunkable_stability_v1.py": "cef4a95e1f1d1c1fb4329503e2ad2885be5aad51a8f32fb61f0e5f0d11e6fce1"
     }
+  },
+  {
+    "argv": [
+      "python",
+      "scripts/verify_roundoff_artifact_v1.py"
+    ],
+    "cwd": ".",
+    "expected": {
+      "exit_code": 0,
+      "json_equal": {
+        "/gates/coverage": true,
+        "/gates/error_blowup": true,
+        "/gates/exact_full_repeats": true,
+        "/gates/expansive_eigenvalue": true,
+        "/gates/stable_control": true,
+        "/gates/stable_roundoff_failure_retained": true,
+        "/gates/syntax_accepts_numeric_refuses": true,
+        "/legs/0/rows/7/max_output_error": 437.3193359375
+      },
+      "json_length": {
+        "/legs": 2,
+        "/legs/0/rows": 8,
+        "/legs/1/rows": 8
+      },
+      "report": "reports/chunkable_roundoff_guard_v2.json"
+    },
+    "key": "src/kernel_engine/certified_kernels/chunkable_roundoff_guard_v2.py",
+    "note_sha256": "663e8bfad6f80ac68c8638e7697ac8edfe4a154d84aa67b8d51ae1c764a3b593",
+    "runtime": "cpu",
+    "sources": {
+      "src/kernel_engine/certified_kernels/chunkable_roundoff_guard_v2.py": "49c878897805612ddc5ad4646dd5ea4831a6a3a08a1e080e04b82b6413f92040"
+    }
   }
 ]

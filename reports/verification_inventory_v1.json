@@ -6,7 +6,7 @@
     "python_main_candidate": 235
   },
   "declared_verified_rows": 288,
-  "document_sha256": "4796d4c5fac27232dda106ffcf7d8b13dfcd8ee5e0ea4901d150f1dbd2af7045",
+  "document_sha256": "06e190fef3b2ce9b2f1f79cfae8fd15fcfb2ab151d07df747e7c0619f37e6a83",
   "duplicates": [],
   "gates": {
     "all_source_members_resolve": true,
@@ -5264,7 +5264,7 @@
       ],
       "note_sha256": "663e8bfad6f80ac68c8638e7697ac8edfe4a154d84aa67b8d51ae1c764a3b593",
       "numerical_execution": "NOT_RUN",
-      "verification_recipe": "UNSPECIFIED"
+      "verification_recipe": "DECLARED"
     },
     {
       "key": "src/kernel_engine/kernel_gen/foreign_cuda_certify_v1.py",
