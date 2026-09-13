@@ -1430,3 +1430,41 @@ is below1 but operator norm exceeds1. No GPU, speed or universal stability claim
 | Module | Status | Evidence |
 |---|---|---|
 | `certified_kernels/chunkable_roundoff_guard_v2.py` | VERIFIED-FRESH | 7/7 own gates, full two-process repeats; unstable error437.3193359375 refused, stable numerical failure retained. |
+
+## Foreign CUDA certification: gates before execution
+
+Pinned NVIDIA cuda-samples vecAdd, extracted verbatim with original license.
+The separate harness compiles using nvcc, without Warp or source rewriting.
+G1: full-byte fp32 CPU oracle. G2: two independent allocation/launch/readback
+legs have exact full bytes. G3: zero-add/cancellation controls and32 output
+canaries for sizes0/1/255/256/257/65539/16777219, including nonmultiple blocks,
+signed zero/subnormals. Do not weaken exactness if any case fails.
+Run on Modal L4 and A10G. Cross-SKU gate: identical canonical certificates,
+including full input/output hashes and pinned source/harness/runner identities.
+Compiler/device/timing metadata is separate so the numerical certificate is
+reproducible; timing observations are never required to repeat exactly.
+Report useful12N bytes per vector-add against measured same-worker D2D
+copy bandwidth (8N read+write bytes), both legs. No universal-kernel claim or
+minimum throughput fraction. Public source URL/commit/license in provenance.
+
+| Module | Status | Evidence |
+|---|---|---|
+| `kernel_gen/foreign_cuda_certify_v1.py` | VERIFIED-FRESH | Modal L4/A10,3/3 gates on21 cases/SKU, independent allocation/launch/readback legs exact; includes subnormal/signed-zero/null/bounds controls. |
+| `kernel_gen/foreign_cuda_v1/vectorAdd.cu` | VERIFIED-FRESH | Same exact21-case gates on both SKUs; upstream kernel retained verbatim, source identity in provenance.json. |
+| `kernel_gen/foreign_cuda_v1/harness.cu` | VERIFIED-FRESH | Built by nvcc on both SKUs; every output/canary checked, two event/copy timing legs recorded. |
+| `kernel_gen/foreign_cuda_cross_sku_v1.py` | VERIFIED-FRESH | 5/5 audit gates; canonical certificate hash2916c10c8bc65883b483bade2dd7b5c7b04d2f60f34a5e5ae398f506ab83d303 on both SKUs;6 evidence/corruption tests pass. |
+
+At N16777219, add-case useful bandwidth: L4 236.071/241.207GB/s,
+A10 496.193/494.990GB/s. Fractions of measured same-worker D2D copy bandwidth:
+L4 1.020954/1.043304; A10 1.041820/1.038356. Copy throughput is a reference
+measurement, not a theoretical upper bound; fractions above1 are possible.
+Driver580.95.05 on both, CUDA nvcc details in each measurement.json.
+Scope is the declared finite fixtures and launch contract, not arbitrary CUDA
+or an exhaustive proof of bounds safety. Upstream sample:
+https://github.com/NVIDIA/cuda-samples/blob/5443602d89ed99aede2e4b7bf329daddeadb320e/cpp/0_Introduction/vectorAdd/vectorAdd.cu
+Reproduce each GPU leg with
+`python src/kernel_engine/kernel_gen/foreign_cuda_certify_v1.py`, then compare
+saved report directories with `foreign_cuda_cross_sku_v1.py DIR_A DIR_B`.
+Evidence: `reports/foreign_cuda_v1/{l4,a10g}/` and
+`reports/foreign_cuda_cross_sku_v1.json`. Timing files are intentionally outside
+the canonical numerical certificate. No local hardware execution.

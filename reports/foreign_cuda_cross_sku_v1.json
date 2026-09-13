@@ -1,0 +1,150 @@
+{
+  "bandwidth": [
+    {
+      "device": "NVIDIA L4, 580.95.05",
+      "rows": [
+        {
+          "case": "add",
+          "legs": [
+            {
+              "bandwidth_fraction": 1.0209537187872422,
+              "copy_gbps": 231.22623089940726,
+              "copy_ms": 0.580461859703064,
+              "kernel_ms": 0.8528213500976562,
+              "useful_gbps": 236.07128031790734
+            },
+            {
+              "bandwidth_fraction": 1.043303732538755,
+              "copy_gbps": 231.19562966449473,
+              "copy_ms": 0.5805386900901794,
+              "kernel_ms": 0.8346623778343201,
+              "useful_gbps": 241.2072633756151
+            }
+          ],
+          "n": 16777219
+        },
+        {
+          "case": "zero",
+          "legs": [
+            {
+              "bandwidth_fraction": 1.0567369183562472,
+              "copy_gbps": 231.9850601122926,
+              "copy_ms": 0.5785631537437439,
+              "kernel_ms": 0.8212479948997498,
+              "useful_gbps": 245.14717752775283
+            },
+            {
+              "bandwidth_fraction": 1.0398535310905055,
+              "copy_gbps": 231.31974660129515,
+              "copy_ms": 0.5802271962165833,
+              "kernel_ms": 0.8369824290275574,
+              "useful_gbps": 240.5386553143177
+            }
+          ],
+          "n": 16777219
+        },
+        {
+          "case": "cancel",
+          "legs": [
+            {
+              "bandwidth_fraction": 1.0180421887828837,
+              "copy_gbps": 231.42439707587855,
+              "copy_ms": 0.579964816570282,
+              "kernel_ms": 0.85452800989151,
+              "useful_gbps": 235.59979973688658
+            },
+            {
+              "bandwidth_fraction": 1.0202598229923228,
+              "copy_gbps": 231.17994047377195,
+              "copy_ms": 0.580578088760376,
+              "kernel_ms": 0.8535722494125366,
+              "useful_gbps": 235.86360514714627
+            }
+          ],
+          "n": 16777219
+        }
+      ]
+    },
+    {
+      "device": "NVIDIA A10, 580.95.05",
+      "rows": [
+        {
+          "case": "add",
+          "legs": [
+            {
+              "bandwidth_fraction": 1.0418201574654669,
+              "copy_gbps": 476.27467387437883,
+              "copy_ms": 0.2818079888820648,
+              "kernel_ms": 0.40574294328689575,
+              "useful_gbps": 496.19255573261927
+            },
+            {
+              "bandwidth_fraction": 1.0383555409386658,
+              "copy_gbps": 476.70586098620373,
+              "copy_ms": 0.28155308961868286,
+              "kernel_ms": 0.4067285358905792,
+              "useful_gbps": 494.99017215296203
+            }
+          ],
+          "n": 16777219
+        },
+        {
+          "case": "zero",
+          "legs": [
+            {
+              "bandwidth_fraction": 1.0393740922243273,
+              "copy_gbps": 476.3936223097086,
+              "copy_ms": 0.28173762559890747,
+              "kernel_ms": 0.40659627318382263,
+              "useful_gbps": 495.1511887296124
+            },
+            {
+              "bandwidth_fraction": 1.039111002442308,
+              "copy_gbps": 476.7131272207833,
+              "copy_ms": 0.28154879808425903,
+              "kernel_ms": 0.40642663836479187,
+              "useful_gbps": 495.3578555037957
+            }
+          ],
+          "n": 16777219
+        },
+        {
+          "case": "cancel",
+          "legs": [
+            {
+              "bandwidth_fraction": 1.0394564297481557,
+              "copy_gbps": 476.116067659964,
+              "copy_ms": 0.28190186619758606,
+              "kernel_ms": 0.4068010747432709,
+              "useful_gbps": 494.90190783555755
+            },
+            {
+              "bandwidth_fraction": 1.0360850781836288,
+              "copy_gbps": 476.82512589069233,
+              "copy_ms": 0.28148266673088074,
+              "kernel_ms": 0.4075178802013397,
+              "useful_gbps": 494.0313978383767
+            }
+          ],
+          "n": 16777219
+        }
+      ]
+    }
+  ],
+  "certificate_sha256": [
+    "2916c10c8bc65883b483bade2dd7b5c7b04d2f60f34a5e5ae398f506ab83d303",
+    "2916c10c8bc65883b483bade2dd7b5c7b04d2f60f34a5e5ae398f506ab83d303"
+  ],
+  "devices": [
+    "NVIDIA L4, 580.95.05",
+    "NVIDIA A10, 580.95.05"
+  ],
+  "gates": {
+    "bandwidth_recorded": true,
+    "complete_coverage": true,
+    "cross_sku_exact": true,
+    "three_numerical_gates": true,
+    "two_distinct_skus": true
+  },
+  "status": "VERIFIED-FRESH"
+}

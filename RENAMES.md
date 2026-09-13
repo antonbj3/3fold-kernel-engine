@@ -630,3 +630,11 @@ SDK location convention: OPTIX_ROOT selects an external SDK9.0 installation; com
 | tests/test_chunkable_stability_v1.py | Add unstable blow-up, stable numerical refusal, missing/nonfinite transitions and non-normal spectral-radius counterexample controls. |
 | certified_kernels/chunkable_roundoff_guard_v2.py | Move the seven-gate roundoff audit to a separate module after detecting a concurrent same-name commit; restore chunkable_stability_v1.py byte-for-byte from dc166c8. |
 | tests/test_chunkable_stability_v1.py | Import the isolated roundoff-guard module; preserve the concurrent original classifier tests. |
+
+| `kernel_gen/foreign_cuda_v1/vectorAdd.cu` | Vendor verbatim pinned upstream vecAdd kernel and license; omit example host. | Establish foreign provenance independently of generated kernels. |
+| `kernel_gen/foreign_cuda_v1/harness.cu` | Add nvcc C ABI instrumentation with guard bytes, repeated launch/event and copy-bandwidth reference. | Measure unchanged foreign kernel. |
+| `kernel_gen/foreign_cuda_v1/provenance.json` | Record source URL, commit and complete-source/extracted hashes. | Make provenance reproducible. |
+| `kernel_gen/foreign_cuda_certify_v1.py` | Add21 exact oracle/repeat/null-boundary cases and canonical certificate plus separate device/timing report. | Certify declared foreign kernel on multiple SKUs without timing equality claims. |
+
+| `kernel_gen/foreign_cuda_cross_sku_v1.py` | Add exact canonical certificate, full21-case coverage and two-SKU/bandwidth evidence auditor. | Reject partial reports or differing numerical certificates. |
+| `tests/test_foreign_cuda_certificate.py` | Add retained-evidence acceptance and five corruption controls. | Reject altered hashes, omitted cases, failed gates, duplicate SKU and nonfinite timing. |
