@@ -606,3 +606,5 @@ adds an int64 fixed-point accumulation path behind a module-level `DETERMINISTIC
 | `kernel_gen/rt_winding_api_v1/api.h` | Add explicit same-thread immutable-mesh C ABI with fixed capacity, status codes and caller-owned output. | Define mutable-query ownership beside the frozen executable. |
 | `kernel_gen/rt_winding_api_v1/api.cpp` | Add separate persistent handle setup/query/cleanup, finite/count rejection before transfer, unchanged winding PTX. | Test changed ray origins against measured CPU references. |
 | `kernel_gen/rt_winding_api_v1/build.sh` | Add external SDK/toolkit shared-library build. | Preserve all prior binaries and avoid SDK vendoring. |
+
+SDK location convention: OPTIX_ROOT selects an external SDK9.0 installation; compatible sample evidence is recorded in docs/RUNNING.md. Machine-specific paths and SDK contents are not shipped.

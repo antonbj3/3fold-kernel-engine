@@ -1,5 +1,7 @@
 # Running
 
+Status values: VERIFIED-FRESH = the module's own gates passed in the recorded run; OWN-GATE-FAIL = one or more own gates failed, result retained and unpromoted; CUDA-ONLY = GPU execution not yet verified in the recorded scope; SYNTHETIC-ONLY = passing evidence limited to synthetic inputs. Earlier attempts are notes, not additional current module rows.
+
 1. `python -m venv .venv && .venv/bin/pip install -r requirements.txt` (add `wgpu` for the Vulkan port).
 2. Every module under `src/kernel_engine/` is also a script: run it directly and it executes its own gates and prints the verdicts.
 3. `pytest tests/` wraps those self-tests; the CUDA-only ones skip automatically when no CUDA device is present.
@@ -722,7 +724,7 @@ launch. No retries or hardware/settings changes after a fault.
 
 | module | status | evidence |
 |---|---|---|
-| `kernel_gen/optix_sample_probe.py` | CUDA-ONLY | Preregistered external sample runtime proof; no accepted image runs yet. |
+
 
 
 ### Installed SDK runtime negative
@@ -740,7 +742,7 @@ gates FAIL; the fault guard passes. No driver, module or system setting changes.
 
 | module | status | evidence |
 |---|---|---|
-| `kernel_gen/optix_sample_probe.py` | VERIFIED-FRESH | SDK9.1 fails ABI initialization,0 images, first exit1; no second attempt and no observed current-boot fault. |
+
 
 Official compatibility sources: [9.1 release](https://forums.developer.nvidia.com/t/optix-9-1-release/354119)
 requires R590; [9.0 release](https://github.com/NVIDIA/optix-sdk/releases/tag/v9.0.0)
@@ -882,8 +884,8 @@ cost separately and include required transfers/EDT for whole-call comparisons.
 
 | module | status | evidence |
 |---|---|---|
-| `kernel_gen/rt_winding_phase_probe/host.cpp` | SYNTHETIC-ONLY | Build0, eight processes0, exact frozen outputs; all8 whole-speed FAIL; phase table retained. |
-| `kernel_gen/rt_winding_phase_probe/build.sh` | SYNTHETIC-ONLY | Build0, eight processes0, exact frozen outputs; all8 whole-speed FAIL; phase table retained. |
+| `kernel_gen/rt_winding_phase_probe/host.cpp` | OWN-GATE-FAIL | Build0, eight processes0, exact frozen outputs; all8 whole-speed FAIL; phase table retained. |
+| `kernel_gen/rt_winding_phase_probe/build.sh` | OWN-GATE-FAIL | Build0, eight processes0, exact frozen outputs; all8 whole-speed FAIL; phase table retained. |
 
 ## Reused-context batch v1: design after native phase table
 
@@ -947,8 +949,8 @@ API and every prior negative remain unchanged.
 
 | module | status | evidence |
 |---|---|---|
-| `kernel_gen/rt_winding_batch_v1/host.cpp` | SYNTHETIC-ONLY | Build0, fixed64 full-query repeats exact, all8 total-speed FAIL; query mean0.102517–0.137713ms excludes setup/EDT. |
-| `kernel_gen/rt_winding_batch_v1/build.sh` | SYNTHETIC-ONLY | Build0, fixed64 full-query repeats exact, all8 total-speed FAIL; query mean0.102517–0.137713ms excludes setup/EDT. |
+| `kernel_gen/rt_winding_batch_v1/host.cpp` | OWN-GATE-FAIL | Build0, fixed64 full-query repeats exact, all8 total-speed FAIL; query mean0.102517–0.137713ms excludes setup/EDT. |
+| `kernel_gen/rt_winding_batch_v1/build.sh` | OWN-GATE-FAIL | Build0, fixed64 full-query repeats exact, all8 total-speed FAIL; query mean0.102517–0.137713ms excludes setup/EDT. |
 
 ## Persistent changed-query API: gates before execution
 
@@ -984,9 +986,9 @@ CPU agreement. Next measure host-memory layout before any implementation change.
 
 | module | status | evidence |
 |---|---|---|
-| `kernel_gen/rt_winding_api_v1/api.h` | SYNTHETIC-ONLY | Build0; initial caller five/seven gates PASS, CPU agreement fails33289 mask samples; not promoted. |
-| `kernel_gen/rt_winding_api_v1/api.cpp` | SYNTHETIC-ONLY | Build0; initial caller five/seven gates PASS, CPU agreement fails33289 mask samples; not promoted. |
-| `kernel_gen/rt_winding_api_v1/build.sh` | SYNTHETIC-ONLY | Build0; initial caller five/seven gates PASS, CPU agreement fails33289 mask samples; not promoted. |
+
+
+
 
 Contiguous caller result: all seven fixed gates PASS. Eight freshly created
 handles,32 full changed-query calls in phase order0/1/2/0,32 short prefix calls,
@@ -1024,3 +1026,21 @@ performance requires a separate timestamped changed-query measurement.
 | `kernel_gen/rt_winding_api_v1/api.h` | SYNTHETIC-ONLY | Separate contiguous caller seven/seven gates PASS,32 full queries exact; earlier pointer-layout negative retained. |
 | `kernel_gen/rt_winding_api_v1/api.cpp` | SYNTHETIC-ONLY | Separate contiguous caller seven/seven gates PASS,32 full queries exact; earlier pointer-layout negative retained. |
 | `kernel_gen/rt_winding_api_v1/build.sh` | SYNTHETIC-ONLY | Separate contiguous caller seven/seven gates PASS,32 full queries exact; earlier pointer-layout negative retained. |
+
+### Earlier module attempts
+
+Earlier attempt: `kernel_gen/optix_sample_probe.py`; CUDA-ONLY; Preregistered external sample runtime proof; no accepted image runs yet..
+
+Earlier attempt: `kernel_gen/optix_sample_probe.py`; VERIFIED-FRESH; SDK9.1 fails ABI initialization,0 images, first exit1; no second attempt and no observed current-boot fault..
+
+Earlier attempt: `kernel_gen/rt_winding_api_v1/api.h`; SYNTHETIC-ONLY; Build0; initial caller five/seven gates PASS, CPU agreement fails33289 mask samples; not promoted..
+
+Earlier attempt: `kernel_gen/rt_winding_api_v1/api.cpp`; SYNTHETIC-ONLY; Build0; initial caller five/seven gates PASS, CPU agreement fails33289 mask samples; not promoted..
+
+Earlier attempt: `kernel_gen/rt_winding_api_v1/build.sh`; SYNTHETIC-ONLY; Build0; initial caller five/seven gates PASS, CPU agreement fails33289 mask samples; not promoted..
+
+SDK selection: configure OPTIX_ROOT to the externally installed compatible SDK9.0.
+SDK9.1 produced unsupported ABI initialization with zero images; that failed
+attempt is retained above. SDK9.0 produced two identical images and4/4 passing
+gates. No SDK is vendored. Machine-specific installation location belongs in the
+private integration handoff, not public source or build defaults.
