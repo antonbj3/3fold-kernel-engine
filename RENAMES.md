@@ -654,3 +654,6 @@ SDK location convention: OPTIX_ROOT selects an external SDK9.0 installation; com
 
 | `scripts/kernel_float_provenance_v1.py` | Add bounded difference catalogue derived from complete checked four-device evidence. | Report an empty catalogue honestly and preserve unresolved attribution if a mismatch appears. |
 | `tests/test_kernel_float_provenance.py` | Add empty, mismatched and incomplete matrix controls. | Prevent invented instruction-level explanations from output hashes. |
+
+| `scripts/kernel_certificate_replay_v2.py` | Add complete fresh twenty-row capture and signed input/output/runtime/source comparison, with CPU replay audit. | Extend the prior selected-export verifier without changing certificates or numerical baselines. |
+| `tests/test_kernel_certificate_replay.py` | Add ten signed-replay controls including source/input/output/runtime/coverage failures and stale-success removal. | Refuse fresh observations that do not support the signed claim. |

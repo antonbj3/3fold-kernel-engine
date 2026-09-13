@@ -1,0 +1,12 @@
+{
+  "all_numerical_and_provenance_fields_exact": true,
+  "executed_runner_sha256": "6a420a154337188821aff9d2996e610cce4afb7d294523fd08192095efe37115",
+  "final_runner_sha256": "d779e1f12b4cea4107749e962c6c63a4fd9d85ca7b7724d98a85289b1c609c7e",
+  "final_gates": {
+    "all_rows_match": true,
+    "capture_own_gates": true,
+    "complete_inventory": true,
+    "original_source_identity": true
+  },
+  "scope": "Independent CPU audit of the fresh Modal capsule; only failure-path runner source hash differs"
+}

@@ -84,3 +84,52 @@ issuer/verifier implementation is recorded separately in `runner_sources.json`.
 | selftest:wave_fdtd/diff_wave_substrate | VERIFIED-FRESH | [17.json](../reports/kernel_certificates_v1/17.json) |
 | selftest:wave_fdtd/xray_3d_dda | VERIFIED-FRESH | [18.json](../reports/kernel_certificates_v1/18.json) |
 | selftest:wave_fdtd/xray_tomography_sigma | VERIFIED-FRESH | [19.json](../reports/kernel_certificates_v1/19.json) |
+
+## Complete fresh replay
+
+The separate `kernel_certificate_replay_v2.py` re-executes all twenty signed rows
+on one of the recorded GPU architectures, instead of replaying only an export row.
+Use the configured Modal runner on L4 with a2000-second bound and this command:
+
+```sh
+OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python scripts/kernel_certificate_replay_v2.py \
+  --trusted-key reports/kernel_certificates_v1/public_key.pem
+```
+
+Pin the public key as described above before using the bundled path. The new
+runner first verifies all signatures against the retained four-device capsules
+and checks every original numerical source file. It then calls the frozen complete
+capture entrypoint: sixteen independent selftest processes, all ten actual int64
+sites with two launches each, and the two original independent native/Warp export
+legs at both sizes. Fresh observation-record digests and typed input identities
+must match their signed device records, with matching Warp version and architecture.
+The actual driver is retained even when it differs from the earlier observation.
+
+The output directory `reports/kernel_certificate_replay_v2/` retains the full fresh
+capsule, its checked summary, capture stdout/stderr and `verification.json` with
+per-row acceptance gates. Original certificates and cloud/local capsules are not
+rewritten. Source files added since the original snapshot are listed separately;
+every file in the original signed source manifest must still match exactly.
+
+A reader can independently rebuild the verification report from the fetched
+capsule without opening a GPU context:
+
+```sh
+CUDA_VISIBLE_DEVICES='' python scripts/kernel_certificate_replay_v2.py \
+  --trusted-key reports/kernel_certificates_v1/public_key.pem \
+  --capture reports/kernel_certificate_replay_v2 \
+  --output /tmp/kernel-certificate-audit
+```
+
+This command audits the supplied capture; it does not prove when or where that
+capture was generated. The recorded Modal execution supplies the fresh-run evidence.
+The twenty certificate rows remain a bounded subset of this repository's modules;
+this command is not an all-repository `make verify` implementation or a universal
+hardware-determinism guarantee.
+
+A new invocation removes its prior verification result before checking signatures,
+so a failed rerun cannot leave a stale successful report. Capture logs and numerical
+evidence remain available for diagnosis. This failure-path safeguard was added
+after the measured Modal upload; the exact executed source is retained alongside
+the fresh capture. The final verifier independently audits that same fresh capsule
+on CPU, with identical numerical results.

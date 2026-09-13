@@ -1569,3 +1569,24 @@ to each of the20 VERIFIED-FRESH matrix rows; they are not20 distinct modules.
 ## Floating-point provenance catalogue: VERIFIED-FRESH
 
 `reports/kernel_float_provenance_v1/catalogue.json`:3/3 observation gates;20rows/120pair comparisons, zero differing records. FMA/transcendental/reduction-order categories are empty because no operation difference was observed within this certified kernel fixture scope. Float-atomic diagnostic controls and motion/photon families are excluded. No universal operation-portability claim. The catalogue refuses invented classification: a future mismatch remains unresolved until frozen inputs and intermediate operations are replayed. Two negative/coverage controls pass. Reproduce on CPU with `python scripts/kernel_float_provenance_v1.py`.
+
+## Complete signed-certificate replay: VERIFIED-FRESH
+
+Fresh ModalL4 capture must execute both independent legs of all8selftests,10int64 sites and2native sizes. Four gates require complete20-row inventory, original source identity, all original numerical/repeat capture gates and signed input/output/runtime equality for every row. Driver changes are recorded; no performance acceptance or all-repository coverage claim.
+
+Fresh ModalL4/Warp1.17.0/driver580.95.05 complete replay passes4/4 main gates and
+all80 per-row checks across20rows. Sixteen independent selftest legs preserve
+121380array observations/6400352992observed bytes perleg;10actualint64 sites and
+both native/Warp export sizes also reproduce the signed input/output identities.
+All original numerical and within-device repeat gates pass. Child runtime317.1s
+includes certificate audit and capture; it is not a kernel performance measure.
+
+Ten focused controls cover altered source/input/output, device runtime, missing
+coverage, failed gates and stale-success removal. The final runner adds the latter
+failure-path guard after the Modal upload; exact executed source is retained in
+`reports/kernel_certificate_replay_v2/executed_runner_source.txt`. Its successful
+numerical path is independently re-audited by the final verifier on CPU. No private
+signing key is uploaded and no local GPU is used. Existing signed certificates and
+numerical baselines remain unchanged. Reproduction and public-key trust requirements
+are in `docs/KERNEL_CERTIFICATES.md`. This is complete coverage of the20certificate
+rows, not all VERIFIED-FRESH entries or all repositories in queued item27.
