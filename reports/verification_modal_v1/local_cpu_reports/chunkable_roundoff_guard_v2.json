@@ -1,0 +1,433 @@
+{
+  "legs": [
+    {
+      "gates": {
+        "coverage": true,
+        "error_blowup": true,
+        "expansive_eigenvalue": true,
+        "stable_control": true,
+        "stable_roundoff_failure_retained": true,
+        "syntax_accepts_numeric_refuses": true
+      },
+      "hashes": {
+        "0.98_128_chunked_output": "fae6d77f304dfd9181dd0b7f1f125af09264c639d180e0faf0b24984fd0e6db7",
+        "0.98_128_chunked_state": "3dce2a80baa40b20fe1a52c2557c7b648f6c70e8a340d560f50faa6d75f3d22c",
+        "0.98_128_oracle64": "483b6adfe8c90c1db6a34d4ef8f7857603f3b26c4a73a604a653eb969e4acdad",
+        "0.98_128_sequential_output": "dbe416b7aca4416614323fa503d030d52a4fdb75241a771b0f71255fd43bea06",
+        "0.98_128_sequential_state": "8d02393436351847e3dd35396f9b4ec9c4cce69dffb6c99684e82b0587a9f287",
+        "0.98_16_chunked_output": "ed3a0553daac065728e3ce8243508423a6198894a48628b2a07ec18ca2b75513",
+        "0.98_16_chunked_state": "3dce2a80baa40b20fe1a52c2557c7b648f6c70e8a340d560f50faa6d75f3d22c",
+        "0.98_16_oracle64": "483b6adfe8c90c1db6a34d4ef8f7857603f3b26c4a73a604a653eb969e4acdad",
+        "0.98_16_sequential_output": "dbe416b7aca4416614323fa503d030d52a4fdb75241a771b0f71255fd43bea06",
+        "0.98_16_sequential_state": "8d02393436351847e3dd35396f9b4ec9c4cce69dffb6c99684e82b0587a9f287",
+        "0.98_32_chunked_output": "16287d51492bd9ef7191ac9dc9bf74ea57314adff52cda5797f0bef6b1fa7e34",
+        "0.98_32_chunked_state": "9142730e1b41cb5404c8b25dc286e9c403c7c69fd272f45a769089cd58cc53ce",
+        "0.98_32_oracle64": "483b6adfe8c90c1db6a34d4ef8f7857603f3b26c4a73a604a653eb969e4acdad",
+        "0.98_32_sequential_output": "dbe416b7aca4416614323fa503d030d52a4fdb75241a771b0f71255fd43bea06",
+        "0.98_32_sequential_state": "8d02393436351847e3dd35396f9b4ec9c4cce69dffb6c99684e82b0587a9f287",
+        "0.98_64_chunked_output": "0e326f8ba02a4db7c11cc549d6742a1471cb781f65a92a4eabbd7dfad4287785",
+        "0.98_64_chunked_state": "ad1718f985225dafc1b43b152677b270264121310a16d069f4596eaf1e0c1fb3",
+        "0.98_64_oracle64": "483b6adfe8c90c1db6a34d4ef8f7857603f3b26c4a73a604a653eb969e4acdad",
+        "0.98_64_sequential_output": "dbe416b7aca4416614323fa503d030d52a4fdb75241a771b0f71255fd43bea06",
+        "0.98_64_sequential_state": "8d02393436351847e3dd35396f9b4ec9c4cce69dffb6c99684e82b0587a9f287",
+        "1.2_128_chunked_output": "1f3ed2e368d0494e17bc9aae19dae7a8052641a74804604b5619f2e674bd92c5",
+        "1.2_128_chunked_state": "df3f619804a92fdb4057192dc43dd748ea778adc52bc498ce80524c014b81119",
+        "1.2_128_oracle64": "e61960b0cfd244ea0c73210402ffa1a3ad64f4a7462f46abdc403edf8b0fa62f",
+        "1.2_128_sequential_output": "d363fb760dd6a8aaf15296e1ea3f7474aadd6f926724f769bbea2cd889e962a5",
+        "1.2_128_sequential_state": "1e557444982669bcbef521d1ff037307fc34fe4af43eb7c900bdd267ea41a6e6",
+        "1.2_16_chunked_output": "73b5ca1c38317eefb7ea989eb2f7ac71f6f9c71ca7220331b70be21eed159d42",
+        "1.2_16_chunked_state": "f7ece9c5145a7db572de8480a9e72ea89815fd44c20f59e4f57a58ceb638906e",
+        "1.2_16_oracle64": "e61960b0cfd244ea0c73210402ffa1a3ad64f4a7462f46abdc403edf8b0fa62f",
+        "1.2_16_sequential_output": "d363fb760dd6a8aaf15296e1ea3f7474aadd6f926724f769bbea2cd889e962a5",
+        "1.2_16_sequential_state": "1e557444982669bcbef521d1ff037307fc34fe4af43eb7c900bdd267ea41a6e6",
+        "1.2_32_chunked_output": "42777d5ae81c896725497e0a9252e385ceb41c5bf6e36748bb9766c355418e4a",
+        "1.2_32_chunked_state": "28e7525e38f85d128d32a193b9416a37625a2f532af8f63850117ae99d795432",
+        "1.2_32_oracle64": "e61960b0cfd244ea0c73210402ffa1a3ad64f4a7462f46abdc403edf8b0fa62f",
+        "1.2_32_sequential_output": "d363fb760dd6a8aaf15296e1ea3f7474aadd6f926724f769bbea2cd889e962a5",
+        "1.2_32_sequential_state": "1e557444982669bcbef521d1ff037307fc34fe4af43eb7c900bdd267ea41a6e6",
+        "1.2_64_chunked_output": "ac410c6a9b5c735372befc90548a842e70e6ff437d3f26b2c17eaf8034066341",
+        "1.2_64_chunked_state": "e6c3c62a8fcc840b0d9bc8d035fa166abb71eb71a6f6cfee9951256a2d277069",
+        "1.2_64_oracle64": "e61960b0cfd244ea0c73210402ffa1a3ad64f4a7462f46abdc403edf8b0fa62f",
+        "1.2_64_sequential_output": "d363fb760dd6a8aaf15296e1ea3f7474aadd6f926724f769bbea2cd889e962a5",
+        "1.2_64_sequential_state": "1e557444982669bcbef521d1ff037307fc34fe4af43eb7c900bdd267ea41a6e6"
+      },
+      "rows": [
+        {
+          "chunk": 16,
+          "chunked_endpoint": 0.8982036113739014,
+          "decision": {
+            "accepted": false,
+            "errors": [
+              5.364418029785156e-07,
+              4.172325134277344e-07
+            ],
+            "limits": [
+              4.2829668700505863e-07,
+              1.211405966964037e-06
+            ],
+            "reason": "numerical_error"
+          },
+          "eigenvalue": 0.8330000103712081,
+          "error_over_bound": 1.2525004728140232,
+          "gate": 0.98,
+          "max_output_error": 5.364418029785156e-07,
+          "oracle_endpoint": 0.8982036842418468,
+          "original_bound": 4.2829668700505863e-07,
+          "sequential_endpoint": 0.8982032537460327
+        },
+        {
+          "chunk": 32,
+          "chunked_endpoint": 0.8982037305831909,
+          "decision": {
+            "accepted": true,
+            "errors": [
+              5.364418029785156e-07,
+              5.364418029785156e-07
+            ],
+            "limits": [
+              6.057029834820185e-07,
+              1.211405966964037e-06
+            ],
+            "reason": "measured_bounds_pass"
+          },
+          "eigenvalue": 0.8330000103712081,
+          "error_over_bound": 0.8856515777661528,
+          "gate": 0.98,
+          "max_output_error": 5.364418029785156e-07,
+          "oracle_endpoint": 0.8982036842418468,
+          "original_bound": 6.057029834820185e-07,
+          "sequential_endpoint": 0.8982032537460327
+        },
+        {
+          "chunk": 64,
+          "chunked_endpoint": 0.8982036709785461,
+          "decision": {
+            "accepted": true,
+            "errors": [
+              5.364418029785156e-07,
+              3.5762786865234375e-07
+            ],
+            "limits": [
+              8.565933740101173e-07,
+              1.211405966964037e-06
+            ],
+            "reason": "measured_bounds_pass"
+          },
+          "eigenvalue": 0.8330000103712081,
+          "error_over_bound": 0.6262502364070116,
+          "gate": 0.98,
+          "max_output_error": 5.364418029785156e-07,
+          "oracle_endpoint": 0.8982036842418468,
+          "original_bound": 8.565933740101173e-07,
+          "sequential_endpoint": 0.8982032537460327
+        },
+        {
+          "chunk": 128,
+          "chunked_endpoint": 0.8982037305831909,
+          "decision": {
+            "accepted": true,
+            "errors": [
+              5.364418029785156e-07,
+              4.172325134277344e-07
+            ],
+            "limits": [
+              1.211405966964037e-06,
+              1.211405966964037e-06
+            ],
+            "reason": "measured_bounds_pass"
+          },
+          "eigenvalue": 0.8330000103712081,
+          "error_over_bound": 0.4428257888830764,
+          "gate": 0.98,
+          "max_output_error": 5.364418029785156e-07,
+          "oracle_endpoint": 0.8982036842418468,
+          "original_bound": 1.211405966964037e-06,
+          "sequential_endpoint": 0.8982032537460327
+        },
+        {
+          "chunk": 16,
+          "chunked_endpoint": 90.25182342529297,
+          "decision": {
+            "accepted": false,
+            "max_operator_norm": 1.0200000333786008,
+            "reason": "expansive_transition"
+          },
+          "eigenvalue": 1.0200000333786008,
+          "error_over_bound": 2.836505150091745,
+          "gate": 1.2,
+          "max_output_error": 0.0001220703125,
+          "oracle_endpoint": 90.25182554324351,
+          "original_bound": 4.3035463022533804e-05,
+          "sequential_endpoint": 90.25190734863281
+        },
+        {
+          "chunk": 32,
+          "chunked_endpoint": 90.25222778320312,
+          "decision": {
+            "accepted": false,
+            "max_operator_norm": 1.0200000333786008,
+            "reason": "expansive_transition"
+          },
+          "eigenvalue": 1.0200000333786008,
+          "error_over_bound": 16.547124218628618,
+          "gate": 1.2,
+          "max_output_error": 0.001007080078125,
+          "oracle_endpoint": 90.25182554324351,
+          "original_bound": 6.086133546947314e-05,
+          "sequential_endpoint": 90.25190734863281
+        },
+        {
+          "chunk": 64,
+          "chunked_endpoint": 90.39012145996094,
+          "decision": {
+            "accepted": false,
+            "max_operator_norm": 1.0200000333786008,
+            "reason": "expansive_transition"
+          },
+          "eigenvalue": 1.0200000333786008,
+          "error_over_bound": 1803.3967899567674,
+          "gate": 1.2,
+          "max_output_error": 0.15522003173828125,
+          "oracle_endpoint": 90.25182554324351,
+          "original_bound": 8.607092604506761e-05,
+          "sequential_endpoint": 90.25190734863281
+        },
+        {
+          "chunk": 128,
+          "chunked_endpoint": -347.06744384765625,
+          "decision": {
+            "accepted": false,
+            "max_operator_norm": 1.0200000333786008,
+            "reason": "expansive_transition"
+          },
+          "eigenvalue": 1.0200000333786008,
+          "error_over_bound": 3592751.7245891755,
+          "gate": 1.2,
+          "max_output_error": 437.3193359375,
+          "oracle_endpoint": 90.25182554324351,
+          "original_bound": 0.00012172267093894629,
+          "sequential_endpoint": 90.25190734863281
+        }
+      ]
+    },
+    {
+      "gates": {
+        "coverage": true,
+        "error_blowup": true,
+        "expansive_eigenvalue": true,
+        "stable_control": true,
+        "stable_roundoff_failure_retained": true,
+        "syntax_accepts_numeric_refuses": true
+      },
+      "hashes": {
+        "0.98_128_chunked_output": "fae6d77f304dfd9181dd0b7f1f125af09264c639d180e0faf0b24984fd0e6db7",
+        "0.98_128_chunked_state": "3dce2a80baa40b20fe1a52c2557c7b648f6c70e8a340d560f50faa6d75f3d22c",
+        "0.98_128_oracle64": "483b6adfe8c90c1db6a34d4ef8f7857603f3b26c4a73a604a653eb969e4acdad",
+        "0.98_128_sequential_output": "dbe416b7aca4416614323fa503d030d52a4fdb75241a771b0f71255fd43bea06",
+        "0.98_128_sequential_state": "8d02393436351847e3dd35396f9b4ec9c4cce69dffb6c99684e82b0587a9f287",
+        "0.98_16_chunked_output": "ed3a0553daac065728e3ce8243508423a6198894a48628b2a07ec18ca2b75513",
+        "0.98_16_chunked_state": "3dce2a80baa40b20fe1a52c2557c7b648f6c70e8a340d560f50faa6d75f3d22c",
+        "0.98_16_oracle64": "483b6adfe8c90c1db6a34d4ef8f7857603f3b26c4a73a604a653eb969e4acdad",
+        "0.98_16_sequential_output": "dbe416b7aca4416614323fa503d030d52a4fdb75241a771b0f71255fd43bea06",
+        "0.98_16_sequential_state": "8d02393436351847e3dd35396f9b4ec9c4cce69dffb6c99684e82b0587a9f287",
+        "0.98_32_chunked_output": "16287d51492bd9ef7191ac9dc9bf74ea57314adff52cda5797f0bef6b1fa7e34",
+        "0.98_32_chunked_state": "9142730e1b41cb5404c8b25dc286e9c403c7c69fd272f45a769089cd58cc53ce",
+        "0.98_32_oracle64": "483b6adfe8c90c1db6a34d4ef8f7857603f3b26c4a73a604a653eb969e4acdad",
+        "0.98_32_sequential_output": "dbe416b7aca4416614323fa503d030d52a4fdb75241a771b0f71255fd43bea06",
+        "0.98_32_sequential_state": "8d02393436351847e3dd35396f9b4ec9c4cce69dffb6c99684e82b0587a9f287",
+        "0.98_64_chunked_output": "0e326f8ba02a4db7c11cc549d6742a1471cb781f65a92a4eabbd7dfad4287785",
+        "0.98_64_chunked_state": "ad1718f985225dafc1b43b152677b270264121310a16d069f4596eaf1e0c1fb3",
+        "0.98_64_oracle64": "483b6adfe8c90c1db6a34d4ef8f7857603f3b26c4a73a604a653eb969e4acdad",
+        "0.98_64_sequential_output": "dbe416b7aca4416614323fa503d030d52a4fdb75241a771b0f71255fd43bea06",
+        "0.98_64_sequential_state": "8d02393436351847e3dd35396f9b4ec9c4cce69dffb6c99684e82b0587a9f287",
+        "1.2_128_chunked_output": "1f3ed2e368d0494e17bc9aae19dae7a8052641a74804604b5619f2e674bd92c5",
+        "1.2_128_chunked_state": "df3f619804a92fdb4057192dc43dd748ea778adc52bc498ce80524c014b81119",
+        "1.2_128_oracle64": "e61960b0cfd244ea0c73210402ffa1a3ad64f4a7462f46abdc403edf8b0fa62f",
+        "1.2_128_sequential_output": "d363fb760dd6a8aaf15296e1ea3f7474aadd6f926724f769bbea2cd889e962a5",
+        "1.2_128_sequential_state": "1e557444982669bcbef521d1ff037307fc34fe4af43eb7c900bdd267ea41a6e6",
+        "1.2_16_chunked_output": "73b5ca1c38317eefb7ea989eb2f7ac71f6f9c71ca7220331b70be21eed159d42",
+        "1.2_16_chunked_state": "f7ece9c5145a7db572de8480a9e72ea89815fd44c20f59e4f57a58ceb638906e",
+        "1.2_16_oracle64": "e61960b0cfd244ea0c73210402ffa1a3ad64f4a7462f46abdc403edf8b0fa62f",
+        "1.2_16_sequential_output": "d363fb760dd6a8aaf15296e1ea3f7474aadd6f926724f769bbea2cd889e962a5",
+        "1.2_16_sequential_state": "1e557444982669bcbef521d1ff037307fc34fe4af43eb7c900bdd267ea41a6e6",
+        "1.2_32_chunked_output": "42777d5ae81c896725497e0a9252e385ceb41c5bf6e36748bb9766c355418e4a",
+        "1.2_32_chunked_state": "28e7525e38f85d128d32a193b9416a37625a2f532af8f63850117ae99d795432",
+        "1.2_32_oracle64": "e61960b0cfd244ea0c73210402ffa1a3ad64f4a7462f46abdc403edf8b0fa62f",
+        "1.2_32_sequential_output": "d363fb760dd6a8aaf15296e1ea3f7474aadd6f926724f769bbea2cd889e962a5",
+        "1.2_32_sequential_state": "1e557444982669bcbef521d1ff037307fc34fe4af43eb7c900bdd267ea41a6e6",
+        "1.2_64_chunked_output": "ac410c6a9b5c735372befc90548a842e70e6ff437d3f26b2c17eaf8034066341",
+        "1.2_64_chunked_state": "e6c3c62a8fcc840b0d9bc8d035fa166abb71eb71a6f6cfee9951256a2d277069",
+        "1.2_64_oracle64": "e61960b0cfd244ea0c73210402ffa1a3ad64f4a7462f46abdc403edf8b0fa62f",
+        "1.2_64_sequential_output": "d363fb760dd6a8aaf15296e1ea3f7474aadd6f926724f769bbea2cd889e962a5",
+        "1.2_64_sequential_state": "1e557444982669bcbef521d1ff037307fc34fe4af43eb7c900bdd267ea41a6e6"
+      },
+      "rows": [
+        {
+          "chunk": 16,
+          "chunked_endpoint": 0.8982036113739014,
+          "decision": {
+            "accepted": false,
+            "errors": [
+              5.364418029785156e-07,
+              4.172325134277344e-07
+            ],
+            "limits": [
+              4.2829668700505863e-07,
+              1.211405966964037e-06
+            ],
+            "reason": "numerical_error"
+          },
+          "eigenvalue": 0.8330000103712081,
+          "error_over_bound": 1.2525004728140232,
+          "gate": 0.98,
+          "max_output_error": 5.364418029785156e-07,
+          "oracle_endpoint": 0.8982036842418468,
+          "original_bound": 4.2829668700505863e-07,
+          "sequential_endpoint": 0.8982032537460327
+        },
+        {
+          "chunk": 32,
+          "chunked_endpoint": 0.8982037305831909,
+          "decision": {
+            "accepted": true,
+            "errors": [
+              5.364418029785156e-07,
+              5.364418029785156e-07
+            ],
+            "limits": [
+              6.057029834820185e-07,
+              1.211405966964037e-06
+            ],
+            "reason": "measured_bounds_pass"
+          },
+          "eigenvalue": 0.8330000103712081,
+          "error_over_bound": 0.8856515777661528,
+          "gate": 0.98,
+          "max_output_error": 5.364418029785156e-07,
+          "oracle_endpoint": 0.8982036842418468,
+          "original_bound": 6.057029834820185e-07,
+          "sequential_endpoint": 0.8982032537460327
+        },
+        {
+          "chunk": 64,
+          "chunked_endpoint": 0.8982036709785461,
+          "decision": {
+            "accepted": true,
+            "errors": [
+              5.364418029785156e-07,
+              3.5762786865234375e-07
+            ],
+            "limits": [
+              8.565933740101173e-07,
+              1.211405966964037e-06
+            ],
+            "reason": "measured_bounds_pass"
+          },
+          "eigenvalue": 0.8330000103712081,
+          "error_over_bound": 0.6262502364070116,
+          "gate": 0.98,
+          "max_output_error": 5.364418029785156e-07,
+          "oracle_endpoint": 0.8982036842418468,
+          "original_bound": 8.565933740101173e-07,
+          "sequential_endpoint": 0.8982032537460327
+        },
+        {
+          "chunk": 128,
+          "chunked_endpoint": 0.8982037305831909,
+          "decision": {
+            "accepted": true,
+            "errors": [
+              5.364418029785156e-07,
+              4.172325134277344e-07
+            ],
+            "limits": [
+              1.211405966964037e-06,
+              1.211405966964037e-06
+            ],
+            "reason": "measured_bounds_pass"
+          },
+          "eigenvalue": 0.8330000103712081,
+          "error_over_bound": 0.4428257888830764,
+          "gate": 0.98,
+          "max_output_error": 5.364418029785156e-07,
+          "oracle_endpoint": 0.8982036842418468,
+          "original_bound": 1.211405966964037e-06,
+          "sequential_endpoint": 0.8982032537460327
+        },
+        {
+          "chunk": 16,
+          "chunked_endpoint": 90.25182342529297,
+          "decision": {
+            "accepted": false,
+            "max_operator_norm": 1.0200000333786008,
+            "reason": "expansive_transition"
+          },
+          "eigenvalue": 1.0200000333786008,
+          "error_over_bound": 2.836505150091745,
+          "gate": 1.2,
+          "max_output_error": 0.0001220703125,
+          "oracle_endpoint": 90.25182554324351,
+          "original_bound": 4.3035463022533804e-05,
+          "sequential_endpoint": 90.25190734863281
+        },
+        {
+          "chunk": 32,
+          "chunked_endpoint": 90.25222778320312,
+          "decision": {
+            "accepted": false,
+            "max_operator_norm": 1.0200000333786008,
+            "reason": "expansive_transition"
+          },
+          "eigenvalue": 1.0200000333786008,
+          "error_over_bound": 16.547124218628618,
+          "gate": 1.2,
+          "max_output_error": 0.001007080078125,
+          "oracle_endpoint": 90.25182554324351,
+          "original_bound": 6.086133546947314e-05,
+          "sequential_endpoint": 90.25190734863281
+        },
+        {
+          "chunk": 64,
+          "chunked_endpoint": 90.39012145996094,
+          "decision": {
+            "accepted": false,
+            "max_operator_norm": 1.0200000333786008,
+            "reason": "expansive_transition"
+          },
+          "eigenvalue": 1.0200000333786008,
+          "error_over_bound": 1803.3967899567674,
+          "gate": 1.2,
+          "max_output_error": 0.15522003173828125,
+          "oracle_endpoint": 90.25182554324351,
+          "original_bound": 8.607092604506761e-05,
+          "sequential_endpoint": 90.25190734863281
+        },
+        {
+          "chunk": 128,
+          "chunked_endpoint": -347.06744384765625,
+          "decision": {
+            "accepted": false,
+            "max_operator_norm": 1.0200000333786008,
+            "reason": "expansive_transition"
+          },
+          "eigenvalue": 1.0200000333786008,
+          "error_over_bound": 3592751.7245891755,
+          "gate": 1.2,
+          "max_output_error": 437.3193359375,
+          "oracle_endpoint": 90.25182554324351,
+          "original_bound": 0.00012172267093894629,
+          "sequential_endpoint": 90.25190734863281
+        }
+      ]
+    }
+  ],
+  "gates": {
+    "coverage": true,
+    "error_blowup": true,
+    "expansive_eigenvalue": true,
+    "stable_control": true,
+    "stable_roundoff_failure_retained": true,
+    "syntax_accepts_numeric_refuses": true,
+    "exact_full_repeats": true
+  }
+}

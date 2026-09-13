@@ -1,0 +1,9 @@
+SLOT lbm/differentiable_flow_control {"selftests": true, "exact_arrays": true, "finite": true, "coverage": true}
+SLOT lbm/differentiable_lbm_probe {"selftests": true, "exact_arrays": true, "finite": true, "coverage": true}
+SLOT lbm/differentiable_fsi_chain {"selftests": true, "exact_arrays": true, "finite": true, "coverage": true}
+SLOT lbm/lbm3d_immersed_boundary {"selftests": true, "exact_arrays": true, "finite": true, "coverage": true}
+SLOT wave_fdtd/diff_wave_3d {"selftests": true, "exact_arrays": true, "finite": true, "coverage": true}
+SLOT wave_fdtd/diff_wave_substrate {"selftests": true, "exact_arrays": true, "finite": true, "coverage": true}
+SLOT wave_fdtd/xray_tomography_sigma {"selftests": true, "exact_arrays": true, "finite": true, "coverage": true}
+SLOT wave_fdtd/xray_3d_dda {"selftests": true, "exact_arrays": true, "finite": true, "coverage": true}
+{"eight_slots": true, "all_slot_gates": true, "int64_sites": true, "export_oracle": true, "export_repeat": true}

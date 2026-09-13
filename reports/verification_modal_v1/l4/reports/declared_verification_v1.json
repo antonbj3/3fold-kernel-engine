@@ -1,0 +1,125 @@
+{
+  "complete_repository_coverage": false,
+  "declared_verified_rows": 289,
+  "executions": 5,
+  "gates": {
+    "nonempty_selected": true,
+    "selected_gates": false
+  },
+  "recipes_sha256": "9e331b55f44d1486e73dc8ee38ec2108806caf6c3d65e503cf368450b9715924",
+  "rows": [
+    {
+      "checks": {
+        "equal:/gates/all_rows_match": true,
+        "equal:/gates/capture_own_gates": true,
+        "equal:/gates/complete_inventory": true,
+        "equal:/gates/original_source_identity": true,
+        "exit_code": true,
+        "fresh_execution_evidence": true,
+        "length:/rows": true
+      },
+      "error": null,
+      "executed_by": "src/kernel_engine/certified_kernels/kernel_matrix_capture_v1.py",
+      "key": "src/kernel_engine/certified_kernels/kernel_matrix_capture_v1.py",
+      "report_sha256": "8789bb56e5814306cc3784170c7fbf84d6a693afedd1bc10f5d9222d0b759ee2",
+      "returncode": 0,
+      "reused_execution": false,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "6a3d23c59291362716fe80bae1d3b540ab19a27ce7260855a5e49e7d3f33b35b"
+    },
+    {
+      "checks": {
+        "equal:/gates/all_own_numerical_gates": true,
+        "equal:/gates/cross_sku_exact": true,
+        "equal:/gates/full_coverage": true,
+        "equal:/gates/source_and_version_identity": true,
+        "equal:/gates/three_distinct_skus": true,
+        "exit_code": true,
+        "fresh_execution_evidence": true,
+        "length:/rows": true
+      },
+      "error": null,
+      "executed_by": "src/kernel_engine/certified_kernels/kernel_matrix_report_v1.py",
+      "key": "src/kernel_engine/certified_kernels/kernel_matrix_report_v1.py",
+      "report_sha256": "cfc2a2d4ae2fc7c20614732c4bd157a7f9ba7a3756a9ad382b2154a152cce0cd",
+      "returncode": 0,
+      "reused_execution": false,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "79c9dc3ae0c592011aa746a6d62de2e37773d0a636e213c30c20647163c217f4"
+    },
+    {
+      "checks": {
+        "equal:/gates/all_finite": true,
+        "equal:/gates/exact_repeat": true,
+        "equal:/gates/expansive_refusal": true,
+        "equal:/gates/measured_blowup": true,
+        "equal:/gates/nonfinite_refusal": true,
+        "equal:/gates/nonlinear_refusal": true,
+        "equal:/gates/nonnormal_refusal": true,
+        "equal:/gates/stable_control": true,
+        "equal:/gates/unknown_refusal": true,
+        "exit_code": true,
+        "fresh_execution_evidence": true,
+        "length:/cases": true
+      },
+      "error": null,
+      "executed_by": "src/kernel_engine/certified_kernels/chunkable_stability_v1.py",
+      "key": "src/kernel_engine/certified_kernels/chunkable_stability_v1.py",
+      "report_sha256": "356a97deefd22dfb6093a99f8fbdb96335fe229aa047d52c4b449afe54c39a37",
+      "returncode": 0,
+      "reused_execution": false,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "d40ebfb63e257b28975246b078756315dc84897c0b28a30ed9b484a2d43190e3"
+    },
+    {
+      "checks": {
+        "equal:/gates/coverage": true,
+        "equal:/gates/error_blowup": true,
+        "equal:/gates/exact_full_repeats": true,
+        "equal:/gates/expansive_eigenvalue": true,
+        "equal:/gates/stable_control": true,
+        "equal:/gates/stable_roundoff_failure_retained": true,
+        "equal:/gates/syntax_accepts_numeric_refuses": true,
+        "equal:/legs/0/rows/7/max_output_error": false,
+        "exit_code": true,
+        "fresh_execution_evidence": true,
+        "length:/legs": true,
+        "length:/legs/0/rows": true,
+        "length:/legs/1/rows": true
+      },
+      "error": null,
+      "executed_by": "src/kernel_engine/certified_kernels/chunkable_roundoff_guard_v2.py",
+      "key": "src/kernel_engine/certified_kernels/chunkable_roundoff_guard_v2.py",
+      "report_sha256": "9d87e269cf5289ace144a31aa8c39bf49454d0668d6723779fe77d96becb52fb",
+      "returncode": 0,
+      "reused_execution": false,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "524b33aed7e3ef113752e30952726573da66aec2155e0796239f4cc2661688e8"
+    },
+    {
+      "checks": {
+        "equal:/compared_rows": true,
+        "equal:/gates/complete_pair_inventory": true,
+        "equal:/gates/matrix_integrity": true,
+        "equal:/gates/no_unattributed_difference": true,
+        "equal:/pair_comparisons": true,
+        "exit_code": true,
+        "fresh_execution_evidence": true,
+        "length:/differences": true
+      },
+      "error": null,
+      "executed_by": "scripts/kernel_float_provenance_v1.py",
+      "key": "scripts/kernel_float_provenance_v1.py",
+      "report_sha256": "1b9b43a9b459a2ba4f528b0a156fd52f529a233ec1a2dc9b64e51cfb95e9ab36",
+      "returncode": 0,
+      "reused_execution": false,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "93bb0dece4a879089177693fd519e9fb25795ac5b4b5db130d0f6e414a0ff4d6"
+    }
+  ],
+  "runner_sha256": "85f73904aaff6ff649fe72543c4eb3bd8a4122255731faf0a0234505c2e80fef",
+  "runtime": "modal",
+  "schema": 2,
+  "scope": "Fresh selected declared recipes only. Unmapped rows and recipes for another runtime are NOT RUN, never implicitly passed.",
+  "status": "OWN-GATE-FAIL"
+}

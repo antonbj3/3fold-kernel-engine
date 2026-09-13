@@ -1,0 +1,19 @@
+{
+  "device": "NVIDIA A10, 580.95.05",
+  "arch": 86,
+  "warp": "1.17.0",
+  "gates": {
+    "eight_slots": true,
+    "all_slot_gates": true,
+    "int64_sites": true,
+    "export_oracle": true,
+    "export_repeat": true
+  },
+  "capture_sha256": "aa0910453d6bb0f34c553db9b1de9c09d17109f83556531f960cf2f2824e67f0",
+  "arrays_per_leg": 121380,
+  "bytes_per_leg": 6400352992,
+  "export_performance": {
+    "within_ten_percent": true,
+    "scope": "Diagnostic repeat of frozen timing protocol; not a determinism acceptance gate"
+  }
+}

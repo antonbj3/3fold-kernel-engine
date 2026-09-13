@@ -1,0 +1,581 @@
+{
+  "delta_convention": "Zero from exact full-byte hashes; int64 differences computed from stored values; other nonidentical records require raw-array replay",
+  "export_performance": [
+    {
+      "device": "NVIDIA L4, 580.95.05",
+      "evidence": {
+        "scope": "Diagnostic repeat of frozen timing protocol; not a determinism acceptance gate",
+        "within_ten_percent": true
+      }
+    },
+    {
+      "device": "NVIDIA A10, 580.95.05",
+      "evidence": {
+        "scope": "Diagnostic repeat of frozen timing protocol; not a determinism acceptance gate",
+        "within_ten_percent": true
+      }
+    },
+    {
+      "device": "NVIDIA H100 80GB HBM3, 580.95.05",
+      "evidence": {
+        "scope": "Diagnostic repeat of frozen timing protocol; not a determinism acceptance gate",
+        "within_ten_percent": true
+      }
+    }
+  ],
+  "gates": {
+    "all_own_numerical_gates": true,
+    "cross_sku_exact": true,
+    "full_coverage": true,
+    "source_and_version_identity": true,
+    "three_distinct_skus": true
+  },
+  "rows": [
+    {
+      "comparisons": [
+        {
+          "exact": true,
+          "first_difference": null,
+          "left": "NVIDIA L4",
+          "max_absolute_delta": 0.0,
+          "right": "NVIDIA A10"
+        },
+        {
+          "exact": true,
+          "first_difference": null,
+          "left": "NVIDIA L4",
+          "max_absolute_delta": 0.0,
+          "right": "NVIDIA H100 80GB HBM3"
+        },
+        {
+          "exact": true,
+          "first_difference": null,
+          "left": "NVIDIA A10",
+          "max_absolute_delta": 0.0,
+          "right": "NVIDIA H100 80GB HBM3"
+        }
+      ],
+      "module": "export:1024",
+      "own_gates": true
+    },
+    {
+      "comparisons": [
+        {
+          "exact": true,
+          "first_difference": null,
+          "left": "NVIDIA L4",
+          "max_absolute_delta": 0.0,
+          "right": "NVIDIA A10"
+        },
+        {
+          "exact": true,
+          "first_difference": null,
+          "left": "NVIDIA L4",
+          "max_absolute_delta": 0.0,
+          "right": "NVIDIA H100 80GB HBM3"
+        },
+        {
+          "exact": true,
+          "first_difference": null,
+          "left": "NVIDIA A10",
+          "max_absolute_delta": 0.0,
+          "right": "NVIDIA H100 80GB HBM3"
+        }
+      ],
+      "module": "export:512",
+      "own_gates": true
+    },
+    {
+      "comparisons": [
+        {
+          "exact": true,
+          "first_difference": null,
+          "left": "NVIDIA L4",
+          "max_absolute_delta": 0.0,
+          "right": "NVIDIA A10"
+        },
+        {
+          "exact": true,
+          "first_difference": null,
+          "left": "NVIDIA L4",
+          "max_absolute_delta": 0.0,
+          "right": "NVIDIA H100 80GB HBM3"
+        },
+        {
+          "exact": true,
+          "first_difference": null,
+          "left": "NVIDIA A10",
+          "max_absolute_delta": 0.0,
+          "right": "NVIDIA H100 80GB HBM3"
+        }
+      ],
+      "module": "int64:lbm/differentiable_flow_control:probe_ux",
+      "own_gates": true
+    },
+    {
+      "comparisons": [
+        {
+          "exact": true,
+          "first_difference": null,
+          "left": "NVIDIA L4",
+          "max_absolute_delta": 0.0,
+          "right": "NVIDIA A10"
+        },
+        {
+          "exact": true,
+          "first_difference": null,
+          "left": "NVIDIA L4",
+          "max_absolute_delta": 0.0,
+          "right": "NVIDIA H100 80GB HBM3"
+        },
+        {
+          "exact": true,
+          "first_difference": null,
+          "left": "NVIDIA A10",
+          "max_absolute_delta": 0.0,
+          "right": "NVIDIA H100 80GB HBM3"
+        }
+      ],
+      "module": "int64:lbm/differentiable_flow_control:track_loss",
+      "own_gates": true
+    },
+    {
+      "comparisons": [
+        {
+          "exact": true,
+          "first_difference": null,
+          "left": "NVIDIA L4",
+          "max_absolute_delta": 0.0,
+          "right": "NVIDIA A10"
+        },
+        {
+          "exact": true,
+          "first_difference": null,
+          "left": "NVIDIA L4",
+          "max_absolute_delta": 0.0,
+          "right": "NVIDIA H100 80GB HBM3"
+        },
+        {
+          "exact": true,
+          "first_difference": null,
+          "left": "NVIDIA A10",
+          "max_absolute_delta": 0.0,
+          "right": "NVIDIA H100 80GB HBM3"
+        }
+      ],
+      "module": "int64:lbm/differentiable_fsi_chain:drag_force",
+      "own_gates": true
+    },
+    {
+      "comparisons": [
+        {
+          "exact": true,
+          "first_difference": null,
+          "left": "NVIDIA L4",
+          "max_absolute_delta": 0.0,
+          "right": "NVIDIA A10"
+        },
+        {
+          "exact": true,
+          "first_difference": null,
+          "left": "NVIDIA L4",
+          "max_absolute_delta": 0.0,
+          "right": "NVIDIA H100 80GB HBM3"
+        },
+        {
+          "exact": true,
+          "first_difference": null,
+          "left": "NVIDIA A10",
+          "max_absolute_delta": 0.0,
+          "right": "NVIDIA H100 80GB HBM3"
+        }
+      ],
+      "module": "int64:lbm/differentiable_lbm_probe:objective",
+      "own_gates": true
+    },
+    {
+      "comparisons": [
+        {
+          "exact": true,
+          "first_difference": null,
+          "left": "NVIDIA L4",
+          "max_absolute_delta": 0.0,
+          "right": "NVIDIA A10"
+        },
+        {
+          "exact": true,
+          "first_difference": null,
+          "left": "NVIDIA L4",
+          "max_absolute_delta": 0.0,
+          "right": "NVIDIA H100 80GB HBM3"
+        },
+        {
+          "exact": true,
+          "first_difference": null,
+          "left": "NVIDIA A10",
+          "max_absolute_delta": 0.0,
+          "right": "NVIDIA H100 80GB HBM3"
+        }
+      ],
+      "module": "int64:lbm/lbm3d_immersed_boundary:spread",
+      "own_gates": true
+    },
+    {
+      "comparisons": [
+        {
+          "exact": true,
+          "first_difference": null,
+          "left": "NVIDIA L4",
+          "max_absolute_delta": 0.0,
+          "right": "NVIDIA A10"
+        },
+        {
+          "exact": true,
+          "first_difference": null,
+          "left": "NVIDIA L4",
+          "max_absolute_delta": 0.0,
+          "right": "NVIDIA H100 80GB HBM3"
+        },
+        {
+          "exact": true,
+          "first_difference": null,
+          "left": "NVIDIA A10",
+          "max_absolute_delta": 0.0,
+          "right": "NVIDIA H100 80GB HBM3"
+        }
+      ],
+      "module": "int64:wave_fdtd/diff_wave_3d:energy",
+      "own_gates": true
+    },
+    {
+      "comparisons": [
+        {
+          "exact": true,
+          "first_difference": null,
+          "left": "NVIDIA L4",
+          "max_absolute_delta": 0.0,
+          "right": "NVIDIA A10"
+        },
+        {
+          "exact": true,
+          "first_difference": null,
+          "left": "NVIDIA L4",
+          "max_absolute_delta": 0.0,
+          "right": "NVIDIA H100 80GB HBM3"
+        },
+        {
+          "exact": true,
+          "first_difference": null,
+          "left": "NVIDIA A10",
+          "max_absolute_delta": 0.0,
+          "right": "NVIDIA H100 80GB HBM3"
+        }
+      ],
+      "module": "int64:wave_fdtd/diff_wave_substrate:focus_loss",
+      "own_gates": true
+    },
+    {
+      "comparisons": [
+        {
+          "exact": true,
+          "first_difference": null,
+          "left": "NVIDIA L4",
+          "max_absolute_delta": 0.0,
+          "right": "NVIDIA A10"
+        },
+        {
+          "exact": true,
+          "first_difference": null,
+          "left": "NVIDIA L4",
+          "max_absolute_delta": 0.0,
+          "right": "NVIDIA H100 80GB HBM3"
+        },
+        {
+          "exact": true,
+          "first_difference": null,
+          "left": "NVIDIA A10",
+          "max_absolute_delta": 0.0,
+          "right": "NVIDIA H100 80GB HBM3"
+        }
+      ],
+      "module": "int64:wave_fdtd/xray_3d_dda:backproject",
+      "own_gates": true
+    },
+    {
+      "comparisons": [
+        {
+          "exact": true,
+          "first_difference": null,
+          "left": "NVIDIA L4",
+          "max_absolute_delta": 0.0,
+          "right": "NVIDIA A10"
+        },
+        {
+          "exact": true,
+          "first_difference": null,
+          "left": "NVIDIA L4",
+          "max_absolute_delta": 0.0,
+          "right": "NVIDIA H100 80GB HBM3"
+        },
+        {
+          "exact": true,
+          "first_difference": null,
+          "left": "NVIDIA A10",
+          "max_absolute_delta": 0.0,
+          "right": "NVIDIA H100 80GB HBM3"
+        }
+      ],
+      "module": "int64:wave_fdtd/xray_tomography_sigma:sensitivity",
+      "own_gates": true
+    },
+    {
+      "comparisons": [
+        {
+          "exact": true,
+          "first_difference": null,
+          "left": "NVIDIA L4",
+          "max_absolute_delta": 0.0,
+          "right": "NVIDIA A10"
+        },
+        {
+          "exact": true,
+          "first_difference": null,
+          "left": "NVIDIA L4",
+          "max_absolute_delta": 0.0,
+          "right": "NVIDIA H100 80GB HBM3"
+        },
+        {
+          "exact": true,
+          "first_difference": null,
+          "left": "NVIDIA A10",
+          "max_absolute_delta": 0.0,
+          "right": "NVIDIA H100 80GB HBM3"
+        }
+      ],
+      "module": "int64:wave_fdtd/xray_tomography_sigma:sq_resid",
+      "own_gates": true
+    },
+    {
+      "comparisons": [
+        {
+          "exact": true,
+          "first_difference": null,
+          "left": "NVIDIA L4",
+          "max_absolute_delta": 0.0,
+          "right": "NVIDIA A10"
+        },
+        {
+          "exact": true,
+          "first_difference": null,
+          "left": "NVIDIA L4",
+          "max_absolute_delta": 0.0,
+          "right": "NVIDIA H100 80GB HBM3"
+        },
+        {
+          "exact": true,
+          "first_difference": null,
+          "left": "NVIDIA A10",
+          "max_absolute_delta": 0.0,
+          "right": "NVIDIA H100 80GB HBM3"
+        }
+      ],
+      "module": "selftest:lbm/differentiable_flow_control",
+      "own_gates": true
+    },
+    {
+      "comparisons": [
+        {
+          "exact": true,
+          "first_difference": null,
+          "left": "NVIDIA L4",
+          "max_absolute_delta": 0.0,
+          "right": "NVIDIA A10"
+        },
+        {
+          "exact": true,
+          "first_difference": null,
+          "left": "NVIDIA L4",
+          "max_absolute_delta": 0.0,
+          "right": "NVIDIA H100 80GB HBM3"
+        },
+        {
+          "exact": true,
+          "first_difference": null,
+          "left": "NVIDIA A10",
+          "max_absolute_delta": 0.0,
+          "right": "NVIDIA H100 80GB HBM3"
+        }
+      ],
+      "module": "selftest:lbm/differentiable_fsi_chain",
+      "own_gates": true
+    },
+    {
+      "comparisons": [
+        {
+          "exact": true,
+          "first_difference": null,
+          "left": "NVIDIA L4",
+          "max_absolute_delta": 0.0,
+          "right": "NVIDIA A10"
+        },
+        {
+          "exact": true,
+          "first_difference": null,
+          "left": "NVIDIA L4",
+          "max_absolute_delta": 0.0,
+          "right": "NVIDIA H100 80GB HBM3"
+        },
+        {
+          "exact": true,
+          "first_difference": null,
+          "left": "NVIDIA A10",
+          "max_absolute_delta": 0.0,
+          "right": "NVIDIA H100 80GB HBM3"
+        }
+      ],
+      "module": "selftest:lbm/differentiable_lbm_probe",
+      "own_gates": true
+    },
+    {
+      "comparisons": [
+        {
+          "exact": true,
+          "first_difference": null,
+          "left": "NVIDIA L4",
+          "max_absolute_delta": 0.0,
+          "right": "NVIDIA A10"
+        },
+        {
+          "exact": true,
+          "first_difference": null,
+          "left": "NVIDIA L4",
+          "max_absolute_delta": 0.0,
+          "right": "NVIDIA H100 80GB HBM3"
+        },
+        {
+          "exact": true,
+          "first_difference": null,
+          "left": "NVIDIA A10",
+          "max_absolute_delta": 0.0,
+          "right": "NVIDIA H100 80GB HBM3"
+        }
+      ],
+      "module": "selftest:lbm/lbm3d_immersed_boundary",
+      "own_gates": true
+    },
+    {
+      "comparisons": [
+        {
+          "exact": true,
+          "first_difference": null,
+          "left": "NVIDIA L4",
+          "max_absolute_delta": 0.0,
+          "right": "NVIDIA A10"
+        },
+        {
+          "exact": true,
+          "first_difference": null,
+          "left": "NVIDIA L4",
+          "max_absolute_delta": 0.0,
+          "right": "NVIDIA H100 80GB HBM3"
+        },
+        {
+          "exact": true,
+          "first_difference": null,
+          "left": "NVIDIA A10",
+          "max_absolute_delta": 0.0,
+          "right": "NVIDIA H100 80GB HBM3"
+        }
+      ],
+      "module": "selftest:wave_fdtd/diff_wave_3d",
+      "own_gates": true
+    },
+    {
+      "comparisons": [
+        {
+          "exact": true,
+          "first_difference": null,
+          "left": "NVIDIA L4",
+          "max_absolute_delta": 0.0,
+          "right": "NVIDIA A10"
+        },
+        {
+          "exact": true,
+          "first_difference": null,
+          "left": "NVIDIA L4",
+          "max_absolute_delta": 0.0,
+          "right": "NVIDIA H100 80GB HBM3"
+        },
+        {
+          "exact": true,
+          "first_difference": null,
+          "left": "NVIDIA A10",
+          "max_absolute_delta": 0.0,
+          "right": "NVIDIA H100 80GB HBM3"
+        }
+      ],
+      "module": "selftest:wave_fdtd/diff_wave_substrate",
+      "own_gates": true
+    },
+    {
+      "comparisons": [
+        {
+          "exact": true,
+          "first_difference": null,
+          "left": "NVIDIA L4",
+          "max_absolute_delta": 0.0,
+          "right": "NVIDIA A10"
+        },
+        {
+          "exact": true,
+          "first_difference": null,
+          "left": "NVIDIA L4",
+          "max_absolute_delta": 0.0,
+          "right": "NVIDIA H100 80GB HBM3"
+        },
+        {
+          "exact": true,
+          "first_difference": null,
+          "left": "NVIDIA A10",
+          "max_absolute_delta": 0.0,
+          "right": "NVIDIA H100 80GB HBM3"
+        }
+      ],
+      "module": "selftest:wave_fdtd/xray_3d_dda",
+      "own_gates": true
+    },
+    {
+      "comparisons": [
+        {
+          "exact": true,
+          "first_difference": null,
+          "left": "NVIDIA L4",
+          "max_absolute_delta": 0.0,
+          "right": "NVIDIA A10"
+        },
+        {
+          "exact": true,
+          "first_difference": null,
+          "left": "NVIDIA L4",
+          "max_absolute_delta": 0.0,
+          "right": "NVIDIA H100 80GB HBM3"
+        },
+        {
+          "exact": true,
+          "first_difference": null,
+          "left": "NVIDIA A10",
+          "max_absolute_delta": 0.0,
+          "right": "NVIDIA H100 80GB HBM3"
+        }
+      ],
+      "module": "selftest:wave_fdtd/xray_tomography_sigma",
+      "own_gates": true
+    }
+  ],
+  "schema": 1,
+  "scope": "E kernel-family cloud observations; no all-repository or local-SKU claim",
+  "status": "VERIFIED-FRESH",
+  "unmeasured_devices": [
+    "RTX 5070"
+  ]
+}

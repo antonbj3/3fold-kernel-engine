@@ -1,0 +1,426 @@
+{
+  "cases": [
+    {
+      "budgets": [
+        5.989579346099368e-06,
+        1.8410949389188758e-06
+      ],
+      "chunk": 32,
+      "errors": [
+        8.046627044677734e-07,
+        2.384185791015625e-07
+      ],
+      "finite": true,
+      "gain": 0.99,
+      "hashes": [
+        "30ef0d55bb36e1e75a62676882382de9c6ead7737af449a47fbeca5d86b102a3",
+        "28a96a3a68ba82d11dcf552c283f9689decfbc999e1100a237c40f4435874285",
+        "c5315097fa55ab791c735066c6edc489360a1a89b93edaf85bb3b0a784601346",
+        "069d99c5d675ce6624b7ed85785bd14fd46b022e2fd28b50be8b86fc1e3cceb0",
+        "8b638c68d36a45e81d93b060e489b0f2ca8259af3ceff785adcd0137bb18434f",
+        "ef82950ac999c2c61f22b9f1ebf02e7f6ce9420f2c4b3d37faa95ade83baed24",
+        "5438e5ee4d8f9b49b89fbf605a450c08eba49d56a5d3ba0d0e497bcadff667ec",
+        "c1d931bd3bf27e84eefbb237152db87c91a540f025aae6985b3bd4c6f8016d99",
+        "2c772f0ebf471ab99d7c63140d8d4c11b33052626a5935b39566cb8e50d87589",
+        "8a2546f486f60b5016d8672649fc042521c3b50df9aff4d2e9d7b6c71a3db175"
+      ],
+      "length": 32,
+      "output_budget_ratio": 0.1343437757430827,
+      "policy": {
+        "max_operator_norm": 0.9900000095367438,
+        "max_spectral_radius": 0.9900000095367438,
+        "reason": "non-expansion screen passed; output gates required",
+        "recommend_chunk": true,
+        "structural_class": "chunkable"
+      }
+    },
+    {
+      "budgets": [
+        5.172740657144459e-06,
+        1.4982630318627344e-06
+      ],
+      "chunk": 64,
+      "errors": [
+        7.152557373046875e-07,
+        2.775341272354126e-07
+      ],
+      "finite": true,
+      "gain": 0.99,
+      "hashes": [
+        "1f835f8110c749f912c20352c2ed9da4b902658bd03174e4156a9a8f5aa911a2",
+        "55b8161d75be95e0c68ad41b25659298b50791d32482e04541e778bcecf2e756",
+        "3165496bd5d906732dd51969e52d1137b24cccb6ac9da8168c4d1ec065050ed3",
+        "35eee394be70a6a82c0528f2e74a3b0bd5cd24d2a457d2d9e367e5ded2ae0807",
+        "c4af7a3e77ba1c467a3b7796bca54749c5c919d264cd66769e1f487b62d60d11",
+        "f081653f75f4e8579a62335d3d8fd9a4951af616168788db9d173f501757f0ba",
+        "915eaf65407cd6f7a1dbffe0c30011562adb83a3e11d3fa3bf6396025071a7dc",
+        "e5e2039ab8661bd2a3d248108a9ccc36dc0f098cdf07fb56b106912db4ffac7b",
+        "2dca07ca19f3e34ef94abaa69943d2fd1c6ca8335ed01e2c9dc8622bf55e46bb",
+        "a71d1ad9baaa8c5d263feb0b378966f4d48242e11a4562022c565e0a6f4f914f"
+      ],
+      "length": 64,
+      "output_budget_ratio": 0.13827403782882375,
+      "policy": {
+        "max_operator_norm": 0.9900000095367436,
+        "max_spectral_radius": 0.9900000095367442,
+        "reason": "non-expansion screen passed; output gates required",
+        "recommend_chunk": true,
+        "structural_class": "chunkable"
+      }
+    },
+    {
+      "budgets": [
+        7.97126631368883e-06,
+        3.0349068668074592e-06
+      ],
+      "chunk": 64,
+      "errors": [
+        9.5367431640625e-07,
+        2.980232238769531e-07
+      ],
+      "finite": true,
+      "gain": 0.99,
+      "hashes": [
+        "b7d9ee870e18f6e71a0aa1bbe005cb1a7adef8765a918a25becb613d54ee4d67",
+        "1a4c23b30624954893f306cd4e03faaa12e5a412b0b5d8307c15f311c687c1e1",
+        "135866cfc7b37de1a3137ab243867c417c62c25b349b3aeb7d25264228b1869d",
+        "7c3d533512ad6986d43616acb898208e4c85ef6d69c452ff44d71143aeab12bc",
+        "9b7bd71d9509d0605f08275259ddcd4fb2fed71a59deb2ed5bd8370045a05119",
+        "3b72e97c1eab96831df1493f56533154dc4e8ef640bdd20995e65549c92cf912",
+        "dd95179322b3cb921a2fc67454e08b6a2c14926c2b178afd9687461a2a7513b5",
+        "589c5995558e97710c9b95dc887afa60e76098b5e37e368f762cadad8bf2e994",
+        "27ddb32349be391352dbe79dda7c7bd14100be1bff2b6eb9f3d5656ae42195ee",
+        "8fb3b8b42f4420df70ac693feedbf98a33bf5f5fc3b9996489e5a8cbcbfef2b6"
+      ],
+      "length": 128,
+      "output_budget_ratio": 0.11963899823150208,
+      "policy": {
+        "max_operator_norm": 0.9900000095367436,
+        "max_spectral_radius": 0.9900000095367445,
+        "reason": "non-expansion screen passed; output gates required",
+        "recommend_chunk": true,
+        "structural_class": "chunkable"
+      }
+    },
+    {
+      "budgets": [
+        6.208268857759059e-06,
+        2.0537662284050296e-06
+      ],
+      "chunk": 32,
+      "errors": [
+        9.5367431640625e-07,
+        4.76837158203125e-07
+      ],
+      "finite": true,
+      "gain": 1.01,
+      "hashes": [
+        "30ef0d55bb36e1e75a62676882382de9c6ead7737af449a47fbeca5d86b102a3",
+        "28a96a3a68ba82d11dcf552c283f9689decfbc999e1100a237c40f4435874285",
+        "c5315097fa55ab791c735066c6edc489360a1a89b93edaf85bb3b0a784601346",
+        "9405ff98b4534c5139810b2c798e1df8ea3a2204a09ca060290140f26be6a2e0",
+        "8b638c68d36a45e81d93b060e489b0f2ca8259af3ceff785adcd0137bb18434f",
+        "9e96e167f22bb6dad456b6f846d8812a1ebc96827c20a183847bda16976fb1f8",
+        "f4e66318577ad5c26fea970dfc282e36e39fde62bd0ceb748ecabc3457ea2d96",
+        "9c89bd271cf68824acad36322a88a733cc94ada16917ad3fab51e1d0751d555b",
+        "9e685d15eb9449effc3c361e4ccdf85db7dd07a79bafbad6754dc2c55ead6d33",
+        "010a544204923858f63d23eb6f0342e82963a7f58836c66ce61891f41206a00f"
+      ],
+      "length": 32,
+      "output_budget_ratio": 0.1536135657550258,
+      "policy": {
+        "max_operator_norm": 1.0099999904632573,
+        "max_spectral_radius": 1.0099999904632582,
+        "reason": "expansive transition",
+        "recommend_chunk": false,
+        "structural_class": "chunkable"
+      }
+    },
+    {
+      "budgets": [
+        5.6054732340271585e-06,
+        1.661556098042638e-06
+      ],
+      "chunk": 64,
+      "errors": [
+        1.3113021850585938e-06,
+        5.364418029785156e-07
+      ],
+      "finite": true,
+      "gain": 1.01,
+      "hashes": [
+        "1f835f8110c749f912c20352c2ed9da4b902658bd03174e4156a9a8f5aa911a2",
+        "55b8161d75be95e0c68ad41b25659298b50791d32482e04541e778bcecf2e756",
+        "3165496bd5d906732dd51969e52d1137b24cccb6ac9da8168c4d1ec065050ed3",
+        "39b2c4e24df7b90562cbd32168ee12fd7ba0ec3f3055a2d352a69b41b3bd94af",
+        "c4af7a3e77ba1c467a3b7796bca54749c5c919d264cd66769e1f487b62d60d11",
+        "3e328955ce44ad4af81cf613ac2c7125827783cce166621ce61177fcf24bf460",
+        "c80b169b6120bb9a23907e8faa0ead6a15c645b6e0ef4cc219e64d968142c2e2",
+        "87a99b64918fcbe42782c74a9e167d66eec78ca596d2abdbad9bc726d0122ab0",
+        "5132a89dca59a67107f6356b1f1a5c5710b07a5f5c8e9839cf73c1d595de0e1e",
+        "1871217fb4a0f2aaafd552f1d0246e1fc0114b1925634f601eb2ddeaa840e136"
+      ],
+      "length": 64,
+      "output_budget_ratio": 0.2339324674852672,
+      "policy": {
+        "max_operator_norm": 1.0099999904632573,
+        "max_spectral_radius": 1.0099999904632577,
+        "reason": "expansive transition",
+        "recommend_chunk": false,
+        "structural_class": "chunkable"
+      }
+    },
+    {
+      "budgets": [
+        9.301536010752898e-06,
+        3.2695364997316617e-06
+      ],
+      "chunk": 64,
+      "errors": [
+        1.6689300537109375e-06,
+        5.364418029785156e-07
+      ],
+      "finite": true,
+      "gain": 1.01,
+      "hashes": [
+        "b7d9ee870e18f6e71a0aa1bbe005cb1a7adef8765a918a25becb613d54ee4d67",
+        "1a4c23b30624954893f306cd4e03faaa12e5a412b0b5d8307c15f311c687c1e1",
+        "135866cfc7b37de1a3137ab243867c417c62c25b349b3aeb7d25264228b1869d",
+        "a15d521276c2f7b4256e5da1b325dc012ac0ae6e2cdb0078abe5f1a87bbe4912",
+        "9b7bd71d9509d0605f08275259ddcd4fb2fed71a59deb2ed5bd8370045a05119",
+        "b2ee2069e06424d7c28ca9b287b80661e37510c4bf06f5716c0c6452d9d0be7d",
+        "755e8be2acba1db74f57adeaf6767f6b6f39cff9acf4798ad02b43445f74a63f",
+        "278d9aabc79c7bd12baaf5b04618bcd7800c4dd0d94bdba1513915b3181f99af",
+        "40f6df0833e53a4eba29b97cf27265b9c972c624a4a3a780c970816045e7d1f2",
+        "d967635d1bf7c226fa5005340168a67c8b370ab08a8d33ddd9f93fccb3f805b5"
+      ],
+      "length": 128,
+      "output_budget_ratio": 0.17942521017836158,
+      "policy": {
+        "max_operator_norm": 1.0099999904632573,
+        "max_spectral_radius": 1.009999990463258,
+        "reason": "expansive transition",
+        "recommend_chunk": false,
+        "structural_class": "chunkable"
+      }
+    },
+    {
+      "budgets": [
+        1.210087623883823e-05,
+        4.719432527398508e-06
+      ],
+      "chunk": 32,
+      "errors": [
+        4.291534423828125e-06,
+        2.6226043701171875e-06
+      ],
+      "finite": true,
+      "gain": 1.1,
+      "hashes": [
+        "30ef0d55bb36e1e75a62676882382de9c6ead7737af449a47fbeca5d86b102a3",
+        "28a96a3a68ba82d11dcf552c283f9689decfbc999e1100a237c40f4435874285",
+        "c5315097fa55ab791c735066c6edc489360a1a89b93edaf85bb3b0a784601346",
+        "a5e4acf168bce2c20cec53f907d68f2dc3786ea8117829c08783216b5f0fe942",
+        "8b638c68d36a45e81d93b060e489b0f2ca8259af3ceff785adcd0137bb18434f",
+        "a36d1f929e038c067f94a7ce107353c933de6f05a914a807278a8d39bcf496c2",
+        "afe7a1ddbdba2e59bfc00a11780f731a7fa70e49adc0770ec8840ac95611d5c7",
+        "f3db433f23fc0f8885aa43f2f823559f9dce901f26d6595def45350487ce608e",
+        "09aaf74c79b0c22f5c4413f57ad0c18ca2cfbe0129c985b5734a7ebaf7e04bb2",
+        "5214ecc3267d4345af883dc5124589883c350e806fd445529b14f8f23e0209cb"
+      ],
+      "length": 32,
+      "output_budget_ratio": 0.354646584191505,
+      "policy": {
+        "max_operator_norm": 1.1000000238418586,
+        "max_spectral_radius": 1.1000000238418586,
+        "reason": "expansive transition",
+        "recommend_chunk": false,
+        "structural_class": "chunkable"
+      }
+    },
+    {
+      "budgets": [
+        1.3924195627623703e-05,
+        4.583708687277976e-06
+      ],
+      "chunk": 64,
+      "errors": [
+        6.985664367675781e-05,
+        3.597140312194824e-05
+      ],
+      "finite": true,
+      "gain": 1.1,
+      "hashes": [
+        "1f835f8110c749f912c20352c2ed9da4b902658bd03174e4156a9a8f5aa911a2",
+        "55b8161d75be95e0c68ad41b25659298b50791d32482e04541e778bcecf2e756",
+        "3165496bd5d906732dd51969e52d1137b24cccb6ac9da8168c4d1ec065050ed3",
+        "8b7e58a35959f96dbaa180284e1f337fd5b28e040afd3aac0e039538278c8728",
+        "c4af7a3e77ba1c467a3b7796bca54749c5c919d264cd66769e1f487b62d60d11",
+        "64aa0dbfb3aa9cb96c0e94941e26b006dbd32330ed6f9e94be9de741c65fe1a1",
+        "a1fac8607ce8e0a9123f3e7873b725b267dd1832380909d8a55e84abcb831356",
+        "354605b877cb352f13dc5ed9e49230f5aa9c4fcc0e7ae491f8a81d32101c3bec",
+        "2b818608eac8e30a7960253c338a861c8ebcf6f173b3b212eaa4aaf89b0dd717",
+        "d006b3e9e94d8c504caba3c05f354191c8f8d96c0ed48f9a2855cc276b6271ee"
+      ],
+      "length": 64,
+      "output_budget_ratio": 5.0169248942590094,
+      "policy": {
+        "max_operator_norm": 1.1000000238418584,
+        "max_spectral_radius": 1.1000000238418588,
+        "reason": "expansive transition",
+        "recommend_chunk": false,
+        "structural_class": "chunkable"
+      }
+    },
+    {
+      "budgets": [
+        3.710615055751987e-05,
+        1.9963005027650844e-05
+      ],
+      "chunk": 64,
+      "errors": [
+        0.0006232261657714844,
+        0.000125885009765625
+      ],
+      "finite": true,
+      "gain": 1.1,
+      "hashes": [
+        "b7d9ee870e18f6e71a0aa1bbe005cb1a7adef8765a918a25becb613d54ee4d67",
+        "1a4c23b30624954893f306cd4e03faaa12e5a412b0b5d8307c15f311c687c1e1",
+        "135866cfc7b37de1a3137ab243867c417c62c25b349b3aeb7d25264228b1869d",
+        "71063418ddb82ee9e95e14172fedd5f2c2d321c0dbd9afcabb71c1a40d2a64ef",
+        "9b7bd71d9509d0605f08275259ddcd4fb2fed71a59deb2ed5bd8370045a05119",
+        "880cab817fcb0ae899accd40e7efc194c4eddd5b1bc0d9cc9e57851ba0d777fb",
+        "28489be4c38d0cd29ec82b16cd84f58e9f11c300543fa16e3b20594c7faa9b93",
+        "66c839361bb3c2570313111a6959287d7ed87f7cbc993ab8224f20b75d23607c",
+        "1bc5de2a2449f194744733d17e0ecf4d31ca83bb3b6919b871a7d07be4f28310",
+        "b56a226ac1c1baa352660228f66dcc46af72d98d747dc75c166514360d2820c2"
+      ],
+      "length": 128,
+      "output_budget_ratio": 16.79576448668245,
+      "policy": {
+        "max_operator_norm": 1.1000000238418584,
+        "max_spectral_radius": 1.1000000238418588,
+        "reason": "expansive transition",
+        "recommend_chunk": false,
+        "structural_class": "chunkable"
+      }
+    },
+    {
+      "budgets": [
+        0.049951775773891496,
+        0.02773164904011843
+      ],
+      "chunk": 32,
+      "errors": [
+        0.0225830078125,
+        0.014404296875
+      ],
+      "finite": true,
+      "gain": 1.5,
+      "hashes": [
+        "30ef0d55bb36e1e75a62676882382de9c6ead7737af449a47fbeca5d86b102a3",
+        "28a96a3a68ba82d11dcf552c283f9689decfbc999e1100a237c40f4435874285",
+        "c5315097fa55ab791c735066c6edc489360a1a89b93edaf85bb3b0a784601346",
+        "0b635a9b2154268f6789eadc52e8874c99b351460a4b69d6fe3eeffc41119dbe",
+        "8b638c68d36a45e81d93b060e489b0f2ca8259af3ceff785adcd0137bb18434f",
+        "6e8a67c069eb5b0cd80c8a3e7dee7b4f3b9191a9984e7058255662c1f939de1c",
+        "0b5e655dc076b306fa3e1bf4a5e2a495466e166ebb6a072bf2d4757f4451f945",
+        "24363a37da6e8a8ea3908483721e11263b2c76b43023b2d5d52cda3db91981b3",
+        "a823364c60ef61bb7eb676725729977f7873587b93cd18db114d8f5320873149",
+        "a7a7c13c25b5b748ca2cc6f489587fc5175339e9d0babdae5b41897fa4bf1ebe"
+      ],
+      "length": 32,
+      "output_budget_ratio": 0.4520961960336064,
+      "policy": {
+        "max_operator_norm": 1.5000000000000007,
+        "max_spectral_radius": 1.5000000000000013,
+        "reason": "expansive transition",
+        "recommend_chunk": false,
+        "structural_class": "chunkable"
+      }
+    },
+    {
+      "budgets": [
+        148.6985321044922,
+        123.97279357910156
+      ],
+      "chunk": 64,
+      "errors": [
+        11346.0,
+        7276.0
+      ],
+      "finite": true,
+      "gain": 1.5,
+      "hashes": [
+        "1f835f8110c749f912c20352c2ed9da4b902658bd03174e4156a9a8f5aa911a2",
+        "55b8161d75be95e0c68ad41b25659298b50791d32482e04541e778bcecf2e756",
+        "3165496bd5d906732dd51969e52d1137b24cccb6ac9da8168c4d1ec065050ed3",
+        "ef0d521fe6f704734c2e89b32d63dd9d46d1a68cb3bc494edaf0e252cbb0f561",
+        "c4af7a3e77ba1c467a3b7796bca54749c5c919d264cd66769e1f487b62d60d11",
+        "bea997bd269798b4044924bacb25c48cba6da15d04a9314c3d865738410f181f",
+        "aad2ace124df9a4f63c5474b39cbb9aa207b8e5e364a9d589ba0cfbfbf73a99e",
+        "5e0aebe96a4e2a4f5f8c6d7f982b0c56810452a7cc89d0a48ed7648dbf6e611b",
+        "8eee80b52641e4a8769bb2bfb075a01f24e314dc94cc2cc11aa062042d57fb6a",
+        "a3cc2e2a66b128130c473857334bc3fa8c3467c4f4bf0e705485173642d47ca4"
+      ],
+      "length": 64,
+      "output_budget_ratio": 76.30203095768984,
+      "policy": {
+        "max_operator_norm": 1.5000000000000009,
+        "max_spectral_radius": 1.500000000000002,
+        "reason": "expansive transition",
+        "recommend_chunk": false,
+        "structural_class": "chunkable"
+      }
+    },
+    {
+      "budgets": [
+        16860833792.0,
+        26214849509.567474
+      ],
+      "chunk": 64,
+      "errors": [
+        1682016567296.0,
+        816043786240.0
+      ],
+      "finite": true,
+      "gain": 1.5,
+      "hashes": [
+        "b7d9ee870e18f6e71a0aa1bbe005cb1a7adef8765a918a25becb613d54ee4d67",
+        "1a4c23b30624954893f306cd4e03faaa12e5a412b0b5d8307c15f311c687c1e1",
+        "135866cfc7b37de1a3137ab243867c417c62c25b349b3aeb7d25264228b1869d",
+        "fb6caac160caa07d97206b20e761e5dc0aa9f4913df600129b593c7dece9f073",
+        "9b7bd71d9509d0605f08275259ddcd4fb2fed71a59deb2ed5bd8370045a05119",
+        "d0a51a20058c21389665566226ca64ea5aac17f52644fd2b8fec383acc613af5",
+        "624a4c79dafe6bbb6e34dd6fa4a551f40908014631152a3b02bbcf3376ed0735",
+        "05df2da2bf3122e0883443412b58ff4b2ba0e44249cec5a0fbffb7613acfc645",
+        "4252279f5f3fd20fbfb19f64ff4ffe8226d83d31745b103430c294b76ba3d303",
+        "974fd5d9b01cf6ba3612ac7ade87b4b4c67eff2476a6801d025a1d338758deab"
+      ],
+      "length": 128,
+      "output_budget_ratio": 99.75880125774506,
+      "policy": {
+        "max_operator_norm": 1.5000000000000009,
+        "max_spectral_radius": 1.5000000000000016,
+        "reason": "expansive transition",
+        "recommend_chunk": false,
+        "structural_class": "chunkable"
+      }
+    }
+  ],
+  "gates": {
+    "all_finite": true,
+    "exact_repeat": true,
+    "expansive_refusal": true,
+    "measured_blowup": true,
+    "nonfinite_refusal": true,
+    "nonlinear_refusal": true,
+    "nonnormal_refusal": true,
+    "stable_control": true,
+    "unknown_refusal": true
+  },
+  "schema": 1,
+  "scope": "synthetic CPU numerical boundary; no general stability certificate",
+  "status": "VERIFIED-FRESH"
+}

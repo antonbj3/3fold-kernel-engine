@@ -1604,3 +1604,15 @@ rows, not all VERIFIED-FRESH entries or all repositories in queued item27.
 | `scripts/verify_declared_v1.py` | OWN-GATE-FAIL | Full repository coverage remains incomplete. Selected CPU scope: 4/4 declarations pass twice with exact numerical report hashes; ten runner/inventory controls pass. Strict make verify refuses incomplete coverage before execution. |
 
 Commands, evidence schema and CPU/Modal scope: `docs/VERIFICATION.md`.
+
+
+## Fresh Modal verifier and CPU environment boundary: OWN-GATE-FAIL
+
+The exact five-recipe snapshot at95b383e ran on Modal L4 and A10. Both selected runs pass4/5, exit2: all20 signed GPU rows match their device certificates and each other exactly; original CPU recurrence observer gates7/7 also pass, but its exact report-number check fails (local437.3193359375 versus cloud600.667236328125). The frozen recipe remains unchanged. Two of four complete CPU reports match locally/cloud; stability and roundoff reports differ. The empty floating-point catalogue still concerns its certified GPU fixtures, not these CPU observers.
+
+| Module | Status | Evidence |
+|---|---|---|
+| `scripts/roundoff_environment_v1.py` | OWN-GATE-FAIL | Environment portability fails despite5/5 capture controls locally and on Modal CPU.21 actual intermediate arrays captured, full local repeats and uninstrumented output exact; original expansive refusal retained. |
+| `scripts/roundoff_environment_compare_v1.py` | OWN-GATE-FAIL |4/6 diagnostic checks; first differing stage Cmat (triangular solve),80elements. Transplanting cloud Cmat/Umat reproduces the full cloud output locally, but endpoint-101.71659088134766 differs from cloud+101.71659088134766. Four integrity/restoration tests pass; independent complete comparison reports exact. |
+
+Full fresh capsules, independent signature/capture audits, host versions, first differing elements and reproduction: `docs/MODAL_VERIFICATION.md`. No source/tolerance/recipe promotion, no local GPU use, no assertion that one library version or CPU instruction is the unique cause.

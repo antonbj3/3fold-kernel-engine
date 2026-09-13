@@ -670,3 +670,7 @@ SDK location convention: OPTIX_ROOT selects an external SDK9.0 installation; com
 | `scripts/verify_declared_v1.py` | Reuse an identical command only within the current invocation; preserve each declaration gate and evidence identity. | Avoid redundant certifier runs while rejecting changed reports and failed shared children. |
 | `tests/test_verify_declared.py` | Add real-child sharing, per-row failure, stale-report and invocation-isolation controls. | Prove reuse cannot substitute another row's numerical expectations or an earlier run. |
 | `scripts/verify_roundoff_artifact_v1.py` | Run the frozen legacy guard and publish its fresh JSON under reports. | Preserve the existing artifact producer and make its seven gates explicit in the verifier. |
+
+| `scripts/roundoff_environment_v1.py` | Capture actual frozen recurrence intermediates through tracing with repeat and uninstrumented controls. | Locate environmental arithmetic differences without rewriting the numerical function. |
+| `scripts/roundoff_environment_compare_v1.py` | Audit complete captured arrays and transplant the two solve outputs into unchanged arithmetic. | Separate output-array reproduction from the retained endpoint disagreement. |
+| `tests/test_roundoff_environment.py` | Add trace/solver restoration and tampered-array/source refusal controls. | Prevent instrumentation state leaks and acceptance of corrupted evidence. |

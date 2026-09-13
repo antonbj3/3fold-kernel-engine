@@ -1,0 +1,251 @@
+{
+  "arrays": {
+    "A": {
+      "dtype": "float32",
+      "sha256": "3dd61f589e0af939ab0483ce897cfb84fc0167d21548def6b5dbaad2b6e0fe51",
+      "shape": [
+        128,
+        1
+      ]
+    },
+    "B": {
+      "dtype": "float32",
+      "sha256": "cd68d972e2c9499696d3d5842a28225f4490b283d4d56635241af9c5bb055a1a",
+      "shape": [
+        128,
+        1
+      ]
+    },
+    "Cmat": {
+      "dtype": "float32",
+      "sha256": "e8ff5d3171c16bfdff17088bb416aa863a0c4691abb69cbbc3cbc69a7323ed29",
+      "shape": [
+        1,
+        128
+      ]
+    },
+    "Ident": {
+      "dtype": "float32",
+      "sha256": "66957d69fd7a0016b2ee4a95af26a8f7b93a932819cba34db82effad451f08fa",
+      "shape": [
+        128,
+        128
+      ]
+    },
+    "L": {
+      "dtype": "float32",
+      "sha256": "04e198f85d149a75c1a1972fa3b2e0ead6ad71abd2de389736ca773785da4a43",
+      "shape": [
+        128,
+        128
+      ]
+    },
+    "M": {
+      "dtype": "float32",
+      "sha256": "e702ee1706fddbbf6260ddb9b54dabcda892c1120ba94479c9405b6826196ecc",
+      "shape": [
+        128,
+        128
+      ]
+    },
+    "O": {
+      "dtype": "float32",
+      "sha256": "1f3ed2e368d0494e17bc9aae19dae7a8052641a74804604b5619f2e674bd92c5",
+      "shape": [
+        128,
+        1
+      ]
+    },
+    "Qt": {
+      "dtype": "float32",
+      "sha256": "3dd61f589e0af939ab0483ce897cfb84fc0167d21548def6b5dbaad2b6e0fe51",
+      "shape": [
+        128,
+        1
+      ]
+    },
+    "S0": {
+      "dtype": "float32",
+      "sha256": "75e253f50979177eba47b2d0805ad36038789108924514d2a761a70de057d16f",
+      "shape": [
+        1,
+        1
+      ]
+    },
+    "S_end": {
+      "dtype": "float32",
+      "sha256": "df3f619804a92fdb4057192dc43dd748ea778adc52bc498ce80524c014b81119",
+      "shape": [
+        1,
+        1
+      ]
+    },
+    "Umat": {
+      "dtype": "float32",
+      "sha256": "5d66aed2bab456e6b148a483b819d6ada7939de08dee2b9ad6cecfab069298f9",
+      "shape": [
+        1,
+        128
+      ]
+    },
+    "Z": {
+      "dtype": "float32",
+      "sha256": "e702ee1706fddbbf6260ddb9b54dabcda892c1120ba94479c9405b6826196ecc",
+      "shape": [
+        128,
+        128
+      ]
+    },
+    "Zm": {
+      "dtype": "float32",
+      "sha256": "4abef3934d0ae2f6738c5d3dfbe3f3c9612e87e482b885d89e30a2ec7f4f0feb",
+      "shape": [
+        128,
+        128
+      ]
+    },
+    "beta": {
+      "dtype": "float32",
+      "sha256": "7c10c11e6fd41e913b331856ddd98d5676cb1653d96b622bf799544ae238edc3",
+      "shape": [
+        128
+      ]
+    },
+    "g": {
+      "dtype": "float32",
+      "sha256": "abd76d55bfb7f2ef1643a3643fc1ec14adb1e4d75afe1de911467cdc8433ec3b",
+      "shape": [
+        128,
+        1
+      ]
+    },
+    "gamma": {
+      "dtype": "float32",
+      "sha256": "3dd61f589e0af939ab0483ce897cfb84fc0167d21548def6b5dbaad2b6e0fe51",
+      "shape": [
+        128,
+        1
+      ]
+    },
+    "k": {
+      "dtype": "float32",
+      "sha256": "02722f124d0f1736a9dd7c4ddcd05630dcf16ee1ce3454e9a876005ce005d4ac",
+      "shape": [
+        128,
+        1
+      ]
+    },
+    "q": {
+      "dtype": "float32",
+      "sha256": "02722f124d0f1736a9dd7c4ddcd05630dcf16ee1ce3454e9a876005ce005d4ac",
+      "shape": [
+        128,
+        1
+      ]
+    },
+    "rhs_a": {
+      "dtype": "float32",
+      "sha256": "bdedd5499ff7872344be6f26e05663ebfe9e6ab3728acb2e6416781ced4e83ca",
+      "shape": [
+        128,
+        1
+      ]
+    },
+    "rhs_v": {
+      "dtype": "float32",
+      "sha256": "7c10c11e6fd41e913b331856ddd98d5676cb1653d96b622bf799544ae238edc3",
+      "shape": [
+        128,
+        1
+      ]
+    },
+    "sequential_output": {
+      "dtype": "float32",
+      "sha256": "d363fb760dd6a8aaf15296e1ea3f7474aadd6f926724f769bbea2cd889e962a5",
+      "shape": [
+        128,
+        1
+      ]
+    },
+    "sequential_state": {
+      "dtype": "float32",
+      "sha256": "1e557444982669bcbef521d1ff037307fc34fe4af43eb7c900bdd267ea41a6e6",
+      "shape": [
+        1,
+        1
+      ]
+    },
+    "v": {
+      "dtype": "float32",
+      "sha256": "02722f124d0f1736a9dd7c4ddcd05630dcf16ee1ce3454e9a876005ce005d4ac",
+      "shape": [
+        128,
+        1
+      ]
+    }
+  },
+  "environment": {
+    "libraries": {
+      "numpy": {
+        "blas": {
+          "name": "scipy-openblas",
+          "version": "0.3.34.106.0"
+        },
+        "version": "2.5.3"
+      },
+      "scipy": {
+        "blas": {
+          "name": "scipy-openblas",
+          "version": "0.3.31.dev"
+        },
+        "version": "1.18.1"
+      }
+    },
+    "machine": "x86_64",
+    "python": "3.13.11"
+  },
+  "gates": {
+    "complete_stages": true,
+    "exact_trace_repeat": true,
+    "expansive_refusal": true,
+    "tracing_preserves_output": true,
+    "unchanged_input_arrays": true
+  },
+  "max_output_error": 437.3193359375,
+  "observer_sha256": "90806a30eec46d68f6e725cc97d734b76fe7ae7c385b1420a94a7840ae4ac447",
+  "policy": {
+    "accepted": false,
+    "max_operator_norm": 1.0200000333786008,
+    "reason": "expansive_transition"
+  },
+  "schema": 1,
+  "scope": "Actual frozen function locals captured at return, exact against an uninstrumented call and an independent repeat. Stage differences localize environmental arithmetic effects, not a specific CPU instruction or library version cause. Original numerical policy remains refused.",
+  "sources": {
+    "src/kernel_engine/certified_kernels/chunkable_recurrence_rule.py": "7edcedb59b0b38fba16d16eec3c59b0a041ce7004dd0332446bba4534770f350",
+    "src/kernel_engine/certified_kernels/chunkable_roundoff_guard_v2.py": "49c878897805612ddc5ad4646dd5ea4831a6a3a08a1e080e04b82b6413f92040"
+  },
+  "stage_order": [
+    "q",
+    "k",
+    "v",
+    "g",
+    "beta",
+    "S0",
+    "gamma",
+    "A",
+    "B",
+    "Qt",
+    "M",
+    "L",
+    "Ident",
+    "rhs_a",
+    "rhs_v",
+    "Cmat",
+    "Umat",
+    "Z",
+    "Zm",
+    "O",
+    "S_end"
+  ],
+  "status": "VERIFIED-FRESH"
+}

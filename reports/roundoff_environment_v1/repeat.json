@@ -1,0 +1,6 @@
+{
+  "independent_comparison_reports_exact": true,
+  "sha256": "79b5b51a2e5c9fdc6017daaa209c718f511b17296fb05dd58201e4877649931c",
+  "expected_exit_code": 1,
+  "scope": "Unchanged environment-identity and endpoint-transplant failures retained"
+}
