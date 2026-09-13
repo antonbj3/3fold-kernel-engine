@@ -1626,3 +1626,22 @@ Full fresh capsules, independent signature/capture audits, host versions, first 
 | `scripts/roundoff_dispatch_compare_v1.py` | VERIFIED-FRESH |8/8 mechanism gates,3tamper/runtime controls, complete comparison repeats exact. Same SciPy binary across hosts: dispatch selects solve difference. NumPy dispatch selects fixed-operand forcing +/-2^-27 and endpoint +/-101.71659088134766. BothHaswell makes all56arrays exact across hosts. |
 
 The explicit `OPENBLAS_CORETYPE=Haswell make verify-declared RUNTIME=modal` profile passes all5 declared recipes on fresh ModalL4, including20/20 signed GPU rows. Native-profile4/5 failures remain unchanged; no original numerical source, recipe values or tolerances were altered. Full repository verification is still incomplete. Reproduction, source/runtime scope and fresh capsule: `docs/ROUNDOFF_DISPATCH.md`.
+
+## RT batch loop optimization bound (2026-09-13)
+
+The proposed removal of repeated uploads/readbacks or stream-priority change
+cannot alone close the archived batch total-speed gate. In
+`reports/rt_winding_batch_v1.json`, the *entire* upload/launch/readback phase
+costs only 0.1122–0.1508 ms per query after dividing by the fixed 64 repetitions.
+Subtracting that whole phase, including the indispensable ray work, from each
+native adapter total leaves native/CPU ratios 1.1862–1.6214 across all eight
+cases. Thus even an impossible zero-cost query loop would still fail every
+original total-speed comparison. This is an upper bound calculated from the
+existing measurements, not a fresh benchmark or a candidate speedup.
+
+The original OWN-GATE-FAIL status, full-repeat assertions, fixed batch size and
+timings are retained. A useful next implementation must remove costs outside
+this loop, such as repeated process/context setup, while preserving complete
+end-to-end measurement. Existing persistent-handle results are a separate scope;
+changing timing boundaries would not close this batch gate. No RT source change
+or GPU rerun was made for this bound.
