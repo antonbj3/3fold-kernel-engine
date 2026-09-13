@@ -1523,3 +1523,31 @@ new, mutually identical capsule manifest.
 Local RTX5070 remains unmeasured by this work. Other repository families and an
 installed nightly schedule remain outside this E-owned cloud certificate; merged
 item16 is not declared complete for the whole fleet.
+
+## RTX 5070 matrix extension: VERIFIED-FRESH
+
+Local capture is split into individual selftest legs, integer sites and native export. Each part requires an external exclusive GPU lock and a bounded process-group timeout. Original cloud sources must match exactly; observer hashes are recorded separately. Numerical gates and strict byte equality are unchanged. No local timing claim is planned.
+
+Fresh RTX 5070 observations pass5/5 matrix gates against the retained L4/A10/H100
+capsules:20 rows, six device pairs each,120 exact comparisons with observed delta0.
+All16 independently executed selftest legs match the cloud records,121380 array
+observations/6400352992 bytes per leg. All10 actual int64 outputs and both native
+stream sizes also match, including original numerical and repeat gates.
+
+The local driver was580.178.04 versus cloud580.95.05; Warp1.17.0 and all originally
+captured source hashes match. Native compilation used CUDA12.9 for sm120. New
+observer scripts live outside the frozen source snapshot and have separate hashes.
+Eighteen exclusive local windows each used a150-second process-group limit; longest
+observed window50.623seconds. Journal/compute-context guards passed before and after
+all windows. Background graphics remained present; no local performance claim.
+
+Evidence: `reports/kernel_matrix_local_v1/` contains split parts, assembled capsule,
+checksum, four-device matrix, observer hashes and sanitized window receipts.
+CPU reproduction: `python scripts/kernel_matrix_local_report_v1.py`.
+GPU reproduction requires externally guarded exclusive windows, each invoking
+`scripts/kernel_matrix_local_v1.py slot --slot SLOT --leg 0` (then leg1),
+followed by `sites` and `exports`; do not run the part collector outside that guard.
+The original three-device capsule and report remain unchanged. Six new acceptance
+and corruption controls plus the ten original audit/transport tests pass16/16.
+These results cover the declared finite fixtures and observed arrays, not universal
+cross-device determinism, other repositories, or an installed nightly scheduler.

@@ -55,3 +55,13 @@ invoked by an existing nightly scheduler; no schedule is installed by this work.
 The external runner provides GPU isolation, dependencies and account credentials.
 
 See `docs/RUNNING.md` for retained measured results and scope limitations.
+
+## RTX 5070 extension
+
+The separate `reports/kernel_matrix_local_v1/matrix.md` extends the retained cloud
+observations to RTX5070:20 rows and120 pairwise comparisons all exact,5/5 gates.
+See `docs/RUNNING.md` for bounded split-capture reproduction and provenance.
+Rebuild the four-device report without a GPU using
+`python scripts/kernel_matrix_local_report_v1.py`. The local driver differs from
+cloud; the pinned Warp version and original captured sources match exactly.
+Local timings are diagnostic only because the display GPU had background work.

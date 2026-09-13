@@ -644,3 +644,7 @@ SDK location convention: OPTIX_ROOT selects an external SDK9.0 installation; com
 | `scripts/kernel_matrix_modal_v1.py` | Add sequential bounded Modal orchestration, fetched-capsule validation and dated report retention. | Provide one command suitable for an external nightly scheduler; no scheduler installation. |
 | `tests/test_kernel_matrix_v1.py` | Add eight small corruption/coverage audit controls with explicit synthetic record counts. | Reject missing slots, truncated observations, changed sources/values, duplicate devices and corrupted capsules. |
 | `tests/test_kernel_matrix_runner.py` | Add mocked sequential fetch, incomplete-capsule rejection and numeric-failure propagation controls. | Test orchestration without additional cloud execution. |
+
+| `scripts/kernel_matrix_local_v1.py` | Add bounded per-leg RTX capture through frozen workers and exact original source validation. | Extend the cloud matrix under separately reserved local windows. |
+| `scripts/kernel_matrix_local_report_v1.py` | Add split-capsule assembly and strict four-device audit with all six pairwise comparisons. | Preserve the frozen cloud certificate while adding local evidence. |
+| `tests/test_kernel_matrix_local.py` | Add complete matrix and five corrupted local evidence controls. | Reject missing or duplicate devices, changed sources, truncated arrays and numerical differences. |
