@@ -612,4 +612,11 @@ SDK location convention: OPTIX_ROOT selects an external SDK9.0 installation; com
 | `lbm/differentiable_flow_control_fixed64.py` | Add separate float64 form of the frozen flow equations and bounded per-coordinate scaled descent with unchanged original FD/recovery gates. | Address measured forward-difference precision and tiny optimizer steps without editing the reference. |
 | `certified_kernels/fixed_order_selftests_v1.py` | Add eight-slot isolated suite with explicit flow variant, bounded runtime adjoints, complete readback/tape-array byte hashes and frozen int64 site gates. | Certify full observed arrays and original physical criteria together instead of relying on rounded stdout. |
 | `certified_kernels/fixed_order_selftests_v1.py` | Preserve original runtime mode for ancillary float/int64 site controls; retain RUN_TO_RUN in every adjoint worker. | The first attempt overflowed the nongated float sensitivity diagnostic before0 selftest slots; original int64-delta gate unchanged. |
+| `kernel_gen/innovation_lbm_dispatch_probe.py` | Add frozen stream direct-versus-graph dispatch observer with CPU oracle and two isolated exact-output legs. | Measure host submission gaps before a matched native/Warp bandwidth comparison. |
 | kernel_gen/vulkan_winding_v1/features.cpp | Add separate hardware ray-query/acceleration/address/float64 and denormal-property inventory before Vulkan winding design. |
+
+- 2026-09-13: `src/kernel_engine/kernel_gen/stream_graph_export_v1/stream_shim.cu` — Add captured dispatch using existing C ABI and frozen generated forward kernel.
+
+- 2026-09-13: `src/kernel_engine/kernel_gen/stream_graph_export_v1/build.sh` — Build unchanged C11 caller and generated kernel with the separate captured shim.
+
+- 2026-09-13: `src/kernel_engine/kernel_gen/innovation_lbm_stream_graph_export.py` — Compare matched thirty-kernel graph replay with exact CPU oracle and unchanged bandwidth gates.

@@ -676,7 +676,7 @@ result does not establish integration into a separate decode engine.
 
 | module | status | evidence |
 |---|---|---|
-| `kernel_gen/innovation_lbm_stream_export.py` | VERIFIED-FRESH | L4 all output bytes exact twice;1024 bandwidth ratio1.002739/1.002741 PASS;512 ratio1.890411/1.924847 FAIL fixed10% band. |
+| `kernel_gen/innovation_lbm_stream_export.py` | OWN-GATE-FAIL | L4 all output bytes exact twice;1024 bandwidth ratio1.002739/1.002741 PASS;512 ratio1.890411/1.924847 FAIL fixed10% band. |
 | `kernel_gen/stream_export_v1/stream_generated.cu` | VERIFIED-FRESH | L4 generated body matches frozen Warp; both512/1024 outputs exact CPU/Warp bytes twice. |
 | `kernel_gen/stream_export_v1/stream_shim.cu` | VERIFIED-FRESH | L4 native event1024 .348877/.348672ms; exact outputs, both repeated launches identical. |
 | `kernel_gen/stream_export_v1/host_stream.c` | VERIFIED-FRESH | L4 actual gcc C11 caller built and ran twice per size; all output bytes exact; no Warp runtime linked. |
@@ -1172,6 +1172,21 @@ value and gradient byte, including failed FD0.863645871083/0.253779738317.
 Evidence: `reports/innovation_flow_scale_probe_h100.json`. The precision
 comparison therefore also holds on the same GPU as the successful suite.
 
+## C3 LBM export dispatch mechanism, gates before execution
+
+The frozen native export matches every output byte at512 and1024, but the
+512 native/Warp bandwidth ratios1.890411/1.924847 exceed the fixed[0.9,1.1]
+band. At1024 the ratios1.002739/1.002741 pass. No band is widened.
+
+Before a new export variant, measure the same frozen Warp stream with direct
+Python dispatch versus a captured30-kernel graph on the same buffers. Both
+sizes retain seed20260912,independent CPU gather oracle,10 warm kernel launches
+and30 measured kernel launches. Record event/wall time and graph capture cost
+separately; capture is excluded from repeated-dispatch bandwidth on both paths.
+Two isolated workers must match all output bytes/hashes and both direct/graph
+paths must match the CPU oracle. Every event/wall measurement must be finite
+and positive. No speed-gain gate or DRAM peak-bandwidth claim in this observer.
+
 ### Vulkan ray-query mechanism before backend design
 
 An isolated cloud loader probe completed twice with identical logs. Its measured
@@ -1198,3 +1213,58 @@ Software-only ray-query support does not pass the hardware gate. A separate
 read-only loader/dependency audit will determine whether another library is
 missing or the service cannot expose this API; no host device permissions or
 sandbox settings will be changed.
+
+### C3 dispatch measurement and matched graph candidate
+
+| Side | Direct event ms, two legs | Graph event ms, two legs | Capture ms, two legs |
+|---|---|---|---|
+| 512 | 0.0431104 / 0.0439285 | 0.0346112 / 0.0365568 | 1.617265 / 1.595427 |
+| 1024 | 0.342699 / 0.343791 | 0.351642 / 0.352563 | 1.721973 / 1.675797 |
+
+All output bytes match the independent CPU oracle and repeat exactly. Graph
+submission explains only part of the small-grid difference. Measure native
+and Warp with the same captured thirty-kernel protocol before interpreting
+remaining code-generation differences. No artificial delay or tolerance change.
+
+| module | status | evidence |
+|---|---|---|
+| `kernel_gen/innovation_lbm_dispatch_probe.py` | VERIFIED-FRESH | 3/3 observer gates; two L4 workers, direct/graph/CPU bytes exact at both sizes; reports/innovation_lbm_dispatch_probe_l4.json. |
+
+Preregistered candidate gates: unchanged generated forward body; independent
+C11 caller built with gcc and CUDA shim with nvcc; exact CPU/Warp/native full
+outputs at both sizes; two independent runs byte-identical; finite positive
+event/wall times; native/Warp payload bandwidth ratio in unchanged[0.9,1.1]
+for each size and each leg. Both paths capture thirty identical kernel launches,
+check two replays, warm with ten kernel launches, and time one graph replay.
+Capture/instantiation and allocation are outside repeated throughput timing.
+Native uses an explicit nonblocking stream required for capture. Existing
+export sources and direct-launch baseline remain frozen. This measures
+repeated graph dispatch, with no claim about cold-start cost or peak DRAM rate.
+
+### C3 matched graph export result
+
+| Side | Warp event ms, two legs | Native event ms, two legs | Native/Warp payload bandwidth ratio |
+|---|---|---|---|
+| 512 | 0.0216405 / 0.0217088 | 0.0214016 / 0.0216064 | 1.01116427 / 1.00473937 |
+| 1024 | 0.3400704 / 0.3385344 | 0.3382955 / 0.3387051 | 1.00524674 / 0.99949609 |
+
+Modal L4, Warp1.17.0, driver580.95.05: all7/7 gates pass. Every full
+output matches the CPU gather oracle, Warp and independent C processes, and
+both runs repeat exactly. The generated body was checked against the runtime
+source; the C11 host and generated CUDA source remain unchanged. The native
+executable runs without Python. Reproduce with
+`PYTHONPATH=src python src/kernel_engine/kernel_gen/innovation_lbm_stream_graph_export.py`.
+Evidence: `reports/innovation_lbm_stream_graph_export_l4.json`.
+
+Both candidates execute two correctness graph replays before the ten warm
+kernel launches. This additional shared preconditioning differs from the
+earlier observer, so its timing difference cannot be attributed solely to
+host dispatch. These are warm repeated-graph results; the frozen direct-call
+comparison still fails its upper bandwidth bound. Useful population bytes
+are a read/write floor; cached small-grid traffic is not a DRAM peak fraction.
+
+| module | status | evidence |
+|---|---|---|
+| `kernel_gen/innovation_lbm_stream_graph_export.py` | VERIFIED-FRESH | 7/7 integration gates, exact full outputs twice, bandwidth ratios0.99949609..1.01116427 inside fixed[0.9,1.1]. |
+| `kernel_gen/stream_graph_export_v1/stream_shim.cu` | VERIFIED-FRESH | Same7/7 integration gates through existing C ABI, two graph replays exact; frozen generated body. |
+| `kernel_gen/stream_graph_export_v1/build.sh` | VERIFIED-FRESH | gcc C11 caller and nvcc CUDA build execute independently in both passing integration legs. |

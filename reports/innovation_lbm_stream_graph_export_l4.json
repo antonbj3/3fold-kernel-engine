@@ -1,0 +1,122 @@
+{
+  "legs": [
+    [
+      {
+        "side": 512,
+        "warp": {
+          "side": 512,
+          "payload_bytes": 18874368,
+          "event_ms": 0.021640533208847047,
+          "wall_ms": 0.022461733333400957,
+          "capture_ms": 1.4900779999997837,
+          "sha256": "9ae83957e76b888128ce424890e57d005465f05df4f37f167e3c338da08c835c",
+          "exact_cpu_reference": true,
+          "exact_replays": true
+        },
+        "native": {
+          "side": 512,
+          "event_ms": 0.021401600043,
+          "wall_ms": 0.0217344333333,
+          "two_launch_identity": true,
+          "sha256": "9ae83957e76b888128ce424890e57d005465f05df4f37f167e3c338da08c835c",
+          "payload_GB_per_s": 881.9138738261487
+        },
+        "exact_warp_output": true,
+        "bandwidth_ratio": 1.0111642664738612
+      },
+      {
+        "side": 1024,
+        "warp": {
+          "side": 1024,
+          "payload_bytes": 75497472,
+          "event_ms": 0.3400704065958659,
+          "wall_ms": 0.34098713333333325,
+          "capture_ms": 1.5624060000014595,
+          "sha256": "0eea2337443e647620f7994fa3b9b6fd61e19e107a82c8c30e264f2b0e1483cc",
+          "exact_cpu_reference": true,
+          "exact_replays": true
+        },
+        "native": {
+          "side": 1024,
+          "event_ms": 0.338295459747,
+          "wall_ms": 0.3390089,
+          "two_launch_identity": true,
+          "sha256": "0eea2337443e647620f7994fa3b9b6fd61e19e107a82c8c30e264f2b0e1483cc",
+          "payload_GB_per_s": 223.17021947755987
+        },
+        "exact_warp_output": true,
+        "bandwidth_ratio": 1.0052467356499355
+      }
+    ],
+    [
+      {
+        "side": 512,
+        "warp": {
+          "side": 512,
+          "payload_bytes": 18874368,
+          "event_ms": 0.021708800395329794,
+          "wall_ms": 0.02266629999994052,
+          "capture_ms": 1.4555719999975736,
+          "sha256": "9ae83957e76b888128ce424890e57d005465f05df4f37f167e3c338da08c835c",
+          "exact_cpu_reference": true,
+          "exact_replays": true
+        },
+        "native": {
+          "side": 512,
+          "event_ms": 0.0216063996156,
+          "wall_ms": 0.0219664,
+          "two_launch_identity": true,
+          "sha256": "9ae83957e76b888128ce424890e57d005465f05df4f37f167e3c338da08c835c",
+          "payload_GB_per_s": 873.5545179110983
+        },
+        "exact_warp_output": true,
+        "bandwidth_ratio": 1.0047393726651181
+      },
+      {
+        "side": 1024,
+        "warp": {
+          "side": 1024,
+          "payload_bytes": 75497472,
+          "event_ms": 0.3385343869527181,
+          "wall_ms": 0.33942916666672335,
+          "capture_ms": 1.5860019999998087,
+          "sha256": "0eea2337443e647620f7994fa3b9b6fd61e19e107a82c8c30e264f2b0e1483cc",
+          "exact_cpu_reference": true,
+          "exact_replays": true
+        },
+        "native": {
+          "side": 1024,
+          "event_ms": 0.338705062866,
+          "wall_ms": 0.339072,
+          "two_launch_identity": true,
+          "sha256": "0eea2337443e647620f7994fa3b9b6fd61e19e107a82c8c30e264f2b0e1483cc",
+          "payload_GB_per_s": 222.90033506191978
+        },
+        "exact_warp_output": true,
+        "bandwidth_ratio": 0.9994960928194054
+      }
+    ]
+  ],
+  "gates": {
+    "finite_positive_times": true,
+    "exact_graph_replays": true,
+    "exact_warp_outputs": true,
+    "frozen_cpu_reference": true,
+    "two_native_runs_identical": true,
+    "two_warp_runs_identical": true,
+    "bandwidth_within_ten_percent": true
+  },
+  "warm": 10,
+  "timed": 30,
+  "protocol": "one captured thirty-kernel replay; setup excluded",
+  "host_language": "C11 compiled with gcc; CUDA shim compiled with nvcc",
+  "arch": "sm_89",
+  "byte_model": "population read+write floor; no peak DRAM claim",
+  "execution": {
+    "service": "Modal",
+    "gpu": "NVIDIA L4",
+    "driver": "580.95.05",
+    "warp": "1.17.0",
+    "stamp": "20260913T071150Z"
+  }
+}
