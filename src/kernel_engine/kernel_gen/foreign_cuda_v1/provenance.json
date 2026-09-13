@@ -1,0 +1,9 @@
+{
+  "repository": "https://github.com/NVIDIA/cuda-samples",
+  "commit": "5443602d89ed99aede2e4b7bf329daddeadb320e",
+  "url": "https://raw.githubusercontent.com/NVIDIA/cuda-samples/5443602d89ed99aede2e4b7bf329daddeadb320e/cpp/0_Introduction/vectorAdd/vectorAdd.cu",
+  "source_sha256": "e02d4a73913aff50976cd9ed5e54d57349b0361d01f80446ecebcd9c71cfc9ae",
+  "kernel_sha256": "9516a79e8d04880fd7e868f8171e72bda31daf071efdad4db2f692f4fe94e690",
+  "vendored_sha256": "e25d2df85e8e1a50c1205c24e6657942c3159737c07ed8dbba654cd87f95415f",
+  "extraction": "Original copyright/license header and verbatim vecAdd kernel; sample host omitted."
+}

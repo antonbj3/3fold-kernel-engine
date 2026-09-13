@@ -1,0 +1,1111 @@
+{
+ "meta": {
+  "fine_reference": "256x256 grid = 65536 DOF, fp64 = 524288 bytes",
+  "budgets": [
+   640,
+   1280,
+   2560,
+   6400,
+   20480
+  ],
+  "chi_definition": "per QoI family: chi = 0.01 * RMS(true QoI values) (1% noise floor)",
+  "blocks": "8x8 blocks of 32px (R3/R4)",
+  "runtime_s": 23.3
+ },
+ "prereg": {
+  "P1": "R4 dominates R1/R2 at matched bytes on the goal-A QoI-set (max-family TEST error in chi units), at all budgets. Expected.",
+  "P2": "THE REAL QUESTION: R4 vs R3 (anisotropic-metric AMR, the strong baseline the goal-derived allocation deflation landed on). Quantify margin. If ~equal: honest finding = goal-derived allocation RE-DERIVES anisotropic AMR (check: correlation of R4's per-block byte map with R3's metric/byte map). If R4 < R3: name mechanism.",
+  "P3": "GOAL-ADAPTIVITY: switch QoI-set A->B (B drops the crack line-probes; adds smooth-region window averages under a 1% noise floor). R4's allocation must MOVE (measure per-block correlation A vs B, layer-block byte share). R3 is goal-blind: it keeps burning bytes on the crack Hessian. R4 should beat R3 decisively on goal B at tight budgets. Also measured: cross-goal honesty (R4-A blob evaluated on goal B = the price of goal-derivation).",
+  "P4": "ABSTAIN LEG: DOF below chi are dropped. Perturb the truth along the dropped subspace at the representation's own coefficient scale: train-QoI movement must stay < ~1 chi (per-block; the all-blocks case accumulates ~sqrt(M) and is reported honestly). Positive control: perturbation along a kept high-s mode at the same amplitude must move QoIs >> chi. Held-out test-QoI leakage reported (the non-definitional part).",
+  "tautology_guard": "R4's basis is built from TRAIN family members only; all headline errors are on HELD-OUT test members (fresh line positions / point locations). Train errors reported separately.",
+  "note": "For a FIXED finite QoI set the degenerate optimum is 'store the QoI values' (rank <= #QoIs). The goal here is a QoI FAMILY with nuisance parameters (line position, probe location), so the Fisher spectrum is genuinely spread and water-filling is non-trivial; generalization to held-out family members is the honest test of the blocked-SVD locality."
+ },
+ "accounting_rules": "goal-spec-derivable = codec-shared (zero instance bytes, applied symmetrically); instance-derivable (R2 topology, R3 shapes, R4 header scalars, all values) = serialized + counted. Every contender actually serialized; len(blob) audited vs budget.",
+ "results_main": {
+  "budgets": {
+   "640": {
+    "R1": {
+     "bytes": 578,
+     "errA_test": {
+      "line_jump": 67.23983113706272,
+      "patch_point": 104.35693818598985,
+      "averages": 2.7276799526147535
+     },
+     "errA_train": {
+      "line_jump": 66.27487498013171,
+      "patch_point": 112.93847467546586,
+      "averages": 2.7276799526147535
+     },
+     "errB_test": {
+      "smooth_window": 0.5170273016161343,
+      "patch_point": 122.29444953554666,
+      "averages": 3.9696447834776913
+     },
+     "field_rmse": 0.17926170203473638
+    },
+    "R2": {
+     "bytes": 603,
+     "errA_test": {
+      "line_jump": 79.2048890163653,
+      "patch_point": 65.36334605129512,
+      "averages": 5.3263244042655336
+     },
+     "errA_train": {
+      "line_jump": 79.85684713052864,
+      "patch_point": 76.75073062453414,
+      "averages": 5.3263244042655336
+     },
+     "errB_test": {
+      "smooth_window": 19.428406812282187,
+      "patch_point": 85.2163590003407,
+      "averages": 4.688912328373986
+     },
+     "field_rmse": 0.23529587411785818
+    },
+    "R3": {
+     "bytes": 636,
+     "errA_test": {
+      "line_jump": 67.4550830582286,
+      "patch_point": 61.23481361213244,
+      "averages": 7.344367199490929
+     },
+     "errA_train": {
+      "line_jump": 67.57935159981609,
+      "patch_point": 65.52952263241026,
+      "averages": 7.344367199490929
+     },
+     "errB_test": {
+      "smooth_window": 0.9855904809098524,
+      "patch_point": 73.36105252728177,
+      "averages": 8.922057916162197
+     },
+     "field_rmse": 0.2141387970470543
+    },
+    "R4_goalA": {
+     "bytes": 326,
+     "kept_modes_Mstar": 279,
+     "lam": 0.25,
+     "saturated": true,
+     "errA_test": {
+      "line_jump": 7.083900551065223,
+      "patch_point": 3.971569579380116,
+      "averages": 0.7405865916719424
+     },
+     "errA_train": {
+      "line_jump": 0.13638217052179233,
+      "patch_point": 0.15883467584686917,
+      "averages": 0.7405865916719424
+     },
+     "errB_test": {
+      "smooth_window": 2.711121579219825,
+      "patch_point": 7.859160825968493,
+      "averages": 0.330318909540162
+     },
+     "field_rmse": 0.17179559249494777
+    },
+    "R4_goalB": {
+     "bytes": 310,
+     "kept_modes_Mstar": 318,
+     "lam": 0.25,
+     "saturated": true,
+     "errB_test": {
+      "smooth_window": 2.939633201383641,
+      "patch_point": 3.1200818735136187,
+      "averages": 2.85795519482234
+     },
+     "errB_train": {
+      "smooth_window": 0.3711728553797082,
+      "patch_point": 0.1580696618058386,
+      "averages": 2.85795519482234
+     },
+     "errA_test": {
+      "line_jump": 71.4343057939084,
+      "patch_point": 5.266162756211809,
+      "averages": 1.896756750059026
+     },
+     "field_rmse": 0.2163326347143019
+    }
+   },
+   "1280": {
+    "R1": {
+     "bytes": 1158,
+     "errA_test": {
+      "line_jump": 44.690928754905094,
+      "patch_point": 60.56362749649198,
+      "averages": 0.3177178193062601
+     },
+     "errA_train": {
+      "line_jump": 45.285428678959725,
+      "patch_point": 65.92400577215153,
+      "averages": 0.3177178193062601
+     },
+     "errB_test": {
+      "smooth_window": 0.2556489245471903,
+      "patch_point": 70.07184385738012,
+      "averages": 0.41844841254118814
+     },
+     "field_rmse": 0.10935902760916348
+    },
+    "R2": {
+     "bytes": 1233,
+     "errA_test": {
+      "line_jump": 59.660904751935185,
+      "patch_point": 59.222652630473604,
+      "averages": 4.801539342791708
+     },
+     "errA_train": {
+      "line_jump": 60.16501853842898,
+      "patch_point": 59.77290759460872,
+      "averages": 4.801539342791708
+     },
+     "errB_test": {
+      "smooth_window": 19.474403102942162,
+      "patch_point": 74.38562905920705,
+      "averages": 7.011743082700728
+     },
+     "field_rmse": 0.1802721225036816
+    },
+    "R3": {
+     "bytes": 1280,
+     "errA_test": {
+      "line_jump": 21.579948130569736,
+      "patch_point": 31.63925234518791,
+      "averages": 0.1402359382435631
+     },
+     "errA_train": {
+      "line_jump": 24.303782825315142,
+      "patch_point": 25.78010034914224,
+      "averages": 0.1402359382435631
+     },
+     "errB_test": {
+      "smooth_window": 0.9662368400609672,
+      "patch_point": 20.78593853568915,
+      "averages": 0.04618258380285443
+     },
+     "field_rmse": 0.07041209466130582
+    },
+    "R4_goalA": {
+     "bytes": 326,
+     "kept_modes_Mstar": 279,
+     "lam": 0.25,
+     "saturated": true,
+     "errA_test": {
+      "line_jump": 7.083900551065223,
+      "patch_point": 3.971569579380116,
+      "averages": 0.7405865916719424
+     },
+     "errA_train": {
+      "line_jump": 0.13638217052179233,
+      "patch_point": 0.15883467584686917,
+      "averages": 0.7405865916719424
+     },
+     "errB_test": {
+      "smooth_window": 2.711121579219825,
+      "patch_point": 7.859160825968493,
+      "averages": 0.330318909540162
+     },
+     "field_rmse": 0.17179559249494777
+    },
+    "R4_goalB": {
+     "bytes": 310,
+     "kept_modes_Mstar": 318,
+     "lam": 0.25,
+     "saturated": true,
+     "errB_test": {
+      "smooth_window": 2.939633201383641,
+      "patch_point": 3.1200818735136187,
+      "averages": 2.85795519482234
+     },
+     "errB_train": {
+      "smooth_window": 0.3711728553797082,
+      "patch_point": 0.1580696618058386,
+      "averages": 2.85795519482234
+     },
+     "errA_test": {
+      "line_jump": 71.4343057939084,
+      "patch_point": 5.266162756211809,
+      "averages": 1.896756750059026
+     },
+     "field_rmse": 0.2163326347143019
+    }
+   },
+   "2560": {
+    "R1": {
+     "bytes": 2502,
+     "errA_test": {
+      "line_jump": 31.058836075492206,
+      "patch_point": 103.81715964010218,
+      "averages": 0.5630466460239344
+     },
+     "errA_train": {
+      "line_jump": 33.86746383933091,
+      "patch_point": 94.54865978095302,
+      "averages": 0.5630466460239344
+     },
+     "errB_test": {
+      "smooth_window": 0.11612541113698854,
+      "patch_point": 103.50793411663436,
+      "averages": 0.6512513849500382
+     },
+     "field_rmse": 0.08410831361829296
+    },
+    "R2": {
+     "bytes": 2543,
+     "errA_test": {
+      "line_jump": 41.253776283607344,
+      "patch_point": 17.85257100478746,
+      "averages": 1.907650025954048
+     },
+     "errA_train": {
+      "line_jump": 41.01731198844157,
+      "patch_point": 18.364358566180723,
+      "averages": 1.907650025954048
+     },
+     "errB_test": {
+      "smooth_window": 19.554900835302302,
+      "patch_point": 15.459851516260242,
+      "averages": 2.076568612745988
+     },
+     "field_rmse": 0.10166437546877644
+    },
+    "R3": {
+     "bytes": 2560,
+     "errA_test": {
+      "line_jump": 9.349453375795138,
+      "patch_point": 8.350081715160407,
+      "averages": 0.24249082936771713
+     },
+     "errA_train": {
+      "line_jump": 10.7717413738092,
+      "patch_point": 8.5593232904025,
+      "averages": 0.24249082936771713
+     },
+     "errB_test": {
+      "smooth_window": 0.9636277243277668,
+      "patch_point": 6.707273924443437,
+      "averages": 0.15190163036486068
+     },
+     "field_rmse": 0.04753385438120378
+    },
+    "R4_goalA": {
+     "bytes": 326,
+     "kept_modes_Mstar": 279,
+     "lam": 0.25,
+     "saturated": true,
+     "errA_test": {
+      "line_jump": 7.083900551065223,
+      "patch_point": 3.971569579380116,
+      "averages": 0.7405865916719424
+     },
+     "errA_train": {
+      "line_jump": 0.13638217052179233,
+      "patch_point": 0.15883467584686917,
+      "averages": 0.7405865916719424
+     },
+     "errB_test": {
+      "smooth_window": 2.711121579219825,
+      "patch_point": 7.859160825968493,
+      "averages": 0.330318909540162
+     },
+     "field_rmse": 0.17179559249494777
+    },
+    "R4_goalB": {
+     "bytes": 310,
+     "kept_modes_Mstar": 318,
+     "lam": 0.25,
+     "saturated": true,
+     "errB_test": {
+      "smooth_window": 2.939633201383641,
+      "patch_point": 3.1200818735136187,
+      "averages": 2.85795519482234
+     },
+     "errB_train": {
+      "smooth_window": 0.3711728553797082,
+      "patch_point": 0.1580696618058386,
+      "averages": 2.85795519482234
+     },
+     "errA_test": {
+      "line_jump": 71.4343057939084,
+      "patch_point": 5.266162756211809,
+      "averages": 1.896756750059026
+     },
+     "field_rmse": 0.2163326347143019
+    }
+   },
+   "6400": {
+    "R1": {
+     "bytes": 6086,
+     "errA_test": {
+      "line_jump": 19.050720524342513,
+      "patch_point": 13.209453005439295,
+      "averages": 0.012746357870724019
+     },
+     "errA_train": {
+      "line_jump": 19.93353631715904,
+      "patch_point": 12.83469890920853,
+      "averages": 0.012746357870724019
+     },
+     "errB_test": {
+      "smooth_window": 0.04666762396438101,
+      "patch_point": 10.119130906704516,
+      "averages": 0.000966390846559065
+     },
+     "field_rmse": 0.054549410486547725
+    },
+    "R2": {
+     "bytes": 6374,
+     "errA_test": {
+      "line_jump": 18.163704151082218,
+      "patch_point": 2.5283438179426265,
+      "averages": 0.47587909666740563
+     },
+     "errA_train": {
+      "line_jump": 19.677957032470175,
+      "patch_point": 2.4913254381723524,
+      "averages": 0.47587909666740563
+     },
+     "errB_test": {
+      "smooth_window": 4.296801010906502,
+      "patch_point": 1.8795643131510766,
+      "averages": 0.2549160555389656
+     },
+     "field_rmse": 0.043867501792705814
+    },
+    "R3": {
+     "bytes": 6400,
+     "errA_test": {
+      "line_jump": 7.704979457000967,
+      "patch_point": 3.758615590520503,
+      "averages": 0.12775914174680716
+     },
+     "errA_train": {
+      "line_jump": 6.934591062961241,
+      "patch_point": 3.825512972505222,
+      "averages": 0.12775914174680716
+     },
+     "errB_test": {
+      "smooth_window": 1.009307664141931,
+      "patch_point": 2.9330049453741815,
+      "averages": 0.04652663928595709
+     },
+     "field_rmse": 0.023163276584373425
+    },
+    "R4_goalA": {
+     "bytes": 326,
+     "kept_modes_Mstar": 279,
+     "lam": 0.25,
+     "saturated": true,
+     "errA_test": {
+      "line_jump": 7.083900551065223,
+      "patch_point": 3.971569579380116,
+      "averages": 0.7405865916719424
+     },
+     "errA_train": {
+      "line_jump": 0.13638217052179233,
+      "patch_point": 0.15883467584686917,
+      "averages": 0.7405865916719424
+     },
+     "errB_test": {
+      "smooth_window": 2.711121579219825,
+      "patch_point": 7.859160825968493,
+      "averages": 0.330318909540162
+     },
+     "field_rmse": 0.17179559249494777
+    },
+    "R4_goalB": {
+     "bytes": 310,
+     "kept_modes_Mstar": 318,
+     "lam": 0.25,
+     "saturated": true,
+     "errB_test": {
+      "smooth_window": 2.939633201383641,
+      "patch_point": 3.1200818735136187,
+      "averages": 2.85795519482234
+     },
+     "errB_train": {
+      "smooth_window": 0.3711728553797082,
+      "patch_point": 0.1580696618058386,
+      "averages": 2.85795519482234
+     },
+     "errA_test": {
+      "line_jump": 71.4343057939084,
+      "patch_point": 5.266162756211809,
+      "averages": 1.896756750059026
+     },
+     "field_rmse": 0.2163326347143019
+    }
+   },
+   "20480": {
+    "R1": {
+     "bytes": 20166,
+     "errA_test": {
+      "line_jump": 6.29552671369043,
+      "patch_point": 5.304636085212726,
+      "averages": 0.006040074711351781
+     },
+     "errA_train": {
+      "line_jump": 6.3593434974477745,
+      "patch_point": 5.261607593594381,
+      "averages": 0.006040074711351781
+     },
+     "errB_test": {
+      "smooth_window": 0.01447406415215147,
+      "patch_point": 3.998131866634565,
+      "averages": 0.009186097901057573
+     },
+     "field_rmse": 0.022585207471027983
+    },
+    "R2": {
+     "bytes": 20439,
+     "errA_test": {
+      "line_jump": 2.824944980925254,
+      "patch_point": 2.527480404052311,
+      "averages": 0.09435228661769413
+     },
+     "errA_train": {
+      "line_jump": 2.902623594246601,
+      "patch_point": 2.490880739442164,
+      "averages": 0.09435228661769413
+     },
+     "errB_test": {
+      "smooth_window": 0.9312260369893162,
+      "patch_point": 1.879462054059309,
+      "averages": 0.08255815747465498
+     },
+     "field_rmse": 0.012867279679079796
+    },
+    "R3": {
+     "bytes": 20476,
+     "errA_test": {
+      "line_jump": 1.9401303657398892,
+      "patch_point": 2.309402859799744,
+      "averages": 0.06602936263076117
+     },
+     "errA_train": {
+      "line_jump": 2.05059492554639,
+      "patch_point": 2.8343874106020035,
+      "averages": 0.06602936263076117
+     },
+     "errB_test": {
+      "smooth_window": 0.4691344903604321,
+      "patch_point": 2.4070155386483307,
+      "averages": 0.097256922579526
+     },
+     "field_rmse": 0.012498835035632037
+    },
+    "R4_goalA": {
+     "bytes": 326,
+     "kept_modes_Mstar": 279,
+     "lam": 0.25,
+     "saturated": true,
+     "errA_test": {
+      "line_jump": 7.083900551065223,
+      "patch_point": 3.971569579380116,
+      "averages": 0.7405865916719424
+     },
+     "errA_train": {
+      "line_jump": 0.13638217052179233,
+      "patch_point": 0.15883467584686917,
+      "averages": 0.7405865916719424
+     },
+     "errB_test": {
+      "smooth_window": 2.711121579219825,
+      "patch_point": 7.859160825968493,
+      "averages": 0.330318909540162
+     },
+     "field_rmse": 0.17179559249494777
+    },
+    "R4_goalB": {
+     "bytes": 310,
+     "kept_modes_Mstar": 318,
+     "lam": 0.25,
+     "saturated": true,
+     "errB_test": {
+      "smooth_window": 2.939633201383641,
+      "patch_point": 3.1200818735136187,
+      "averages": 2.85795519482234
+     },
+     "errB_train": {
+      "smooth_window": 0.3711728553797082,
+      "patch_point": 0.1580696618058386,
+      "averages": 2.85795519482234
+     },
+     "errA_test": {
+      "line_jump": 71.4343057939084,
+      "patch_point": 5.266162756211809,
+      "averages": 1.896756750059026
+     },
+     "field_rmse": 0.2163326347143019
+    }
+   }
+  },
+  "geom_tag": "main"
+ },
+ "P1": {
+  "question": "R4 dominates R1/R2 at matched bytes on the goal-A QoI-set (max-family TEST error in chi units), at all budgets. Expected.",
+  "rows": [
+   {
+    "budget": 640,
+    "R4": 7.083900551065223,
+    "R1": 104.35693818598985,
+    "R2": 79.2048890163653,
+    "ratio_R1_over_R4": 14.731564543251169,
+    "ratio_R2_over_R4": 11.180971337105385,
+    "grazing": false
+   },
+   {
+    "budget": 1280,
+    "R4": 7.083900551065223,
+    "R1": 60.56362749649198,
+    "R2": 59.660904751935185,
+    "ratio_R1_over_R4": 8.549474552883847,
+    "ratio_R2_over_R4": 8.42204154644207,
+    "grazing": false
+   },
+   {
+    "budget": 2560,
+    "R4": 7.083900551065223,
+    "R1": 103.81715964010218,
+    "R2": 41.253776283607344,
+    "ratio_R1_over_R4": 14.65536661500576,
+    "ratio_R2_over_R4": 5.823596193399965,
+    "grazing": false
+   },
+   {
+    "budget": 6400,
+    "R4": 7.083900551065223,
+    "R1": 19.050720524342513,
+    "R2": 18.163704151082218,
+    "ratio_R1_over_R4": 2.689298132718395,
+    "ratio_R2_over_R4": 2.564082318794114,
+    "grazing": false
+   },
+   {
+    "budget": 20480,
+    "R4": 7.083900551065223,
+    "R1": 6.29552671369043,
+    "R2": 2.824944980925254,
+    "ratio_R1_over_R4": 0.8887090760673874,
+    "ratio_R2_over_R4": 0.3987838282823522,
+    "grazing": true
+   }
+  ],
+  "verdict_pass_all_budgets": false,
+  "verdict_pass_tight_budgets_le_6400": true,
+  "R4_saturated_bytes": 326,
+  "regime_note": "R4's byte demand SATURATES at ~R4_saturated_bytes (all identifiable-above-chi DOF stored at the kappa-ladder floor); beyond that, extra bytes buy nothing and the held-out-family generalization floor binds — field-based reps keep improving and overtake at the largest budget."
+ },
+ "P2": {
+  "question": "THE REAL QUESTION: R4 vs R3 (anisotropic-metric AMR, the strong baseline the goal-derived allocation deflation landed on). Quantify margin. If ~equal: honest finding = goal-derived allocation RE-DERIVES anisotropic AMR (check: correlation of R4's per-block byte map with R3's metric/byte map). If R4 < R3: name mechanism.",
+  "rows": [
+   {
+    "budget": 640,
+    "R4": 7.083900551065223,
+    "R3": 67.4550830582286,
+    "ratio_R3_over_R4": 9.522308023943845,
+    "grazing": false
+   },
+   {
+    "budget": 1280,
+    "R4": 7.083900551065223,
+    "R3": 31.63925234518791,
+    "ratio_R3_over_R4": 4.466360321847014,
+    "grazing": false
+   },
+   {
+    "budget": 2560,
+    "R4": 7.083900551065223,
+    "R3": 9.349453375795138,
+    "ratio_R3_over_R4": 1.3198171414743023,
+    "grazing": true
+   },
+   {
+    "budget": 6400,
+    "R4": 7.083900551065223,
+    "R3": 7.704979457000967,
+    "ratio_R3_over_R4": 1.0876747070993749,
+    "grazing": true
+   },
+   {
+    "budget": 20480,
+    "R4": 7.083900551065223,
+    "R3": 2.309402859799744,
+    "ratio_R3_over_R4": 0.32600723897125766,
+    "grazing": false
+   }
+  ],
+  "R4_beats_R3_at_all_budgets": false,
+  "allocation_correlation": {
+   "spearman_R4A_bytes_vs_R3_bytes": 0.3708791208791209,
+   "spearman_R4A_bytes_vs_hessian_metric": 0.08923992673992674,
+   "spearman_R4B_bytes_vs_hessian_metric": 0.08498168498168499,
+   "spearman_R4A_vs_R4B": -0.02261904761904762,
+   "layer_block_byte_share": {
+    "R3": 0.26134585289514867,
+    "R4_goalA": 0.4297520661157025,
+    "R4_goalB": 0.05184570717544587
+   },
+   "patch_block_byte_share": {
+    "R3": 0.5492957746478874,
+    "R4_goalA": 0.4805194805194805,
+    "R4_goalB": 0.5143094151804231
+   }
+  }
+ },
+ "P3": {
+  "question": "GOAL-ADAPTIVITY: switch QoI-set A->B (B drops the crack line-probes; adds smooth-region window averages under a 1% noise floor). R4's allocation must MOVE (measure per-block correlation A vs B, layer-block byte share). R3 is goal-blind: it keeps burning bytes on the crack Hessian. R4 should beat R3 decisively on goal B at tight budgets. Also measured: cross-goal honesty (R4-A blob evaluated on goal B = the price of goal-derivation).",
+  "rows": [
+   {
+    "budget": 640,
+    "R4_goalB": 3.1200818735136187,
+    "R3": 73.36105252728177,
+    "R1": 122.29444953554666,
+    "R4_goalA_on_B_cross_goal": 7.859160825968493,
+    "ratio_R3_over_R4B": 23.512540856714015,
+    "grazing": false
+   },
+   {
+    "budget": 1280,
+    "R4_goalB": 3.1200818735136187,
+    "R3": 20.78593853568915,
+    "R1": 70.07184385738012,
+    "R4_goalA_on_B_cross_goal": 7.859160825968493,
+    "ratio_R3_over_R4B": 6.661984966529573,
+    "grazing": false
+   },
+   {
+    "budget": 2560,
+    "R4_goalB": 3.1200818735136187,
+    "R3": 6.707273924443437,
+    "R1": 103.50793411663436,
+    "R4_goalA_on_B_cross_goal": 7.859160825968493,
+    "ratio_R3_over_R4B": 2.149710871814454,
+    "grazing": false
+   },
+   {
+    "budget": 6400,
+    "R4_goalB": 3.1200818735136187,
+    "R3": 2.9330049453741815,
+    "R1": 10.119130906704516,
+    "R4_goalA_on_B_cross_goal": 7.859160825968493,
+    "ratio_R3_over_R4B": 0.940041019523387,
+    "grazing": true
+   },
+   {
+    "budget": 20480,
+    "R4_goalB": 3.1200818735136187,
+    "R3": 2.4070155386483307,
+    "R1": 3.998131866634565,
+    "R4_goalA_on_B_cross_goal": 7.859160825968493,
+    "ratio_R3_over_R4B": 0.7714590950582068,
+    "grazing": true
+   }
+  ],
+  "verdict_pass_all_budgets": false,
+  "allocation_movement": {
+   "spearman_R4A_vs_R4B": -0.02261904761904762,
+   "layer_share": {
+    "R3": 0.26134585289514867,
+    "R4_goalA": 0.4297520661157025,
+    "R4_goalB": 0.05184570717544587
+   }
+  }
+ },
+ "P4": {
+  "amplitude": "cmax (representation's own coefficient scale)",
+  "per_block_dropped": {
+   "n_blocks": 64,
+   "train_maxdq_chi": {
+    "max": 0.02366239265435217,
+    "median": 4.291337489406457e-15
+   },
+   "test_maxdq_chi": {
+    "max": 35.952364546963004,
+    "median": 4.291337489406457e-15
+   },
+   "note": "train leg is near-definitional (drop rule uses these rows); test leg is the generalization check"
+  },
+  "all_blocks_simultaneous": {
+   "train_maxdq_chi": 0.028719543855888846,
+   "test_maxdq_chi": 34.18405553987494,
+   "note": "accumulates ~sqrt(#blocks); reported honestly, theorem is per-DOF"
+  },
+  "positive_control_kept_mode": {
+   "mode_s": 123.01299982182303,
+   "dq_train_max_chi": 1684.1199034193426,
+   "dq_test_max_chi": 1628.3564237169908
+  }
+ },
+ "mechanism_probes": {
+  "design": "(M-a) densify train family 2x, SAME held-out test set, same budget -> coverage mechanism if error drops. (M-b) joint-aware chi-drop threshold 1/sqrt(64) on goal B -> per-block-vs-joint thresholding mechanism if the distributed 'averages' train error collapses.",
+  "main": {
+   "dense_A": {
+    "bytes": 489,
+    "kept_modes_Mstar": 411,
+    "errA_test": {
+     "line_jump": 4.302778478652208,
+     "patch_point": 0.9627688421487041,
+     "averages": 0.7143577813968703
+    },
+    "train_rows": 221
+   },
+   "dense_B": {
+    "bytes": 396,
+    "kept_modes_Mstar": 423,
+    "errB_test": {
+     "smooth_window": 1.6243637079538356,
+     "patch_point": 0.9198784120694594,
+     "averages": 3.1857817469444174
+    },
+    "train_rows": 161
+   },
+   "joint_drop_B": {
+    "bytes": 320,
+    "kept_modes_Mstar": 367,
+    "errB_train": {
+     "smooth_window": 0.43021725441059655,
+     "patch_point": 0.1781936480538016,
+     "averages": 3.8460681654794264
+    },
+    "errB_test": {
+     "smooth_window": 11.953949771459149,
+     "patch_point": 6.869760558090105,
+     "averages": 3.8460681654794264
+    }
+   },
+   "joint_drop_B_scaled_ladder": {
+    "bytes": 467,
+    "kept_modes_Mstar": 392,
+    "errB_train": {
+     "smooth_window": 0.05670221335067214,
+     "patch_point": 0.025089353124404568,
+     "averages": 0.416328983894484
+    },
+    "errB_test": {
+     "smooth_window": 4.545322326153321,
+     "patch_point": 2.028873036227045,
+     "averages": 0.416328983894484
+    }
+   }
+  },
+  "stability": {
+   "dense_A": {
+    "bytes": 496,
+    "kept_modes_Mstar": 418,
+    "errA_test": {
+     "line_jump": 4.413111460703388,
+     "patch_point": 0.8122278287189004,
+     "averages": 0.6104703569350954
+    },
+    "train_rows": 221
+   },
+   "dense_B": {
+    "bytes": 397,
+    "kept_modes_Mstar": 422,
+    "errB_test": {
+     "smooth_window": 0.8030550349219819,
+     "patch_point": 0.3506927338635378,
+     "averages": 2.2631051649945984
+    },
+    "train_rows": 161
+   },
+   "joint_drop_B": {
+    "bytes": 307,
+    "kept_modes_Mstar": 358,
+    "errB_train": {
+     "smooth_window": 0.3200227156006775,
+     "patch_point": 0.17791615256638016,
+     "averages": 2.9769034159335983
+    },
+    "errB_test": {
+     "smooth_window": 7.61204953686016,
+     "patch_point": 32.96846962998968,
+     "averages": 2.9769034159335983
+    }
+   },
+   "joint_drop_B_scaled_ladder": {
+    "bytes": 451,
+    "kept_modes_Mstar": 385,
+    "errB_train": {
+     "smooth_window": 0.05600132441622644,
+     "patch_point": 0.021264865031090045,
+     "averages": 0.18028685678815837
+    },
+    "errB_test": {
+     "smooth_window": 1.9041323073340777,
+     "patch_point": 2.260177598079092,
+     "averages": 0.18028685678815837
+    }
+   }
+  }
+ },
+ "bytes_to_chi": {
+  "goalA_test": {},
+  "goalB_test": {},
+  "goalA_train": {
+   "R4_goalA": 326
+  },
+  "note": "train-based column shows the chi-saturation size for the SAMPLED family (R4's storable count made literal); test-based columns are the honest generalization numbers."
+ },
+ "findings": {
+  "headline": "GOAL-DERIVED WATER-FILLING IS A TIGHT-BUDGET REGIME WIN WITH A COVERAGE-GOVERNED CEILING, NOT a re-derivation of anisotropic AMR and NOT a universal dominance.",
+  "P1_adjudicated": "R4 dominates R1/R2 at every budget <= 6400 B (margins 2.6-15x, no grazing at <=1280); at 20480 B R2/R3 overtake because R4's byte demand SATURATES at ~326 B (M*=279 modes above chi; train errors <=0.74 chi) and its held-out error is generalization-limited, not byte-limited. Pre-registered 'all budgets' expectation: REFUTED at the top budget, held below saturation.",
+  "P2_adjudicated": "R4 beats R3 at 640/1280/2560 B (9.5x / 4.5x / 1.3x-GRAZING), ties at 6400 (1.09, GRAZING), loses at 20480 (0.33x). NOT a unification: R4's per-block byte map does NOT correlate with the Hessian metric (spearman 0.089) and only moderately with R3's byte map (0.371) — the goal-derived allocation is a genuinely different principle (Fisher mass of the GOAL, not curvature of the FIELD), so the goal-derived allocation-deflation's landing point (anisotropic-metric AMR) is NOT information-theoretically re-derived by goals; it is outperformed below saturation and superior above it.",
+  "P3_adjudicated": "Goal-adaptivity is REAL and measured: switching A->B moves the allocation (spearman(R4A,R4B)=-0.02; layer-block byte share 0.43->0.05 while goal-blind R3 stays 0.26), and R4-goalB beats R3 on goal B by 23.5x/6.7x/2.1x at tight budgets. BUT the mid-budget win FLIPPED under fresh family jitter (stability: 16.96 vs R3 5.76) and is restored by 2x train-family density (2.26 < 5.76): the decisive-win claim is conditional on goal-family COVERAGE density. Cross-goal honesty: an R4 blob encoded for goal A is bad on goal B (the price of goal-derivation; field reps are goal-robust).",
+  "P4_adjudicated": "Abstain leg verified: per-block perturbations along the dropped subspace at the representation's own coefficient scale move TRAIN QoIs <=0.024 chi (median lower) vs kept-mode positive control 1684 chi (ratio ~7e4) — the storable-theorem's promise, measured. Held-out leakage max 36 chi = 2.1% of the positive control: the dropped subspace is unidentifiable from the SAMPLED family, only approximately from the CONTINUOUS family — the same coverage caveat, quantified.",
+  "mechanisms_measured": {
+   "coverage": "2x train-family densification at the SAME budget: line_jump 7.08->4.30, patch_point 3.97->0.96 (goal A); smooth_window stability flip 16.96->2.26. Family coverage, not bytes, is R4's accuracy lever — the representation-side instance of the cal-data-COVERAGE law from the sensor-indistinguishability arc.",
+   "distributed_dof": "per-DOF chi-thresholding fails BOTH ways on QoIs whose Fisher mass is spread across blocks (global average: each block sub-chi, jointly super-chi): joint-scaling ONLY the drop threshold made it worse (quantization noise accumulates: 2.86->3.85 chi); joint-scaling drop AND ladder floor by 1/sqrt(64) collapses it (2.86->0.42, stability 2.98->0.18). This is the chi-theorem's marginal-vs-conditional (high-dim) caveat measured in the STORAGE direction: the storable test must be applied to the JOINT spectrum, not per-block."
+  },
+  "deliverable": "The seed grounded: the optimal representation IS goal-relative and the chi/water-filling construction realizes it — ~326-490 B stores everything the sampled goal family can identify above chi out of a 512 kB reference field (R3 needs >20 kB to approach the same QoI accuracy where it can at all). The honest boundary: (1) the ceiling is goal-family coverage, (2) distributed QoIs need joint (not per-DOF) chi-calibration, (3) field-based adaptive reps stay superior for broad/unknown goals or generous budgets. Temporal/framexel leg = named follow-on, not this cell."
+ },
+ "QC": {
+  "byte_audit": [
+   {
+    "budget": 640,
+    "contender": "R1",
+    "actual_bytes": 578,
+    "within": true
+   },
+   {
+    "budget": 640,
+    "contender": "R2",
+    "actual_bytes": 603,
+    "within": true
+   },
+   {
+    "budget": 640,
+    "contender": "R3",
+    "actual_bytes": 636,
+    "within": true
+   },
+   {
+    "budget": 640,
+    "contender": "R4_goalA",
+    "actual_bytes": 326,
+    "within": true
+   },
+   {
+    "budget": 640,
+    "contender": "R4_goalB",
+    "actual_bytes": 310,
+    "within": true
+   },
+   {
+    "budget": 1280,
+    "contender": "R1",
+    "actual_bytes": 1158,
+    "within": true
+   },
+   {
+    "budget": 1280,
+    "contender": "R2",
+    "actual_bytes": 1233,
+    "within": true
+   },
+   {
+    "budget": 1280,
+    "contender": "R3",
+    "actual_bytes": 1280,
+    "within": true
+   },
+   {
+    "budget": 1280,
+    "contender": "R4_goalA",
+    "actual_bytes": 326,
+    "within": true
+   },
+   {
+    "budget": 1280,
+    "contender": "R4_goalB",
+    "actual_bytes": 310,
+    "within": true
+   },
+   {
+    "budget": 2560,
+    "contender": "R1",
+    "actual_bytes": 2502,
+    "within": true
+   },
+   {
+    "budget": 2560,
+    "contender": "R2",
+    "actual_bytes": 2543,
+    "within": true
+   },
+   {
+    "budget": 2560,
+    "contender": "R3",
+    "actual_bytes": 2560,
+    "within": true
+   },
+   {
+    "budget": 2560,
+    "contender": "R4_goalA",
+    "actual_bytes": 326,
+    "within": true
+   },
+   {
+    "budget": 2560,
+    "contender": "R4_goalB",
+    "actual_bytes": 310,
+    "within": true
+   },
+   {
+    "budget": 6400,
+    "contender": "R1",
+    "actual_bytes": 6086,
+    "within": true
+   },
+   {
+    "budget": 6400,
+    "contender": "R2",
+    "actual_bytes": 6374,
+    "within": true
+   },
+   {
+    "budget": 6400,
+    "contender": "R3",
+    "actual_bytes": 6400,
+    "within": true
+   },
+   {
+    "budget": 6400,
+    "contender": "R4_goalA",
+    "actual_bytes": 326,
+    "within": true
+   },
+   {
+    "budget": 6400,
+    "contender": "R4_goalB",
+    "actual_bytes": 310,
+    "within": true
+   },
+   {
+    "budget": 20480,
+    "contender": "R1",
+    "actual_bytes": 20166,
+    "within": true
+   },
+   {
+    "budget": 20480,
+    "contender": "R2",
+    "actual_bytes": 20439,
+    "within": true
+   },
+   {
+    "budget": 20480,
+    "contender": "R3",
+    "actual_bytes": 20476,
+    "within": true
+   },
+   {
+    "budget": 20480,
+    "contender": "R4_goalA",
+    "actual_bytes": 326,
+    "within": true
+   },
+   {
+    "budget": 20480,
+    "contender": "R4_goalB",
+    "actual_bytes": 310,
+    "within": true
+   }
+  ],
+  "overshoots": [],
+  "stability": {
+   "mid_budget": 2560,
+   "main_order_A": [
+    "R4_goalA",
+    "R3",
+    "R2",
+    "R1"
+   ],
+   "stab_order_A": [
+    "R4_goalA",
+    "R3",
+    "R2",
+    "R1"
+   ],
+   "ordering_preserved_goalA": true,
+   "goalB_R4B_vs_R3": {
+    "main": [
+     3.1200818735136187,
+     6.707273924443437
+    ],
+    "stability": [
+     16.963885672745516,
+     5.762406458235081
+    ],
+    "ordering_preserved": false
+   },
+   "stab_cell": {
+    "R1": {
+     "A_test_maxfam": 105.33071189506181
+    },
+    "R2": {
+     "A_test_maxfam": 40.39529316348847
+    },
+    "R3": {
+     "A_test_maxfam": 9.11102296992149
+    },
+    "R4_goalA": {
+     "A_test_maxfam": 7.60575466800989
+    }
+   },
+   "main_cell": {
+    "R1": {
+     "A_test_maxfam": 103.81715964010218
+    },
+    "R2": {
+     "A_test_maxfam": 41.253776283607344
+    },
+    "R3": {
+     "A_test_maxfam": 9.349453375795138
+    },
+    "R4_goalA": {
+     "A_test_maxfam": 7.083900551065223
+    }
+   }
+  },
+  "caveats": [
+   "R3 is an axis-aligned blocked tensor-grid PROXY for Loseille/Alauzet metric AMR (no rotated elements); the layer curve slope is <=0.25 so axis-aligned anisotropy captures most of the win, but a true metric mesher would do somewhat better along the curved layer.",
+   "R4 field reconstruction is goal-targeted, NOT a general field representation (field_rmse reported to show this honestly); changing the goal requires re-encoding (cross-goal leg measured in P3).",
+   "R4 per-mode range uses a single global cmax bound (conservative; wastes bits on small coefficients).",
+   "QoIs are linear functionals; nonlinear QoIs would need local Jacobian re-linearization.",
+   "R1 is NON-MONOTONE in budget (2560 B worse than 1280 B on goal A): uniform-grid sampling phase aliases the oscillatory patch — a real uniform-grid pathology, not an instrument bug (verified by the monotone behavior of the adaptive contenders)."
+  ]
+ },
+ "log": [
+  "[    0.0s] build main instance + run all budgets",
+  "[    0.0s] === instance main: phase=0.0, seed=0 ===",
+  "[    0.3s] chi floors A: {'line_jump': 0.01297, 'patch_point': 0.002126, 'averages': 0.006556}",
+  "[    0.3s] chi floors B: {'smooth_window': 0.001567, 'patch_point': 0.002098, 'averages': 0.003954}",
+  "[    2.1s] R4 codec: goal A candidate modes=403, goal B=781",
+  "[    2.3s] B=   640: A-test max-fam err (chi units): R1=   104.36 R2=    79.20 R3=    67.46 R4=     7.08 | B-test: R3=    73.36 R4B=     3.12",
+  "[    2.4s] B=  1280: A-test max-fam err (chi units): R1=    60.56 R2=    59.66 R3=    31.64 R4=     7.08 | B-test: R3=    20.79 R4B=     3.12",
+  "[    2.5s] B=  2560: A-test max-fam err (chi units): R1=   103.82 R2=    41.25 R3=     9.35 R4=     7.08 | B-test: R3=     6.71 R4B=     3.12",
+  "[    2.7s] B=  6400: A-test max-fam err (chi units): R1=    19.05 R2=    18.16 R3=     7.70 R4=     7.08 | B-test: R3=     2.93 R4B=     3.12",
+  "[    2.9s] B= 20480: A-test max-fam err (chi units): R1=     6.30 R2=     2.82 R3=     2.31 R4=     7.08 | B-test: R3=     2.41 R4B=     3.12",
+  "[    2.9s] alloc correlations: R4A~R3bytes rho=0.371, R4A~metric rho=0.089, R4A~R4B rho=-0.023",
+  "[    2.9s] layer-block byte share: R3=0.261 R4A=0.430 R4B=0.052",
+  "[    2.9s] P4: dropped-subspace perturbation test",
+  "[    3.2s] P4 dropped per-block max dQ (chi units): train max=0.024, test max=35.952; all-blocks train=0.029; positive control kept-mode dq_train=1684.1",
+  "[    3.2s] mechanism probes @ mid budget (main instance)",
+  "[   11.0s] probe[main] dense-A test: {'line_jump': 4.3, 'patch_point': 0.96, 'averages': 0.71} (489B, M*=411)",
+  "[   11.0s] probe[main] dense-B test: {'smooth_window': 1.62, 'patch_point': 0.92, 'averages': 3.19} (396B)",
+  "[   11.0s] probe[main] joint-drop-B train: {'smooth_window': 0.43, 'patch_point': 0.18, 'averages': 3.85} test: {'smooth_window': 11.95, 'patch_point': 6.87, 'averages': 3.85} (320B)",
+  "[   11.0s] probe[main] joint-drop-B+scaled-ladder train: {'smooth_window': 0.06, 'patch_point': 0.03, 'averages': 0.42} test: {'smooth_window': 4.55, 'patch_point': 2.03, 'averages': 0.42} (467B)",
+  "[   11.0s] stability re-run: phase shift + fresh QoI jitter, mid budget only",
+  "[   11.0s] === instance stability: phase=0.02, seed=1 ===",
+  "[   11.3s] chi floors A: {'line_jump': 0.01297, 'patch_point': 0.002034, 'averages': 0.006555}",
+  "[   11.3s] chi floors B: {'smooth_window': 0.00152, 'patch_point': 0.002057, 'averages': 0.003961}",
+  "[   13.9s] R4 codec: goal A candidate modes=403, goal B=768",
+  "[   14.1s] B=  2560: A-test max-fam err (chi units): R1=   105.33 R2=    40.40 R3=     9.11 R4=     7.61 | B-test: R3=     5.76 R4B=    16.96",
+  "[   14.1s] mechanism probes @ mid budget (stability instance)",
+  "[   23.3s] probe[stability] dense-A test: {'line_jump': 4.41, 'patch_point': 0.81, 'averages': 0.61} (496B, M*=418)",
+  "[   23.3s] probe[stability] dense-B test: {'smooth_window': 0.8, 'patch_point': 0.35, 'averages': 2.26} (397B)",
+  "[   23.3s] probe[stability] joint-drop-B train: {'smooth_window': 0.32, 'patch_point': 0.18, 'averages': 2.98} test: {'smooth_window': 7.61, 'patch_point': 32.97, 'averages': 2.98} (307B)",
+  "[   23.3s] probe[stability] joint-drop-B+scaled-ladder train: {'smooth_window': 0.06, 'patch_point': 0.02, 'averages': 0.18} test: {'smooth_window': 1.9, 'patch_point': 2.26, 'averages': 0.18} (451B)"
+ ]
+}

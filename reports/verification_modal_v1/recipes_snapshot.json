@@ -1,0 +1,150 @@
+[
+  {
+    "argv": [
+      "python",
+      "scripts/kernel_certificate_replay_v2.py",
+      "--trusted-key",
+      "reports/kernel_certificates_v1/public_key.pem"
+    ],
+    "cwd": ".",
+    "expected": {
+      "exit_code": 0,
+      "json_equal": {
+        "/gates/all_rows_match": true,
+        "/gates/capture_own_gates": true,
+        "/gates/complete_inventory": true,
+        "/gates/original_source_identity": true
+      },
+      "json_length": {
+        "/rows": 20
+      },
+      "report": "reports/kernel_certificate_replay_v2/verification.json"
+    },
+    "key": "src/kernel_engine/certified_kernels/kernel_matrix_capture_v1.py",
+    "note_sha256": "29ed123cb3b250dcf09a55604e9db1add9deb1d52871f84f76ec65e7f022d5ff",
+    "runtime": "modal",
+    "sources": {
+      "src/kernel_engine/certified_kernels/kernel_matrix_capture_v1.py": "87a8fa2d294438e105aaccbff318d67fc36fa71fc7f4006b1e7fba9127c68641"
+    }
+  },
+  {
+    "argv": [
+      "python",
+      "src/kernel_engine/certified_kernels/kernel_matrix_report_v1.py",
+      "reports/kernel_matrix_v1/l4",
+      "reports/kernel_matrix_v1/a10g",
+      "reports/kernel_matrix_v1/h100"
+    ],
+    "cwd": ".",
+    "expected": {
+      "exit_code": 0,
+      "json_equal": {
+        "/gates/all_own_numerical_gates": true,
+        "/gates/cross_sku_exact": true,
+        "/gates/full_coverage": true,
+        "/gates/source_and_version_identity": true,
+        "/gates/three_distinct_skus": true
+      },
+      "json_length": {
+        "/rows": 20
+      },
+      "report": "reports/kernel_matrix_v1/matrix.json"
+    },
+    "key": "src/kernel_engine/certified_kernels/kernel_matrix_report_v1.py",
+    "note_sha256": "2d9e09c5b48002625e25f0d455ddf6f436f106799b3c4d5fb6fb5f847fd3a46e",
+    "runtime": "cpu",
+    "sources": {
+      "src/kernel_engine/certified_kernels/kernel_matrix_report_v1.py": "af97d2e6e217b7463d517eeee045820a78a3f976ed5896dd0253bc5b00094209"
+    }
+  },
+  {
+    "argv": [
+      "python",
+      "src/kernel_engine/certified_kernels/chunkable_stability_v1.py"
+    ],
+    "cwd": ".",
+    "expected": {
+      "exit_code": 0,
+      "json_equal": {
+        "/gates/all_finite": true,
+        "/gates/exact_repeat": true,
+        "/gates/expansive_refusal": true,
+        "/gates/measured_blowup": true,
+        "/gates/nonfinite_refusal": true,
+        "/gates/nonlinear_refusal": true,
+        "/gates/nonnormal_refusal": true,
+        "/gates/stable_control": true,
+        "/gates/unknown_refusal": true
+      },
+      "json_length": {
+        "/cases": 12
+      },
+      "report": "reports/chunkable_stability_v1.json"
+    },
+    "key": "src/kernel_engine/certified_kernels/chunkable_stability_v1.py",
+    "note_sha256": "747ba4e24b97a1fa5ff9a1e332758eeb7e80b93583a4f36f4b928b941c964b81",
+    "runtime": "cpu",
+    "sources": {
+      "src/kernel_engine/certified_kernels/chunkable_stability_v1.py": "cef4a95e1f1d1c1fb4329503e2ad2885be5aad51a8f32fb61f0e5f0d11e6fce1"
+    }
+  },
+  {
+    "argv": [
+      "python",
+      "scripts/verify_roundoff_artifact_v1.py"
+    ],
+    "cwd": ".",
+    "expected": {
+      "exit_code": 0,
+      "json_equal": {
+        "/gates/coverage": true,
+        "/gates/error_blowup": true,
+        "/gates/exact_full_repeats": true,
+        "/gates/expansive_eigenvalue": true,
+        "/gates/stable_control": true,
+        "/gates/stable_roundoff_failure_retained": true,
+        "/gates/syntax_accepts_numeric_refuses": true,
+        "/legs/0/rows/7/max_output_error": 437.3193359375
+      },
+      "json_length": {
+        "/legs": 2,
+        "/legs/0/rows": 8,
+        "/legs/1/rows": 8
+      },
+      "report": "reports/chunkable_roundoff_guard_v2.json"
+    },
+    "key": "src/kernel_engine/certified_kernels/chunkable_roundoff_guard_v2.py",
+    "note_sha256": "663e8bfad6f80ac68c8638e7697ac8edfe4a154d84aa67b8d51ae1c764a3b593",
+    "runtime": "cpu",
+    "sources": {
+      "src/kernel_engine/certified_kernels/chunkable_roundoff_guard_v2.py": "49c878897805612ddc5ad4646dd5ea4831a6a3a08a1e080e04b82b6413f92040"
+    }
+  },
+  {
+    "argv": [
+      "python",
+      "scripts/kernel_float_provenance_v1.py"
+    ],
+    "cwd": ".",
+    "expected": {
+      "exit_code": 0,
+      "json_equal": {
+        "/compared_rows": 20,
+        "/gates/complete_pair_inventory": true,
+        "/gates/matrix_integrity": true,
+        "/gates/no_unattributed_difference": true,
+        "/pair_comparisons": 120
+      },
+      "json_length": {
+        "/differences": 0
+      },
+      "report": "reports/kernel_float_provenance_v1/catalogue.json"
+    },
+    "key": "scripts/kernel_float_provenance_v1.py",
+    "note_sha256": "5db86a39e75c68f10bcdeb3690f7ad29d90f5a886809c99ca04890e3530805de",
+    "runtime": "cpu",
+    "sources": {
+      "scripts/kernel_float_provenance_v1.py": "7adfda7d5b6ae46bb21f6f28b58f6b8401e0afd45ca4a94f859ab3ea76d4b6c8"
+    }
+  }
+]

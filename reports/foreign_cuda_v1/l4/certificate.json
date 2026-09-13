@@ -1,0 +1,306 @@
+{
+  "cases": [
+    {
+      "case": "add",
+      "guard_intact": true,
+      "input_hashes": [
+        "5b90545ff89d06bf232b204f5ae9d050d9b77e4588a408d5314afa2a55933750",
+        "6addc9b2f03e4c346c5afdb2a53b768386d744661d11b91afcd949d0a18a4abf"
+      ],
+      "n": 0,
+      "oracle_exact": true,
+      "output_sha256": "349d65e9ba1de7b0a13f9a3eadcc5b0202f15d6008fe9477f2a7b80f6194b20f",
+      "reference_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "repeat_exact": true
+    },
+    {
+      "case": "zero",
+      "guard_intact": true,
+      "input_hashes": [
+        "5b90545ff89d06bf232b204f5ae9d050d9b77e4588a408d5314afa2a55933750",
+        "38723a2e5e8a17aa7950dc008209944e898f69a7bd10a23c839d341e935fd5ca"
+      ],
+      "n": 0,
+      "oracle_exact": true,
+      "output_sha256": "349d65e9ba1de7b0a13f9a3eadcc5b0202f15d6008fe9477f2a7b80f6194b20f",
+      "reference_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "repeat_exact": true
+    },
+    {
+      "case": "cancel",
+      "guard_intact": true,
+      "input_hashes": [
+        "5b90545ff89d06bf232b204f5ae9d050d9b77e4588a408d5314afa2a55933750",
+        "389e4174d81ddbb6f784efe0f40eeeb57c341a3ff28535bbc885d0d598d5a477"
+      ],
+      "n": 0,
+      "oracle_exact": true,
+      "output_sha256": "349d65e9ba1de7b0a13f9a3eadcc5b0202f15d6008fe9477f2a7b80f6194b20f",
+      "reference_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "repeat_exact": true
+    },
+    {
+      "case": "add",
+      "guard_intact": true,
+      "input_hashes": [
+        "a110ab5d1cf7e5c2e9d7c4d8eba31f80f4db53ec2987f3ff1f9aaa3fb2d36f31",
+        "f25451e05f9637ee0e0cfb01aa74d1cf665f30d0627c49663be2904ba57ad9ac"
+      ],
+      "n": 1,
+      "oracle_exact": true,
+      "output_sha256": "ed9fccbdab80cc47792711c50344dfd78c1295ed00e2978c1c69d2e4769609ef",
+      "reference_sha256": "3cf1c3c6d50ccb31695071d93f13f6b51a5e15618377e7203a460ecae3ebf5bb",
+      "repeat_exact": true
+    },
+    {
+      "case": "zero",
+      "guard_intact": true,
+      "input_hashes": [
+        "a110ab5d1cf7e5c2e9d7c4d8eba31f80f4db53ec2987f3ff1f9aaa3fb2d36f31",
+        "115bad14f1c9f2c027a84de21b107015722cb76be8d0abf3760ad8e00d6c24a5"
+      ],
+      "n": 1,
+      "oracle_exact": true,
+      "output_sha256": "ed518511fe0f1c12b8732dc293becf206ab963d65867f39c700d04b3417a1239",
+      "reference_sha256": "8afb0de7ad2658f403a54d26d2313a025d1690acf5917a749ecbeb6a475b5934",
+      "repeat_exact": true
+    },
+    {
+      "case": "cancel",
+      "guard_intact": true,
+      "input_hashes": [
+        "a110ab5d1cf7e5c2e9d7c4d8eba31f80f4db53ec2987f3ff1f9aaa3fb2d36f31",
+        "fb4e4e58adf9cf504c76f19e4c891d63ae47c9077e69549a14f459a72134a36f"
+      ],
+      "n": 1,
+      "oracle_exact": true,
+      "output_sha256": "62b1f46c811479279cc780d97c07d348f64cee544f53be9053564a2870af19ff",
+      "reference_sha256": "df3f619804a92fdb4057192dc43dd748ea778adc52bc498ce80524c014b81119",
+      "repeat_exact": true
+    },
+    {
+      "case": "add",
+      "guard_intact": true,
+      "input_hashes": [
+        "04b4c36d79ade4a7e0e407e0307e01b58e67101459318b62c22173f8e2823ac5",
+        "6bd7aa27d733f535642bdb8c184ce951c7f985e0a9855f5d531e72c4f4f0a1d4"
+      ],
+      "n": 255,
+      "oracle_exact": true,
+      "output_sha256": "ee0bbbc3131b75df5a8802c6132d6c0ed7544a8544bd13f4aa2689fa49851022",
+      "reference_sha256": "7564468e1910508cac3b376026b4518b0e4deff9199a97a8703af84d665d3b40",
+      "repeat_exact": true
+    },
+    {
+      "case": "zero",
+      "guard_intact": true,
+      "input_hashes": [
+        "04b4c36d79ade4a7e0e407e0307e01b58e67101459318b62c22173f8e2823ac5",
+        "509607d81ec2cc01c8776f0ef9a4adf126f8a4c2f021838d350f48d6e5a8d19d"
+      ],
+      "n": 255,
+      "oracle_exact": true,
+      "output_sha256": "a89f55c55374aa0cc86ea8774c36587c839900a7ad47a2eb6c9149728d060f6f",
+      "reference_sha256": "99ab0ab8b3669b15aaa5f62ded6ed410bcc4943304501e0242f18ac89185ef10",
+      "repeat_exact": true
+    },
+    {
+      "case": "cancel",
+      "guard_intact": true,
+      "input_hashes": [
+        "04b4c36d79ade4a7e0e407e0307e01b58e67101459318b62c22173f8e2823ac5",
+        "c446f430c1d2eb4516c68d0f34261d8f6b48571452aac4e23a8f3a39f4b86615"
+      ],
+      "n": 255,
+      "oracle_exact": true,
+      "output_sha256": "0963a80ddfc86bbb805f58b9f433dbce88d63348da4a832a494d1ba9acf72b97",
+      "reference_sha256": "1cfc9251644a358213d808b8088517b87a9f024bdf46198a3ed692b98b7373a7",
+      "repeat_exact": true
+    },
+    {
+      "case": "add",
+      "guard_intact": true,
+      "input_hashes": [
+        "507f7fdae774922e9125cf55cbce7729344bce3afbcb0116385a83aadd618e93",
+        "40e7b0975264ed587c41f5221ce687b8e6c3415f5d80fc0b6403dbdf3b303a50"
+      ],
+      "n": 256,
+      "oracle_exact": true,
+      "output_sha256": "1c2f11a2767cdd0451cd1cbb86d1c1b84f690b869e457c4e0c4f6742a7a52d84",
+      "reference_sha256": "b6ddf0b8e6724289b0336a020077a722b462140580eb664dfe0279b0fda8f528",
+      "repeat_exact": true
+    },
+    {
+      "case": "zero",
+      "guard_intact": true,
+      "input_hashes": [
+        "507f7fdae774922e9125cf55cbce7729344bce3afbcb0116385a83aadd618e93",
+        "4cf9816ed1062189ff0c8d427fba5e912cc68fc9af76cf7f08fd255977de3b33"
+      ],
+      "n": 256,
+      "oracle_exact": true,
+      "output_sha256": "728f481b9325cd93631722fa87c48a568a051257f0e2f578681e2438d526fd6b",
+      "reference_sha256": "4a07301952b857c1d7961be4480e2d245dfe7cc9f4d492bee28357aaac8fd23d",
+      "repeat_exact": true
+    },
+    {
+      "case": "cancel",
+      "guard_intact": true,
+      "input_hashes": [
+        "507f7fdae774922e9125cf55cbce7729344bce3afbcb0116385a83aadd618e93",
+        "58a77e6693e453b49af8ca6f0f430b5e350c1ccccca965aac508e027f7313448"
+      ],
+      "n": 256,
+      "oracle_exact": true,
+      "output_sha256": "0a50410d0cbefb8e93c8849bc06d4db51135bb8648f4d8ad97c70a5f62217607",
+      "reference_sha256": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+      "repeat_exact": true
+    },
+    {
+      "case": "add",
+      "guard_intact": true,
+      "input_hashes": [
+        "44bb073527f90ebcc4edbe684f52a67a3758a068642dfa3bc9c0b6effae1c7d7",
+        "97e8d2c37d0403ef84b53ee0372370f51db01ce57c9c0e997b5cf5d411a65da4"
+      ],
+      "n": 257,
+      "oracle_exact": true,
+      "output_sha256": "3784ec72a12cbdca2ed0de70df17d5d89f3ca2b53846a5d13b1801386cc22c40",
+      "reference_sha256": "6397ed432038427131cd6f1f09bd88ced674d11fbdd5aab1396d54e8a792e55c",
+      "repeat_exact": true
+    },
+    {
+      "case": "zero",
+      "guard_intact": true,
+      "input_hashes": [
+        "44bb073527f90ebcc4edbe684f52a67a3758a068642dfa3bc9c0b6effae1c7d7",
+        "6bed6ecd7fb8a2ef5778c39309a072b28fd839f212be56b3537c590866129ce7"
+      ],
+      "n": 257,
+      "oracle_exact": true,
+      "output_sha256": "d4274e5bf0795b6127083eb11cf22e8045348df95bf0ff438c574e389db764a5",
+      "reference_sha256": "066b1adb78b9852a660adfa9a1a3a74f1a6e176280846aa033186593396a1c48",
+      "repeat_exact": true
+    },
+    {
+      "case": "cancel",
+      "guard_intact": true,
+      "input_hashes": [
+        "44bb073527f90ebcc4edbe684f52a67a3758a068642dfa3bc9c0b6effae1c7d7",
+        "a67604a89f95515614713cc65a66362c7ab4f6a5048594a6b767a001c431560a"
+      ],
+      "n": 257,
+      "oracle_exact": true,
+      "output_sha256": "8fe6d9cffdfd86fac130f7866bedf5309d283a50f613d3fb9b6ed4d3285fac06",
+      "reference_sha256": "82823076344d2111f1047052202daf8028f30b99b902e4aa20169338762b6ef3",
+      "repeat_exact": true
+    },
+    {
+      "case": "add",
+      "guard_intact": true,
+      "input_hashes": [
+        "773ba197fd494a670b5953864ac48caf6222d1697a2d31a77f6dd62043196da9",
+        "f4204cb36377bed34f13e8fbc0b786b37e8ad36ba9f116bc2fd5fc3257c6ba17"
+      ],
+      "n": 65539,
+      "oracle_exact": true,
+      "output_sha256": "0abdc314fc02b51bdd17716e412fbef141b2b8c50f6b6a0d4f22a413f50c7453",
+      "reference_sha256": "6e2d954f84d655c73517db63fabe4257149071bb79d73c5644952b5a8cc317e3",
+      "repeat_exact": true
+    },
+    {
+      "case": "zero",
+      "guard_intact": true,
+      "input_hashes": [
+        "773ba197fd494a670b5953864ac48caf6222d1697a2d31a77f6dd62043196da9",
+        "a136914966884631f67804f7deb43431233790852b3bee6cb605a1e6f7524a45"
+      ],
+      "n": 65539,
+      "oracle_exact": true,
+      "output_sha256": "1c33a9b6c98480529fe900567d823a0f34c7c18712721d46245605c29151ced5",
+      "reference_sha256": "aa0ad1059d5fd230b457ae441535b0d2365e1cd2c7e7b1a9cfe696e1cf3b7d46",
+      "repeat_exact": true
+    },
+    {
+      "case": "cancel",
+      "guard_intact": true,
+      "input_hashes": [
+        "773ba197fd494a670b5953864ac48caf6222d1697a2d31a77f6dd62043196da9",
+        "63c1afc9a51d127863b7454975d5ca8e4eca456cd988d7cae25de52d6eb268d7"
+      ],
+      "n": 65539,
+      "oracle_exact": true,
+      "output_sha256": "ea530ed998bbc99619343b180e848f90d0deae0c11d993761f325765678d3670",
+      "reference_sha256": "3921bb5e9c025ab60ba5e9acac5a46030d3c50b7cbba0f0a95acae456e427637",
+      "repeat_exact": true
+    },
+    {
+      "case": "add",
+      "guard_intact": true,
+      "input_hashes": [
+        "bb7d0dc5bcd7cacce9878ee73e3d49de09c39177f922dc5c14a845dc58cb9637",
+        "3e16270b1eb688f6bc0c0c528b1154f8931f2759db34b86600bba7acf82a578c"
+      ],
+      "n": 16777219,
+      "oracle_exact": true,
+      "output_sha256": "3259c4c6c2dcb15b0bb812ab50dda3c31dcf7219585957d48ccc357cd6d64936",
+      "reference_sha256": "e033f8759294c313e38fdc854320abcb3ca8340a98ea56b88fd8877b66e67bc3",
+      "repeat_exact": true
+    },
+    {
+      "case": "zero",
+      "guard_intact": true,
+      "input_hashes": [
+        "bb7d0dc5bcd7cacce9878ee73e3d49de09c39177f922dc5c14a845dc58cb9637",
+        "8f001d63f808bd2501e2e95bc2d61373cb3d8d59c384502cfb048481644921a8"
+      ],
+      "n": 16777219,
+      "oracle_exact": true,
+      "output_sha256": "2aaaabb9d8cbcf06e334c99fa4bf28bf4a792393e98f0dae88bc942fc484022a",
+      "reference_sha256": "888ffbb20140e62b25f3c1c5ea681ed7f8f1d1db6b6f9bef434b460efd827773",
+      "repeat_exact": true
+    },
+    {
+      "case": "cancel",
+      "guard_intact": true,
+      "input_hashes": [
+        "bb7d0dc5bcd7cacce9878ee73e3d49de09c39177f922dc5c14a845dc58cb9637",
+        "983dc276f647b3d3e3f0f5c9a042932bc5de271f47c7e3c15c480d65067ee31d"
+      ],
+      "n": 16777219,
+      "oracle_exact": true,
+      "output_sha256": "18586bd1622649a8c30f8740408ca9b8d145806ebdd606eb47e835d01deb9f13",
+      "reference_sha256": "8efb778c02f1351a084bfc9af7c33aa4173609ccb24900cb9fc73e1fef7add53",
+      "repeat_exact": true
+    }
+  ],
+  "compile_flags": [
+    "-O3",
+    "--ftz=false",
+    "--fmad=false",
+    "-arch=native",
+    "-shared",
+    "-Xcompiler",
+    "-fPIC"
+  ],
+  "domain": "Finite fp32 vectors including signed zero, subnormal and cancellation controls; tested sizes only",
+  "gates": {
+    "G1_reference": true,
+    "G2_repeat": true,
+    "G3_null_and_bounds": true
+  },
+  "harness_sha256": "74e33ba318cc7f3259f3b98996d795c0c7f9ca00fd1fabfa93e48e26fc2484c5",
+  "kernel": "NVIDIA cuda-samples vecAdd",
+  "provenance": {
+    "commit": "5443602d89ed99aede2e4b7bf329daddeadb320e",
+    "extraction": "Original copyright/license header and verbatim vecAdd kernel; sample host omitted.",
+    "kernel_sha256": "9516a79e8d04880fd7e868f8171e72bda31daf071efdad4db2f692f4fe94e690",
+    "repository": "https://github.com/NVIDIA/cuda-samples",
+    "source_sha256": "e02d4a73913aff50976cd9ed5e54d57349b0361d01f80446ecebcd9c71cfc9ae",
+    "url": "https://raw.githubusercontent.com/NVIDIA/cuda-samples/5443602d89ed99aede2e4b7bf329daddeadb320e/cpp/0_Introduction/vectorAdd/vectorAdd.cu",
+    "vendored_sha256": "e25d2df85e8e1a50c1205c24e6657942c3159737c07ed8dbba654cd87f95415f"
+  },
+  "runner_sha256": "e11448222c9da61bde9a199886926e1c2f72bd161159e8205bc2709181c68e16",
+  "schema": 1,
+  "status": "VERIFIED-FRESH"
+}

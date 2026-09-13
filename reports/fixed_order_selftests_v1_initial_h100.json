@@ -1,0 +1,14 @@
+{
+  "execution": {
+    "gpu": "NVIDIA H100 80GB HBM3",
+    "driver": "580.95.05",
+    "warp": "1.17.0",
+    "provider": "Modal",
+    "date": "2026-09-13"
+  },
+  "returncode": 1,
+  "completed_selftest_slots": 0,
+  "failure": "deterministic scatter overflow in the frozen float sensitivity diagnostic",
+  "site": "wave_fdtd/xray_tomography_sigma:sensitivity",
+  "gates_passed": false
+}

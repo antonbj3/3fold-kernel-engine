@@ -1,0 +1,103 @@
+{
+  "legs": [
+    [
+      {
+        "side": 512,
+        "payload_bytes": 18874368,
+        "modes": {
+          "direct": {
+            "event_ms": 0.043110398451487224,
+            "wall_ms": 0.04390979999998971,
+            "sha256": "9ae83957e76b888128ce424890e57d005465f05df4f37f167e3c338da08c835c",
+            "exact_cpu": true,
+            "exact_initial": true
+          },
+          "graph": {
+            "event_ms": 0.03461120128631592,
+            "wall_ms": 0.03547656666664049,
+            "sha256": "9ae83957e76b888128ce424890e57d005465f05df4f37f167e3c338da08c835c",
+            "exact_cpu": true,
+            "exact_initial": true
+          }
+        },
+        "capture_ms": 1.6172650000001454
+      },
+      {
+        "side": 1024,
+        "payload_bytes": 75497472,
+        "modes": {
+          "direct": {
+            "event_ms": 0.34269866943359373,
+            "wall_ms": 0.3437254666666334,
+            "sha256": "0eea2337443e647620f7994fa3b9b6fd61e19e107a82c8c30e264f2b0e1483cc",
+            "exact_cpu": true,
+            "exact_initial": true
+          },
+          "graph": {
+            "event_ms": 0.351641591389974,
+            "wall_ms": 0.3525796666666636,
+            "sha256": "0eea2337443e647620f7994fa3b9b6fd61e19e107a82c8c30e264f2b0e1483cc",
+            "exact_cpu": true,
+            "exact_initial": true
+          }
+        },
+        "capture_ms": 1.7219730000004319
+      }
+    ],
+    [
+      {
+        "side": 512,
+        "payload_bytes": 18874368,
+        "modes": {
+          "direct": {
+            "event_ms": 0.043928531805674235,
+            "wall_ms": 0.04471326666669976,
+            "sha256": "9ae83957e76b888128ce424890e57d005465f05df4f37f167e3c338da08c835c",
+            "exact_cpu": true,
+            "exact_initial": true
+          },
+          "graph": {
+            "event_ms": 0.03655680020650228,
+            "wall_ms": 0.03763809999999997,
+            "sha256": "9ae83957e76b888128ce424890e57d005465f05df4f37f167e3c338da08c835c",
+            "exact_cpu": true,
+            "exact_initial": true
+          }
+        },
+        "capture_ms": 1.5954270000015924
+      },
+      {
+        "side": 1024,
+        "payload_bytes": 75497472,
+        "modes": {
+          "direct": {
+            "event_ms": 0.3437909444173177,
+            "wall_ms": 0.3447209999999738,
+            "sha256": "0eea2337443e647620f7994fa3b9b6fd61e19e107a82c8c30e264f2b0e1483cc",
+            "exact_cpu": true,
+            "exact_initial": true
+          },
+          "graph": {
+            "event_ms": 0.35256319046020507,
+            "wall_ms": 0.3537070666666864,
+            "sha256": "0eea2337443e647620f7994fa3b9b6fd61e19e107a82c8c30e264f2b0e1483cc",
+            "exact_cpu": true,
+            "exact_initial": true
+          }
+        },
+        "capture_ms": 1.6757969999972033
+      }
+    ]
+  ],
+  "gates": {
+    "all_outputs_exact": true,
+    "exact_repeats": true,
+    "finite_positive_times": true
+  },
+  "execution": {
+    "service": "Modal",
+    "gpu": "L4",
+    "warp": "1.17.0",
+    "stamp": "20260913T070616Z"
+  }
+}

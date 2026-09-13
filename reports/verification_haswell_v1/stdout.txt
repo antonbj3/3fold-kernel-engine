@@ -1,0 +1,6 @@
+python scripts/verify_declared_v1.py --runtime modal
+src/kernel_engine/certified_kernels/kernel_matrix_capture_v1.py PASS
+src/kernel_engine/certified_kernels/kernel_matrix_report_v1.py PASS
+src/kernel_engine/certified_kernels/chunkable_stability_v1.py PASS
+src/kernel_engine/certified_kernels/chunkable_roundoff_guard_v2.py PASS
+scripts/kernel_float_provenance_v1.py PASS

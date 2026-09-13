@@ -1,0 +1,56 @@
+{
+  "legs": [
+    [
+      {
+        "side": 512,
+        "payload_bytes": 18874368,
+        "event_ms": 0.04334933360417684,
+        "wall_ms": 0.04422413333333708,
+        "payload_GB_per_s": 435.40157208279203,
+        "two_launch_identity": true,
+        "exact_cpu_reference": true,
+        "sha256": "9ae83957e76b888128ce424890e57d005465f05df4f37f167e3c338da08c835c"
+      },
+      {
+        "side": 1024,
+        "payload_bytes": 75497472,
+        "event_ms": 0.34836158752441404,
+        "wall_ms": 0.3492390333333854,
+        "payload_GB_per_s": 216.72157523598653,
+        "two_launch_identity": true,
+        "exact_cpu_reference": true,
+        "sha256": "0eea2337443e647620f7994fa3b9b6fd61e19e107a82c8c30e264f2b0e1483cc"
+      }
+    ],
+    [
+      {
+        "side": 512,
+        "payload_bytes": 18874368,
+        "event_ms": 0.04318079948425293,
+        "wall_ms": 0.04399960000007752,
+        "payload_GB_per_s": 437.1009389690216,
+        "two_launch_identity": true,
+        "exact_cpu_reference": true,
+        "sha256": "9ae83957e76b888128ce424890e57d005465f05df4f37f167e3c338da08c835c"
+      },
+      {
+        "side": 1024,
+        "payload_bytes": 75497472,
+        "event_ms": 0.3493173281351725,
+        "wall_ms": 0.3501740666666346,
+        "payload_GB_per_s": 216.12861979404968,
+        "two_launch_identity": true,
+        "exact_cpu_reference": true,
+        "sha256": "0eea2337443e647620f7994fa3b9b6fd61e19e107a82c8c30e264f2b0e1483cc"
+      }
+    ]
+  ],
+  "gates": {
+    "two_worker_identity": true,
+    "exact_cpu_reference": true,
+    "two_launch_identity": true
+  },
+  "warm": 10,
+  "timed": 30,
+  "byte_model": "population read+write only; excludes mask/direction reads and cache effects"
+}

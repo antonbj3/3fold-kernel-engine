@@ -1,0 +1,460 @@
+{
+  "arrays_per_leg": 56,
+  "comparator_sha256": "8d5f9b67e03031445b1443a527a9023ce39828ce016a51eda52059d4a8be5f80",
+  "gates": {
+    "complete_arrays": true,
+    "fixed_builds_within_hosts": true,
+    "fixed_endpoint_operands": true,
+    "matched_dispatch_crosshost_exact": true,
+    "native_difference_retained": true,
+    "numpy_switch_isolates_forcing": true,
+    "scipy_binary_shared_across_hosts": true,
+    "scipy_switch_isolates_solves": true
+  },
+  "independent_workers_per_host": 8,
+  "matched_dispatch_arrays": 56,
+  "rows": [
+    {
+      "arrays_differing_from_local": 0,
+      "case": "native_native",
+      "environment": {
+        "libraries": {
+          "numpy": {
+            "blas": {
+              "name": "scipy-openblas",
+              "version": "0.3.34.106.0"
+            },
+            "version": "2.5.3"
+          },
+          "scipy": {
+            "blas": {
+              "name": "scipy-openblas",
+              "version": "0.3.31.dev"
+            },
+            "version": "1.18.1"
+          }
+        },
+        "machine": "x86_64",
+        "python": "3.13.11"
+      },
+      "error": 437.3193359375,
+      "fixed_endpoint": [
+        [
+          -101.71659088134766
+        ]
+      ],
+      "fixed_forcing": [
+        [
+          -7.450580596923828e-09
+        ]
+      ],
+      "host": "local",
+      "libraries": {
+        "numpy": {
+          "architecture": "Haswell",
+          "binary_sha256": "432e1c1739731468ba305771af96773939e43016643e2d630f58cb45b6670e96",
+          "num_threads": 1,
+          "version": "0.3.34.106.0"
+        },
+        "scipy": {
+          "architecture": "Haswell",
+          "binary_sha256": "2a5b4c1a6311873c59132b2ceaaf3c26258a17350b7cd27ea8782a47e3322981",
+          "num_threads": 1,
+          "version": "0.3.31.dev"
+        }
+      },
+      "own_endpoint": [
+        [
+          0.0
+        ]
+      ]
+    },
+    {
+      "arrays_differing_from_local": 0,
+      "case": "Haswell_native",
+      "environment": {
+        "libraries": {
+          "numpy": {
+            "blas": {
+              "name": "scipy-openblas",
+              "version": "0.3.34.106.0"
+            },
+            "version": "2.5.3"
+          },
+          "scipy": {
+            "blas": {
+              "name": "scipy-openblas",
+              "version": "0.3.31.dev"
+            },
+            "version": "1.18.1"
+          }
+        },
+        "machine": "x86_64",
+        "python": "3.13.11"
+      },
+      "error": 437.3193359375,
+      "fixed_endpoint": [
+        [
+          -101.71659088134766
+        ]
+      ],
+      "fixed_forcing": [
+        [
+          -7.450580596923828e-09
+        ]
+      ],
+      "host": "local",
+      "libraries": {
+        "numpy": {
+          "architecture": "Haswell",
+          "binary_sha256": "432e1c1739731468ba305771af96773939e43016643e2d630f58cb45b6670e96",
+          "num_threads": 1,
+          "version": "0.3.34.106.0"
+        },
+        "scipy": {
+          "architecture": "Haswell",
+          "binary_sha256": "2a5b4c1a6311873c59132b2ceaaf3c26258a17350b7cd27ea8782a47e3322981",
+          "num_threads": 1,
+          "version": "0.3.31.dev"
+        }
+      },
+      "own_endpoint": [
+        [
+          0.0
+        ]
+      ]
+    },
+    {
+      "arrays_differing_from_local": 0,
+      "case": "native_Haswell",
+      "environment": {
+        "libraries": {
+          "numpy": {
+            "blas": {
+              "name": "scipy-openblas",
+              "version": "0.3.34.106.0"
+            },
+            "version": "2.5.3"
+          },
+          "scipy": {
+            "blas": {
+              "name": "scipy-openblas",
+              "version": "0.3.31.dev"
+            },
+            "version": "1.18.1"
+          }
+        },
+        "machine": "x86_64",
+        "python": "3.13.11"
+      },
+      "error": 437.3193359375,
+      "fixed_endpoint": [
+        [
+          -101.71659088134766
+        ]
+      ],
+      "fixed_forcing": [
+        [
+          -7.450580596923828e-09
+        ]
+      ],
+      "host": "local",
+      "libraries": {
+        "numpy": {
+          "architecture": "Haswell",
+          "binary_sha256": "432e1c1739731468ba305771af96773939e43016643e2d630f58cb45b6670e96",
+          "num_threads": 1,
+          "version": "0.3.34.106.0"
+        },
+        "scipy": {
+          "architecture": "Haswell",
+          "binary_sha256": "2a5b4c1a6311873c59132b2ceaaf3c26258a17350b7cd27ea8782a47e3322981",
+          "num_threads": 1,
+          "version": "0.3.31.dev"
+        }
+      },
+      "own_endpoint": [
+        [
+          0.0
+        ]
+      ]
+    },
+    {
+      "arrays_differing_from_local": 0,
+      "case": "Haswell_Haswell",
+      "environment": {
+        "libraries": {
+          "numpy": {
+            "blas": {
+              "name": "scipy-openblas",
+              "version": "0.3.34.106.0"
+            },
+            "version": "2.5.3"
+          },
+          "scipy": {
+            "blas": {
+              "name": "scipy-openblas",
+              "version": "0.3.31.dev"
+            },
+            "version": "1.18.1"
+          }
+        },
+        "machine": "x86_64",
+        "python": "3.13.11"
+      },
+      "error": 437.3193359375,
+      "fixed_endpoint": [
+        [
+          -101.71659088134766
+        ]
+      ],
+      "fixed_forcing": [
+        [
+          -7.450580596923828e-09
+        ]
+      ],
+      "host": "local",
+      "libraries": {
+        "numpy": {
+          "architecture": "Haswell",
+          "binary_sha256": "432e1c1739731468ba305771af96773939e43016643e2d630f58cb45b6670e96",
+          "num_threads": 1,
+          "version": "0.3.34.106.0"
+        },
+        "scipy": {
+          "architecture": "Haswell",
+          "binary_sha256": "2a5b4c1a6311873c59132b2ceaaf3c26258a17350b7cd27ea8782a47e3322981",
+          "num_threads": 1,
+          "version": "0.3.31.dev"
+        }
+      },
+      "own_endpoint": [
+        [
+          0.0
+        ]
+      ]
+    },
+    {
+      "arrays_differing_from_local": 12,
+      "case": "native_native",
+      "environment": {
+        "libraries": {
+          "numpy": {
+            "blas": {
+              "name": "scipy-openblas",
+              "version": "0.3.34.0.0"
+            },
+            "version": "2.5.2"
+          },
+          "scipy": {
+            "blas": {
+              "name": "scipy-openblas",
+              "version": "0.3.31.dev"
+            },
+            "version": "1.18.1"
+          }
+        },
+        "machine": "x86_64",
+        "python": "3.12.1"
+      },
+      "error": 600.667236328125,
+      "fixed_endpoint": [
+        [
+          101.71659088134766
+        ]
+      ],
+      "fixed_forcing": [
+        [
+          7.450580596923828e-09
+        ]
+      ],
+      "host": "cloud",
+      "libraries": {
+        "numpy": {
+          "architecture": "SkylakeX",
+          "binary_sha256": "6cad8d2ad994ddc43d2ccdb0fb5d9458373ff1b87ef7ff420f2f94406eb8f082",
+          "num_threads": 1,
+          "version": "0.3.34.0.0"
+        },
+        "scipy": {
+          "architecture": "SkylakeX",
+          "binary_sha256": "2a5b4c1a6311873c59132b2ceaaf3c26258a17350b7cd27ea8782a47e3322981",
+          "num_threads": 1,
+          "version": "0.3.31.dev"
+        }
+      },
+      "own_endpoint": [
+        [
+          101.71659088134766
+        ]
+      ]
+    },
+    {
+      "arrays_differing_from_local": 8,
+      "case": "Haswell_native",
+      "environment": {
+        "libraries": {
+          "numpy": {
+            "blas": {
+              "name": "scipy-openblas",
+              "version": "0.3.34.0.0"
+            },
+            "version": "2.5.2"
+          },
+          "scipy": {
+            "blas": {
+              "name": "scipy-openblas",
+              "version": "0.3.31.dev"
+            },
+            "version": "1.18.1"
+          }
+        },
+        "machine": "x86_64",
+        "python": "3.12.1"
+      },
+      "error": 600.667236328125,
+      "fixed_endpoint": [
+        [
+          -101.71659088134766
+        ]
+      ],
+      "fixed_forcing": [
+        [
+          -7.450580596923828e-09
+        ]
+      ],
+      "host": "cloud",
+      "libraries": {
+        "numpy": {
+          "architecture": "Haswell",
+          "binary_sha256": "6cad8d2ad994ddc43d2ccdb0fb5d9458373ff1b87ef7ff420f2f94406eb8f082",
+          "num_threads": 1,
+          "version": "0.3.34.0.0"
+        },
+        "scipy": {
+          "architecture": "SkylakeX",
+          "binary_sha256": "2a5b4c1a6311873c59132b2ceaaf3c26258a17350b7cd27ea8782a47e3322981",
+          "num_threads": 1,
+          "version": "0.3.31.dev"
+        }
+      },
+      "own_endpoint": [
+        [
+          -101.71659088134766
+        ]
+      ]
+    },
+    {
+      "arrays_differing_from_local": 8,
+      "case": "native_Haswell",
+      "environment": {
+        "libraries": {
+          "numpy": {
+            "blas": {
+              "name": "scipy-openblas",
+              "version": "0.3.34.0.0"
+            },
+            "version": "2.5.2"
+          },
+          "scipy": {
+            "blas": {
+              "name": "scipy-openblas",
+              "version": "0.3.31.dev"
+            },
+            "version": "1.18.1"
+          }
+        },
+        "machine": "x86_64",
+        "python": "3.12.1"
+      },
+      "error": 437.3193359375,
+      "fixed_endpoint": [
+        [
+          101.71659088134766
+        ]
+      ],
+      "fixed_forcing": [
+        [
+          7.450580596923828e-09
+        ]
+      ],
+      "host": "cloud",
+      "libraries": {
+        "numpy": {
+          "architecture": "SkylakeX",
+          "binary_sha256": "6cad8d2ad994ddc43d2ccdb0fb5d9458373ff1b87ef7ff420f2f94406eb8f082",
+          "num_threads": 1,
+          "version": "0.3.34.0.0"
+        },
+        "scipy": {
+          "architecture": "Haswell",
+          "binary_sha256": "2a5b4c1a6311873c59132b2ceaaf3c26258a17350b7cd27ea8782a47e3322981",
+          "num_threads": 1,
+          "version": "0.3.31.dev"
+        }
+      },
+      "own_endpoint": [
+        [
+          305.1497802734375
+        ]
+      ]
+    },
+    {
+      "arrays_differing_from_local": 0,
+      "case": "Haswell_Haswell",
+      "environment": {
+        "libraries": {
+          "numpy": {
+            "blas": {
+              "name": "scipy-openblas",
+              "version": "0.3.34.0.0"
+            },
+            "version": "2.5.2"
+          },
+          "scipy": {
+            "blas": {
+              "name": "scipy-openblas",
+              "version": "0.3.31.dev"
+            },
+            "version": "1.18.1"
+          }
+        },
+        "machine": "x86_64",
+        "python": "3.12.1"
+      },
+      "error": 437.3193359375,
+      "fixed_endpoint": [
+        [
+          -101.71659088134766
+        ]
+      ],
+      "fixed_forcing": [
+        [
+          -7.450580596923828e-09
+        ]
+      ],
+      "host": "cloud",
+      "libraries": {
+        "numpy": {
+          "architecture": "Haswell",
+          "binary_sha256": "6cad8d2ad994ddc43d2ccdb0fb5d9458373ff1b87ef7ff420f2f94406eb8f082",
+          "num_threads": 1,
+          "version": "0.3.34.0.0"
+        },
+        "scipy": {
+          "architecture": "Haswell",
+          "binary_sha256": "2a5b4c1a6311873c59132b2ceaaf3c26258a17350b7cd27ea8782a47e3322981",
+          "num_threads": 1,
+          "version": "0.3.31.dev"
+        }
+      },
+      "own_endpoint": [
+        [
+          0.0
+        ]
+      ]
+    }
+  ],
+  "scope": "Within-host library binaries and frozen inputs are fixed while actual NumPy/SciPy dispatch is varied separately. This establishes dispatch dependence for the captured fixture, not a unique instruction-level explanation or universal CPU determinism. Original native-environment failures remain unchanged.",
+  "status": "VERIFIED-FRESH"
+}

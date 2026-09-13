@@ -1,0 +1,86 @@
+{
+  "evidence": {
+    "gates": {
+      "nonempty_selected": true,
+      "selected_gates": true
+    },
+    "rows": [
+      {
+        "checks": {
+          "equal:/gates/all_own_numerical_gates": true,
+          "equal:/gates/cross_sku_exact": true,
+          "equal:/gates/full_coverage": true,
+          "equal:/gates/source_and_version_identity": true,
+          "equal:/gates/three_distinct_skus": true,
+          "exit_code": true,
+          "fresh_execution_evidence": true,
+          "length:/rows": true
+        },
+        "error": null,
+        "key": "src/kernel_engine/certified_kernels/kernel_matrix_report_v1.py",
+        "report_sha256": "cfc2a2d4ae2fc7c20614732c4bd157a7f9ba7a3756a9ad382b2154a152cce0cd",
+        "returncode": 0
+      },
+      {
+        "checks": {
+          "equal:/gates/all_finite": true,
+          "equal:/gates/exact_repeat": true,
+          "equal:/gates/expansive_refusal": true,
+          "equal:/gates/measured_blowup": true,
+          "equal:/gates/nonfinite_refusal": true,
+          "equal:/gates/nonlinear_refusal": true,
+          "equal:/gates/nonnormal_refusal": true,
+          "equal:/gates/stable_control": true,
+          "equal:/gates/unknown_refusal": true,
+          "exit_code": true,
+          "fresh_execution_evidence": true,
+          "length:/cases": true
+        },
+        "error": null,
+        "key": "src/kernel_engine/certified_kernels/chunkable_stability_v1.py",
+        "report_sha256": "ce37358adbef62d5caaefa95bc8d63ad94fa5cd222937c6576e39330f91b980c",
+        "returncode": 0
+      },
+      {
+        "checks": {
+          "equal:/gates/coverage": true,
+          "equal:/gates/error_blowup": true,
+          "equal:/gates/exact_full_repeats": true,
+          "equal:/gates/expansive_eigenvalue": true,
+          "equal:/gates/stable_control": true,
+          "equal:/gates/stable_roundoff_failure_retained": true,
+          "equal:/gates/syntax_accepts_numeric_refuses": true,
+          "equal:/legs/0/rows/7/max_output_error": true,
+          "exit_code": true,
+          "fresh_execution_evidence": true,
+          "length:/legs": true,
+          "length:/legs/0/rows": true,
+          "length:/legs/1/rows": true
+        },
+        "error": null,
+        "key": "src/kernel_engine/certified_kernels/chunkable_roundoff_guard_v2.py",
+        "report_sha256": "2a90d7c6a5cfd70570f1d92faeae142b42634db5d935d7d5a78677053d8d1cf6",
+        "returncode": 0
+      },
+      {
+        "checks": {
+          "equal:/compared_rows": true,
+          "equal:/gates/complete_pair_inventory": true,
+          "equal:/gates/matrix_integrity": true,
+          "equal:/gates/no_unattributed_difference": true,
+          "equal:/pair_comparisons": true,
+          "exit_code": true,
+          "fresh_execution_evidence": true,
+          "length:/differences": true
+        },
+        "error": null,
+        "key": "scripts/kernel_float_provenance_v1.py",
+        "report_sha256": "1b9b43a9b459a2ba4f528b0a156fd52f529a233ec1a2dc9b64e51cfb95e9ab36",
+        "returncode": 0
+      }
+    ]
+  },
+  "independent_numerical_reports_exact": true,
+  "scope": "Numerical reports and gates repeat exactly; pytest stdout timing text is diagnostic and may differ",
+  "verified_recipe_rows": 4
+}

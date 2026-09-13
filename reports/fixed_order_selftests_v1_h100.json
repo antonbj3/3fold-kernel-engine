@@ -1,0 +1,414 @@
+{
+  "sites": [
+    {
+      "module": "wave_fdtd/diff_wave_substrate",
+      "site": "focus_loss",
+      "float_delta": 2.384185791015625e-07,
+      "int64_delta": 0.0
+    },
+    {
+      "module": "wave_fdtd/diff_wave_3d",
+      "site": "energy",
+      "float_delta": 5.7220458984375e-06,
+      "int64_delta": 0.0
+    },
+    {
+      "module": "lbm/differentiable_flow_control",
+      "site": "track_loss",
+      "float_delta": 7.450580596923828e-09,
+      "int64_delta": 0.0
+    },
+    {
+      "module": "lbm/differentiable_flow_control",
+      "site": "probe_ux",
+      "float_delta": 0.0,
+      "int64_delta": 0.0
+    },
+    {
+      "module": "lbm/differentiable_lbm_probe",
+      "site": "objective",
+      "float_delta": 1.1920928955078125e-07,
+      "int64_delta": 0.0
+    },
+    {
+      "module": "lbm/differentiable_fsi_chain",
+      "site": "drag_force",
+      "float_delta": 7.152557373046875e-07,
+      "int64_delta": 0.0
+    },
+    {
+      "module": "lbm/lbm3d_immersed_boundary",
+      "site": "spread",
+      "float_delta": 5.820766091346741e-11,
+      "int64_delta": 0.0
+    },
+    {
+      "module": "wave_fdtd/xray_tomography_sigma",
+      "site": "sensitivity",
+      "float_delta": 1.52587890625e-05,
+      "int64_delta": 0.0
+    },
+    {
+      "module": "wave_fdtd/xray_tomography_sigma",
+      "site": "sq_resid",
+      "float_delta": 0.84375,
+      "int64_delta": 0.0
+    },
+    {
+      "module": "wave_fdtd/xray_3d_dda",
+      "site": "backproject",
+      "float_delta": 1.1920928955078125e-06,
+      "int64_delta": 0.0
+    }
+  ],
+  "selftests": [
+    {
+      "slot": "lbm/differentiable_flow_control",
+      "selected_module": "lbm/differentiable_flow_control_fixed64",
+      "legs": [
+        {
+          "slot": "lbm/differentiable_flow_control",
+          "selected_module": "lbm/differentiable_flow_control_fixed64",
+          "returncode": 0,
+          "exception_classes": [],
+          "normalized_text_sha256": "15c72f4629d4d8ee4b99cc6de8514435cc0b46c8cda8158ac3356c160cc80fc3",
+          "backward_calls": 51,
+          "finite": true,
+          "observed_bytes": 2855253840,
+          "gradient_arrays": 6273,
+          "array_count": 28269,
+          "full_records_artifact": "fixed_order_selftests_v1_h100.json.gz"
+        },
+        {
+          "slot": "lbm/differentiable_flow_control",
+          "selected_module": "lbm/differentiable_flow_control_fixed64",
+          "returncode": 0,
+          "exception_classes": [],
+          "normalized_text_sha256": "15c72f4629d4d8ee4b99cc6de8514435cc0b46c8cda8158ac3356c160cc80fc3",
+          "backward_calls": 51,
+          "finite": true,
+          "observed_bytes": 2855253840,
+          "gradient_arrays": 6273,
+          "array_count": 28269,
+          "full_records_artifact": "fixed_order_selftests_v1_h100.json.gz"
+        }
+      ],
+      "gates": {
+        "both_selftests_pass": true,
+        "no_runtime_exceptions": true,
+        "full_array_records_identical": true,
+        "full_text_identical": true,
+        "finite": true,
+        "arrays_observed": true,
+        "gradients_observed": true
+      }
+    },
+    {
+      "slot": "lbm/differentiable_lbm_probe",
+      "selected_module": "lbm/differentiable_lbm_probe",
+      "legs": [
+        {
+          "slot": "lbm/differentiable_lbm_probe",
+          "selected_module": "lbm/differentiable_lbm_probe",
+          "returncode": 0,
+          "exception_classes": [],
+          "normalized_text_sha256": "dd6b065222e1a44647df1e9cc384112626f463391d1aae922882fdf95645ffe8",
+          "backward_calls": 1,
+          "finite": true,
+          "observed_bytes": 2806112,
+          "gradient_arrays": 83,
+          "array_count": 402,
+          "full_records_artifact": "fixed_order_selftests_v1_h100.json.gz"
+        },
+        {
+          "slot": "lbm/differentiable_lbm_probe",
+          "selected_module": "lbm/differentiable_lbm_probe",
+          "returncode": 0,
+          "exception_classes": [],
+          "normalized_text_sha256": "dd6b065222e1a44647df1e9cc384112626f463391d1aae922882fdf95645ffe8",
+          "backward_calls": 1,
+          "finite": true,
+          "observed_bytes": 2806112,
+          "gradient_arrays": 83,
+          "array_count": 402,
+          "full_records_artifact": "fixed_order_selftests_v1_h100.json.gz"
+        }
+      ],
+      "gates": {
+        "both_selftests_pass": true,
+        "no_runtime_exceptions": true,
+        "full_array_records_identical": true,
+        "full_text_identical": true,
+        "finite": true,
+        "arrays_observed": true,
+        "gradients_observed": true
+      }
+    },
+    {
+      "slot": "lbm/differentiable_fsi_chain",
+      "selected_module": "lbm/differentiable_fsi_chain",
+      "legs": [
+        {
+          "slot": "lbm/differentiable_fsi_chain",
+          "selected_module": "lbm/differentiable_fsi_chain",
+          "returncode": 0,
+          "exception_classes": [],
+          "normalized_text_sha256": "a2443592b3331f07fe73dfcc4730c326f9dd196e3e6409cafe154b4dcaf90e7a",
+          "backward_calls": 84,
+          "finite": true,
+          "observed_bytes": 3421906424,
+          "gradient_arrays": 18816,
+          "array_count": 84608,
+          "full_records_artifact": "fixed_order_selftests_v1_h100.json.gz"
+        },
+        {
+          "slot": "lbm/differentiable_fsi_chain",
+          "selected_module": "lbm/differentiable_fsi_chain",
+          "returncode": 0,
+          "exception_classes": [],
+          "normalized_text_sha256": "a2443592b3331f07fe73dfcc4730c326f9dd196e3e6409cafe154b4dcaf90e7a",
+          "backward_calls": 84,
+          "finite": true,
+          "observed_bytes": 3421906424,
+          "gradient_arrays": 18816,
+          "array_count": 84608,
+          "full_records_artifact": "fixed_order_selftests_v1_h100.json.gz"
+        }
+      ],
+      "gates": {
+        "both_selftests_pass": true,
+        "no_runtime_exceptions": true,
+        "full_array_records_identical": true,
+        "full_text_identical": true,
+        "finite": true,
+        "arrays_observed": true,
+        "gradients_observed": true
+      }
+    },
+    {
+      "slot": "lbm/lbm3d_immersed_boundary",
+      "selected_module": "lbm/lbm3d_immersed_boundary",
+      "legs": [
+        {
+          "slot": "lbm/lbm3d_immersed_boundary",
+          "selected_module": "lbm/lbm3d_immersed_boundary",
+          "returncode": 0,
+          "exception_classes": [],
+          "normalized_text_sha256": "b1288ec00db44091f5f506676994a3ef84cdf869daade1f55da000cf6ceb5bcf",
+          "backward_calls": 0,
+          "finite": true,
+          "observed_bytes": 771768,
+          "gradient_arrays": 0,
+          "array_count": 2,
+          "full_records_artifact": "fixed_order_selftests_v1_h100.json.gz"
+        },
+        {
+          "slot": "lbm/lbm3d_immersed_boundary",
+          "selected_module": "lbm/lbm3d_immersed_boundary",
+          "returncode": 0,
+          "exception_classes": [],
+          "normalized_text_sha256": "b1288ec00db44091f5f506676994a3ef84cdf869daade1f55da000cf6ceb5bcf",
+          "backward_calls": 0,
+          "finite": true,
+          "observed_bytes": 771768,
+          "gradient_arrays": 0,
+          "array_count": 2,
+          "full_records_artifact": "fixed_order_selftests_v1_h100.json.gz"
+        }
+      ],
+      "gates": {
+        "both_selftests_pass": true,
+        "no_runtime_exceptions": true,
+        "full_array_records_identical": true,
+        "full_text_identical": true,
+        "finite": true,
+        "arrays_observed": true,
+        "gradients_observed": true
+      }
+    },
+    {
+      "slot": "wave_fdtd/diff_wave_3d",
+      "selected_module": "wave_fdtd/diff_wave_3d",
+      "legs": [
+        {
+          "slot": "wave_fdtd/diff_wave_3d",
+          "selected_module": "wave_fdtd/diff_wave_3d",
+          "returncode": 0,
+          "exception_classes": [],
+          "normalized_text_sha256": "fa43ac5440ca0504524fd0ddcc94ef4c286d555069cee9077c980504af8b1c79",
+          "backward_calls": 1,
+          "finite": true,
+          "observed_bytes": 40934152,
+          "gradient_arrays": 190,
+          "array_count": 910,
+          "full_records_artifact": "fixed_order_selftests_v1_h100.json.gz"
+        },
+        {
+          "slot": "wave_fdtd/diff_wave_3d",
+          "selected_module": "wave_fdtd/diff_wave_3d",
+          "returncode": 0,
+          "exception_classes": [],
+          "normalized_text_sha256": "fa43ac5440ca0504524fd0ddcc94ef4c286d555069cee9077c980504af8b1c79",
+          "backward_calls": 1,
+          "finite": true,
+          "observed_bytes": 40934152,
+          "gradient_arrays": 190,
+          "array_count": 910,
+          "full_records_artifact": "fixed_order_selftests_v1_h100.json.gz"
+        }
+      ],
+      "gates": {
+        "both_selftests_pass": true,
+        "no_runtime_exceptions": true,
+        "full_array_records_identical": true,
+        "full_text_identical": true,
+        "finite": true,
+        "arrays_observed": true,
+        "gradients_observed": true
+      }
+    },
+    {
+      "slot": "wave_fdtd/diff_wave_substrate",
+      "selected_module": "wave_fdtd/diff_wave_substrate",
+      "legs": [
+        {
+          "slot": "wave_fdtd/diff_wave_substrate",
+          "selected_module": "wave_fdtd/diff_wave_substrate",
+          "returncode": 0,
+          "exception_classes": [],
+          "normalized_text_sha256": "015f1c8543a3df4b655d51013f995a1a3f05b1921dc8280d37e5738c5ed3da5e",
+          "backward_calls": 1,
+          "finite": true,
+          "observed_bytes": 3516968,
+          "gradient_arrays": 275,
+          "array_count": 1384,
+          "full_records_artifact": "fixed_order_selftests_v1_h100.json.gz"
+        },
+        {
+          "slot": "wave_fdtd/diff_wave_substrate",
+          "selected_module": "wave_fdtd/diff_wave_substrate",
+          "returncode": 0,
+          "exception_classes": [],
+          "normalized_text_sha256": "015f1c8543a3df4b655d51013f995a1a3f05b1921dc8280d37e5738c5ed3da5e",
+          "backward_calls": 1,
+          "finite": true,
+          "observed_bytes": 3516968,
+          "gradient_arrays": 275,
+          "array_count": 1384,
+          "full_records_artifact": "fixed_order_selftests_v1_h100.json.gz"
+        }
+      ],
+      "gates": {
+        "both_selftests_pass": true,
+        "no_runtime_exceptions": true,
+        "full_array_records_identical": true,
+        "full_text_identical": true,
+        "finite": true,
+        "arrays_observed": true,
+        "gradients_observed": true
+      }
+    },
+    {
+      "slot": "wave_fdtd/xray_tomography_sigma",
+      "selected_module": "wave_fdtd/xray_tomography_sigma",
+      "legs": [
+        {
+          "slot": "wave_fdtd/xray_tomography_sigma",
+          "selected_module": "wave_fdtd/xray_tomography_sigma",
+          "returncode": 0,
+          "exception_classes": [],
+          "normalized_text_sha256": "13ef262907a11b88666150abc33db30ff14d74fb66ed4aeae5ecf9b83f2ec693",
+          "backward_calls": 401,
+          "finite": true,
+          "observed_bytes": 40706128,
+          "gradient_arrays": 1203,
+          "array_count": 5622,
+          "full_records_artifact": "fixed_order_selftests_v1_h100.json.gz"
+        },
+        {
+          "slot": "wave_fdtd/xray_tomography_sigma",
+          "selected_module": "wave_fdtd/xray_tomography_sigma",
+          "returncode": 0,
+          "exception_classes": [],
+          "normalized_text_sha256": "13ef262907a11b88666150abc33db30ff14d74fb66ed4aeae5ecf9b83f2ec693",
+          "backward_calls": 401,
+          "finite": true,
+          "observed_bytes": 40706128,
+          "gradient_arrays": 1203,
+          "array_count": 5622,
+          "full_records_artifact": "fixed_order_selftests_v1_h100.json.gz"
+        }
+      ],
+      "gates": {
+        "both_selftests_pass": true,
+        "no_runtime_exceptions": true,
+        "full_array_records_identical": true,
+        "full_text_identical": true,
+        "finite": true,
+        "arrays_observed": true,
+        "gradients_observed": true
+      }
+    },
+    {
+      "slot": "wave_fdtd/xray_3d_dda",
+      "selected_module": "wave_fdtd/xray_3d_dda",
+      "legs": [
+        {
+          "slot": "wave_fdtd/xray_3d_dda",
+          "selected_module": "wave_fdtd/xray_3d_dda",
+          "returncode": 0,
+          "exception_classes": [],
+          "normalized_text_sha256": "5103b3102a31de18f5b5ed811130be8e797c5e8b23975e7e3e534bad6d4c1537",
+          "backward_calls": 0,
+          "finite": true,
+          "observed_bytes": 34457600,
+          "gradient_arrays": 0,
+          "array_count": 183,
+          "full_records_artifact": "fixed_order_selftests_v1_h100.json.gz"
+        },
+        {
+          "slot": "wave_fdtd/xray_3d_dda",
+          "selected_module": "wave_fdtd/xray_3d_dda",
+          "returncode": 0,
+          "exception_classes": [],
+          "normalized_text_sha256": "5103b3102a31de18f5b5ed811130be8e797c5e8b23975e7e3e534bad6d4c1537",
+          "backward_calls": 0,
+          "finite": true,
+          "observed_bytes": 34457600,
+          "gradient_arrays": 0,
+          "array_count": 183,
+          "full_records_artifact": "fixed_order_selftests_v1_h100.json.gz"
+        }
+      ],
+      "gates": {
+        "both_selftests_pass": true,
+        "no_runtime_exceptions": true,
+        "full_array_records_identical": true,
+        "full_text_identical": true,
+        "finite": true,
+        "arrays_observed": true,
+        "gradients_observed": true
+      }
+    }
+  ],
+  "complete": true,
+  "gates": {
+    "all_eight_slots": true,
+    "all_selected_selftests_pass": true,
+    "all_array_and_text_records_identical": true,
+    "all_observations_valid": true,
+    "all_int64_sites_exact": true
+  },
+  "runtime_mode": "RUN_TO_RUN",
+  "tomography_records": 440,
+  "flow_variant": "lbm/differentiable_flow_control_fixed64",
+  "performance_measured": false,
+  "execution": {
+    "gpu": "NVIDIA H100 80GB HBM3",
+    "driver": "580.95.05",
+    "warp": "1.17.0",
+    "provider": "Modal",
+    "date": "2026-09-13"
+  },
+  "full_records_gzip_sha256": "1691f814432d1844a0faf2f445459ffe6ecb206cd583bc1ded3f7e514ece3548"
+}

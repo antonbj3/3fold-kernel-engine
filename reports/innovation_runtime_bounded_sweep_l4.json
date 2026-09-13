@@ -1,0 +1,157 @@
+{
+  "runtime_mode": "RUN_TO_RUN",
+  "tomography_max_records": 440,
+  "selftests": [
+    {
+      "module": "lbm/differentiable_flow_control",
+      "adjoint_carrying": false,
+      "legs": [
+        {
+          "returncode": 1,
+          "sha256": "2cc3fdcc3e2430aaa1935b3fa66df3dffca19c0570388e258bd7de253928a34e",
+          "exception_classes": []
+        },
+        {
+          "returncode": 1,
+          "sha256": "2cc3fdcc3e2430aaa1935b3fa66df3dffca19c0570388e258bd7de253928a34e",
+          "exception_classes": []
+        }
+      ],
+      "identical": true,
+      "both_exit_zero": false
+    },
+    {
+      "module": "lbm/differentiable_lbm_probe",
+      "adjoint_carrying": false,
+      "legs": [
+        {
+          "returncode": 0,
+          "sha256": "dd6b065222e1a44647df1e9cc384112626f463391d1aae922882fdf95645ffe8",
+          "exception_classes": []
+        },
+        {
+          "returncode": 0,
+          "sha256": "dd6b065222e1a44647df1e9cc384112626f463391d1aae922882fdf95645ffe8",
+          "exception_classes": []
+        }
+      ],
+      "identical": true,
+      "both_exit_zero": true
+    },
+    {
+      "module": "lbm/differentiable_fsi_chain",
+      "adjoint_carrying": true,
+      "legs": [
+        {
+          "returncode": 0,
+          "sha256": "a2443592b3331f07fe73dfcc4730c326f9dd196e3e6409cafe154b4dcaf90e7a",
+          "exception_classes": []
+        },
+        {
+          "returncode": 0,
+          "sha256": "a2443592b3331f07fe73dfcc4730c326f9dd196e3e6409cafe154b4dcaf90e7a",
+          "exception_classes": []
+        }
+      ],
+      "identical": true,
+      "both_exit_zero": true
+    },
+    {
+      "module": "lbm/lbm3d_immersed_boundary",
+      "adjoint_carrying": false,
+      "legs": [
+        {
+          "returncode": 0,
+          "sha256": "b1288ec00db44091f5f506676994a3ef84cdf869daade1f55da000cf6ceb5bcf",
+          "exception_classes": []
+        },
+        {
+          "returncode": 0,
+          "sha256": "b1288ec00db44091f5f506676994a3ef84cdf869daade1f55da000cf6ceb5bcf",
+          "exception_classes": []
+        }
+      ],
+      "identical": true,
+      "both_exit_zero": true
+    },
+    {
+      "module": "wave_fdtd/diff_wave_3d",
+      "adjoint_carrying": true,
+      "legs": [
+        {
+          "returncode": 0,
+          "sha256": "fa43ac5440ca0504524fd0ddcc94ef4c286d555069cee9077c980504af8b1c79",
+          "exception_classes": []
+        },
+        {
+          "returncode": 0,
+          "sha256": "fa43ac5440ca0504524fd0ddcc94ef4c286d555069cee9077c980504af8b1c79",
+          "exception_classes": []
+        }
+      ],
+      "identical": true,
+      "both_exit_zero": true
+    },
+    {
+      "module": "wave_fdtd/diff_wave_substrate",
+      "adjoint_carrying": true,
+      "legs": [
+        {
+          "returncode": 0,
+          "sha256": "015f1c8543a3df4b655d51013f995a1a3f05b1921dc8280d37e5738c5ed3da5e",
+          "exception_classes": []
+        },
+        {
+          "returncode": 0,
+          "sha256": "015f1c8543a3df4b655d51013f995a1a3f05b1921dc8280d37e5738c5ed3da5e",
+          "exception_classes": []
+        }
+      ],
+      "identical": true,
+      "both_exit_zero": true
+    },
+    {
+      "module": "wave_fdtd/xray_tomography_sigma",
+      "adjoint_carrying": true,
+      "legs": [
+        {
+          "returncode": 0,
+          "sha256": "13ef262907a11b88666150abc33db30ff14d74fb66ed4aeae5ecf9b83f2ec693",
+          "exception_classes": []
+        },
+        {
+          "returncode": 0,
+          "sha256": "13ef262907a11b88666150abc33db30ff14d74fb66ed4aeae5ecf9b83f2ec693",
+          "exception_classes": []
+        }
+      ],
+      "identical": true,
+      "both_exit_zero": true
+    },
+    {
+      "module": "wave_fdtd/xray_3d_dda",
+      "adjoint_carrying": false,
+      "legs": [
+        {
+          "returncode": 0,
+          "sha256": "5103b3102a31de18f5b5ed811130be8e797c5e8b23975e7e3e534bad6d4c1537",
+          "exception_classes": []
+        },
+        {
+          "returncode": 0,
+          "sha256": "5103b3102a31de18f5b5ed811130be8e797c5e8b23975e7e3e534bad6d4c1537",
+          "exception_classes": []
+        }
+      ],
+      "identical": true,
+      "both_exit_zero": true
+    }
+  ],
+  "gates": {
+    "all_eight_identical": true,
+    "no_runtime_exceptions": true,
+    "all_eight_physics_pass": false
+  },
+  "performance_measured": false,
+  "scope": "normalized whole-selftest text, not every hidden array"
+}

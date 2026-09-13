@@ -1,0 +1,19 @@
+{
+  "command": "OPENBLAS_CORETYPE=Haswell make verify-declared RUNTIME=modal",
+  "cpu_report_exact_count": 4,
+  "device": "NVIDIA L4, 23034 MiB, 580.95.05",
+  "gates": {
+    "all_five_declared_recipes": true,
+    "four_cpu_reports_exact": true,
+    "independent_cpu_audit_exact": true,
+    "native_gpu_records_unchanged": true,
+    "twenty_signed_gpu_rows": true
+  },
+  "recipe_count": 5,
+  "runner_sha256": "85f73904aaff6ff649fe72543c4eb3bd8a4122255731faf0a0234505c2e80fef",
+  "scope": "Explicit Haswell process profile only. Original native Modal4/5 failures remain retained; full repository coverage is incomplete. Runtime profile changes, not numerical source/tolerance/expected values, explain this passing slice.",
+  "seconds": 319.1,
+  "signed_gpu_rows": 20,
+  "stamp": "20260913T135812Z",
+  "status": "VERIFIED-FRESH"
+}

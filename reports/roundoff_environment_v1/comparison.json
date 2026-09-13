@@ -1,0 +1,203 @@
+{
+  "cloud_endpoint": [
+    [
+      101.71659088134766
+    ]
+  ],
+  "comparison_sha256": "490b145400797ff52c766f53d7d69c29d8d51febd72dc7611fdf8c4f927976f0",
+  "environments": {
+    "cloud": {
+      "libraries": {
+        "numpy": {
+          "blas": {
+            "name": "scipy-openblas",
+            "version": "0.3.34.0.0"
+          },
+          "version": "2.5.2"
+        },
+        "scipy": {
+          "blas": {
+            "name": "scipy-openblas",
+            "version": "0.3.31.dev"
+          },
+          "version": "1.18.1"
+        }
+      },
+      "machine": "x86_64",
+      "python": "3.12.1"
+    },
+    "local": {
+      "libraries": {
+        "numpy": {
+          "blas": {
+            "name": "scipy-openblas",
+            "version": "0.3.34.106.0"
+          },
+          "version": "2.5.3"
+        },
+        "scipy": {
+          "blas": {
+            "name": "scipy-openblas",
+            "version": "0.3.31.dev"
+          },
+          "version": "1.18.1"
+        }
+      },
+      "machine": "x86_64",
+      "python": "3.13.11"
+    }
+  },
+  "first_differing_stage": "Cmat",
+  "gates": {
+    "capture_own_gates": true,
+    "endpoint_transplant_exact": false,
+    "first_difference_is_triangular_solve": true,
+    "full_environment_identity": false,
+    "local_injection_control": true,
+    "output_transplant_exact": true
+  },
+  "observer_sha256": "90806a30eec46d68f6e725cc97d734b76fe7ae7c385b1420a94a7840ae4ac447",
+  "original_error": {
+    "cloud": 600.667236328125,
+    "local": 437.3193359375
+  },
+  "replay_environment": {
+    "machine": "x86_64",
+    "numpy": "2.5.3",
+    "python": "3.13.11",
+    "scipy": "1.18.1"
+  },
+  "rows": [
+    {
+      "exact": true,
+      "stage": "q"
+    },
+    {
+      "exact": true,
+      "stage": "k"
+    },
+    {
+      "exact": true,
+      "stage": "v"
+    },
+    {
+      "exact": true,
+      "stage": "g"
+    },
+    {
+      "exact": true,
+      "stage": "beta"
+    },
+    {
+      "exact": true,
+      "stage": "S0"
+    },
+    {
+      "exact": true,
+      "stage": "gamma"
+    },
+    {
+      "exact": true,
+      "stage": "A"
+    },
+    {
+      "exact": true,
+      "stage": "B"
+    },
+    {
+      "exact": true,
+      "stage": "Qt"
+    },
+    {
+      "exact": true,
+      "stage": "M"
+    },
+    {
+      "exact": true,
+      "stage": "L"
+    },
+    {
+      "exact": true,
+      "stage": "Ident"
+    },
+    {
+      "exact": true,
+      "stage": "rhs_a"
+    },
+    {
+      "exact": true,
+      "stage": "rhs_v"
+    },
+    {
+      "cloud_value": 0.3671722412109375,
+      "count": 80,
+      "exact": false,
+      "first_index": [
+        0,
+        36
+      ],
+      "local_value": 0.36717987060546875,
+      "max_absolute_delta": 85.296875,
+      "stage": "Cmat"
+    },
+    {
+      "cloud_value": -1.0441302061080933,
+      "count": 96,
+      "exact": false,
+      "first_index": [
+        0,
+        32
+      ],
+      "local_value": -1.0441304445266724,
+      "max_absolute_delta": 19.0625,
+      "stage": "Umat"
+    },
+    {
+      "exact": true,
+      "stage": "Z"
+    },
+    {
+      "exact": true,
+      "stage": "Zm"
+    },
+    {
+      "cloud_value": 7.695235252380371,
+      "count": 94,
+      "exact": false,
+      "first_index": [
+        33,
+        0
+      ],
+      "local_value": 7.695234298706055,
+      "max_absolute_delta": 257.71588134765625,
+      "stage": "O"
+    },
+    {
+      "cloud_value": 101.71659088134766,
+      "count": 1,
+      "exact": false,
+      "first_index": [
+        0,
+        0
+      ],
+      "local_value": 0.0,
+      "max_absolute_delta": 101.71659088134766,
+      "stage": "S_end"
+    },
+    {
+      "exact": true,
+      "stage": "sequential_output"
+    },
+    {
+      "exact": true,
+      "stage": "sequential_state"
+    }
+  ],
+  "scope": "Frozen arithmetic is unchanged. Replacing only the two solve outputs reproduces the cloud output array on the local host, but endpoint disagreement remains. Python, NumPy wheel and CPU dispatch are not independently varied; no unique instruction/library-version diagnosis follows. Original recipe failure is retained.",
+  "status": "OWN-GATE-FAIL",
+  "transplanted_endpoint": [
+    [
+      -101.71659088134766
+    ]
+  ]
+}

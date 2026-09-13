@@ -1,0 +1,33 @@
+{
+  "legs": [
+    {
+      "exit_code": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "99f6d23fe1379f8abd62c2c027db1bc1b46d6a21b1fe4c066ee33a8cf4e0e372",
+      "distinct_colors": 1626,
+      "hit_blue_pixels": 1625,
+      "non_hit_blue_pixels": 10663,
+      "image_sha256": "75bf1e37c2d3fb133770115870282ed8bc9bcbcd3651c8d382f5e9c021013b02",
+      "bytes": 36878
+    },
+    {
+      "exit_code": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "f69f663e3418c7dd0b5306454e94edfe498de091bfc94c6ac1cb4febe6268925",
+      "distinct_colors": 1626,
+      "hit_blue_pixels": 1625,
+      "non_hit_blue_pixels": 10663,
+      "image_sha256": "75bf1e37c2d3fb133770115870282ed8bc9bcbcd3651c8d382f5e9c021013b02",
+      "bytes": 36878
+    }
+  ],
+  "gates": {
+    "both_processes_pass": true,
+    "valid_nontrivial_images": true,
+    "complete_output_bytes_exact": true,
+    "no_observed_current_boot_fault": true
+  },
+  "binary_sha256": "172f539f2722e7a796a548ac09fed62dd6b6947ff2e863aae3d95f8259d4175e",
+  "journal_guard_requested": true,
+  "scope": "external unmodified SDK headless triangle toolchain only; no engine correctness or performance claim"
+}

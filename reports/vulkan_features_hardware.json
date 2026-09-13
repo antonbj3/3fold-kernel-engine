@@ -1,0 +1,66 @@
+{
+  "rows": [
+    {
+      "devices": [
+        {
+          "type": 2,
+          "api": 4211000,
+          "ray_extension": 1,
+          "as_extension": 1,
+          "ray_query": 1,
+          "acceleration_structure": 1,
+          "buffer_device_address": 1,
+          "float64": 1,
+          "float32_denorm_preserve": 0,
+          "float32_flush_zero": 0
+        },
+        {
+          "type": 4,
+          "api": 4206847,
+          "ray_extension": 0,
+          "as_extension": 0,
+          "ray_query": 0,
+          "acceleration_structure": 0,
+          "buffer_device_address": 1,
+          "float64": 1,
+          "float32_denorm_preserve": 0,
+          "float32_flush_zero": 0
+        }
+      ],
+      "hardware_ready": true
+    },
+    {
+      "devices": [
+        {
+          "type": 2,
+          "api": 4211000,
+          "ray_extension": 1,
+          "as_extension": 1,
+          "ray_query": 1,
+          "acceleration_structure": 1,
+          "buffer_device_address": 1,
+          "float64": 1,
+          "float32_denorm_preserve": 0,
+          "float32_flush_zero": 0
+        },
+        {
+          "type": 4,
+          "api": 4206847,
+          "ray_extension": 0,
+          "as_extension": 0,
+          "ray_query": 0,
+          "acceleration_structure": 0,
+          "buffer_device_address": 1,
+          "float64": 1,
+          "float32_denorm_preserve": 0,
+          "float32_flush_zero": 0
+        }
+      ],
+      "hardware_ready": true
+    }
+  ],
+  "gates": {
+    "full_repeat": true,
+    "hardware_ready": true
+  }
+}

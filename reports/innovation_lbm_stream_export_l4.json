@@ -1,0 +1,112 @@
+{
+  "legs": [
+    [
+      {
+        "side": 512,
+        "warp": {
+          "side": 512,
+          "payload_bytes": 18874368,
+          "event_ms": 0.042393600940704344,
+          "wall_ms": 0.04338916666668524,
+          "payload_GB_per_s": 445.21738142507536,
+          "two_launch_identity": true,
+          "exact_cpu_reference": true,
+          "sha256": "9ae83957e76b888128ce424890e57d005465f05df4f37f167e3c338da08c835c"
+        },
+        "native": {
+          "side": 512,
+          "event_ms": 0.0224255998929,
+          "wall_ms": 0.0227301,
+          "two_launch_identity": true,
+          "sha256": "9ae83957e76b888128ce424890e57d005465f05df4f37f167e3c338da08c835c",
+          "payload_GB_per_s": 841.6438396359541
+        },
+        "exact_warp_output": true,
+        "bandwidth_ratio": 1.8904110098801086
+      },
+      {
+        "side": 1024,
+        "warp": {
+          "side": 1024,
+          "payload_bytes": 75497472,
+          "event_ms": 0.34983253479003906,
+          "wall_ms": 0.35098126666675,
+          "payload_GB_per_s": 215.81032205970132,
+          "two_launch_identity": true,
+          "exact_cpu_reference": true,
+          "sha256": "0eea2337443e647620f7994fa3b9b6fd61e19e107a82c8c30e264f2b0e1483cc"
+        },
+        "native": {
+          "side": 1024,
+          "event_ms": 0.348876794179,
+          "wall_ms": 0.349258433333,
+          "two_launch_identity": true,
+          "sha256": "0eea2337443e647620f7994fa3b9b6fd61e19e107a82c8c30e264f2b0e1483cc",
+          "payload_GB_per_s": 216.40152988009893
+        },
+        "exact_warp_output": true,
+        "bandwidth_ratio": 1.0027394788847683
+      }
+    ],
+    [
+      {
+        "side": 512,
+        "warp": {
+          "side": 512,
+          "payload_bytes": 18874368,
+          "event_ms": 0.042837333679199216,
+          "wall_ms": 0.04368836666669059,
+          "payload_GB_per_s": 440.60557413182187,
+          "two_launch_identity": true,
+          "exact_cpu_reference": true,
+          "sha256": "9ae83957e76b888128ce424890e57d005465f05df4f37f167e3c338da08c835c"
+        },
+        "native": {
+          "side": 512,
+          "event_ms": 0.0222549339135,
+          "wall_ms": 0.0225955666667,
+          "two_launch_identity": true,
+          "sha256": "9ae83957e76b888128ce424890e57d005465f05df4f37f167e3c338da08c835c",
+          "payload_GB_per_s": 848.098137400025
+        },
+        "exact_warp_output": true,
+        "bandwidth_ratio": 1.9248465911288908
+      },
+      {
+        "side": 1024,
+        "warp": {
+          "side": 1024,
+          "payload_bytes": 75497472,
+          "event_ms": 0.34962774912516276,
+          "wall_ms": 0.35077283333334225,
+          "payload_GB_per_s": 215.93672753066508,
+          "two_launch_identity": true,
+          "exact_cpu_reference": true,
+          "sha256": "0eea2337443e647620f7994fa3b9b6fd61e19e107a82c8c30e264f2b0e1483cc"
+        },
+        "native": {
+          "side": 1024,
+          "event_ms": 0.348672008514,
+          "wall_ms": 0.349025666667,
+          "two_launch_identity": true,
+          "sha256": "0eea2337443e647620f7994fa3b9b6fd61e19e107a82c8c30e264f2b0e1483cc",
+          "payload_GB_per_s": 216.52862907395848
+        },
+        "exact_warp_output": true,
+        "bandwidth_ratio": 1.0027410878643113
+      }
+    ]
+  ],
+  "gates": {
+    "exact_warp_outputs": true,
+    "frozen_cpu_reference": true,
+    "two_native_runs_identical": true,
+    "two_warp_runs_identical": true,
+    "bandwidth_within_ten_percent": false
+  },
+  "warm": 10,
+  "timed": 30,
+  "host_language": "C11 compiled with gcc; CUDA shim compiled with nvcc",
+  "arch": "sm_89",
+  "byte_model": "population read+write floor; no peak DRAM claim"
+}

@@ -1,0 +1,122 @@
+{
+ "prior_art_dup_grind": {
+  "resultat": "the duplicate-search gate flagged four candidates, all false positives matching only the rare word 'gpu'; none concerns closing.",
+  "kandidater_avfardade": [
+   {
+    "varfor_ej": "measures GPU utilisation and energy on an LBM kernel (different domain, roofline calibration): no morphological operation"
+   },
+   {
+    "varfor_ej": "SDF voxelisation of a triangle mesh via the Warp BVH (mesh_query_point_sign_winding_number): no 2D raster closing"
+   },
+   {
+    "varfor_ej": "a GPU-first decision gate in the cert-native compute track: a policy gate, not a kernel"
+   },
+   {
+    "varfor_ej": "input-keyed versus structural addressing on histogram atomics (nvcc-compiled microbenchmarks): no morphology"
+   }
+  ],
+  "slutsats": "dismissed after reading the docstring and purpose of all four files, not only the grep hit; then continued to the build."
+ },
+ "f4_2d_closing": {
+  "baslinje": {
+   "metod": "skimage.morphology.binary_closing(mask0, footprint=disk(rho_px)) oforandrad, CPU, produktionsraster 1243x1201 px (verklig facit-profil, rho_px=25)",
+   "median_wall_s_n5": 1.904254751978442
+  },
+  "varianter": [
+   {
+    "namn": "V1 warp_gpu_disk_offsets",
+    "beskrivning": "Warp GPU brute force: dilation = OR over the exact disk(rho_px) offsets, taken directly from the boolean footprint of skimage.morphology.disk(); erosion = AND over the same offsets.",
+    "median_wall_s_n5": 0.018178937025368214,
+    "speedup": 104.7506105181566
+   },
+   {
+    "namn": "V2 torch_conv_disk",
+    "beskrivning": "torch.nn.functional.conv2d with the same disk(rho_px) array as the filter kernel. Dilation: zero padding (value 0.0, matching border_value=False) with an exact integer threshold; erosion: padding with ones.",
+    "median_wall_s_n5": 0.013878522906452417,
+    "speedup": 137.20874799241884
+   }
+  ],
+  "korrekthetsgrind": {
+   "metod": "three cases including an edge case, bit-identical boolean comparison (np.array_equal) against the skimage reference, no tolerance (the output is boolean)",
+   "fall": {
+    "prod_facit": {
+     "shape": [
+      1243,
+      1201
+     ],
+     "rho_px": 25,
+     "n_off": 1961,
+     "warp_bit_identical": true,
+     "torch_bit_identical": true
+    },
+    "interior_generic": {
+     "shape": [
+      200,
+      220
+     ],
+     "rho_px": 25,
+     "warp_bit_identical": true,
+     "torch_bit_identical": true
+    },
+    "edge_disk_at_border": {
+     "shape": [
+      40,
+      40
+     ],
+     "rho_px": 12,
+     "beskrivning": "four True regions placed exactly at one raster edge each (top, bottom, left, right) so the disk footprint necessarily sticks out over the edge for both dilation and erosion",
+     "warp_bit_identical": true,
+     "torch_bit_identical": true
+    }
+   },
+   "pass_warp": true,
+   "pass_torch": true
+  },
+  "benchmarkgrind": {
+   "min_gate": 5.0,
+   "speedup_warp": 104.7506105181566,
+   "speedup_torch": 137.20874799241884,
+   "variant_wins_warp": true,
+   "variant_wins_torch": true,
+   "not": "70x was the ceiling (the CSG kernel's own time), not a requirement; the measured speedup of 104-137x passes it, so the 2D closing is no longer the bottleneck"
+  },
+  "fallbevis_offbyone": {
+   "atgard": "disk_offsets(rho_px, extra=1): the footprint for radius rho_px+1 instead of rho_px, planted in the variant's own offset generator (the same primitive the variant uses)",
+   "case": "edge_disk_at_border",
+   "resultat": {
+    "bit_identical_vs_ref": false,
+    "n_diff_px": 9,
+    "andel_diff": 0.005625
+   },
+   "diskriminerande_jamforelse": {
+    "n_diff_px_interior": 34,
+    "andel_diff_interior": 0.000773,
+    "kantfallets_andel_storre": true
+   },
+   "tolkning": "the correctness gate fails exactly on the edge case, with a 7.3x larger share of deviating pixels than the corresponding interior case (0.56 % versus 0.08 %), so the edge case is discriminating"
+  },
+  "inkoppling": {
+   "flagga": "CLOSINGVAL env (default='fast'=warp GPU disk-offsets, 'ref'=oforandrad skimage-CPU-baslinje)",
+   "vald_variant": "warp_gpu_disk_offsets (V1), not the fastest (torch_conv_disk won the benchmark at 137x versus 104x); chosen because Warp is already an active dependency",
+   "produktions_timing_kallstart": "cold start including JIT compilation 186.4 ms, reference cold start 2307.7 ms: 12.4x on the first call, lower than the warmed median-of-five value of 104x"
+  },
+  "konsumentgrind_omkord": {
+   "atoms_run_1": "consumer gate green (11/11 machine-checked assertions pass, 0 not run) with CLOSINGVAL=fast",
+   "atoms_run_2": "consumer gate green (11/11 machine-checked assertions pass, 0 not run) with CLOSINGVAL=fast, second independent run"
+  },
+  "verdict": {
+   "korrekthetsgrind_pass": true,
+   "benchmarkgrind_variant_wins_ge_5x": true,
+   "fallbevis_offbyone_grinden_fangade_felet": true,
+   "fallbevis_kantfallet_diskriminerande": true,
+   "konsumentens_atoms_2x_gron": true
+  },
+  "overall_pass": true,
+  "winner": "warp_gpu_disk_offsets (wired in), torch_conv_disk (measured/green, not wired in -- dependency-surface rationale above)"
+ },
+ "gpu_load_before": {
+  "mem_used_mib": 7449,
+  "mem_total_mib": 12227,
+  "util_pct": 4
+ }
+}

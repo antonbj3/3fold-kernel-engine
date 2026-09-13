@@ -1,0 +1,4 @@
+{
+  "scripts/kernel_certificate_replay_v2.py": "d779e1f12b4cea4107749e962c6c63a4fd9d85ca7b7724d98a85289b1c609c7e",
+  "tests/test_kernel_certificate_replay.py": "2b252b483c71cfb4f6bb83cea2296a6b95991f128d69154051f68da3b29bf82a"
+}

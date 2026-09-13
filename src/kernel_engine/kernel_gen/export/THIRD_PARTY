@@ -1,0 +1,7 @@
+warp_native/*.h and warp_native/nanovdb/PNanoVDB.h: NVIDIA Warp device headers, Apache-2.0
+  (SPDX-License-Identifier: Apache-2.0, headers carry their own SPDX lines), copied unmodified
+  from the warp Python package's native/ directory. Exact set = the transitive include closure of
+  the generated kernel, obtained with `nvcc -M`.
+reduce_int64_atomic_generated.cu: emitted by Warp's code generator from the kernel source in
+  src/kernel_engine/reductions/; Apache-2.0 boilerplate (macro preamble) from the same project.
+  One edit, see EXPORT.md: the `#define WP_NO_CRT` line is commented out.

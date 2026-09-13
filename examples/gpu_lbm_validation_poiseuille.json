@@ -1,0 +1,84 @@
+{
+ "case": "poiseuille_circular_pipe",
+ "D_lu": 48,
+ "L_lu": 384,
+ "R_lu": 24.0,
+ "tau": 0.8,
+ "nu_lu": 0.1,
+ "Re": 9.6,
+ "u_mean_target_lu": 0.02,
+ "u_mean_measured_lu": 0.01990664377808571,
+ "u_max_measured_lu": 0.039982423186302185,
+ "ratio_umax_umean_measured": 2.0084964412894633,
+ "ratio_umax_umean_analytic": 2.0,
+ "pct_error_velocity_ratio": 0.4248220644731626,
+ "dpdx_measured_lu": 2.8601918604898676e-05,
+ "dpdx_analytic_lu": 2.7648116358452374e-05,
+ "pct_error_dpdx": 3.449791060195366,
+ "gpu_free_mem_MB_before": 6056.574976,
+ "lbm_diag": {
+  "n_steps_run": 16800,
+  "wall_time_s": 59.37821698188782,
+  "converged": true,
+  "diverged": false,
+  "residual_hist": [
+   {
+    "step": 15200,
+    "mean_speed": 0.019821610301733017,
+    "residual": 2.6311719070527246e-05
+   },
+   {
+    "step": 15600,
+    "mean_speed": 0.019820580258965492,
+    "residual": 5.196834573290545e-05
+   },
+   {
+    "step": 16000,
+    "mean_speed": 0.019819719716906548,
+    "residual": 4.341847771997732e-05
+   },
+   {
+    "step": 16400,
+    "mean_speed": 0.01981944404542446,
+    "residual": 1.3909143034202489e-05
+   },
+   {
+    "step": 16800,
+    "mean_speed": 0.019819607958197594,
+    "residual": 8.270232866262535e-06
+   }
+  ]
+ },
+ "PASS_5pct_ratio": true,
+ "PASS_5pct_dpdx": true,
+ "rand_variant": "v2",
+ "proveniens": {
+  "LBM_RAND_env": "v2 (default)",
+  "git_head": "692d9d4443",
+  "externa_ankare_matt": {
+   "not_": "mass conservation fixes u_mean at the mid-section to the imposed u_mean_target = 0.02 (straight pipe, constant cross-section). This is independent of the solver's own numbers.",
+   "v2_NY_DEFAULT": {
+    "massbevarande_rel_fel": 0.00466781109571459,
+    "umax_vs_2x_palagt_rel_fel": 0.00043942034244539435,
+    "dpdx_vs_HP_ur_PALAGT_umean_rel_fel": 0.0296690697763523
+   },
+   "v1_PUBLICERAD_2026-08": {
+    "massbevarande_rel_fel": 0.3740381672978401,
+    "umax_vs_2x_palagt_rel_fel": 0.3712086696177721,
+    "dpdx_vs_HP_ur_PALAGT_umean_rel_fel": 0.35730765847598805
+   },
+   "v1_andel_av_palagt_flode": 0.6259618327021599,
+   "dom": "all three external anchors agree: v2 gives 0.47 % / 0.044 % / 2.97 % against v1 37.40 % / 37.12 % / 35.73 %."
+  },
+  "FOREGAENDE_BASLINJE_2026-08_BEVARAD": {
+   "u_mean_measured_lu": 0.012519236654043198,
+   "u_max_measured_lu": 0.025151653215289116,
+   "ratio_umax_umean_measured": 2.0090404798894963,
+   "pct_error_velocity_ratio": 0.452023994474815,
+   "dpdx_measured_lu": 1.7852565042333667e-05,
+   "dpdx_analytic_lu": 1.7387828686171107e-05,
+   "pct_error_dpdx": 2.672768202116999,
+   "lbm_diag_n_steps_run": 7600
+  }
+ }
+}

@@ -1,0 +1,19 @@
+{
+  "device": "NVIDIA L4, 580.95.05",
+  "arch": 89,
+  "warp": "1.17.0",
+  "gates": {
+    "eight_slots": true,
+    "all_slot_gates": true,
+    "int64_sites": true,
+    "export_oracle": true,
+    "export_repeat": true
+  },
+  "capture_sha256": "2c83feae99615741b052de46bd555f6ed72cecd81a96c198e22be26d6e7f583a",
+  "arrays_per_leg": 121380,
+  "bytes_per_leg": 6400352992,
+  "export_performance": {
+    "within_ten_percent": true,
+    "scope": "Diagnostic repeat of frozen timing protocol; not a determinism acceptance gate"
+  }
+}

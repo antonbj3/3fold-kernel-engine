@@ -1,0 +1,63 @@
+{
+ "f2_matvec": {
+  "konsumentgrind_omkord": {
+   "default_fast": "rc=0 (V1/V2/V3 all True)",
+   "KERNELVAL_ref_fallback": "rc=0 (V1/V2/V3 all True)"
+  },
+  "verdict": {
+   "korrekthetsgrind_pass": true,
+   "determinismgrind_pass": true,
+   "benchmarkgrind_variant_wins_ge_1.2x": true,
+   "fallbevis_race_grinden_fangade_icke_determinism": true
+  },
+  "overall_pass": true,
+  "winner": "fp32_fixpoint"
+ },
+ "f4_csg": {
+  "arligt_rott": "no variant passed the 1.2x benchmark gate: the Warp JIT was already near optimal for this kernel on this GPU. This is a measured result over four recipe axes, not an untested assumption.",
+  "verdict": {
+   "korrekthetsgrind_pass": true,
+   "determinismgrind_pass": true,
+   "benchmarkgrind_variant_wins_ge_1.2x": false,
+   "fallbevis_offbyone_kantfallet_fangat": true,
+   "fallbevis_offbyone_diskriminerande": true
+  },
+  "overall_pass": false,
+  "winner": "1d_baseline (no surviving variant passed the 1.2x gate: the 3D launch did not meet the gate and the sparsity variant was killed by the correctness gate)"
+ },
+ "fallbevis": {
+  "f2_race_planterad": {
+   "atgard": "tog bort int64-fixpunktsackumulationen, ren float32 atomic_add",
+   "resultat": {
+    "metod": "float32 atomic_add UTAN int64-fixpunkt (fixpunktsackumulationen borttagen)",
+    "bit_identical_2x": false,
+    "max_abs_diff_2runs": 0.125,
+    "determinismgrind_skulle_falla": true
+   },
+   "tolkning": "the determinism gate FAILS (bit_identical_2x=False, max_abs_diff=0.125), which shows the gate discriminates and is not a tautology."
+  },
+  "f4_offbyone_planterad": {
+   "atgard": "r-indexklampen andrad fran nr2d-2 till nr2d-1 (v10/v11 kan lasa fel rad)",
+   "resultat": {
+    "metod": "r-klampen satt till nr2d-1 (ratt: nr2d-2) -- v10/v11 kan lasa fel/klampad rad",
+    "per_case": {
+     "edge_r_table_boundary": {
+      "bit_identical_vs_ref": false,
+      "max_abs_diff": 2.384185791015625e-07
+     },
+     "small_32x32x16": {
+      "bit_identical_vs_ref": false,
+      "max_abs_diff": 2.384185791015625e-07
+     },
+     "medium_64x64x32": {
+      "bit_identical_vs_ref": false,
+      "max_abs_diff": 2.384185791015625e-07
+     }
+    },
+    "kantfallet_fangat": true,
+    "kantfallet_storst_avvikelse": true
+   },
+   "tolkning": "the correctness gate FAILS, and the edge case built to hit the last bin of the r table catches the fault with a deviation at least as large as the interior cases."
+  }
+ }
+}

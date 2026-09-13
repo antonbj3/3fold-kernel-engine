@@ -1,0 +1,55 @@
+{
+ "case": "bend90_sharp_mitre",
+ "D_lu": 20,
+ "leg_lu": 60,
+ "tau": 0.51,
+ "nu_lu": 0.003333333333333336,
+ "Re_nominal_molecular": 419.99999999999966,
+ "smag_c": 0.17,
+ "u_mean_measured_lu": 0.05520596727728844,
+ "dpdx_straight_lu_per_lu": 7.977883021036784e-05,
+ "dp_total_lu": 0.008260448773702023,
+ "dp_friction_only_lu": 0.006701421737670898,
+ "dp_excess_lu": 0.0015590270360311244,
+ "K_measured": 1.0230847118192168,
+ "K_literature_range": [
+  0.9,
+  1.3
+ ],
+ "pct_error_vs_literature_mid": 6.992298925525755,
+ "PASS_30pct_vs_literature_mid": true,
+ "PASS_within_raw_literature_spread_0p9_1p3": true,
+ "lbm_diag": {
+  "n_steps_run": 3000,
+  "wall_time_s": 1.185863733291626,
+  "converged": true,
+  "diverged": false,
+  "residual_hist": [
+   {
+    "step": 1800,
+    "mean_speed": 0.05252034217119217,
+    "residual": 0.00013930735870552538
+   },
+   {
+    "step": 2100,
+    "mean_speed": 0.05252761393785477,
+    "residual": 0.00013843702611736482
+   },
+   {
+    "step": 2400,
+    "mean_speed": 0.05252577364444733,
+    "residual": 3.503600765402013e-05
+   },
+   {
+    "step": 2700,
+    "mean_speed": 0.052526384592056274,
+    "residual": 1.1631251868801749e-05
+   },
+   {
+    "step": 3000,
+    "mean_speed": 0.05252639576792717,
+    "residual": 2.1276675720837816e-07
+   }
+  ]
+ }
+}

@@ -1,0 +1,517 @@
+{
+  "devices": [
+    {
+      "command_exit_code": 2,
+      "device": "NVIDIA L4, 23034 MiB, 580.95.05",
+      "rows": [
+        {
+          "failed_checks": [],
+          "fresh_gate_pass": true,
+          "key": "src/kernel_engine/certified_kernels/kernel_matrix_capture_v1.py",
+          "local_cpu_report_equal": null
+        },
+        {
+          "failed_checks": [],
+          "fresh_gate_pass": true,
+          "key": "src/kernel_engine/certified_kernels/kernel_matrix_report_v1.py",
+          "local_cpu_report_equal": true
+        },
+        {
+          "failed_checks": [],
+          "fresh_gate_pass": true,
+          "key": "src/kernel_engine/certified_kernels/chunkable_stability_v1.py",
+          "local_cpu_report_equal": false
+        },
+        {
+          "failed_checks": [
+            "equal:/legs/0/rows/7/max_output_error"
+          ],
+          "fresh_gate_pass": false,
+          "key": "src/kernel_engine/certified_kernels/chunkable_roundoff_guard_v2.py",
+          "local_cpu_report_equal": false
+        },
+        {
+          "failed_checks": [],
+          "fresh_gate_pass": true,
+          "key": "scripts/kernel_float_provenance_v1.py",
+          "local_cpu_report_equal": true
+        }
+      ],
+      "seconds": 321.9,
+      "signed_gpu_gates": {
+        "all_rows_match": true,
+        "capture_own_gates": true,
+        "complete_inventory": true,
+        "original_source_identity": true
+      },
+      "signed_gpu_rows": 20,
+      "stamp": "20260913T125252Z"
+    },
+    {
+      "command_exit_code": 2,
+      "device": "NVIDIA A10, 23028 MiB, 580.95.05",
+      "rows": [
+        {
+          "failed_checks": [],
+          "fresh_gate_pass": true,
+          "key": "src/kernel_engine/certified_kernels/kernel_matrix_capture_v1.py",
+          "local_cpu_report_equal": null
+        },
+        {
+          "failed_checks": [],
+          "fresh_gate_pass": true,
+          "key": "src/kernel_engine/certified_kernels/kernel_matrix_report_v1.py",
+          "local_cpu_report_equal": true
+        },
+        {
+          "failed_checks": [],
+          "fresh_gate_pass": true,
+          "key": "src/kernel_engine/certified_kernels/chunkable_stability_v1.py",
+          "local_cpu_report_equal": false
+        },
+        {
+          "failed_checks": [
+            "equal:/legs/0/rows/7/max_output_error"
+          ],
+          "fresh_gate_pass": false,
+          "key": "src/kernel_engine/certified_kernels/chunkable_roundoff_guard_v2.py",
+          "local_cpu_report_equal": false
+        },
+        {
+          "failed_checks": [],
+          "fresh_gate_pass": true,
+          "key": "scripts/kernel_float_provenance_v1.py",
+          "local_cpu_report_equal": true
+        }
+      ],
+      "seconds": 192.2,
+      "signed_gpu_gates": {
+        "all_rows_match": true,
+        "capture_own_gates": true,
+        "complete_inventory": true,
+        "original_source_identity": true
+      },
+      "signed_gpu_rows": 20,
+      "stamp": "20260913T125651Z"
+    }
+  ],
+  "expected_local_roundoff_error": 437.3193359375,
+  "fresh_gpu_rows_equal": 20,
+  "local_cpu_reports_compared_per_device": 4,
+  "local_cpu_reports_equal_per_device": 2,
+  "observed_cloud_roundoff_error": 600.667236328125,
+  "runner_sha256": "85f73904aaff6ff649fe72543c4eb3bd8a4122255731faf0a0234505c2e80fef",
+  "scope": "Fresh selected recipe execution on two Modal GPUs. Signed GPU rows pass; exact CPU witness portability fails. Full repository coverage remains incomplete. Only explicitly selected fresh files were retained; old copied replay-source and repeat receipts are excluded.",
+  "source_commit": "95b383e",
+  "stability_cpu_hash_comparisons": [
+    {
+      "chunked_output_exact": false,
+      "chunked_state_exact": false,
+      "cloud_errors": [
+        8.046627044677734e-07,
+        2.384185791015625e-07
+      ],
+      "device": "l4",
+      "gain": 0.99,
+      "inputs_exact": true,
+      "length": 32,
+      "local_errors": [
+        7.748603820800781e-07,
+        2.384185791015625e-07
+      ],
+      "sequential_exact": true
+    },
+    {
+      "chunked_output_exact": false,
+      "chunked_state_exact": false,
+      "cloud_errors": [
+        7.152557373046875e-07,
+        2.775341272354126e-07
+      ],
+      "device": "l4",
+      "gain": 0.99,
+      "inputs_exact": true,
+      "length": 64,
+      "local_errors": [
+        1.1324882507324219e-06,
+        2.980232238769531e-07
+      ],
+      "sequential_exact": true
+    },
+    {
+      "chunked_output_exact": false,
+      "chunked_state_exact": false,
+      "cloud_errors": [
+        9.5367431640625e-07,
+        2.980232238769531e-07
+      ],
+      "device": "l4",
+      "gain": 0.99,
+      "inputs_exact": true,
+      "length": 128,
+      "local_errors": [
+        1.1920928955078125e-06,
+        3.129243850708008e-07
+      ],
+      "sequential_exact": true
+    },
+    {
+      "chunked_output_exact": false,
+      "chunked_state_exact": false,
+      "cloud_errors": [
+        9.5367431640625e-07,
+        4.76837158203125e-07
+      ],
+      "device": "l4",
+      "gain": 1.01,
+      "inputs_exact": true,
+      "length": 32,
+      "local_errors": [
+        1.0728836059570312e-06,
+        5.364418029785156e-07
+      ],
+      "sequential_exact": true
+    },
+    {
+      "chunked_output_exact": false,
+      "chunked_state_exact": false,
+      "cloud_errors": [
+        1.3113021850585938e-06,
+        5.364418029785156e-07
+      ],
+      "device": "l4",
+      "gain": 1.01,
+      "inputs_exact": true,
+      "length": 64,
+      "local_errors": [
+        1.2516975402832031e-06,
+        2.384185791015625e-07
+      ],
+      "sequential_exact": true
+    },
+    {
+      "chunked_output_exact": false,
+      "chunked_state_exact": false,
+      "cloud_errors": [
+        1.6689300537109375e-06,
+        5.364418029785156e-07
+      ],
+      "device": "l4",
+      "gain": 1.01,
+      "inputs_exact": true,
+      "length": 128,
+      "local_errors": [
+        2.2649765014648438e-06,
+        5.21540641784668e-07
+      ],
+      "sequential_exact": true
+    },
+    {
+      "chunked_output_exact": false,
+      "chunked_state_exact": false,
+      "cloud_errors": [
+        4.291534423828125e-06,
+        2.6226043701171875e-06
+      ],
+      "device": "l4",
+      "gain": 1.1,
+      "inputs_exact": true,
+      "length": 32,
+      "local_errors": [
+        6.67572021484375e-06,
+        3.0994415283203125e-06
+      ],
+      "sequential_exact": true
+    },
+    {
+      "chunked_output_exact": false,
+      "chunked_state_exact": false,
+      "cloud_errors": [
+        6.985664367675781e-05,
+        3.597140312194824e-05
+      ],
+      "device": "l4",
+      "gain": 1.1,
+      "inputs_exact": true,
+      "length": 64,
+      "local_errors": [
+        7.37905502319336e-05,
+        2.86102294921875e-05
+      ],
+      "sequential_exact": true
+    },
+    {
+      "chunked_output_exact": false,
+      "chunked_state_exact": false,
+      "cloud_errors": [
+        0.0006232261657714844,
+        0.000125885009765625
+      ],
+      "device": "l4",
+      "gain": 1.1,
+      "inputs_exact": true,
+      "length": 128,
+      "local_errors": [
+        0.0003342628479003906,
+        0.00035856151953339577
+      ],
+      "sequential_exact": true
+    },
+    {
+      "chunked_output_exact": false,
+      "chunked_state_exact": false,
+      "cloud_errors": [
+        0.0225830078125,
+        0.014404296875
+      ],
+      "device": "l4",
+      "gain": 1.5,
+      "inputs_exact": true,
+      "length": 32,
+      "local_errors": [
+        0.02587890625,
+        0.0166015625
+      ],
+      "sequential_exact": true
+    },
+    {
+      "chunked_output_exact": false,
+      "chunked_state_exact": false,
+      "cloud_errors": [
+        11346.0,
+        7276.0
+      ],
+      "device": "l4",
+      "gain": 1.5,
+      "inputs_exact": true,
+      "length": 64,
+      "local_errors": [
+        9881.0,
+        7760.0
+      ],
+      "sequential_exact": true
+    },
+    {
+      "chunked_output_exact": false,
+      "chunked_state_exact": false,
+      "cloud_errors": [
+        1682016567296.0,
+        816043786240.0
+      ],
+      "device": "l4",
+      "gain": 1.5,
+      "inputs_exact": true,
+      "length": 128,
+      "local_errors": [
+        1936493379584.0,
+        2120371666944.0
+      ],
+      "sequential_exact": true
+    },
+    {
+      "chunked_output_exact": false,
+      "chunked_state_exact": false,
+      "cloud_errors": [
+        8.046627044677734e-07,
+        2.384185791015625e-07
+      ],
+      "device": "a10",
+      "gain": 0.99,
+      "inputs_exact": true,
+      "length": 32,
+      "local_errors": [
+        7.748603820800781e-07,
+        2.384185791015625e-07
+      ],
+      "sequential_exact": true
+    },
+    {
+      "chunked_output_exact": false,
+      "chunked_state_exact": false,
+      "cloud_errors": [
+        7.152557373046875e-07,
+        2.775341272354126e-07
+      ],
+      "device": "a10",
+      "gain": 0.99,
+      "inputs_exact": true,
+      "length": 64,
+      "local_errors": [
+        1.1324882507324219e-06,
+        2.980232238769531e-07
+      ],
+      "sequential_exact": true
+    },
+    {
+      "chunked_output_exact": false,
+      "chunked_state_exact": false,
+      "cloud_errors": [
+        9.5367431640625e-07,
+        2.980232238769531e-07
+      ],
+      "device": "a10",
+      "gain": 0.99,
+      "inputs_exact": true,
+      "length": 128,
+      "local_errors": [
+        1.1920928955078125e-06,
+        3.129243850708008e-07
+      ],
+      "sequential_exact": true
+    },
+    {
+      "chunked_output_exact": false,
+      "chunked_state_exact": false,
+      "cloud_errors": [
+        9.5367431640625e-07,
+        4.76837158203125e-07
+      ],
+      "device": "a10",
+      "gain": 1.01,
+      "inputs_exact": true,
+      "length": 32,
+      "local_errors": [
+        1.0728836059570312e-06,
+        5.364418029785156e-07
+      ],
+      "sequential_exact": true
+    },
+    {
+      "chunked_output_exact": false,
+      "chunked_state_exact": false,
+      "cloud_errors": [
+        1.3113021850585938e-06,
+        5.364418029785156e-07
+      ],
+      "device": "a10",
+      "gain": 1.01,
+      "inputs_exact": true,
+      "length": 64,
+      "local_errors": [
+        1.2516975402832031e-06,
+        2.384185791015625e-07
+      ],
+      "sequential_exact": true
+    },
+    {
+      "chunked_output_exact": false,
+      "chunked_state_exact": false,
+      "cloud_errors": [
+        1.6689300537109375e-06,
+        5.364418029785156e-07
+      ],
+      "device": "a10",
+      "gain": 1.01,
+      "inputs_exact": true,
+      "length": 128,
+      "local_errors": [
+        2.2649765014648438e-06,
+        5.21540641784668e-07
+      ],
+      "sequential_exact": true
+    },
+    {
+      "chunked_output_exact": false,
+      "chunked_state_exact": false,
+      "cloud_errors": [
+        4.291534423828125e-06,
+        2.6226043701171875e-06
+      ],
+      "device": "a10",
+      "gain": 1.1,
+      "inputs_exact": true,
+      "length": 32,
+      "local_errors": [
+        6.67572021484375e-06,
+        3.0994415283203125e-06
+      ],
+      "sequential_exact": true
+    },
+    {
+      "chunked_output_exact": false,
+      "chunked_state_exact": false,
+      "cloud_errors": [
+        6.985664367675781e-05,
+        3.597140312194824e-05
+      ],
+      "device": "a10",
+      "gain": 1.1,
+      "inputs_exact": true,
+      "length": 64,
+      "local_errors": [
+        7.37905502319336e-05,
+        2.86102294921875e-05
+      ],
+      "sequential_exact": true
+    },
+    {
+      "chunked_output_exact": false,
+      "chunked_state_exact": false,
+      "cloud_errors": [
+        0.0006232261657714844,
+        0.000125885009765625
+      ],
+      "device": "a10",
+      "gain": 1.1,
+      "inputs_exact": true,
+      "length": 128,
+      "local_errors": [
+        0.0003342628479003906,
+        0.00035856151953339577
+      ],
+      "sequential_exact": true
+    },
+    {
+      "chunked_output_exact": false,
+      "chunked_state_exact": false,
+      "cloud_errors": [
+        0.0225830078125,
+        0.014404296875
+      ],
+      "device": "a10",
+      "gain": 1.5,
+      "inputs_exact": true,
+      "length": 32,
+      "local_errors": [
+        0.02587890625,
+        0.0166015625
+      ],
+      "sequential_exact": true
+    },
+    {
+      "chunked_output_exact": false,
+      "chunked_state_exact": false,
+      "cloud_errors": [
+        11346.0,
+        7276.0
+      ],
+      "device": "a10",
+      "gain": 1.5,
+      "inputs_exact": true,
+      "length": 64,
+      "local_errors": [
+        9881.0,
+        7760.0
+      ],
+      "sequential_exact": true
+    },
+    {
+      "chunked_output_exact": false,
+      "chunked_state_exact": false,
+      "cloud_errors": [
+        1682016567296.0,
+        816043786240.0
+      ],
+      "device": "a10",
+      "gain": 1.5,
+      "inputs_exact": true,
+      "length": 128,
+      "local_errors": [
+        1936493379584.0,
+        2120371666944.0
+      ],
+      "sequential_exact": true
+    }
+  ],
+  "status": "OWN-GATE-FAIL"
+}

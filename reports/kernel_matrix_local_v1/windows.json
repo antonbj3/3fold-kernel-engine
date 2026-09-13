@@ -1,0 +1,285 @@
+{
+  "windows": [
+    {
+      "start": "2026-09-13T09:27:24.610534+00:00",
+      "end": "2026-09-13T09:27:35.822341+00:00",
+      "seconds": 11.211807,
+      "part": [
+        "slot",
+        "--slot",
+        "lbm/differentiable_flow_control",
+        "--leg",
+        "0"
+      ],
+      "exit": 0,
+      "before": "NVIDIA GeForce RTX 5070, 580.178.04, 8 %, 1368 MiB",
+      "after": "NVIDIA GeForce RTX 5070, 580.178.04, 6 %, 1368 MiB",
+      "guard_error": null
+    },
+    {
+      "start": "2026-09-13T09:27:49.597577+00:00",
+      "end": "2026-09-13T09:27:57.824249+00:00",
+      "seconds": 8.226672,
+      "part": [
+        "slot",
+        "--slot",
+        "lbm/differentiable_flow_control",
+        "--leg",
+        "1"
+      ],
+      "exit": 0,
+      "before": "NVIDIA GeForce RTX 5070, 580.178.04, 7 %, 1368 MiB",
+      "after": "NVIDIA GeForce RTX 5070, 580.178.04, 6 %, 1368 MiB",
+      "guard_error": null
+    },
+    {
+      "start": "2026-09-13T09:27:57.851325+00:00",
+      "end": "2026-09-13T09:28:01.983551+00:00",
+      "seconds": 4.132226,
+      "part": [
+        "slot",
+        "--slot",
+        "lbm/differentiable_lbm_probe",
+        "--leg",
+        "0"
+      ],
+      "exit": 0,
+      "before": "NVIDIA GeForce RTX 5070, 580.178.04, 6 %, 1368 MiB",
+      "after": "NVIDIA GeForce RTX 5070, 580.178.04, 8 %, 1368 MiB",
+      "guard_error": null
+    },
+    {
+      "start": "2026-09-13T09:28:02.012915+00:00",
+      "end": "2026-09-13T09:28:03.898773+00:00",
+      "seconds": 1.885858,
+      "part": [
+        "slot",
+        "--slot",
+        "lbm/differentiable_lbm_probe",
+        "--leg",
+        "1"
+      ],
+      "exit": 0,
+      "before": "NVIDIA GeForce RTX 5070, 580.178.04, 8 %, 1368 MiB",
+      "after": "NVIDIA GeForce RTX 5070, 580.178.04, 9 %, 1368 MiB",
+      "guard_error": null
+    },
+    {
+      "start": "2026-09-13T09:28:03.925539+00:00",
+      "end": "2026-09-13T09:28:22.682663+00:00",
+      "seconds": 18.757124,
+      "part": [
+        "slot",
+        "--slot",
+        "lbm/differentiable_fsi_chain",
+        "--leg",
+        "0"
+      ],
+      "exit": 0,
+      "before": "NVIDIA GeForce RTX 5070, 580.178.04, 9 %, 1368 MiB",
+      "after": "NVIDIA GeForce RTX 5070, 580.178.04, 6 %, 1368 MiB",
+      "guard_error": null
+    },
+    {
+      "start": "2026-09-13T09:28:22.710695+00:00",
+      "end": "2026-09-13T09:28:39.178490+00:00",
+      "seconds": 16.467795,
+      "part": [
+        "slot",
+        "--slot",
+        "lbm/differentiable_fsi_chain",
+        "--leg",
+        "1"
+      ],
+      "exit": 0,
+      "before": "NVIDIA GeForce RTX 5070, 580.178.04, 6 %, 1368 MiB",
+      "after": "NVIDIA GeForce RTX 5070, 580.178.04, 6 %, 1368 MiB",
+      "guard_error": null
+    },
+    {
+      "start": "2026-09-13T09:28:39.204562+00:00",
+      "end": "2026-09-13T09:29:29.827079+00:00",
+      "seconds": 50.622517,
+      "part": [
+        "slot",
+        "--slot",
+        "lbm/lbm3d_immersed_boundary",
+        "--leg",
+        "0"
+      ],
+      "exit": 0,
+      "before": "NVIDIA GeForce RTX 5070, 580.178.04, 6 %, 1368 MiB",
+      "after": "NVIDIA GeForce RTX 5070, 580.178.04, 64 %, 1368 MiB",
+      "guard_error": null
+    },
+    {
+      "start": "2026-09-13T09:29:29.853439+00:00",
+      "end": "2026-09-13T09:29:35.328896+00:00",
+      "seconds": 5.475457,
+      "part": [
+        "slot",
+        "--slot",
+        "lbm/lbm3d_immersed_boundary",
+        "--leg",
+        "1"
+      ],
+      "exit": 0,
+      "before": "NVIDIA GeForce RTX 5070, 580.178.04, 64 %, 1368 MiB",
+      "after": "NVIDIA GeForce RTX 5070, 580.178.04, 63 %, 1368 MiB",
+      "guard_error": null
+    },
+    {
+      "start": "2026-09-13T09:29:35.358015+00:00",
+      "end": "2026-09-13T09:29:38.165720+00:00",
+      "seconds": 2.807705,
+      "part": [
+        "slot",
+        "--slot",
+        "wave_fdtd/diff_wave_3d",
+        "--leg",
+        "0"
+      ],
+      "exit": 0,
+      "before": "NVIDIA GeForce RTX 5070, 580.178.04, 63 %, 1368 MiB",
+      "after": "NVIDIA GeForce RTX 5070, 580.178.04, 6 %, 1368 MiB",
+      "guard_error": null
+    },
+    {
+      "start": "2026-09-13T09:29:38.192957+00:00",
+      "end": "2026-09-13T09:29:40.259529+00:00",
+      "seconds": 2.066572,
+      "part": [
+        "slot",
+        "--slot",
+        "wave_fdtd/diff_wave_3d",
+        "--leg",
+        "1"
+      ],
+      "exit": 0,
+      "before": "NVIDIA GeForce RTX 5070, 580.178.04, 6 %, 1368 MiB",
+      "after": "NVIDIA GeForce RTX 5070, 580.178.04, 7 %, 1368 MiB",
+      "guard_error": null
+    },
+    {
+      "start": "2026-09-13T09:29:40.288346+00:00",
+      "end": "2026-09-13T09:29:42.975541+00:00",
+      "seconds": 2.687195,
+      "part": [
+        "slot",
+        "--slot",
+        "wave_fdtd/diff_wave_substrate",
+        "--leg",
+        "0"
+      ],
+      "exit": 0,
+      "before": "NVIDIA GeForce RTX 5070, 580.178.04, 7 %, 1368 MiB",
+      "after": "NVIDIA GeForce RTX 5070, 580.178.04, 14 %, 1368 MiB",
+      "guard_error": null
+    },
+    {
+      "start": "2026-09-13T09:29:43.007914+00:00",
+      "end": "2026-09-13T09:29:45.064848+00:00",
+      "seconds": 2.056934,
+      "part": [
+        "slot",
+        "--slot",
+        "wave_fdtd/diff_wave_substrate",
+        "--leg",
+        "1"
+      ],
+      "exit": 0,
+      "before": "NVIDIA GeForce RTX 5070, 580.178.04, 14 %, 1368 MiB",
+      "after": "NVIDIA GeForce RTX 5070, 580.178.04, 6 %, 1368 MiB",
+      "guard_error": null
+    },
+    {
+      "start": "2026-09-13T09:29:45.092463+00:00",
+      "end": "2026-09-13T09:29:48.873468+00:00",
+      "seconds": 3.781005,
+      "part": [
+        "slot",
+        "--slot",
+        "wave_fdtd/xray_tomography_sigma",
+        "--leg",
+        "0"
+      ],
+      "exit": 0,
+      "before": "NVIDIA GeForce RTX 5070, 580.178.04, 6 %, 1368 MiB",
+      "after": "NVIDIA GeForce RTX 5070, 580.178.04, 48 %, 1368 MiB",
+      "guard_error": null
+    },
+    {
+      "start": "2026-09-13T09:29:48.903435+00:00",
+      "end": "2026-09-13T09:29:51.585492+00:00",
+      "seconds": 2.682057,
+      "part": [
+        "slot",
+        "--slot",
+        "wave_fdtd/xray_tomography_sigma",
+        "--leg",
+        "1"
+      ],
+      "exit": 0,
+      "before": "NVIDIA GeForce RTX 5070, 580.178.04, 48 %, 1368 MiB",
+      "after": "NVIDIA GeForce RTX 5070, 580.178.04, 5 %, 1368 MiB",
+      "guard_error": null
+    },
+    {
+      "start": "2026-09-13T09:29:51.615068+00:00",
+      "end": "2026-09-13T09:29:54.509063+00:00",
+      "seconds": 2.893995,
+      "part": [
+        "slot",
+        "--slot",
+        "wave_fdtd/xray_3d_dda",
+        "--leg",
+        "0"
+      ],
+      "exit": 0,
+      "before": "NVIDIA GeForce RTX 5070, 580.178.04, 5 %, 1368 MiB",
+      "after": "NVIDIA GeForce RTX 5070, 580.178.04, 6 %, 1368 MiB",
+      "guard_error": null
+    },
+    {
+      "start": "2026-09-13T09:29:54.535635+00:00",
+      "end": "2026-09-13T09:29:56.430232+00:00",
+      "seconds": 1.894597,
+      "part": [
+        "slot",
+        "--slot",
+        "wave_fdtd/xray_3d_dda",
+        "--leg",
+        "1"
+      ],
+      "exit": 0,
+      "before": "NVIDIA GeForce RTX 5070, 580.178.04, 6 %, 1368 MiB",
+      "after": "NVIDIA GeForce RTX 5070, 580.178.04, 6 %, 1368 MiB",
+      "guard_error": null
+    },
+    {
+      "start": "2026-09-13T09:29:56.457649+00:00",
+      "end": "2026-09-13T09:29:58.671948+00:00",
+      "seconds": 2.214299,
+      "part": [
+        "sites"
+      ],
+      "exit": 0,
+      "before": "NVIDIA GeForce RTX 5070, 580.178.04, 6 %, 1368 MiB",
+      "after": "NVIDIA GeForce RTX 5070, 580.178.04, 7 %, 1368 MiB",
+      "guard_error": null
+    },
+    {
+      "start": "2026-09-13T09:29:58.698322+00:00",
+      "end": "2026-09-13T09:30:07.084793+00:00",
+      "seconds": 8.386471,
+      "part": [
+        "exports"
+      ],
+      "exit": 0,
+      "before": "NVIDIA GeForce RTX 5070, 580.178.04, 7 %, 1368 MiB",
+      "after": "NVIDIA GeForce RTX 5070, 580.178.04, 8 %, 1368 MiB",
+      "guard_error": null
+    }
+  ],
+  "protocol": "Exclusive shared GPU lock; 150-second process-group timeout per part; kernel journal and compute-context guards before/after; CUDA 12.9 nvcc; no throughput claim"
+}

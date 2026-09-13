@@ -1,0 +1,17 @@
+numpy
+scipy
+pyyaml
+warp-lang
+torch
+scikit-image
+scikit-learn
+matplotlib
+pytest
+# optional, only for the Vulkan cross-API port (certified_loop/d_vulkan_port_certified_kernel.py,
+# kernel_gen/d_crossbackend_kernel_port_verify.py):
+# wgpu
+# optional, only for the CAD meshing script (cad_to_femmesh.py):
+# gmsh
+# optional, only for warp_gpu/mujoco_warp_bench.py:
+# mujoco
+# mujoco-warp

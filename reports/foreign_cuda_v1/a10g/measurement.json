@@ -1,0 +1,427 @@
+{
+  "bandwidth_reference": "Measured same-worker cudaMemcpy D2D read+write bytes; not theoretical DRAM peak",
+  "compiler": "nvcc: NVIDIA (R) Cuda compiler driver\nCopyright (c) 2005-2025 NVIDIA Corporation\nBuilt on Tue_May_27_02:21:03_PDT_2025\nCuda compilation tools, release 12.9, V12.9.86\nBuild cuda_12.9.r12.9/compiler.36037853_0",
+  "device": "NVIDIA A10, 580.95.05",
+  "timings": [
+    {
+      "case": "add",
+      "legs": [
+        {
+          "bandwidth_fraction": 0.0,
+          "copy_gbps": 0.07614213045824059,
+          "copy_ms": 0.003362133400514722,
+          "kernel_ms": 0.002628266578540206,
+          "useful_gbps": 0.0
+        },
+        {
+          "bandwidth_fraction": 0.0,
+          "copy_gbps": 0.08595988047958147,
+          "copy_ms": 0.0029781335033476353,
+          "kernel_ms": 0.002254933351650834,
+          "useful_gbps": 0.0
+        }
+      ],
+      "n": 0
+    },
+    {
+      "case": "zero",
+      "legs": [
+        {
+          "bandwidth_fraction": 0.0,
+          "copy_gbps": 0.07277137796464944,
+          "copy_ms": 0.003517866600304842,
+          "kernel_ms": 0.0026240001898258924,
+          "useful_gbps": 0.0
+        },
+        {
+          "bandwidth_fraction": 0.0,
+          "copy_gbps": 0.07692307778999222,
+          "copy_ms": 0.0033279999624937773,
+          "kernel_ms": 0.0025258667301386595,
+          "useful_gbps": 0.0
+        }
+      ],
+      "n": 0
+    },
+    {
+      "case": "cancel",
+      "legs": [
+        {
+          "bandwidth_fraction": 0.0,
+          "copy_gbps": 0.06932409112954199,
+          "copy_ms": 0.003692799946293235,
+          "kernel_ms": 0.0025642665568739176,
+          "useful_gbps": 0.0
+        },
+        {
+          "bandwidth_fraction": 0.0,
+          "copy_gbps": 0.08611409968375039,
+          "copy_ms": 0.002972800051793456,
+          "kernel_ms": 0.0022527999244630337,
+          "useful_gbps": 0.0
+        }
+      ],
+      "n": 0
+    },
+    {
+      "case": "add",
+      "legs": [
+        {
+          "bandwidth_fraction": 0.06420454467940793,
+          "copy_gbps": 0.08424097927830575,
+          "copy_ms": 0.0031338667031377554,
+          "kernel_ms": 0.0022186667192727327,
+          "useful_gbps": 0.00540865371791106
+        },
+        {
+          "bandwidth_fraction": 0.05926379659934797,
+          "copy_gbps": 0.09139586558028127,
+          "copy_ms": 0.0028885332867503166,
+          "kernel_ms": 0.002215466694906354,
+          "useful_gbps": 0.005416465987771137
+        }
+      ],
+      "n": 1
+    },
+    {
+      "case": "zero",
+      "legs": [
+        {
+          "bandwidth_fraction": 0.06068618835940748,
+          "copy_gbps": 0.08912495353767953,
+          "copy_ms": 0.0029621333815157413,
+          "kernel_ms": 0.0022186667192727327,
+          "useful_gbps": 0.00540865371791106
+        },
+        {
+          "bandwidth_fraction": 0.060831526368878557,
+          "copy_gbps": 0.09173461983571168,
+          "copy_ms": 0.002877866616472602,
+          "kernel_ms": 0.002150400076061487,
+          "useful_gbps": 0.005580356945475145
+        }
+      ],
+      "n": 1
+    },
+    {
+      "case": "cancel",
+      "legs": [
+        {
+          "bandwidth_fraction": 0.06419101659829742,
+          "copy_gbps": 0.08693361222796334,
+          "copy_ms": 0.0030368000734597445,
+          "kernel_ms": 0.002150400076061487,
+          "useful_gbps": 0.005580356945475145
+        },
+        {
+          "bandwidth_fraction": 0.06377791694563034,
+          "copy_gbps": 0.07629469877023755,
+          "copy_ms": 0.003460266627371311,
+          "kernel_ms": 0.0024661333300173283,
+          "useful_gbps": 0.004865916961560096
+        }
+      ],
+      "n": 1
+    },
+    {
+      "case": "add",
+      "legs": [
+        {
+          "bandwidth_fraction": 1.7824439887332097,
+          "copy_gbps": 0.6796653072055001,
+          "copy_ms": 0.003378133289515972,
+          "kernel_ms": 0.0025258667301386595,
+          "useful_gbps": 1.211465341178954
+        },
+        {
+          "bandwidth_fraction": 1.6435067223477324,
+          "copy_gbps": 0.7254802563414676,
+          "copy_ms": 0.003164800116792321,
+          "kernel_ms": 0.002566399984061718,
+          "useful_gbps": 1.1923316782277582
+        }
+      ],
+      "n": 255
+    },
+    {
+      "case": "zero",
+      "legs": [
+        {
+          "bandwidth_fraction": 1.7733158584181767,
+          "copy_gbps": 0.7899082741991013,
+          "copy_ms": 0.0029066666029393673,
+          "kernel_ms": 0.002184533281251788,
+          "useful_gbps": 1.4007568693329997
+        },
+        {
+          "bandwidth_fraction": 1.7059453834128535,
+          "copy_gbps": 0.6914551914097609,
+          "copy_ms": 0.0033205333165824413,
+          "kernel_ms": 0.0025941331405192614,
+          "useful_gbps": 1.1795847916223325
+        }
+      ],
+      "n": 255
+    },
+    {
+      "case": "cancel",
+      "legs": [
+        {
+          "bandwidth_fraction": 1.6301258063796722,
+          "copy_gbps": 0.7165445832918974,
+          "copy_ms": 0.0032042667735368013,
+          "kernel_ms": 0.0026197333354502916,
+          "useful_gbps": 1.1680578166456905
+        },
+        {
+          "bandwidth_fraction": 1.6286194645364085,
+          "copy_gbps": 0.7148787586469474,
+          "copy_ms": 0.0032117334194481373,
+          "kernel_ms": 0.002628266578540206,
+          "useful_gbps": 1.164265461116044
+        }
+      ],
+      "n": 255
+    },
+    {
+      "case": "add",
+      "legs": [
+        {
+          "bandwidth_fraction": 1.7343600346977048,
+          "copy_gbps": 0.7991120788148507,
+          "copy_ms": 0.002883200068026781,
+          "kernel_ms": 0.0022165332920849323,
+          "useful_gbps": 1.3859480527406796
+        },
+        {
+          "bandwidth_fraction": 1.7027883378296262,
+          "copy_gbps": 0.8038704831339268,
+          "copy_ms": 0.002866133349016309,
+          "kernel_ms": 0.0022442666813731194,
+          "useful_gbps": 1.368821283805918
+        }
+      ],
+      "n": 256
+    },
+    {
+      "case": "zero",
+      "legs": [
+        {
+          "bandwidth_fraction": 1.7238888863119874,
+          "copy_gbps": 0.6961005031724627,
+          "copy_ms": 0.0033098668791353703,
+          "kernel_ms": 0.002560000168159604,
+          "useful_gbps": 1.1999999211751908
+        },
+        {
+          "bandwidth_fraction": 1.7550627105804737,
+          "copy_gbps": 0.7912087764025507,
+          "copy_ms": 0.0029120000544935465,
+          "kernel_ms": 0.002212266670539975,
+          "useful_gbps": 1.3886210197481206
+        }
+      ],
+      "n": 256
+    },
+    {
+      "case": "cancel",
+      "legs": [
+        {
+          "bandwidth_fraction": 1.754557287989053,
+          "copy_gbps": 0.8014842508438154,
+          "copy_ms": 0.002874666592106223,
+          "kernel_ms": 0.002184533281251788,
+          "useful_gbps": 1.4062500335264625
+        },
+        {
+          "bandwidth_fraction": 1.550605894816885,
+          "copy_gbps": 0.725806408195427,
+          "copy_ms": 0.0031744001898914576,
+          "kernel_ms": 0.002729599829763174,
+          "useful_gbps": 1.1254396950436993
+        }
+      ],
+      "n": 256
+    },
+    {
+      "case": "add",
+      "legs": [
+        {
+          "bandwidth_fraction": 1.6657422918812839,
+          "copy_gbps": 0.7136976967212337,
+          "copy_ms": 0.0032394668087363243,
+          "kernel_ms": 0.0025941331405192614,
+          "useful_gbps": 1.1888364370468214
+        },
+        {
+          "bandwidth_fraction": 1.5277689206047522,
+          "copy_gbps": 0.7125246488024448,
+          "copy_ms": 0.00324480002745986,
+          "kernel_ms": 0.0028330667410045862,
+          "useful_gbps": 1.0885730136051912
+        }
+      ],
+      "n": 257
+    },
+    {
+      "case": "zero",
+      "legs": [
+        {
+          "bandwidth_fraction": 1.702911814000227,
+          "copy_gbps": 0.7148746649131417,
+          "copy_ms": 0.003234133357182145,
+          "kernel_ms": 0.0025333331432193518,
+          "useful_gbps": 1.2173685124100426
+        },
+        {
+          "bandwidth_fraction": 1.64126030477554,
+          "copy_gbps": 0.6798933247212291,
+          "copy_ms": 0.0034005334600806236,
+          "kernel_ms": 0.0027637332677841187,
+          "useful_gbps": 1.1158819253468197
+        }
+      ],
+      "n": 257
+    },
+    {
+      "case": "cancel",
+      "legs": [
+        {
+          "bandwidth_fraction": 1.6755957430105572,
+          "copy_gbps": 0.7198604921566822,
+          "copy_ms": 0.0032117334194481373,
+          "kernel_ms": 0.0025568001437932253,
+          "useful_gbps": 1.2061951762192213
+        },
+        {
+          "bandwidth_fraction": 1.7469090650508503,
+          "copy_gbps": 0.7957048442373734,
+          "copy_ms": 0.002905600005760789,
+          "kernel_ms": 0.0022186667192727327,
+          "useful_gbps": 1.3900240055031425
+        }
+      ],
+      "n": 257
+    },
+    {
+      "case": "add",
+      "legs": [
+        {
+          "bandwidth_fraction": 1.9754814585266987,
+          "copy_gbps": 174.08228902961537,
+          "copy_ms": 0.0030133335385471582,
+          "kernel_ms": 0.0022869333624839783,
+          "useful_gbps": 343.8963342358909
+        },
+        {
+          "bandwidth_fraction": 1.8564393429780222,
+          "copy_gbps": 161.1873221855066,
+          "copy_ms": 0.0032543998677283525,
+          "kernel_ms": 0.002628266578540206,
+          "useful_gbps": 299.2344864944486
+        }
+      ],
+      "n": 65539
+    },
+    {
+      "case": "zero",
+      "legs": [
+        {
+          "bandwidth_fraction": 1.947202635282422,
+          "copy_gbps": 179.28637450696323,
+          "copy_ms": 0.0029258665163069963,
+          "kernel_ms": 0.0022527999244630337,
+          "useful_gbps": 349.10690091019006
+        },
+        {
+          "bandwidth_fraction": 1.911846356514175,
+          "copy_gbps": 179.87655392084386,
+          "copy_ms": 0.0029162666760385036,
+          "kernel_ms": 0.0022869333624839783,
+          "useful_gbps": 343.8963342358909
+        }
+      ],
+      "n": 65539
+    },
+    {
+      "case": "cancel",
+      "legs": [
+        {
+          "bandwidth_fraction": 1.9599805850168732,
+          "copy_gbps": 178.11753013215926,
+          "copy_ms": 0.002945066662505269,
+          "kernel_ms": 0.0022527999244630337,
+          "useful_gbps": 349.10690091019006
+        },
+        {
+          "bandwidth_fraction": 1.8950633785351418,
+          "copy_gbps": 181.46956884456185,
+          "copy_ms": 0.0028906664811074734,
+          "kernel_ms": 0.0022869333624839783,
+          "useful_gbps": 343.8963342358909
+        }
+      ],
+      "n": 65539
+    },
+    {
+      "case": "add",
+      "legs": [
+        {
+          "bandwidth_fraction": 1.0418201574654669,
+          "copy_gbps": 476.27467387437883,
+          "copy_ms": 0.2818079888820648,
+          "kernel_ms": 0.40574294328689575,
+          "useful_gbps": 496.19255573261927
+        },
+        {
+          "bandwidth_fraction": 1.0383555409386658,
+          "copy_gbps": 476.70586098620373,
+          "copy_ms": 0.28155308961868286,
+          "kernel_ms": 0.4067285358905792,
+          "useful_gbps": 494.99017215296203
+        }
+      ],
+      "n": 16777219
+    },
+    {
+      "case": "zero",
+      "legs": [
+        {
+          "bandwidth_fraction": 1.0393740922243273,
+          "copy_gbps": 476.3936223097086,
+          "copy_ms": 0.28173762559890747,
+          "kernel_ms": 0.40659627318382263,
+          "useful_gbps": 495.1511887296124
+        },
+        {
+          "bandwidth_fraction": 1.039111002442308,
+          "copy_gbps": 476.7131272207833,
+          "copy_ms": 0.28154879808425903,
+          "kernel_ms": 0.40642663836479187,
+          "useful_gbps": 495.3578555037957
+        }
+      ],
+      "n": 16777219
+    },
+    {
+      "case": "cancel",
+      "legs": [
+        {
+          "bandwidth_fraction": 1.0394564297481557,
+          "copy_gbps": 476.116067659964,
+          "copy_ms": 0.28190186619758606,
+          "kernel_ms": 0.4068010747432709,
+          "useful_gbps": 494.90190783555755
+        },
+        {
+          "bandwidth_fraction": 1.0360850781836288,
+          "copy_gbps": 476.82512589069233,
+          "copy_ms": 0.28148266673088074,
+          "kernel_ms": 0.4075178802013397,
+          "useful_gbps": 494.0313978383767
+        }
+      ],
+      "n": 16777219
+    }
+  ]
+}

@@ -1,0 +1,262 @@
+{
+ "preregistered": {
+  "floor_B_per_voxel": 72.0,
+  "traffic_mult": 1.1,
+  "roof_best": 0.85,
+  "supported": "(iii) or (iv) >=85% measured roofline at <=1.1x 72B floor",
+  "partial": ">50% and <85%, residual mechanism localized by measurement",
+  "refuted": "best(iii,iv) MLUPS <= 1.2x AoS (contradicts AoS-gap diagnosis)"
+ },
+ "copy_roofline": {
+  "measured_GBs": 562.993799862268,
+  "anchor_578_ratio": 0.9740377160246851,
+  "nameplate_frac": 0.8377883926521845
+ },
+ "poiseuille": {
+  "aos_twopass": {
+   "l2_pct": 0.017656928746808746,
+   "umax_lbm": 0.039981176415136405,
+   "umax_ana": 0.039975,
+   "ok": true
+  },
+  "aos_fused": {
+   "l2_pct": 0.017656928746808746,
+   "umax_lbm": 0.039981176415136405,
+   "umax_ana": 0.039975,
+   "ok": true
+  },
+  "soa_twopass": {
+   "l2_pct": 0.017656928746808746,
+   "umax_lbm": 0.039981176415136405,
+   "umax_ana": 0.039975,
+   "ok": true
+  },
+  "soa_fused": {
+   "l2_pct": 0.017656928746808746,
+   "umax_lbm": 0.039981176415136405,
+   "umax_ana": 0.039975,
+   "ok": true
+  },
+  "soa_f4": {
+   "l2_pct": 0.017656928746808746,
+   "umax_lbm": 0.039981176415136405,
+   "umax_ana": 0.039975,
+   "ok": true
+  }
+ },
+ "steadiness_40k_vs_60k": 6.382803268899444e-08,
+ "cross_variant": {
+  "aos_twopass": {
+   "max_drho": 0.0,
+   "max_du": 0.0,
+   "ref": true
+  },
+  "aos_fused": {
+   "max_drho": 0.0,
+   "max_du": 0.0,
+   "ok": true
+  },
+  "soa_twopass": {
+   "max_drho": 0.0,
+   "max_du": 0.0,
+   "ok": true
+  },
+  "soa_fused": {
+   "max_drho": 0.0,
+   "max_du": 0.0,
+   "ok": true
+  },
+  "soa_f4": {
+   "max_drho": 0.0,
+   "max_du": 0.0,
+   "ok": true
+  }
+ },
+ "determinism": {
+  "aos_twopass": {
+   "bit_repeat": true,
+   "hash": "ba1ba3b50e2e3ef0"
+  },
+  "aos_fused": {
+   "bit_repeat": true,
+   "hash": "ba1ba3b50e2e3ef0"
+  },
+  "soa_twopass": {
+   "bit_repeat": true,
+   "hash": "169f69fa3dfba3bf"
+  },
+  "soa_fused": {
+   "bit_repeat": true,
+   "hash": "169f69fa3dfba3bf"
+  },
+  "soa_f4": {
+   "bit_repeat": true,
+   "hash": "169f69fa3dfba3bf"
+  }
+ },
+ "cert_2048": {
+  "aos_twopass": {
+   "B_model": 144.0,
+   "mlups_min": 3064.289467700877,
+   "mlups_mean": 3042.0105486753287,
+   "bw_model_GBs": 441.2576833489263,
+   "roof_frac": 0.7837700583148101,
+   "B_eff": 183.72735532869868,
+   "traffic_ok": false,
+   "bw_ok": false,
+   "certified": false,
+   "finite": true
+  },
+  "aos_fused": {
+   "B_model": 72.0,
+   "mlups_min": 7333.489317285775,
+   "mlups_mean": 7203.171887590505,
+   "bw_model_GBs": 528.0112308445757,
+   "roof_frac": 0.937863313901058,
+   "B_eff": 76.77024885483024,
+   "traffic_ok": true,
+   "bw_ok": true,
+   "certified": true,
+   "finite": true
+  },
+  "soa_twopass": {
+   "B_model": 144.0,
+   "mlups_min": 3657.649911288467,
+   "mlups_mean": 3614.4763226694754,
+   "bw_model_GBs": 526.7015872255391,
+   "roof_frac": 0.9355371006828006,
+   "B_eff": 153.92227619289682,
+   "traffic_ok": false,
+   "bw_ok": true,
+   "certified": false,
+   "finite": true
+  },
+  "soa_fused": {
+   "B_model": 72.0,
+   "mlups_min": 7325.189572947331,
+   "mlups_mean": 7260.431325832242,
+   "bw_model_GBs": 527.4136492522078,
+   "roof_frac": 0.9368018784243013,
+   "B_eff": 76.85723273858486,
+   "traffic_ok": true,
+   "bw_ok": true,
+   "certified": true,
+   "finite": true
+  },
+  "soa_f4": {
+   "B_model": 72.0,
+   "mlups_min": 7445.48102781624,
+   "mlups_mean": 7398.6466484088305,
+   "bw_model_GBs": 536.0746340027692,
+   "roof_frac": 0.95218567972492,
+   "B_eff": 75.61550392230254,
+   "traffic_ok": true,
+   "bw_ok": true,
+   "certified": true,
+   "finite": true
+  }
+ },
+ "grid_sweep": {
+  "soa_fused": {
+   "512": {
+    "mlups": 25328.999053792835,
+    "roof": 3.239268234071556
+   },
+   "1024": {
+    "mlups": 7931.614401459836,
+    "roof": 1.014356174161807
+   },
+   "2048": {
+    "mlups": 7326.060630758355,
+    "roof": 0.9369132760318932
+   },
+   "4096": {
+    "mlups": 7321.994786010628,
+    "roof": 0.9363933043698466
+   }
+  },
+  "soa_f4": {
+   "512": {
+    "mlups": 21040.211527914424,
+    "roof": 2.690784925838341
+   },
+   "1024": {
+    "mlups": 8623.56640723377,
+    "roof": 1.1028483465940992
+   },
+   "2048": {
+    "mlups": 7449.678790722215,
+    "roof": 0.9527225221009892
+   },
+   "4096": {
+    "mlups": 7314.185715688046,
+    "roof": 0.9353946200799601
+   }
+  },
+  "aos_fused": {
+   "4096": {
+    "mlups": 7284.4479831713015,
+    "roof": 0.9315915289238419
+   }
+  },
+  "aos_twopass": {
+   "4096": {
+    "mlups": 3054.41328153663,
+    "roof": 0.7812439722229216
+   }
+  }
+ },
+ "localization": {
+  "block_sweep": {
+   "128": {
+    "mlups": 7395.384236535661,
+    "roof": 0.9457789147248721
+   },
+   "256": {
+    "mlups": 7432.18981416886,
+    "roof": 0.9504858965606195
+   },
+   "512": {
+    "mlups": 7397.3401500043565,
+    "roof": 0.9460290520616962
+   },
+   "1024": {
+    "launch_failed": "kernel launch failed: too many resources requested for launch"
+   }
+  },
+  "pad_probe": {
+   "nx": 2080,
+   "ny": 2048,
+   "mlups": 7379.765924493511,
+   "roof": 0.9437815242255274
+  }
+ },
+ "anchors": {
+  "c_aos_two_kernel_mlups": 1770.0,
+  "c_fused_soa_mlups_4096": 7345.0,
+  "ours_aos_twopass_4096_mlups": 3054.41328153663,
+  "ours_best_4096_mlups": 7321.994786010628,
+  "ratio_vs_c_fused_soa": 0.9968679082383428
+ },
+ "verdict": "SUPPORTED",
+ "best_variant": "soa_f4",
+ "f4_profitable": false,
+ "attribution_correction": {
+  "stitch_label": "AoS layout gap (22% of peak)",
+  "corrected_to": "un-fused two-kernel round-trip (2x traffic) + original-framework overhead; AoS layout per se coalesces via per-cell contiguous 36B blocks through L1",
+  "fusion_effect_soa": 2.002703853734026,
+  "fusion_effect_aos": 2.393210365595147,
+  "layout_effect_fused": 0.9988682407542504,
+  "layout_effect_twopass": 1.1936372036133993,
+  "material_vs_aos_fused": false
+ },
+ "gap_closure": {
+  "aos_twopass_roof": 0.7837700583148101,
+  "aos_fused_roof": 0.937863313901058,
+  "soa_twopass_roof": 0.9355371006828006,
+  "soa_fused_roof": 0.9368018784243013,
+  "soa_f4_roof": 0.95218567972492
+ },
+ "wall_clock_s": 98.47866463661194,
+ "contamination_flag": "GPU shared (desktop resident); flock held; small negative roofline bias possible, uncorrected"
+}
