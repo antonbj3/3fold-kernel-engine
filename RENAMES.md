@@ -603,3 +603,6 @@ adds an int64 fixed-point accumulation path behind a module-level `DETERMINISTIC
 | `kernel_gen/rt_winding_phase_probe/build.sh` | Add external SDK/toolkit CPU build for observer only. | Preserve the verified native executable and device program. |
 | `kernel_gen/rt_winding_batch_v1/host.cpp` | Add separate fixed64-query context/pipeline/GAS reuse with full upload/readback and exact within-batch comparisons. | Test amortization suggested by the measured phase table without modifying the stable host/PTX. |
 | `kernel_gen/rt_winding_batch_v1/build.sh` | Add external-toolchain build for separate batch caller. | Preserve prior binaries and launch program. |
+| `kernel_gen/rt_winding_api_v1/api.h` | Add explicit same-thread immutable-mesh C ABI with fixed capacity, status codes and caller-owned output. | Define mutable-query ownership beside the frozen executable. |
+| `kernel_gen/rt_winding_api_v1/api.cpp` | Add separate persistent handle setup/query/cleanup, finite/count rejection before transfer, unchanged winding PTX. | Test changed ray origins against measured CPU references. |
+| `kernel_gen/rt_winding_api_v1/build.sh` | Add external SDK/toolkit shared-library build. | Preserve all prior binaries and avoid SDK vendoring. |

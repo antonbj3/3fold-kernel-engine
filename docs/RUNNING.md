@@ -949,3 +949,41 @@ API and every prior negative remain unchanged.
 |---|---|---|
 | `kernel_gen/rt_winding_batch_v1/host.cpp` | SYNTHETIC-ONLY | Build0, fixed64 full-query repeats exact, all8 total-speed FAIL; query mean0.102517–0.137713ms excludes setup/EDT. |
 | `kernel_gen/rt_winding_batch_v1/build.sh` | SYNTHETIC-ONLY | Build0, fixed64 full-query repeats exact, all8 total-speed FAIL; query mean0.102517–0.137713ms excludes setup/EDT. |
+
+## Persistent changed-query API: gates before execution
+
+After the CPU changed-query table (field b6fbb00, phase differences985–1904), add
+an independent C ABI create/query/destroy handle owning OptiX context/stream/GAS/
+pipeline and fixed-capacity buffers. Immutable local float32 triangle corners;
+query supplies new finite ray origins and receives int32 winding counts. Same
+thread and unchanged CUDA context required; concurrent use/context switching are
+outside this version. No explicit output/report writes, external PTX read only;
+SDK compiler caches remain external runtime behavior. Stable executable unchanged.
+
+Fixed correctness gates: sequence0,1,2,0 on each of four meshes with two freshly
+created handles, full counts/EDT identical across repeats and exact CPU mask/EDT;
+short-query prefix exact with untouched output suffix; zero/over-capacity/nonfinite
+queries rejected before output mutation; null destroy idempotent and live destroy
+nulls handle; no observed current-boot fault. Build and query failures retained.
+No performance or production-lifetime/concurrency certificate from this probe.
+
+Initial API result: five/seven gates PASS, exact CPU occupancy/EDT FAIL. Full
+repeats, prefix/suffix, invalid-output preservation and handle cleanup pass.
+
+| mesh | phase0 mask errors | phase1 mask errors | phase2 mask errors |
+|---|---|---|---|
+| sphere | 25020 | 24294 | 24658 |
+| sphere_fine | 25008 | 24286 | 24638 |
+| sphere_overlap | 33289 | 33248 | 32869 |
+| subdivided_rotated_box | 24558 | 25871 | 24772 |
+
+Both complete runs have identical errors/hashes. Maximum mask errors33289,
+maximum EDT differences65142. Evidence: field artifacts/field_rt_api_v1.json
+and full arrays. Native process normal, no observed fault. API not certified for
+CPU agreement. Next measure host-memory layout before any implementation change.
+
+| module | status | evidence |
+|---|---|---|
+| `kernel_gen/rt_winding_api_v1/api.h` | SYNTHETIC-ONLY | Build0; initial caller five/seven gates PASS, CPU agreement fails33289 mask samples; not promoted. |
+| `kernel_gen/rt_winding_api_v1/api.cpp` | SYNTHETIC-ONLY | Build0; initial caller five/seven gates PASS, CPU agreement fails33289 mask samples; not promoted. |
+| `kernel_gen/rt_winding_api_v1/build.sh` | SYNTHETIC-ONLY | Build0; initial caller five/seven gates PASS, CPU agreement fails33289 mask samples; not promoted. |
