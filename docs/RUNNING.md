@@ -1241,6 +1241,31 @@ Native uses an explicit nonblocking stream required for capture. Existing
 export sources and direct-launch baseline remain frozen. This measures
 repeated graph dispatch, with no claim about cold-start cost or peak DRAM rate.
 
+Loader follow-up: all direct dynamic-library dependencies resolve, but selecting
+only the hardware ICD returns ERROR_INCOMPATIBLE_DRIVER: its proc-address entry
+cannot provide vkCreateInstance. Hardware devices remain0. No device-node,
+permission, driver-module or sandbox changes are attempted.
+
+### Vulkan winding candidate gates before design/execution
+
+The frozen OptiX seam reads two uint32 counts, then float32 triangle corners and
+ray origins, and writes int32 signed winding. It sums sign of the projected
+oriented triangle area for every +z hit with t>0, ignoring each hit to continue
+traversal. Its five-fixture saved field comparison has0 occupancy/EDT differences.
+The Vulkan candidate will preserve that seam in a new directory, use nonopaque
+ray-query candidates without confirming a closest hit, and compute orientation
+from float64-converted coordinates. Normal execution requires a hardware device;
+an explicit --allow-software switch permits a diagnostic CPU implementation.
+
+Seven fixed gates: all child invocations succeed; two full winding outputs exact;
+counts match independent double ray-triangle sums; occupancy matches frozen
+five-fixture references; corrected float32 EDT matches those references; all
+five valid fixtures complete; selected implementation is hardware. The last gate
+must remain false for software-only execution, even if correctness passes.
+No performance or cross-vendor claim without fresh hardware runs. Compilation
+alone is not acceptance. Report float32 subnormal behavior separately; no global
+CUDA/Vulkan numeric-equivalence claim follows from these normal-coordinate cases.
+
 ### C3 matched graph export result
 
 | Side | Warp event ms, two legs | Native event ms, two legs | Native/Warp payload bandwidth ratio |
@@ -1268,3 +1293,40 @@ are a read/write floor; cached small-grid traffic is not a DRAM peak fraction.
 | `kernel_gen/innovation_lbm_stream_graph_export.py` | VERIFIED-FRESH | 7/7 integration gates, exact full outputs twice, bandwidth ratios0.99949609..1.01116427 inside fixed[0.9,1.1]. |
 | `kernel_gen/stream_graph_export_v1/stream_shim.cu` | VERIFIED-FRESH | Same7/7 integration gates through existing C ABI, two graph replays exact; frozen generated body. |
 | `kernel_gen/stream_graph_export_v1/build.sh` | VERIFIED-FRESH | gcc C11 caller and nvcc CUDA build execute independently in both passing integration legs. |
+
+| Module | Evidence status | Measured result |
+|---|---|---|
+| kernel_gen/vulkan_winding_v1/host.cpp | OWN-GATE-FAIL | 6/7 gates, reports/vulkan_winding_software.json; all5 fixtures/two runs exact,0 count/occupancy/EDT differences; hardware unavailable. |
+| kernel_gen/vulkan_winding_v1/winding.comp | OWN-GATE-FAIL | Same6/7 full candidate gates; nonopaque candidate accumulation matches independent signed ray sums, software execution only. |
+| kernel_gen/vulkan_winding_v1/probe.py | OWN-GATE-FAIL | 102162 voxel results across10 runs, all correctness gates pass; hardware gate remains false. |
+
+| Fixture | Voxels per run | Signed-count differences | Occupancy differences | EDT differences | Full repeat |
+|---|---:|---:|---:|---:|---|
+| box | 9261 | 0 | 0 | 0 | exact |
+| offset | 10648 | 0 | 0 | 0 | exact |
+| reversed | 9261 | 0 | 0 | 0 | exact |
+| overlap | 12650 | 0 | 0 | 0 | exact |
+| nested | 9261 | 0 | 0 | 0 | exact |
+
+Full arrays: reports/vulkan_winding_software_arrays.npz. The OptiX baseline and
+field reference remain unchanged. A follow-up enables the standard validation
+layer with the same inputs and adds an observer requiring0 validation errors;
+all seven original gates remain unchanged, including the hardware failure.
+
+Validation-layer follow-up: reports/vulkan_winding_validation.json,0 reported
+validation errors across10 repeated children. All output hashes match the first
+software run; compiled host and shader hashes also match. Hardware gate still
+fails. This is standard API validation, not GPU-assisted race instrumentation.
+
+Build with a Vulkan development package and glslang-tools installed:
+
+```sh
+c++ -std=c++17 -O2 src/kernel_engine/kernel_gen/vulkan_winding_v1/host.cpp -lvulkan -o winding
+ glslangValidator -V --target-env vulkan1.2 src/kernel_engine/kernel_gen/vulkan_winding_v1/winding.comp -o winding.spv
+```
+
+Set VULKAN_WINDING_BINARY and VULKAN_WINDING_SHADER to the resulting files and
+FIELD_REFERENCE_SOURCE to the frozen field-engine mesh-to-SDF module; run the
+probe.py beside the host. Its optional --allow-software flag is diagnostic only.
+Normal host invocation rejects software-only availability. Files are written only
+to the explicit output argument (host) or reports directory (probe main).

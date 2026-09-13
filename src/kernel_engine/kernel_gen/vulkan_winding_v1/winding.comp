@@ -1,0 +1,30 @@
+#version 460
+#extension GL_EXT_ray_query : require
+#extension GL_ARB_gpu_shader_fp64 : require
+layout(local_size_x=64) in;
+layout(set=0,binding=0) uniform accelerationStructureEXT scene;
+layout(set=0,binding=1,std430) readonly buffer Corners { float corners[]; };
+layout(set=0,binding=2,std430) readonly buffer Origins { float origins[]; };
+layout(set=0,binding=3,std430) writeonly buffer Counts { int counts[]; };
+layout(push_constant) uniform Parameters { uint ray_count; } params;
+void main() {
+    uint i=gl_GlobalInvocationID.x;
+    if(i>=params.ray_count) return;
+    vec3 origin=vec3(origins[3*i],origins[3*i+1],origins[3*i+2]);
+    rayQueryEXT query;
+    rayQueryInitializeEXT(query,scene,gl_RayFlagsNoOpaqueEXT,255,origin,0.0,vec3(0,0,1),1.e16);
+    int sum=0;
+    while(rayQueryProceedEXT(query)) {
+        if(rayQueryGetIntersectionTypeEXT(query,false)==gl_RayQueryCandidateIntersectionTriangleEXT &&
+           rayQueryGetIntersectionTEXT(query,false)>0.0) {
+            uint j=9*rayQueryGetIntersectionPrimitiveIndexEXT(query,false);
+            dvec2 a=dvec2(corners[j],corners[j+1]);
+            dvec2 b=dvec2(corners[j+3],corners[j+4]);
+            dvec2 c=dvec2(corners[j+6],corners[j+7]);
+            double nz=(b.x-a.x)*(c.y-a.y)-(b.y-a.y)*(c.x-a.x);
+            sum+=int(nz>0.0)-int(nz<0.0);
+            // Do not confirm a hit: every candidate contributes to signed winding.
+        }
+    }
+    counts[i]=sum;
+}

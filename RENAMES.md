@@ -620,3 +620,6 @@ SDK location convention: OPTIX_ROOT selects an external SDK9.0 installation; com
 - 2026-09-13: `src/kernel_engine/kernel_gen/stream_graph_export_v1/build.sh` — Build unchanged C11 caller and generated kernel with the separate captured shim.
 
 - 2026-09-13: `src/kernel_engine/kernel_gen/innovation_lbm_stream_graph_export.py` — Compare matched thirty-kernel graph replay with exact CPU oracle and unchanged bandwidth gates.
+| kernel_gen/vulkan_winding_v1/winding.comp | Add uncommitted-candidate signed ray-query accumulation with float64 projected orientation; OptiX shader frozen. |
+| kernel_gen/vulkan_winding_v1/host.cpp | Add separate Vulkan BLAS/TLAS and compute host with matching explicit binary I/O and opt-in software diagnosis. |
+| kernel_gen/vulkan_winding_v1/probe.py | Add seven preregistered five-fixture oracle/occupancy/EDT/repeat/hardware gates; software execution cannot pass hardware acceptance. |
