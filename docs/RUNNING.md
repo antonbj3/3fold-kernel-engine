@@ -825,3 +825,62 @@ claim. Next: non-axis-aligned and scale/translation precision stress before timi
 | `kernel_gen/rt_winding_v1/program.cu` | SYNTHETIC-ONLY | Native build0; field integration probe five gates PASS on ten process runs, zero mask/EDT differences. |
 | `kernel_gen/rt_winding_v1/host.cpp` | SYNTHETIC-ONLY | Native build0; field integration probe five gates PASS on ten process runs, zero mask/EDT differences. |
 | `kernel_gen/rt_winding_v1/build.sh` | SYNTHETIC-ONLY | Native build0; field integration probe five gates PASS on ten process runs, zero mask/EDT differences. |
+
+## Native lifecycle phase observer: preregistered
+
+Field timestamped lifecycle table (a17c0dc): eight total-speed failures, native
+process308.656–395.597ms versus CPU whole8.526–15.267ms; outputs exact. This
+motivates measurement of native phases before any persistent-context design.
+Separate host observer preserves the winding program/PTX and input/output ABI.
+It adds steady-clock boundaries for input read, CUDA initialization, OptiX context/
+stream, vertex upload/GAS, module/pipeline, SBT/ray upload, launch/sync, readback/
+write and teardown. One added stream synchronization completes GAS for attribution;
+this may alter scheduling and is measurement overhead, not an optimized backend.
+Phase durations are emitted as JSON on stdout; no new implicit report path.
+
+Fixed gates: two full outputs repeat exactly and match the frozen CPU mask/EDT;
+all phases finite/nonnegative; same two-leg whole-speed criterion and idle/fault
+guards retained. Timings not bit-identical. Fresh timestamped single-flock wrapper
+records actual sample/lock intervals; no performance attribution before results.
+
+Measured native phase table before persistent-context design; eight samples, two complete legs:
+
+| phase | minimum ms | maximum ms |
+|---|---|---|
+| input_read | 0.282731 | 0.618623 |
+| cuda_init | 133.637243 | 212.904865 |
+| optix_context_stream | 61.113501 | 62.520345 |
+| vertices_gas | 0.360600 | 0.503462 |
+| module_pipeline | 12.474591 | 12.648881 |
+| sbt_ray_upload | 0.091445 | 0.109543 |
+| launch_sync | 0.052439 | 0.063420 |
+| readback_write | 0.168561 | 0.220930 |
+| teardown | 6.867611 | 7.396214 |
+| process wall minus measured phases | 87.654203 | 88.179775 |
+
+Six/seven gates PASS; all8 whole-speed comparisons FAIL. Complete winding/EDT
+arrays repeat exactly and match frozen CPU arrays. PTX SHA unchanged; native
+observer is separate from the stable host. Positive finite phase durations are
+measurements, not bit-identical timing claims. The launch includes stream sync;
+GAS includes vertex upload and allocation. Residual process time above includes
+unmeasured work before/after instrumented scope and cannot be assigned to a
+specific driver or loader operation. CUDA initialization and OptiX context setup
+dominate measured phases; no persistent-context speedup has yet been measured.
+
+Actual timing lock:2026-09-13T00:57:11.550008+00:00 through
+2026-09-13T00:57:14.946740+00:00. Full UTC/monotonic intervals retained, GPU idle
+prechecks and journal guards PASS. Coordination overlap audit requested; no claim
+of complete absence of background activity. Prior timestamped run separately
+received confirmation of no competing coordinated heavy work in its actual
+interval; that does not remove arbitrary desktop activity or certify the earlier
+untimestamped run.
+
+Evidence: field artifacts/field_rt_native_phase_v1.json, matching arrays and
+field_rt_native_phase_events.jsonl. A JSON copy is in kernel reports. Next design
+may retain context/pipeline/GAS across repeated queries, but must report setup
+cost separately and include required transfers/EDT for whole-call comparisons.
+
+| module | status | evidence |
+|---|---|---|
+| `kernel_gen/rt_winding_phase_probe/host.cpp` | SYNTHETIC-ONLY | Build0, eight processes0, exact frozen outputs; all8 whole-speed FAIL; phase table retained. |
+| `kernel_gen/rt_winding_phase_probe/build.sh` | SYNTHETIC-ONLY | Build0, eight processes0, exact frozen outputs; all8 whole-speed FAIL; phase table retained. |

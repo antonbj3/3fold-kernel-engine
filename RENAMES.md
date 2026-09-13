@@ -599,3 +599,5 @@ adds an int64 fixed-point accumulation path behind a module-level `DETERMINISTIC
 | `kernel_gen/rt_winding_v1/program.cu` | Add built-in triangle any-hit signed winding, one invocation per primitive and strict positive ray parameter. | Preserve measured winding semantics instead of parity. |
 | `kernel_gen/rt_winding_v1/host.cpp` | Add bounded single-shot raw-fixture caller, GAS build and independent output arrays. | Execute the new backend without modifying Warp comparators. |
 | `kernel_gen/rt_winding_v1/build.sh` | Add external SDK/toolkit build with no vendored SDK files. | Reuse the measured compatible toolchain. |
+| `kernel_gen/rt_winding_phase_probe/host.cpp` | Add separate native phase timestamps and GAS-completion boundary beside the frozen host, reusing unchanged launch parameters/PTX. | Attribute measured lifecycle cost before persistent API design. |
+| `kernel_gen/rt_winding_phase_probe/build.sh` | Add external SDK/toolkit CPU build for observer only. | Preserve the verified native executable and device program. |
