@@ -3,7 +3,7 @@ from pathlib import Path
 import sys
 import numpy as np
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'src/kernel_engine/certified_kernels'))
-from chunkable_stability_v1 import SOURCE, experiment, transition_guard
+from chunkable_roundoff_guard_v2 import SOURCE, experiment, transition_guard
 
 
 def test_measured_expansion_and_stable_roundoff_failure():
