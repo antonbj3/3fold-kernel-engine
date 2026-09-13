@@ -1,0 +1,503 @@
+{
+  "arrays": {
+    "cloud_solves_A": {
+      "dtype": "float32",
+      "sha256": "3dd61f589e0af939ab0483ce897cfb84fc0167d21548def6b5dbaad2b6e0fe51",
+      "shape": [
+        128,
+        1
+      ]
+    },
+    "cloud_solves_B": {
+      "dtype": "float32",
+      "sha256": "cd68d972e2c9499696d3d5842a28225f4490b283d4d56635241af9c5bb055a1a",
+      "shape": [
+        128,
+        1
+      ]
+    },
+    "cloud_solves_Cmat": {
+      "dtype": "float32",
+      "sha256": "5def8cbe3eca61d6751d6220881ffa07d04cbbdeebbdd1ad13f7f888c99551b8",
+      "shape": [
+        1,
+        128
+      ]
+    },
+    "cloud_solves_Ident": {
+      "dtype": "float32",
+      "sha256": "66957d69fd7a0016b2ee4a95af26a8f7b93a932819cba34db82effad451f08fa",
+      "shape": [
+        128,
+        128
+      ]
+    },
+    "cloud_solves_L": {
+      "dtype": "float32",
+      "sha256": "04e198f85d149a75c1a1972fa3b2e0ead6ad71abd2de389736ca773785da4a43",
+      "shape": [
+        128,
+        128
+      ]
+    },
+    "cloud_solves_M": {
+      "dtype": "float32",
+      "sha256": "e702ee1706fddbbf6260ddb9b54dabcda892c1120ba94479c9405b6826196ecc",
+      "shape": [
+        128,
+        128
+      ]
+    },
+    "cloud_solves_O": {
+      "dtype": "float32",
+      "sha256": "a719ddca3018237029ba88b8050d4a96d055d4915a63dd8a5129601fa35629c1",
+      "shape": [
+        128,
+        1
+      ]
+    },
+    "cloud_solves_Qt": {
+      "dtype": "float32",
+      "sha256": "3dd61f589e0af939ab0483ce897cfb84fc0167d21548def6b5dbaad2b6e0fe51",
+      "shape": [
+        128,
+        1
+      ]
+    },
+    "cloud_solves_S0": {
+      "dtype": "float32",
+      "sha256": "75e253f50979177eba47b2d0805ad36038789108924514d2a761a70de057d16f",
+      "shape": [
+        1,
+        1
+      ]
+    },
+    "cloud_solves_S_end": {
+      "dtype": "float32",
+      "sha256": "8f5fe9dab3fdab7282aaf04a165d5402f7593d2b81b6d340b6916c3ecb3cf04b",
+      "shape": [
+        1,
+        1
+      ]
+    },
+    "cloud_solves_Umat": {
+      "dtype": "float32",
+      "sha256": "e8bac73ba6f3d6bda9fe68130be4c997a64985ad486f988175841de03fe57dd7",
+      "shape": [
+        1,
+        128
+      ]
+    },
+    "cloud_solves_Z": {
+      "dtype": "float32",
+      "sha256": "e702ee1706fddbbf6260ddb9b54dabcda892c1120ba94479c9405b6826196ecc",
+      "shape": [
+        128,
+        128
+      ]
+    },
+    "cloud_solves_Zm": {
+      "dtype": "float32",
+      "sha256": "4abef3934d0ae2f6738c5d3dfbe3f3c9612e87e482b885d89e30a2ec7f4f0feb",
+      "shape": [
+        128,
+        128
+      ]
+    },
+    "cloud_solves_beta": {
+      "dtype": "float32",
+      "sha256": "7c10c11e6fd41e913b331856ddd98d5676cb1653d96b622bf799544ae238edc3",
+      "shape": [
+        128
+      ]
+    },
+    "cloud_solves_correction": {
+      "dtype": "float32",
+      "sha256": "75e253f50979177eba47b2d0805ad36038789108924514d2a761a70de057d16f",
+      "shape": [
+        1,
+        1
+      ]
+    },
+    "cloud_solves_forcing": {
+      "dtype": "float32",
+      "sha256": "1fc244af2b96d0169a177e2559af29e0484744e4b8501d1044d76c9f7b3cf307",
+      "shape": [
+        1,
+        1
+      ]
+    },
+    "cloud_solves_g": {
+      "dtype": "float32",
+      "sha256": "abd76d55bfb7f2ef1643a3643fc1ec14adb1e4d75afe1de911467cdc8433ec3b",
+      "shape": [
+        128,
+        1
+      ]
+    },
+    "cloud_solves_gamma": {
+      "dtype": "float32",
+      "sha256": "3dd61f589e0af939ab0483ce897cfb84fc0167d21548def6b5dbaad2b6e0fe51",
+      "shape": [
+        128,
+        1
+      ]
+    },
+    "cloud_solves_k": {
+      "dtype": "float32",
+      "sha256": "02722f124d0f1736a9dd7c4ddcd05630dcf16ee1ce3454e9a876005ce005d4ac",
+      "shape": [
+        128,
+        1
+      ]
+    },
+    "cloud_solves_pre_scale": {
+      "dtype": "float32",
+      "sha256": "1fc244af2b96d0169a177e2559af29e0484744e4b8501d1044d76c9f7b3cf307",
+      "shape": [
+        1,
+        1
+      ]
+    },
+    "cloud_solves_q": {
+      "dtype": "float32",
+      "sha256": "02722f124d0f1736a9dd7c4ddcd05630dcf16ee1ce3454e9a876005ce005d4ac",
+      "shape": [
+        128,
+        1
+      ]
+    },
+    "cloud_solves_reconstructed_endpoint": {
+      "dtype": "float32",
+      "sha256": "8f5fe9dab3fdab7282aaf04a165d5402f7593d2b81b6d340b6916c3ecb3cf04b",
+      "shape": [
+        1,
+        1
+      ]
+    },
+    "cloud_solves_remainder": {
+      "dtype": "float32",
+      "sha256": "df3f619804a92fdb4057192dc43dd748ea778adc52bc498ce80524c014b81119",
+      "shape": [
+        1,
+        1
+      ]
+    },
+    "cloud_solves_rhs_a": {
+      "dtype": "float32",
+      "sha256": "bdedd5499ff7872344be6f26e05663ebfe9e6ab3728acb2e6416781ced4e83ca",
+      "shape": [
+        128,
+        1
+      ]
+    },
+    "cloud_solves_rhs_v": {
+      "dtype": "float32",
+      "sha256": "7c10c11e6fd41e913b331856ddd98d5676cb1653d96b622bf799544ae238edc3",
+      "shape": [
+        128,
+        1
+      ]
+    },
+    "cloud_solves_state_times_C": {
+      "dtype": "float32",
+      "sha256": "fbf7207e31e7b25999901e019289942a979eea50825a7d6bb4404524575df26c",
+      "shape": [
+        1,
+        128
+      ]
+    },
+    "cloud_solves_v": {
+      "dtype": "float32",
+      "sha256": "02722f124d0f1736a9dd7c4ddcd05630dcf16ee1ce3454e9a876005ce005d4ac",
+      "shape": [
+        128,
+        1
+      ]
+    },
+    "own_A": {
+      "dtype": "float32",
+      "sha256": "3dd61f589e0af939ab0483ce897cfb84fc0167d21548def6b5dbaad2b6e0fe51",
+      "shape": [
+        128,
+        1
+      ]
+    },
+    "own_B": {
+      "dtype": "float32",
+      "sha256": "cd68d972e2c9499696d3d5842a28225f4490b283d4d56635241af9c5bb055a1a",
+      "shape": [
+        128,
+        1
+      ]
+    },
+    "own_Cmat": {
+      "dtype": "float32",
+      "sha256": "5def8cbe3eca61d6751d6220881ffa07d04cbbdeebbdd1ad13f7f888c99551b8",
+      "shape": [
+        1,
+        128
+      ]
+    },
+    "own_Ident": {
+      "dtype": "float32",
+      "sha256": "66957d69fd7a0016b2ee4a95af26a8f7b93a932819cba34db82effad451f08fa",
+      "shape": [
+        128,
+        128
+      ]
+    },
+    "own_L": {
+      "dtype": "float32",
+      "sha256": "04e198f85d149a75c1a1972fa3b2e0ead6ad71abd2de389736ca773785da4a43",
+      "shape": [
+        128,
+        128
+      ]
+    },
+    "own_M": {
+      "dtype": "float32",
+      "sha256": "e702ee1706fddbbf6260ddb9b54dabcda892c1120ba94479c9405b6826196ecc",
+      "shape": [
+        128,
+        128
+      ]
+    },
+    "own_O": {
+      "dtype": "float32",
+      "sha256": "a719ddca3018237029ba88b8050d4a96d055d4915a63dd8a5129601fa35629c1",
+      "shape": [
+        128,
+        1
+      ]
+    },
+    "own_Qt": {
+      "dtype": "float32",
+      "sha256": "3dd61f589e0af939ab0483ce897cfb84fc0167d21548def6b5dbaad2b6e0fe51",
+      "shape": [
+        128,
+        1
+      ]
+    },
+    "own_S0": {
+      "dtype": "float32",
+      "sha256": "75e253f50979177eba47b2d0805ad36038789108924514d2a761a70de057d16f",
+      "shape": [
+        1,
+        1
+      ]
+    },
+    "own_S_end": {
+      "dtype": "float32",
+      "sha256": "8f5fe9dab3fdab7282aaf04a165d5402f7593d2b81b6d340b6916c3ecb3cf04b",
+      "shape": [
+        1,
+        1
+      ]
+    },
+    "own_Umat": {
+      "dtype": "float32",
+      "sha256": "e8bac73ba6f3d6bda9fe68130be4c997a64985ad486f988175841de03fe57dd7",
+      "shape": [
+        1,
+        128
+      ]
+    },
+    "own_Z": {
+      "dtype": "float32",
+      "sha256": "e702ee1706fddbbf6260ddb9b54dabcda892c1120ba94479c9405b6826196ecc",
+      "shape": [
+        128,
+        128
+      ]
+    },
+    "own_Zm": {
+      "dtype": "float32",
+      "sha256": "4abef3934d0ae2f6738c5d3dfbe3f3c9612e87e482b885d89e30a2ec7f4f0feb",
+      "shape": [
+        128,
+        128
+      ]
+    },
+    "own_beta": {
+      "dtype": "float32",
+      "sha256": "7c10c11e6fd41e913b331856ddd98d5676cb1653d96b622bf799544ae238edc3",
+      "shape": [
+        128
+      ]
+    },
+    "own_correction": {
+      "dtype": "float32",
+      "sha256": "75e253f50979177eba47b2d0805ad36038789108924514d2a761a70de057d16f",
+      "shape": [
+        1,
+        1
+      ]
+    },
+    "own_forcing": {
+      "dtype": "float32",
+      "sha256": "1fc244af2b96d0169a177e2559af29e0484744e4b8501d1044d76c9f7b3cf307",
+      "shape": [
+        1,
+        1
+      ]
+    },
+    "own_g": {
+      "dtype": "float32",
+      "sha256": "abd76d55bfb7f2ef1643a3643fc1ec14adb1e4d75afe1de911467cdc8433ec3b",
+      "shape": [
+        128,
+        1
+      ]
+    },
+    "own_gamma": {
+      "dtype": "float32",
+      "sha256": "3dd61f589e0af939ab0483ce897cfb84fc0167d21548def6b5dbaad2b6e0fe51",
+      "shape": [
+        128,
+        1
+      ]
+    },
+    "own_k": {
+      "dtype": "float32",
+      "sha256": "02722f124d0f1736a9dd7c4ddcd05630dcf16ee1ce3454e9a876005ce005d4ac",
+      "shape": [
+        128,
+        1
+      ]
+    },
+    "own_pre_scale": {
+      "dtype": "float32",
+      "sha256": "1fc244af2b96d0169a177e2559af29e0484744e4b8501d1044d76c9f7b3cf307",
+      "shape": [
+        1,
+        1
+      ]
+    },
+    "own_q": {
+      "dtype": "float32",
+      "sha256": "02722f124d0f1736a9dd7c4ddcd05630dcf16ee1ce3454e9a876005ce005d4ac",
+      "shape": [
+        128,
+        1
+      ]
+    },
+    "own_reconstructed_endpoint": {
+      "dtype": "float32",
+      "sha256": "8f5fe9dab3fdab7282aaf04a165d5402f7593d2b81b6d340b6916c3ecb3cf04b",
+      "shape": [
+        1,
+        1
+      ]
+    },
+    "own_remainder": {
+      "dtype": "float32",
+      "sha256": "df3f619804a92fdb4057192dc43dd748ea778adc52bc498ce80524c014b81119",
+      "shape": [
+        1,
+        1
+      ]
+    },
+    "own_rhs_a": {
+      "dtype": "float32",
+      "sha256": "bdedd5499ff7872344be6f26e05663ebfe9e6ab3728acb2e6416781ced4e83ca",
+      "shape": [
+        128,
+        1
+      ]
+    },
+    "own_rhs_v": {
+      "dtype": "float32",
+      "sha256": "7c10c11e6fd41e913b331856ddd98d5676cb1653d96b622bf799544ae238edc3",
+      "shape": [
+        128,
+        1
+      ]
+    },
+    "own_sequential_output": {
+      "dtype": "float32",
+      "sha256": "d363fb760dd6a8aaf15296e1ea3f7474aadd6f926724f769bbea2cd889e962a5",
+      "shape": [
+        128,
+        1
+      ]
+    },
+    "own_sequential_state": {
+      "dtype": "float32",
+      "sha256": "1e557444982669bcbef521d1ff037307fc34fe4af43eb7c900bdd267ea41a6e6",
+      "shape": [
+        1,
+        1
+      ]
+    },
+    "own_state_times_C": {
+      "dtype": "float32",
+      "sha256": "fbf7207e31e7b25999901e019289942a979eea50825a7d6bb4404524575df26c",
+      "shape": [
+        1,
+        128
+      ]
+    },
+    "own_v": {
+      "dtype": "float32",
+      "sha256": "02722f124d0f1736a9dd7c4ddcd05630dcf16ee1ce3454e9a876005ce005d4ac",
+      "shape": [
+        128,
+        1
+      ]
+    }
+  },
+  "environment": {
+    "libraries": {
+      "numpy": {
+        "blas": {
+          "name": "scipy-openblas",
+          "version": "0.3.34.0.0"
+        },
+        "version": "2.5.2"
+      },
+      "scipy": {
+        "blas": {
+          "name": "scipy-openblas",
+          "version": "0.3.31.dev"
+        },
+        "version": "1.18.1"
+      }
+    },
+    "machine": "x86_64",
+    "python": "3.12.1"
+  },
+  "error": 600.667236328125,
+  "gates": {
+    "capture_contracts": true,
+    "endpoint_expression_exact": true,
+    "frozen_sources": true,
+    "identical_cloud_inputs": true,
+    "one_thread": true,
+    "requested_dispatch_enforced": true
+  },
+  "libraries": {
+    "numpy": {
+      "architecture": "SkylakeX",
+      "binary_sha256": "6cad8d2ad994ddc43d2ccdb0fb5d9458373ff1b87ef7ff420f2f94406eb8f082",
+      "num_threads": 1,
+      "version": "0.3.34.0.0"
+    },
+    "scipy": {
+      "architecture": "SkylakeX",
+      "binary_sha256": "2a5b4c1a6311873c59132b2ceaaf3c26258a17350b7cd27ea8782a47e3322981",
+      "num_threads": 1,
+      "version": "0.3.31.dev"
+    }
+  },
+  "observer_sha256": "90806a30eec46d68f6e725cc97d734b76fe7ae7c385b1420a94a7840ae4ac447",
+  "probe_sha256": "83bee02c07ae2c5ead28e43ff17be7598ccf57eaacd8defd0e5076f8ba1b2c44",
+  "requested": {
+    "numpy": "native",
+    "scipy": "native"
+  },
+  "sources": {
+    "src/kernel_engine/certified_kernels/chunkable_recurrence_rule.py": "7edcedb59b0b38fba16d16eec3c59b0a041ce7004dd0332446bba4534770f350",
+    "src/kernel_engine/certified_kernels/chunkable_roundoff_guard_v2.py": "49c878897805612ddc5ad4646dd5ea4831a6a3a08a1e080e04b82b6413f92040"
+  }
+}

@@ -674,3 +674,7 @@ SDK location convention: OPTIX_ROOT selects an external SDK9.0 installation; com
 | `scripts/roundoff_environment_v1.py` | Capture actual frozen recurrence intermediates through tracing with repeat and uninstrumented controls. | Locate environmental arithmetic differences without rewriting the numerical function. |
 | `scripts/roundoff_environment_compare_v1.py` | Audit complete captured arrays and transplant the two solve outputs into unchanged arithmetic. | Separate output-array reproduction from the retained endpoint disagreement. |
 | `tests/test_roundoff_environment.py` | Add trace/solver restoration and tampered-array/source refusal controls. | Prevent instrumentation state leaks and acceptance of corrupted evidence. |
+
+| `scripts/roundoff_dispatch_v1.py` | Select and record independent NumPy/SciPy BLAS dispatch in fresh CPU workers, with full endpoint terms. | Isolate runtime dispatch while library binaries and frozen numerical arithmetic stay fixed. |
+| `scripts/roundoff_dispatch_compare_v1.py` | Audit all captured arrays and the independent dispatch contrasts. | Identify solve versus endpoint contributions without inferring an unobserved instruction cause. |
+| `tests/test_roundoff_dispatch.py` | Add missing-array, changed-byte and false runtime-architecture refusal controls. | Prevent a claimed successful worker from hiding incomplete evidence or failed dispatch selection. |

@@ -62,3 +62,5 @@ python -m pytest -q tests/test_roundoff_environment.py
 ```
 
 `reports/verification_modal_v1/` contains the exact recipe snapshot, local CPU receipts, selected fresh reports/captures per device, original run metadata and independent CPU audits. Only selected fresh artifacts are copied: the generic runner also downloads old repository reports, which are not fresh evidence for this run. `reports/roundoff_environment_v1/` retains complete local/cloud arrays, hashes, versions, comparison and repeat receipt. All three Modal jobs ended and their results were fetched. No local GPU was used and nothing was pushed.
+
+A subsequent controlled intervention identifies independent NumPy/SciPy BLAS dispatch effects and verifies an explicit common-dispatch profile. See `docs/ROUNDOFF_DISPATCH.md`; the native failures and captures above remain unchanged.

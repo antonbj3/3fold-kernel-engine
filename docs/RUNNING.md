@@ -1600,7 +1600,7 @@ rows, not all VERIFIED-FRESH entries or all repositories in queued item27.
 
 | Module | Status | Decisive observation |
 |---|---|---|
-| `scripts/verification_inventory_v1.py` | OWN-GATE-FAIL | 289 VERIFIED-FRESH declarations resolve without duplicate aliases; 5 explicit recipes, 284 still unmapped. Inventory performs no numerical execution. |
+| `scripts/verification_inventory_v1.py` | OWN-GATE-FAIL | 291 VERIFIED-FRESH declarations resolve without duplicate aliases; 5 explicit recipes, 286 still unmapped. Inventory performs no numerical execution. |
 | `scripts/verify_declared_v1.py` | OWN-GATE-FAIL | Full repository coverage remains incomplete. Selected CPU scope: 4/4 declarations pass twice with exact numerical report hashes; ten runner/inventory controls pass. Strict make verify refuses incomplete coverage before execution. |
 
 Commands, evidence schema and CPU/Modal scope: `docs/VERIFICATION.md`.
@@ -1616,3 +1616,13 @@ The exact five-recipe snapshot at95b383e ran on Modal L4 and A10. Both selected 
 | `scripts/roundoff_environment_compare_v1.py` | OWN-GATE-FAIL |4/6 diagnostic checks; first differing stage Cmat (triangular solve),80elements. Transplanting cloud Cmat/Umat reproduces the full cloud output locally, but endpoint-101.71659088134766 differs from cloud+101.71659088134766. Four integrity/restoration tests pass; independent complete comparison reports exact. |
 
 Full fresh capsules, independent signature/capture audits, host versions, first differing elements and reproduction: `docs/MODAL_VERIFICATION.md`. No source/tolerance/recipe promotion, no local GPU use, no assertion that one library version or CPU instruction is the unique cause.
+
+
+## CPU dispatch mechanism and explicit Modal profile: VERIFIED-FRESH
+
+| Module | Status | Evidence |
+|---|---|---|
+| `scripts/roundoff_dispatch_v1.py` | VERIFIED-FRESH |4/4 collection gates;4independent NumPy/SciPy dispatch cases x2workers per host,56complete arrays/leg, actual runtime architectures and unchanged library binary hashes recorded. Endpoint-expression reconstruction exact. |
+| `scripts/roundoff_dispatch_compare_v1.py` | VERIFIED-FRESH |8/8 mechanism gates,3tamper/runtime controls, complete comparison repeats exact. Same SciPy binary across hosts: dispatch selects solve difference. NumPy dispatch selects fixed-operand forcing +/-2^-27 and endpoint +/-101.71659088134766. BothHaswell makes all56arrays exact across hosts. |
+
+The explicit `OPENBLAS_CORETYPE=Haswell make verify-declared RUNTIME=modal` profile passes all5 declared recipes on fresh ModalL4, including20/20 signed GPU rows. Native-profile4/5 failures remain unchanged; no original numerical source, recipe values or tolerances were altered. Full repository verification is still incomplete. Reproduction, source/runtime scope and fresh capsule: `docs/ROUNDOFF_DISPATCH.md`.

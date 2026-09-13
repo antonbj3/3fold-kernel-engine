@@ -3,10 +3,10 @@
     "group_requires_recipe": 1,
     "non_python": 7,
     "python_library": 45,
-    "python_main_candidate": 236
+    "python_main_candidate": 238
   },
-  "declared_verified_rows": 289,
-  "document_sha256": "fdbfdbfaffe53fc2574fc9b822a2c8a2b337c6369631aac93f594e19bf0434e5",
+  "declared_verified_rows": 291,
+  "document_sha256": "0c109c8a2c67ad27a7f7437d1ad572a0a246c6244425147081f334d30d4b9052",
   "duplicates": [],
   "gates": {
     "all_source_members_resolve": true,
@@ -5413,6 +5413,44 @@
       "note_sha256": "5db86a39e75c68f10bcdeb3690f7ad29d90f5a886809c99ca04890e3530805de",
       "numerical_execution": "NOT_RUN",
       "verification_recipe": "DECLARED"
+    },
+    {
+      "key": "scripts/roundoff_dispatch_v1.py",
+      "kind": "python_main_candidate",
+      "label": "scripts/roundoff_dispatch_v1.py",
+      "line": 1625,
+      "members": [
+        {
+          "kind": "python_main_candidate",
+          "main_lines": [
+            93
+          ],
+          "path": "scripts/roundoff_dispatch_v1.py",
+          "sha256": "83bee02c07ae2c5ead28e43ff17be7598ccf57eaacd8defd0e5076f8ba1b2c44"
+        }
+      ],
+      "note_sha256": "f0089d04600267591fd6b61225fce2c5f0661cb9cc20b21880092ba159a06fe5",
+      "numerical_execution": "NOT_RUN",
+      "verification_recipe": "UNSPECIFIED"
+    },
+    {
+      "key": "scripts/roundoff_dispatch_compare_v1.py",
+      "kind": "python_main_candidate",
+      "label": "scripts/roundoff_dispatch_compare_v1.py",
+      "line": 1626,
+      "members": [
+        {
+          "kind": "python_main_candidate",
+          "main_lines": [
+            66
+          ],
+          "path": "scripts/roundoff_dispatch_compare_v1.py",
+          "sha256": "8d5f9b67e03031445b1443a527a9023ce39828ce016a51eda52059d4a8be5f80"
+        }
+      ],
+      "note_sha256": "297876a7f47c177c98c825ba8af09d8137501063a53fd98626ba8d44a37527cb",
+      "numerical_execution": "NOT_RUN",
+      "verification_recipe": "UNSPECIFIED"
     }
   ],
   "schema": 1,

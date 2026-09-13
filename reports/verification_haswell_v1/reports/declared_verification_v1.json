@@ -1,13 +1,32 @@
 {
   "complete_repository_coverage": false,
-  "declared_verified_rows": 291,
-  "executions": 4,
+  "declared_verified_rows": 289,
+  "executions": 5,
   "gates": {
     "nonempty_selected": true,
     "selected_gates": true
   },
   "recipes_sha256": "9e331b55f44d1486e73dc8ee38ec2108806caf6c3d65e503cf368450b9715924",
   "rows": [
+    {
+      "checks": {
+        "equal:/gates/all_rows_match": true,
+        "equal:/gates/capture_own_gates": true,
+        "equal:/gates/complete_inventory": true,
+        "equal:/gates/original_source_identity": true,
+        "exit_code": true,
+        "fresh_execution_evidence": true,
+        "length:/rows": true
+      },
+      "error": null,
+      "executed_by": "src/kernel_engine/certified_kernels/kernel_matrix_capture_v1.py",
+      "key": "src/kernel_engine/certified_kernels/kernel_matrix_capture_v1.py",
+      "report_sha256": "bfd9b6cb7907cc265770cfa2e0f6779d8fe57531b2df389897a5446121e921b5",
+      "returncode": 0,
+      "reused_execution": false,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "6a3d23c59291362716fe80bae1d3b540ab19a27ce7260855a5e49e7d3f33b35b"
+    },
     {
       "checks": {
         "equal:/gates/all_own_numerical_gates": true,
@@ -99,7 +118,7 @@
     }
   ],
   "runner_sha256": "85f73904aaff6ff649fe72543c4eb3bd8a4122255731faf0a0234505c2e80fef",
-  "runtime": "cpu",
+  "runtime": "modal",
   "schema": 2,
   "scope": "Fresh selected declared recipes only. Unmapped rows and recipes for another runtime are NOT RUN, never implicitly passed.",
   "status": "VERIFIED-FRESH"

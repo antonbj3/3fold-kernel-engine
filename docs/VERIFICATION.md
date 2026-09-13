@@ -1,6 +1,6 @@
 # Explicit verification recipes
 
-The full repository gate is OWN-GATE-FAIL: 5/289 declared VERIFIED-FRESH rows have explicit recipes; 284 remain unmapped. This is partial queue item27. All declared source members resolve and there are no duplicate declarations. A main guard identifies only a candidate, never numerical success.
+The full repository gate is OWN-GATE-FAIL: 5/291 declared VERIFIED-FRESH rows have explicit recipes; 286 remain unmapped. This is partial queue item27. All declared source members resolve and there are no duplicate declarations. A main guard identifies only a candidate, never numerical success.
 
 Run from the repository root with its installed environment:
 
@@ -40,3 +40,5 @@ Identical argv, working directory, runtime, explicit Python import paths and rep
 The legacy roundoff guard recipe uses `scripts/verify_roundoff_artifact_v1.py` to remove the old JSON, run the unchanged artifact producer and copy its fresh receipt into reports. Its7 original gates, two8-case legs and measured error437.3193359375 are required. The original JSON/NPZ artifacts remain byte-identical. Four CPU declarations use4 child commands; the remaining declared recipe requires Modal and was not rerun here.
 
 The floating-point catalogue recipe re-audits the saved four-device matrix on CPU:3/3 gates,20rows,120comparisons and an empty observed-difference list. This is fresh analysis of archived device evidence, not fresh GPU execution or a universal portability claim. Its existing narrative status now has an explicit inventory table declaration.
+
+The separate recorded Haswell profile passes the five declared recipes on ModalL4; native Modal4/5 remains a failure. See `docs/ROUNDOFF_DISPATCH.md`. The two new diagnostic declarations are not automatically treated as mapped recipes; full coverage remains incomplete.
