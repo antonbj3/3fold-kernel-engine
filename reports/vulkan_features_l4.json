@@ -1,0 +1,51 @@
+{
+  "build_exit": 0,
+  "rows": [
+    {
+      "exit": 2,
+      "table": {
+        "devices": [
+          {
+            "type": 4,
+            "api": 4211006,
+            "ray_extension": 1,
+            "as_extension": 1,
+            "ray_query": 1,
+            "acceleration_structure": 1,
+            "buffer_device_address": 1,
+            "float64": 1,
+            "float32_denorm_preserve": 0,
+            "float32_flush_zero": 0
+          }
+        ],
+        "hardware_ready": false
+      },
+      "stderr": ""
+    },
+    {
+      "exit": 2,
+      "table": {
+        "devices": [
+          {
+            "type": 4,
+            "api": 4211006,
+            "ray_extension": 1,
+            "as_extension": 1,
+            "ray_query": 1,
+            "acceleration_structure": 1,
+            "buffer_device_address": 1,
+            "float64": 1,
+            "float32_denorm_preserve": 0,
+            "float32_flush_zero": 0
+          }
+        ],
+        "hardware_ready": false
+      },
+      "stderr": ""
+    }
+  ],
+  "gates": {
+    "full_repeat": true,
+    "hardware_ready": false
+  }
+}

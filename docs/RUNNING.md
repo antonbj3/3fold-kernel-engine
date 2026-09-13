@@ -1171,3 +1171,30 @@ Same-H100 reference control: the frozen float32 flow probe reproduces every L4
 value and gradient byte, including failed FD0.863645871083/0.253779738317.
 Evidence: `reports/innovation_flow_scale_probe_h100.json`. The precision
 comparison therefore also holds on the same GPU as the successful suite.
+
+### Vulkan ray-query mechanism before backend design
+
+An isolated cloud loader probe completed twice with identical logs. Its measured
+table has1 software device and0 hardware devices: the hardware ICD could not
+load because libXext.so.6 was absent. The shader compiler is present (15.1.0).
+This is a missing container dependency, not a successful hardware backend.
+
+Before execution of a separate feature probe with that dependency installed:
+two full JSON feature tables must be identical, and at least one non-CPU device
+must advertise rayQuery, accelerationStructure, bufferDeviceAddress and shaderFloat64.
+Record float32 denormal preservation/flush properties. No winding, portability
+across vendors, subnormal-equivalence or throughput claim follows from discovery.
+
+| Module | Evidence status | Measured result |
+|---|---|---|
+| kernel_gen/vulkan_winding_v1/features.cpp | OWN-GATE-FAIL | 1/2 gates; reports/vulkan_features_l4.json. Tables repeat, but hardware devices0; only type4 software implementation, despite all four required features being true. |
+
+| Container | Hardware devices | Software devices | Required features on hardware | Full repeat |
+|---|---:|---:|---|---|
+| Initial loader dependency missing | 0 | 1 | unavailable | exact |
+| Added missing loader library | 0 | 1 | unavailable | exact |
+
+Software-only ray-query support does not pass the hardware gate. A separate
+read-only loader/dependency audit will determine whether another library is
+missing or the service cannot expose this API; no host device permissions or
+sandbox settings will be changed.
