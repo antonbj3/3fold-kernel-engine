@@ -63,7 +63,7 @@ import numpy as np
 sys.path.insert(0, os.path.dirname(__file__))
 from lbm_lattice import CX, CY, W  # noqa: E402  (canonical D2Q9 stencil, shared w/ rest of repo)
 
-SCRATCH = "/mnt/data_root/datasets/lbm_scratch"
+SCRATCH = _os.environ.get("LBM_SCRATCH", "outputs/lbm_scratch")
 CS2 = 1.0 / 3.0  # D2Q9/D3Q19 lattice speed-of-sound^2 in lattice units
 
 # ----------------------------------------------------------------------------------------------------
