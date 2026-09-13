@@ -1468,3 +1468,58 @@ saved report directories with `foreign_cuda_cross_sku_v1.py DIR_A DIR_B`.
 Evidence: `reports/foreign_cuda_v1/{l4,a10g}/` and
 `reports/foreign_cuda_cross_sku_v1.json`. Timing files are intentionally outside
 the canonical numerical certificate. No local hardware execution.
+
+## Kernel cloud matrix: gates before execution
+
+Merged item16, E-owned kernel portion only: sequential fresh Modal L4/A10G/H100
+captures with Warp1.17.0; local RTX5070 remains unmeasured. Run all eight frozen
+fixed-order selftests twice, preserving the fixed64 flow variant and bounded
+runtime adjoints. Compare every recorded array, including tape primals/gradients.
+Capture actual int64 site outputs and input-array hashes, not just zero within-SKU
+deltas. Reuse frozen graph LBM stream worker and C host at512/1024 with the actual
+GPU compile architecture; preserve exact CPU/Warp/native oracle and repeat gates.
+Original export10% timing criterion is separately reported and may fail; no
+performance certification is inferred from numerical determinism.
+
+Matrix requires full eight-slot/ten-site/two-export coverage, all own numerical
+gates, matching source identities and strict full-record equality across all
+three SKUs. Equal full-byte hashes imply observed max absolute delta0; differing
+hashes must name the first differing record, with numeric delta explicitly
+unmeasured until raw-array replay. No tolerance, source arithmetic or runtime
+mode changes; missing rows/devices cannot silently pass. Produce compressed
+complete capsules, compact summaries and a reusable local report auditor.
+
+| Module | Status | Evidence |
+|---|---|---|
+| `certified_kernels/kernel_matrix_capture_v1.py` | VERIFIED-FRESH | Modal L4/A10/H100 each5/5 numerical capture gates;121380 full-array observations/6400352992 observed bytes per selftest leg, two independent legs each. |
+| `certified_kernels/kernel_matrix_report_v1.py` | VERIFIED-FRESH | 5/5 matrix gates;20/20 rows exact for all three pairwise SKU comparisons;8 corruption/coverage controls pass. |
+| `scripts/kernel_matrix_modal_v1.py` | VERIFIED-FRESH | Sequential transport collector controls2/2, including incomplete-report rejection and numeric-failure exit; invokes the hardware-verified capture/audit commands. Scheduler not installed. |
+
+Fresh cloud runs,2026-09-13, Warp1.17.0/driver580.95.05:
+L4(sm89), A10(sm86), H10080GBHBM3(sm90). Every one of the eight selftest record
+sequences is byte-hash-identical across both independent legs on all three
+SKUs. All ten reduction sites have identical actual int64 output arrays and
+input-array hashes; this is stronger than comparing only within-SKU zero deltas.
+Both native/Warp stream sizes512/1024 match each other and their frozen CPU
+oracles exactly across all three GPUs. The20-row matrix therefore reports
+observed max absolute delta0 on all60 pairwise row comparisons. These are
+observed readback/tape arrays, not unobserved temporary memory or every possible
+input. Float-atomic diagnostic controls are retained in capsules and are not
+included in the fixed-point claim.
+
+The original graph-export10% bandwidth criterion also passed in each of these
+captures; its measured per-leg ratios remain in the capsules. It was not used
+to excuse any numerical mismatch. Full capsules and checked summaries:
+`reports/kernel_matrix_v1/{l4,a10g,h100}/`. Matrix:
+`reports/kernel_matrix_v1/matrix.md` and `matrix.json`; runner source hashes:
+`reports/kernel_matrix_v1/runner_sources.json`. Independent direct capsule
+comparison confirmed all three pairs of selftest records and raw int64 legs.
+
+Reproduction and one-command sequential runner: `docs/KERNEL_MATRIX.md`.
+The new auditor/runner were added after all three capture uploads to preserve
+one source snapshot across hardware. Their own source hashes are retained
+separately; subsequent complete runs will include the added auditor in each
+new, mutually identical capsule manifest.
+Local RTX5070 remains unmeasured by this work. Other repository families and an
+installed nightly schedule remain outside this E-owned cloud certificate; merged
+item16 is not declared complete for the whole fleet.

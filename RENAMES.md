@@ -638,3 +638,9 @@ SDK location convention: OPTIX_ROOT selects an external SDK9.0 installation; com
 
 | `kernel_gen/foreign_cuda_cross_sku_v1.py` | Add exact canonical certificate, full21-case coverage and two-SKU/bandwidth evidence auditor. | Reject partial reports or differing numerical certificates. |
 | `tests/test_foreign_cuda_certificate.py` | Add retained-evidence acceptance and five corruption controls. | Reject altered hashes, omitted cases, failed gates, duplicate SKU and nonfinite timing. |
+
+| `certified_kernels/kernel_matrix_capture_v1.py` | Add pinned three-family cloud capsule capture using frozen selftest workers, actual int64 values and architecture-correct native export. | Extend same-device evidence to reproducible cross-SKU comparison without changing numerical baselines. |
+| `certified_kernels/kernel_matrix_report_v1.py` | Add checksum/coverage/source-aware capsule auditor and20-row three-SKU matrix with exact int64 value differences. | Refuse partial or incomparable evidence without importing a GPU runtime. |
+| `scripts/kernel_matrix_modal_v1.py` | Add sequential bounded Modal orchestration, fetched-capsule validation and dated report retention. | Provide one command suitable for an external nightly scheduler; no scheduler installation. |
+| `tests/test_kernel_matrix_v1.py` | Add eight small corruption/coverage audit controls with explicit synthetic record counts. | Reject missing slots, truncated observations, changed sources/values, duplicate devices and corrupted capsules. |
+| `tests/test_kernel_matrix_runner.py` | Add mocked sequential fetch, incomplete-capsule rejection and numeric-failure propagation controls. | Test orchestration without additional cloud execution. |
