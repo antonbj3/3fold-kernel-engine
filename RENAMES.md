@@ -626,3 +626,5 @@ SDK location convention: OPTIX_ROOT selects an external SDK9.0 installation; com
 
 | `certified_kernels/chunkable_stability_v1.py` | Add numerical transition-norm refusal policy and twelve frozen-WY boundary observations, full-array repeat hashes and nonnormal/unknown controls. | Separate algebraic composability from finite-precision suitability; frozen rule and tolerances unchanged. |
 | `tests/test_chunkable_stability.py` | Add measured expansive-recurrence regression with nonnormal and missing-evidence controls. | Prevent syntax-only numerical certification. |
+| certified_kernels/chunkable_stability_v1.py | Add separate finite-transition/operator-norm refusal and original-error-bound audit with two-process scalar failure-boundary experiment. |
+| tests/test_chunkable_stability_v1.py | Add unstable blow-up, stable numerical refusal, missing/nonfinite transitions and non-normal spectral-radius counterexample controls. |

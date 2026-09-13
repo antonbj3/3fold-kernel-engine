@@ -1417,3 +1417,78 @@ also refused by its operator norm. These are fixed synthetic observations,
 not a claim that all eigenvalues above one cause immediate failure or that a
 non-expansive transition guarantees a well-conditioned WY representation.
 Evidence: `reports/chunkable_stability_v1.json`;11 focused tests pass.
+
+
+### Recurrence stability boundary: mechanism before design
+
+Frozen evaluator, scalar gated delta recurrence, T128, q=k=v=1, beta0.15,
+initial state0.25, float32. One CPU exploration (not a certificate) measured:
+
+| Gate factor | Chunk | Transition eigenvalue | max output error | Error / original roundoff budget |
+|---|---|---|---|---|
+| 0.98 | 16 | 0.833000064 | 5.36441803e-7 | 1.25250047 FAIL |
+| 0.98 | 32 | 0.833000064 | 5.36441803e-7 | 0.885651578 |
+| 0.98 | 64 | 0.833000064 | 5.36441803e-7 | 0.626250236 |
+| 0.98 | 128 | 0.833000064 | 5.36441803e-7 | 0.442825789 |
+| 1.20 | 16 | 1.02000010 | 0.000122070313 | 2.83650515 FAIL |
+| 1.20 | 32 | 1.02000010 | 0.00100708008 | 16.5471242 FAIL |
+| 1.20 | 64 | 1.02000010 | 0.155220032 | 1803.39679 FAIL |
+| 1.20 | 128 | 1.02000010 | 437.319336 | 3592751.72 FAIL |
+
+At chunk128 the unstable sequential endpoint is90.2519073 and the chunked
+endpoint is-347.067444. The cumulative-gate change of variables introduces
+large cancelling intermediates even though the exact transition eigenvalue
+is only1.02. Stability alone also does not certify a roundoff budget: retain
+the stable chunk16 failure. Do not edit the frozen source or its bound.
+
+Preregister a separate conservative classifier requiring supplied finite
+transition arrays and non-expansive operator norms at every step, followed
+by the actual output/final-state error gates for any accepted evaluation.
+Unknown numeric transitions are refused; spectral radius alone is not enough
+for non-normal transitions. This is a sufficient structural restriction for
+non-expansion, not a theorem that the floating-point chunk algorithm is stable.
+Own observer gates: all eight table cells and complete arrays repeat exactly
+in two independent CPU workers; unstable chunk128 error exceeds1000 times
+chunk16 and its original budget; scalar eigenvalue>1; old syntax-only rule
+accepts while the new rule refuses; stable chunk32 retains original output
+and state bounds; stable chunk16 remains a reported numerical refusal.
+
+## Recurrence stability boundary: gates before execution
+
+The frozen syntax classifier and WY evaluator remain unchanged. A separate
+numerical policy consumes actual finite transition matrices: absent evidence,
+nonlinear sources, or any spectral norm above one refuse a chunk recommendation.
+This is a conservative non-expansion screen, not a proof of WY conditioning.
+Eigenvalues alone do not bound transient amplification for nonnormal operators.
+Fixed experiment: seed19, d4, beta0.5, gains0.99/1.01/1.1/1.5,
+T32/64/128, chunk min(T,64), frozen fp32 output/state roundoff budgets.
+Acceptance: gain1.1 at T64 exceeds the output budget; its transition spectral
+radius exceeds one and policy refuses; gain0.99 passes the original output/state
+budgets and screen; absent/nonfinite/nonnormal inputs refuse; full arrays repeat
+byte-identically across two observations. Report every case, including expansive
+cases still inside the error budget. CPU experiment only, no hardware claim.
+
+| Module | Status | Evidence |
+|---|---|---|
+| `certified_kernels/chunkable_stability_v1.py` | VERIFIED-FRESH | CPU9/9 gates,12 cases twice with exact full-array hashes; gain1.1/T64 output error7.379055e-5 vs budget1.392420e-5 (5.299448x), policy refuses. |
+
+At gain0.99 all three lengths stay within output/state budgets. Gain1.01
+is conservatively refused despite passing sampled error budgets; gain1.5/T128
+reaches114.851579 times the output budget. A nonnormal radius0.9 matrix is
+also refused by its operator norm. These are fixed synthetic observations,
+not a claim that all eigenvalues above one cause immediate failure or that a
+non-expansive transition guarantees a well-conditioned WY representation.
+Evidence: `reports/chunkable_stability_v1.json`;11 focused tests pass.
+
+
+Fresh CPU measurement:7/7 own gates, two independent workers and all40 full
+arrays per leg byte-identical. All eight mechanism rows reproduced; unstable
+chunk128 error437.3193359375 exceeds its bound by3592751.7245891755. The new
+numerical guard refuses every expansive case before evaluating chunks; the
+stable chunk16 case is separately refused by its unchanged measured bound.
+Three targeted tests pass, including a non-normal matrix whose spectral radius
+is below1 but operator norm exceeds1. No GPU, speed or universal stability claim.
+
+| Module | Status | Evidence |
+|---|---|---|
+| `certified_kernels/chunkable_stability_v1.py` | VERIFIED-FRESH | 7/7 own gates, full two-process repeats; unstable error437.3193359375 refused, stable numerical failure retained. |
