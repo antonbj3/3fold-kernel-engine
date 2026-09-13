@@ -6,7 +6,7 @@
     "python_main_candidate": 235
   },
   "declared_verified_rows": 288,
-  "document_sha256": "f5342c68ec70483387a287a78b1c8c4b0aebb92417bce89b92827517a1a553ba",
+  "document_sha256": "4796d4c5fac27232dda106ffcf7d8b13dfcd8ee5e0ea4901d150f1dbd2af7045",
   "duplicates": [],
   "gates": {
     "all_source_members_resolve": true,
@@ -5245,7 +5245,7 @@
       ],
       "note_sha256": "747ba4e24b97a1fa5ff9a1e332758eeb7e80b93583a4f36f4b928b941c964b81",
       "numerical_execution": "NOT_RUN",
-      "verification_recipe": "UNSPECIFIED"
+      "verification_recipe": "DECLARED"
     },
     {
       "key": "src/kernel_engine/certified_kernels/chunkable_roundoff_guard_v2.py",

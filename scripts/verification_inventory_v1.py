@@ -66,7 +66,9 @@ def inventory(root,recipes=None):
         if recipe is None:continue
         expected_sources={m['path']:m['sha256'] for m in row['members']}
         cwd=(root/recipe.get('cwd','')).resolve()
-        valid=(recipe.get('sources')==expected_sources and bool(expected_sources) and
+        pythonpath=recipe.get('pythonpath',[])
+        path_ok=isinstance(pythonpath,list) and all(isinstance(v,str) and (root/v).resolve().is_relative_to(root) and (root/v).is_dir() for v in pythonpath)
+        valid=(path_ok and recipe.get('sources')==expected_sources and bool(expected_sources) and
                recipe.get('note_sha256')==row['note_sha256'] and cwd.is_relative_to(root) and cwd.is_dir() and
                recipe.get('runtime') in ('cpu','modal') and isinstance(recipe.get('argv'),list) and bool(recipe['argv']) and
                all(isinstance(a,str) and a for a in recipe['argv']) and isinstance(recipe.get('expected'),dict) and bool(recipe['expected']))

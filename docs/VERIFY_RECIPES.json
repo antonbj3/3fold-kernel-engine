@@ -56,5 +56,36 @@
     "sources": {
       "src/kernel_engine/certified_kernels/kernel_matrix_report_v1.py": "af97d2e6e217b7463d517eeee045820a78a3f976ed5896dd0253bc5b00094209"
     }
+  },
+  {
+    "argv": [
+      "python",
+      "src/kernel_engine/certified_kernels/chunkable_stability_v1.py"
+    ],
+    "cwd": ".",
+    "expected": {
+      "exit_code": 0,
+      "json_equal": {
+        "/gates/all_finite": true,
+        "/gates/exact_repeat": true,
+        "/gates/expansive_refusal": true,
+        "/gates/measured_blowup": true,
+        "/gates/nonfinite_refusal": true,
+        "/gates/nonlinear_refusal": true,
+        "/gates/nonnormal_refusal": true,
+        "/gates/stable_control": true,
+        "/gates/unknown_refusal": true
+      },
+      "json_length": {
+        "/cases": 12
+      },
+      "report": "reports/chunkable_stability_v1.json"
+    },
+    "key": "src/kernel_engine/certified_kernels/chunkable_stability_v1.py",
+    "note_sha256": "747ba4e24b97a1fa5ff9a1e332758eeb7e80b93583a4f36f4b928b941c964b81",
+    "runtime": "cpu",
+    "sources": {
+      "src/kernel_engine/certified_kernels/chunkable_stability_v1.py": "cef4a95e1f1d1c1fb4329503e2ad2885be5aad51a8f32fb61f0e5f0d11e6fce1"
+    }
   }
 ]

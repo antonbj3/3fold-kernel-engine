@@ -663,3 +663,6 @@ SDK location convention: OPTIX_ROOT selects an external SDK9.0 installation; com
 | `scripts/verify_declared_v1.py` | Add bounded execution of declared runtime recipes and decisive JSON/pytest result checks. | Make mapped rows reproducible while reporting incomplete repository coverage explicitly. |
 | `tests/test_verify_declared.py` | Add decisive-value/type, exit, test-count and missing-evidence controls. | Prevent an exit-zero result from overriding failed or absent evidence. |
 | `Makefile` | Add strict full verification and explicitly scoped declared/inventory targets. | Refuse full success until recipe coverage is complete. |
+
+| `scripts/verification_inventory_v1.py`, `scripts/verify_declared_v1.py` | Validate and apply explicit repository-relative Python import paths. | Reproduce documented chain package imports in independent workers without implicit shell environment. |
+| `tests/test_verification_inventory.py` | Add import-path boundary, missing-directory and malformed-type controls. | Reject invalid declared worker environments before execution. |

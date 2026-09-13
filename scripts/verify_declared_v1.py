@@ -53,6 +53,8 @@ def main():
         argv=list(recipe['argv'])
         if argv[0]=='python':argv[0]=sys.executable
         child_env=dict(env)
+        if recipe.get('pythonpath'):
+            child_env['PYTHONPATH']=os.pathsep.join(str((root/v).resolve()) for v in recipe['pythonpath'])
         if recipe['runtime']=='cpu':child_env['CUDA_VISIBLE_DEVICES']=''
         child=subprocess.Popen(argv,cwd=root/recipe['cwd'],env=child_env,stdout=subprocess.PIPE,stderr=subprocess.PIPE,start_new_session=True)
         try:stdout,stderr=child.communicate(timeout=900);code=child.returncode

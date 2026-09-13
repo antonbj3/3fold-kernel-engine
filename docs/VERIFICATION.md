@@ -1,6 +1,6 @@
 # Explicit verification recipes
 
-The full repository gate is OWN-GATE-FAIL: 2/288 declared VERIFIED-FRESH rows have explicit recipes; 286 remain unmapped. This is partial queue item27. All declared source members resolve and there are no duplicate declarations. A main guard identifies only a candidate, never numerical success.
+The full repository gate is OWN-GATE-FAIL: 3/288 declared VERIFIED-FRESH rows have explicit recipes; 285 remain unmapped. This is partial queue item27. All declared source members resolve and there are no duplicate declarations. A main guard identifies only a candidate, never numerical success.
 
 Run from the repository root with its installed environment:
 
@@ -10,7 +10,7 @@ make verify-declared PYTHON=python
 make verify PYTHON=python
 ```
 
-The inventory exits1 for incomplete coverage. The selected target executes CPU recipes by default: 1 passed in each of two independent runs, with exact generated numerical report hashes. Full `make verify` refuses incomplete coverage before running children (script exit1, make exit2). Six focused tests pass:
+The inventory exits1 for incomplete coverage. The selected target executes CPU recipes by default: 2 passed in each of two independent runs, with exact generated numerical report hashes. Full `make verify` refuses incomplete coverage before running children (script exit1, make exit2). Seven focused tests pass:
 
 ```sh
 python -m pytest -q tests/test_verification_inventory.py tests/test_verify_declared.py
@@ -30,3 +30,7 @@ Evidence files:
 - `reports/declared_verification_repeat_v1.json`: independent repeat equality of numerical evidence; pytest timing text is excluded.
 
 The selected result's VERIFIED-FRESH status applies only to its listed recipes. It does not promote unmapped rows, hardware not exercised here, or failed original physics models. Completing item27 requires explicit recipes and fresh evidence for every remaining declaration, including native/group/library rows.
+
+Recipes may declare `pythonpath` as a list of existing repository directories. The runner resolves these to absolute paths before spawning workers, so temporary working directories preserve package imports. Outside paths, files and missing directories are rejected.
+
+The added recurrence stability recipe checks all nine original observer gates and12 cases. Expansive transitions remain refused, including the existing output-budget violation; this is a bounded synthetic CPU screen, not a general stability certificate.

@@ -5,7 +5,7 @@
     "nonempty_selected": true,
     "selected_gates": true
   },
-  "recipes_sha256": "8fc1dfc247ad4644e1888a8c3f709892dea446c6c0327136ddd54b65982f8b3c",
+  "recipes_sha256": "153dd79d519bc94fefce30d4101729643287181e9a50141566e4501a9a54a24e",
   "rows": [
     {
       "checks": {
@@ -23,9 +23,30 @@
       "returncode": 0,
       "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
       "stdout_sha256": "79c9dc3ae0c592011aa746a6d62de2e37773d0a636e213c30c20647163c217f4"
+    },
+    {
+      "checks": {
+        "equal:/gates/all_finite": true,
+        "equal:/gates/exact_repeat": true,
+        "equal:/gates/expansive_refusal": true,
+        "equal:/gates/measured_blowup": true,
+        "equal:/gates/nonfinite_refusal": true,
+        "equal:/gates/nonlinear_refusal": true,
+        "equal:/gates/nonnormal_refusal": true,
+        "equal:/gates/stable_control": true,
+        "equal:/gates/unknown_refusal": true,
+        "exit_code": true,
+        "length:/cases": true
+      },
+      "error": null,
+      "key": "src/kernel_engine/certified_kernels/chunkable_stability_v1.py",
+      "report_sha256": "ce37358adbef62d5caaefa95bc8d63ad94fa5cd222937c6576e39330f91b980c",
+      "returncode": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "92bf32ceff2ccd35929c25c8ef2cf825a5865227b7e9e7bdefe723054ca4f653"
     }
   ],
-  "runner_sha256": "437b4805208cb50bd4da8379df86c7bc97035718fc1cf919fc2ea1aead1d91cc",
+  "runner_sha256": "5de7a63b8c5a3ac68d55e6fbbe5729de6ffb57eb79cf32b266e3fd61c63d9a04",
   "runtime": "cpu",
   "schema": 1,
   "scope": "Fresh selected declared recipes only. Unmapped rows and recipes for another runtime are NOT RUN, never implicitly passed.",

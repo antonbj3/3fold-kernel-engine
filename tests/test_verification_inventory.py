@@ -46,3 +46,14 @@ def test_declared_recipe_binds_sources_and_status_note(tmp_path):
     assert inventory(root,[recipe])['gates']['explicit_recipe_coverage']
     (root/'src/example_engine/a.py').write_text('changed=1')
     assert not inventory(root,[recipe])['gates']['explicit_recipe_coverage']
+
+def test_pythonpath_requires_existing_repository_directories(tmp_path):
+    root=fixture(tmp_path,'| a.py | VERIFIED-FRESH | value1 |\n')
+    (root/'src/example_engine/a.py').write_text('x=1')
+    row=inventory(root)['rows'][0]
+    recipe=dict(key=row['key'],sources={m['path']:m['sha256'] for m in row['members']},
+                note_sha256=row['note_sha256'],cwd='.',runtime='cpu',argv=['python','a.py'],expected={'exit_code':0})
+    for paths in (['src'], []):
+        assert inventory(root,[dict(recipe,pythonpath=paths)])['gates']['explicit_recipe_coverage']
+    for paths in (['../'],['missing'],['src/example_engine/a.py'],[1],'src'):
+        assert not inventory(root,[dict(recipe,pythonpath=paths)])['gates']['explicit_recipe_coverage']
