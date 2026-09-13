@@ -32,7 +32,7 @@ def wave1_style(chunk_mib=64, window_s=4.0):
         with torch.cuda.stream(s2):
             d2.copy_(h2, non_blocking=True); e = torch.cuda.Event(); e.record(s2); ev2.append(e)
         if len(ev1) % 8 == 0:
-            time.sleep(0.005)  # let queue drain a bit (wave-1 paced by window)
+            time.sleep(0.005)  # let queue drain a bit (paced by the measurement window)
     torch.cuda.synchronize(); dt = time.perf_counter() - t0
     g1 = len(ev1) * chunk_mib / 1024 / dt; g2 = len(ev2) * chunk_mib / 1024 / dt
     return {"s1_GBps": round(g1, 2), "s2_GBps": round(g2, 2), "agg": round(g1 + g2, 2), "mode": "interleaved-enqueue-windowed"}

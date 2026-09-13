@@ -7,7 +7,7 @@ resolvent norm), NOT the eigenvalue gap -- amplified by (gap/sigma_min_pseudo)^2
 fluctuation amplification have a THERMODYNAMIC DUAL = EXCESS DISSIPATION? Does a non-normal transfer cost more
 WORK (over the reversible/equilibrium floor), and is that excess governed by the same pseudospectral sigma_min?
 
-TESTBED (the STOCHASTIC-SIBLING frame the D1 memory established): linear overdamped Langevin / OU process
+TESTBED (the stochastic comparison model): linear overdamped Langevin / OU process
     dx = A x dt + sqrt(2 D) dW ,   D = I (isotropic noise = the observer's default metric)
 Stationary covariance Sigma solves the LYAPUNOV eq  A Sigma + Sigma A^T = -2 D. Two observables:
     FLUCTUATION:  Var = trace(Sigma)                                    (the D1 amplified quantity)
@@ -30,7 +30,7 @@ PRE-REGISTERED (code before numbers; BOTH directions; thresholds FROZEN in PRE):
      The clean 2x2 identity Ep == dVar (=g^2/2) is a UNITS COINCIDENCE: it breaks under time-rescaling A->c*A
      (Ep is a RATE ~c, Var ~1/c, so Ep/dVar ~ c^2). So "17.2x amplification => 17.2x dissipation" is FALSE;
      only the pseudospectral GOVERNOR and the co-tracking EXPONENT are universal, the prefactor is model-specific
-     (consistent with the D1 memory: Var~sigma_min^-p has model-specific p in {1.2..2.4}, NOT a universal -2).
+     (reference range: Var~sigma_min^-p has model-specific p in {1.2..2.4}, NOT a universal -2).
 
 FORCED ADVERSARIES (each to its strongest fair form via OODA):
   ADV-tautology (leaning-positive): "Ep and Var both come from the same Sigma, so co-scaling is trivial." FORCED:

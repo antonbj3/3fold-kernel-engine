@@ -36,7 +36,7 @@ ROOF_BEST = 0.85          # cert: achieved BW >= 85% of measured copy roofline
 BW_MEAS_ANCHOR = 578.0    # GB/s, D-measured copy roofline (stitch SEAM #1) — re-measured fresh below, cross-checked
 BW_NAMEPLATE = 672.0      # GB/s
 ANCHOR_AOS_MLUPS = 1770.0     # C's warp AoS two-kernel baseline (lbm_gpu_fast.py L5)
-ANCHOR_SOA_MLUPS = 7345.0     # C's warp fused-SoA best (memory: at 4096^2, fused-SoA sweep)
+ANCHOR_SOA_MLUPS = 7345.0     # Measured Warp fused-SoA maximum at 4096^2 in the fusion sweep
 POIS_L2_GATE = 1.0        # % — external analytic anchor gate
 
 CX = np.array([0, 1, 0, -1, 0, 1, -1, -1, 1], np.float64)

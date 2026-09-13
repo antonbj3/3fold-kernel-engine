@@ -5,8 +5,7 @@ fpga_bitwidth_waterfilling_is_precision_floor_allocation_marginal_modes_need_mor
 
 D (d_fpga_bitwidth_waterfilling.py): goal-derived per-signal bit-width b_i via Lagrangian water-filling
 on an ADJOINT-sensitivity spectrum g_i, minimising total bits s.t. output error <= tau.
-A (certified_superres_ceiling_has_a_precision_floor...py + memory
-[[sigma-min-identifiability-has-a-precision-floor-reduced-precision-silently-kills-it]]): a mode with
+The precision-floor model: a mode with
 singular value sigma_i is numerically identifiable only while eps*sigma_max < sigma_i; the number of
 mantissa bits needed is b_i >= log2(sigma_max/sigma_i) -- a REDUCED-PRECISION forward silently collapses
 the certified effective-rank because it gives every mode the SAME (uniform) eps regardless of sigma_i.

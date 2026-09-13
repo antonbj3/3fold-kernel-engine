@@ -9,7 +9,7 @@ validated the numerics against an INDEPENDENT ground truth, measured the speedup
 and designed how the GPU kernel turns per-window machinery loops into per-tick (continuous) loops.
 
 ===================================== MEASURED PROFILE (this env, RTX 5070) =====================================
-Wall clock of the 3 heaviest committed probes (/usr/bin/time -v, from repo root, .venv-newton):
+Wall clock of the 3 heaviest committed probes (/usr/bin/time -v, from repo root, Python environment):
     probe_ru_w_full_table                 218s  (3:38)   <-- HEAVIEST
     probe_xi_scale_turbulence_channel_dns  79s  (1:19)
     probe_substrate_onboarding..loo        78s  (1:18)
@@ -23,7 +23,7 @@ cProfile of the heaviest (probe_ru_w_full_table, 221s cumulative):
     null-band loop. It is the workhorse of EVERY xi(scale) substrate probe. It is independent across draws x units x
     thresholds -> perfect GPU batch. (P-a: parallelizable-loop fraction = 68.9% >= 60% -> PASS.)
 
-===================================== THE PORT (torch, GPU; CuPy absent in .venv-newton) =====================================
+===================================== THE PORT (torch, GPU; CuPy unavailable in the measured environment) =====================================
 Batched GPD MLE via Grimshaw profile-likelihood reparameterization (scipy convention f(y)=(1/s)(1+xi*y/s)^(-1/xi-1)):
     profile out scale: xi_hat(theta) = mean_i log(1 + theta*y_i),   scale = xi_hat/theta,   theta = xi/scale
     root-find the profile score  F(theta) = S1*(1 + 1/xi_hat) - n/theta = 0,  S1 = sum_i y_i/(1+theta*y_i),  theta>0
@@ -36,7 +36,7 @@ MORE correct than scipy's default Nelder-Mead (which stops at xtol/ftol~1e-4).
 [P-b] G-num: batched-GPU xi agrees with the TRUE MLE to rtol 1e-4 over >=100 random cases.
 [P-c] measured median speedup >=5x on the bootstrap-fit phase at matched precision, else port not worth complexity.
 Honest-negative = PASS. Resource-symmetric caveat reported (GPU vs 1 CPU core is a throughput obs, not an algorithm win).
-Run from . with .venv-newton python. CPU vs GPU. nvidia-smi verified idle before timing.
+Run from the repository root with Python. CPU vs GPU. nvidia-smi verified idle before timing.
 """
 import json
 import os

@@ -248,7 +248,7 @@ def run_session_child():
     read_k, copy_k = _kernels(wp)
     out_file = _argval("--out-file", None)
     warm_gpu(wp, read_k)
-    # DRAM asymptote this session (256MiB copy) -> state threshold = midpoint to a 4MiB L2 copy
+    # Measured DRAM asymptote (256MiB copy) -> state threshold = midpoint to a 4MiB L2 copy
     dram256, _ = burst_copy_bw(wp, copy_k, (256 * MIB) // 4, N=40)
     l2_4, _ = burst_copy_bw(wp, copy_k, (4 * MIB) // 4)
     thr = 0.5 * (dram256 + l2_4)

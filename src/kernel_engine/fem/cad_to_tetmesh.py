@@ -57,7 +57,7 @@ def main():
           f"(expected box minus cylinder {vexp:.4f}, relative error {rel:.2e}) -> {OUT/'cad_box3d.npz'}")
     print(f"\nVERDICT: CAD -> 3D tet mesh {'GENERATED + volume verified' if ok else 'VOLUME MISMATCH'} - a real "
           + ("3D CAD solid (box minus cylindrical hole, OCC kernel) tet-VOLUME meshed, the volume matches the analytic value -> "
-             "konsumeras av warpfem_mms_cad3d.py (.venv-newton). " if ok else "tet-volym ≠ geometri. ")
+             "consumed by warpfem_mms_cad3d.py. " if ok else "tet-volym ≠ geometri. ")
           + "CAVEAT: linear tet connectivity (warp.fem builds the P2 basis); gmsh Delaunay.")
     return 0 if ok else 1
 

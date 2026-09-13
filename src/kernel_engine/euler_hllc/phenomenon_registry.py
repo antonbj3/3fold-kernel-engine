@@ -121,7 +121,7 @@ PHENOMENA = {
     "lightning":         P(["charge", "em", "thermal", "flow"],
                            [("charge", "em"), ("thermal", "em"), ("thermal", "flow")], M,
                            "FLAGSHIP (lightning_dbm.py): DBM leader on validated Poisson φ; fractal morphology η-CONTROLLED (validated); D rises with N but ≈1.33≪DLA 1.71 (finite-size, honest B); Joule→thunder"),
-    # validated this session (living-cell + astro + reacting + optics quadrants)
+    # Validated phenomena (living-cell + astro + reacting + optics quadrants)
     "turing_pattern":    P(["species"], [("species", "species")], V, "reaction_diffusion_turing.py: dispersion + cutoff, λ vs k*"),
     "excitable_media":   P(["species"], [("species", "species")], V, "excitable_media_fhn.py: threshold + c monotone/concave CONSISTENT-with-√D (not uniquely vs D^0.4)"),
     "detonation":        P(["flow", "thermal", "species"], [("flow", "thermal"), ("species", "species")], V, "CJ velocity Δ1% = EASY global eigenvalue (detonation_znd.py); cellular structure = HARD (detonation_cellular.py: RH-init + θ≈5 instability + spurious-mode convergence; full 2D cells = HPC)"),
@@ -133,7 +133,7 @@ PHENOMENA = {
     "acoustic_wave":     P(["flow"], [], V, "acoustic_fdtd.py: staggered Yee p-v, box modes f_mn EMERGE, c=√(K/ρ); the EM-dual (p↔E,v↔H)"),
     "surface_radiation": P(["radiation"], [], V, "view_factors.py: ray-cast view factors, reciprocity A_iF_ij=A_jF_ji EMERGES, ΣF=1, Stefan-Boltzmann (thermal-camera basis)"),
     "vibroacoustic":     P(["flow", "elastic"], [("flow", "elastic")], V, "vibroacoustic.py: structure radiating sound; radiation damping ζ=ρcA/(2mω₀) EMERGES from the coupled solve"),
-    # ★validated  (this session): conditional instability, electro double-layer, connectivity/phase transitions
+    # Validated phenomena: conditional instability, electro double-layer, connectivity/phase transitions
     "conditional_instability": P(["flow", "thermal", "species", "phase"],
                            [("thermal", "flow"), ("phase", "thermal"), ("species", "phase")], V,
                            "conditional_instability_cape.py: Γ_d=g/cp exact, moist Γ_m<Γ_d, CAPE_moist>0 vs CAPE_dry=0 (moisture UNLOCKS convection), 3 stability regimes emerge — the adiabatic-lapse-rate mechanism the moist-RB lattice lacked (folded into moist_convection_theta.py)"),

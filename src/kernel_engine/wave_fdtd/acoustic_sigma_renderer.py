@@ -108,8 +108,7 @@ print(f"Bearing groups (DISJOINT, binary healthy vs fault):")
 print(f"  TRAIN-fit : {dict(zip(*np.unique(gtr, return_counts=True)))}  n={len(ytr)}")
 print(f"  CALIB     : {dict(zip(*np.unique(gca, return_counts=True)))}  n={len(yca)}")
 print(f"  TEST       : {dict(zip(*np.unique(gte, return_counts=True)))}  n={len(yte)}")
-# H293 (cross-lane, D commit 9cb03716e, D's own flagged highest-severity site in the assert-under-`-O`
-# class this session): bare `assert` is stripped entirely under python -O -- this specific check is the
+# A bare `assert` is stripped entirely under python -O -- this specific check is the
 # ONLY thing standing between a genuine leak-safe split and a silently-contaminated train/calib/test
 # evaluation, which would report an inflated (fake) accuracy with no warning. This check is module-level
 # (runs on import, no test/selftest wrapper) -- exactly the site H271's earlier AST classifier flagged

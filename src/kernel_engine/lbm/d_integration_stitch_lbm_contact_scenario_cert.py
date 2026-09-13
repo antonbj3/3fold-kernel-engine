@@ -15,10 +15,10 @@ External anchors used (cited, not fabricated):
   - 672 GB/s = RTX5070 GDDR7 nameplate (d_1c_iv_*, lbm_gpu_fast.py, diag_fp16_bandwidth.py)
   - 1770 MLUPS = C's real measured lbm_gpu_fast throughput (lbm_gpu_fast.py L5, d_certvector_on_real_lbm.py)
   - 30 TFLOP/s FP32 = RTX5070 (d_ensemble_coexecution_cert_contended_roofline.py)
-  - 16.4 / 25.1 GB/s = float-atomic / int64-fixed scatter, MEASURED THIS SESSION (RTX5070, warp, N=32768 contacts
+  - 16.4 / 25.1 GB/s = float-atomic / int64-fixed scatter, measured (RTX5070, warp, N=32768 contacts
     -> K=4096 bodies, matching contact_throughput_benchmark.py's N=4096-box scene @ ~8 contacts/box), script at
     scratchpad/probe_contact_scatter_bw.py (real GPU run, not modeled) -- external anchor for the contact component,
-    not a from-memory citation.
+    These are recorded measurements rather than model predictions.
 
 Pre-registered thresholds (reused from established project convention, NOT tuned to make this probe pass):
   SIG_EPS=1e-3 (A-V57-4 forward-noise convention), DELTA=1e-2 (QoI tolerance), ROOF_BEST=0.85, ROOF_OK=0.30.
@@ -47,8 +47,8 @@ LBM_REAL_MLUPS         = 1770.0     # real measured (lbm_gpu_fast.py)
 LBM_CEILING_NAMEPLATE  = 9333.0     # MLUPS @ 672GB/s nameplate (lbm_gpu_fast.py, d_certvector_on_real_lbm.py)
 LBM_BYTES_PER_VOXEL    = 72.0       # 9 f_i read + 9 write, x4B fp32 (same files)
 
-CONTACT_BW_FLOAT = 16.4e9     # measured THIS session: float-atomic scatter, N=32768->K=4096, RTX5070/warp
-CONTACT_BW_INT64 = 25.1e9     # measured THIS session: int64-fixed scatter, same N,K (the determinism fix)
+CONTACT_BW_FLOAT = 16.4e9     # measured: float-atomic scatter, N=32768->K=4096, RTX5070/warp
+CONTACT_BW_INT64 = 25.1e9     # measured: int64-fixed scatter, same N,K (the determinism fix)
 
 print("=" * 108)
 print("INTEGRATION STITCH: per-variable precision (x) per-component best-in-class (x) ensemble co-execution -> ONE scenario cert")
@@ -237,10 +237,10 @@ print(f"    -> would need a {mult_needed:.0f}x heavier per-contact solve (~{mult
 print(f"       i.e. a full dense-factorization-grade solve, not a 1-20-iteration PGS/GS pass) to flip to compute-bound.")
 print(f"       ⟹ contact-impulse is ROBUSTLY memory-bound across any realistic solver-complexity assumption.")
 
-# ---- external anchor: the REAL measured scatter BW (this session) ----
+# ---- external anchor: the REAL measured scatter BW ----
 roof_contact_float = CONTACT_BW_FLOAT / PEAK_BW_MEASURED
 roof_contact_int64 = CONTACT_BW_INT64 / PEAK_BW_MEASURED
-print(f"\n  EXTERNAL ANCHOR (measured this session, RTX5070/warp, N=32768->K=4096, scratchpad/probe_contact_scatter_bw.py):")
+print(f"\n  EXTERNAL ANCHOR (measured, RTX5070/warp, N=32768->K=4096, scratchpad/probe_contact_scatter_bw.py):")
 print(f"    float-atomic scatter: {CONTACT_BW_FLOAT/1e9:.1f} GB/s = {roof_contact_float*100:.2f}% of peak  (R2 FAIL + R4 FAIL)")
 print(f"    int64-fixed  scatter: {CONTACT_BW_INT64/1e9:.1f} GB/s = {roof_contact_int64*100:.2f}% of peak  (R2 PASS, R4 STILL FAIL)")
 print(f"    ⟹ the determinism FIX (int64) does NOT fix contention: {roof_contact_float*100:.1f}%->{roof_contact_int64*100:.1f}%, both")

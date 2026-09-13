@@ -23,8 +23,7 @@ facet-composition analysis before this file):
     NOT unbounded. Structural law true_worst ~ acc_err + det_err/2 (fit 0.89-0.91).
   d_force_H_facetgap_is_rho_floor_law.py (D): a SEPARATE, complementary "tail" framing — false-accept
     FLOOR (P(both facets falsely pass | genuinely defective)) vs the independence product p^2, swept over
-    rho via a Gaussian-copula common-factor construction. Re-run verbatim above (this session) and
-    reproduced: floor(rho=0)=0.0221~=p^2=0.0225; floor(rho=0.81)=0.0927=4.12x product; floor(rho=-0.8)=0
+    rho via a Gaussian-copula common-factor construction. Reference measurements: floor(rho=0)=0.0221~=p^2=0.0225; floor(rho=0.81)=0.0927=4.12x product; floor(rho=-0.8)=0
     (anti-correlation BEATS independence, actionable). This file extends that pattern with (a) an exact
     external analytic anchor (scipy bivariate-normal orthant probability — the prior script was MC-only),
     (b) realistic (not equal-p) marginal rates tied to the 4 real eyes, (c) a 2nd eye-pair for diversity.
@@ -268,7 +267,7 @@ print(f"  TEST C1 VERDICT: {'PASS — type-A gap is BOUNDED + geometrically cons
 # ==================================================================== TEST C2: NEGATIVE CONTROL, TYPE-B
 # "tail" false-accept floor: P(noise pushes BOTH facets to a false PASS | genuinely defective), swept over
 # rho via a Gaussian common-factor construction (matches d_force_H_facetgap_is_rho_floor_law.py's recipe,
-# reproduced verbatim above this session: floor(0)=0.0221~=p^2=0.0225, floor(0.81)=0.0927=4.12x, floor(-0.8)=0).
+# reference measurements: floor(0)=0.0221~=p^2=0.0225, floor(0.81)=0.0927=4.12x, floor(-0.8)=0).
 # NEW here: (a) exact scipy bivariate-normal external anchor (that script was MC-only); (b) realistic
 # asymmetric per-eye sigmas (not equal p=0.15) tied to the ACTUAL 4-eye simulator above; (c) a 2nd eye-pair.
 print("\n[TEST C2] NEGATIVE CONTROL (type-B, tail false-accept floor) — Gaussian-copula + exact external anchor")
@@ -291,7 +290,7 @@ def false_accept_theory(rho, true_a, true_b, sigma_a, sigma_b):
     return 1 - Fa - Fb + Fjoint
 
 
-print("  (0) SELF-CHECK regression vs d_force_H_facetgap_is_rho_floor_law.py (equal p=0.15, this session's fresh "
+print("  (0) SELF-CHECK regression vs d_force_H_facetgap_is_rho_floor_law.py (equal p=0.15, reference "
       "re-run gave floor(0)=0.0221, floor(0.81)=0.0927=4.12x, floor(-0.8)=0.00005):")
 rng_check = np.random.default_rng(3)
 thr = np.quantile(rng_check.standard_normal(200_000), 1 - 0.15)   # same recipe: true=0, sigma=1, threshold @ p=0.15
@@ -377,7 +376,7 @@ print(f"""
   facet-magnitude ratio is ~0.15-0.2, and stays <={GAP_EQUAL_FACET_CAP}x even for equal facets at rho=1 — bounded,
   not catastrophic) AND (C2) a much sharper TAIL false-accept floor (multi-fold inflation over the
   independence-assumed rate at rho=0.8, cross-validated against an EXACT scipy bivariate-normal formula, and
-  against this session's fresh re-run of d_force_H_facetgap_is_rho_floor_law.py). These are two DIFFERENT,
+  against reference re-run of d_force_H_facetgap_is_rho_floor_law.py). These are two DIFFERENT,
   complementary readings of the same rho -- typical-case bias is mild, rare-tail false-accept risk is not.
 
   CAVEAT (the falsifier, stated not buried): this is a SYNTHETIC model. It does NOT itself prove the 4 REAL

@@ -7,7 +7,7 @@ halve storage bytes ("LBM ar MINNES-bunden"); compute is fp32. In STEADY flow s
 converges to a fixed value, so fp16 rounds it the SAME way every timestep ->
 a DETERMINISTIC quantization floor that does not average out.
 
-DITHER LAW (this session): subtractive temporal dithering of quantization error
+DITHER LAW: subtractive temporal dithering of quantization error
 helps iff memory-bound AND cheap-cycles AND steady-QoI AND error>self-variation.
 Mechanism here: at the fp16 store add a per-cell, per-timestep, sub-quantum offset
 d; SUBTRACT the same d at reload (subtractive => the offset only decorrelates the
@@ -484,7 +484,7 @@ def main():
 
     report = dict(
         probe="lbm_fp16_steady_dither", device=DEV, warp=wp.__version__, wall_s=round(time.time() - t0, 1),
-        note_gpu_shared="another .venv-newton process at ~99% util during run; gates are ACCURACY (error vs ref), not throughput, so unaffected",
+        note_gpu_shared="another GPU process at ~99% util during run; gates are ACCURACY (error vs ref), not throughput, so unaffected",
         law=("subtractive temporal dither helps iff memory-bound & cheap-cycles & steady-QoI & error>self-variation. "
              "1-D scalar-store caveat holds for offset VALUES (regular==Halton). NEW: temporal ORDERING is a 2nd axis on a "
              "dynamical substrate -> use HIGH-FREQUENCY (golden-stride) ordering of the regular offsets to avoid nonlinear rectification."),
