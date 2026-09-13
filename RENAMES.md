@@ -648,3 +648,6 @@ SDK location convention: OPTIX_ROOT selects an external SDK9.0 installation; com
 | `scripts/kernel_matrix_local_v1.py` | Add bounded per-leg RTX capture through frozen workers and exact original source validation. | Extend the cloud matrix under separately reserved local windows. |
 | `scripts/kernel_matrix_local_report_v1.py` | Add split-capsule assembly and strict four-device audit with all six pairwise comparisons. | Preserve the frozen cloud certificate while adding local evidence. |
 | `tests/test_kernel_matrix_local.py` | Add complete matrix and five corrupted local evidence controls. | Reject missing or duplicate devices, changed sources, truncated arrays and numerical differences. |
+
+| `scripts/kernel_certificates_v1.py` | Add Ed25519-signed row certificates, explicit trust-key verification, retained-evidence binding and fresh native-export replay. | Make four-device finite observations independently checkable. |
+| `tests/test_kernel_certificates.py` | Add deterministic signing and seven tamper/coverage/key/gate controls. | Refuse altered or incompletely supported certificates. |

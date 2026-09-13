@@ -1551,3 +1551,17 @@ The original three-device capsule and report remain unchanged. Six new acceptanc
 and corruption controls plus the ten original audit/transport tests pass16/16.
 These results cover the declared finite fixtures and observed arrays, not universal
 cross-device determinism, other repositories, or an installed nightly scheduler.
+
+## Signed kernel observation certificates: VERIFIED-FRESH
+
+Preregistered gates: exactly20 certificates for the existing matrix rows; all four device identities, original source and runtime checks; Ed25519 signature verification against an independently supplied trusted public key; tamper/refusal controls; fresh Modal re-execution of one certified row with exact input/output hashes and original numerical gates. Selftest input identity refers to the pinned deterministic fixture definition, not retrospectively observed input arrays. Existing finite-observation scope remains unchanged.
+
+Twenty signed row certificates pass full inventory/signature/source/capsule checks.
+Two independent complete issuer runs produce byte-identical bundles. Eight focused
+signing/tamper controls pass. The new ModalL4 replay passes7/7 gates: trusted signature
+and retained evidence, original source identity, runtime identity, original numerical
+gates, independent repeat, recorded input identity and certified output identity.
+This fresh replay covers export:512 only; other rows retain their prior four-device
+measurements. Signature trust and the selftest fixture-definition input limitation
+are explicit in `docs/KERNEL_CERTIFICATES.md`. That document attaches one certificate
+to each of the20 VERIFIED-FRESH matrix rows; they are not20 distinct modules.

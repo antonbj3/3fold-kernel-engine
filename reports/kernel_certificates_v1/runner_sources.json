@@ -1,0 +1,4 @@
+{
+  "scripts/kernel_certificates_v1.py": "0158d846c1e779577ddaabf7a963ed416c14de981d539a420a6d99e30f7c7972",
+  "tests/test_kernel_certificates.py": "1894c5a0dd4f6763dc9dbe5aa3224f496604c3da99bf2a6e372e4118c38245c3"
+}
