@@ -1,0 +1,17 @@
+Warp 1.17.0 initialized:
+   CUDA Toolkit 12.9, Driver 13.0
+   Devices:
+     "cpu"      : "x86_64"
+     "cuda:0"   : "NVIDIA H100 80GB HBM3" (79 GiB, sm_90, mempool enabled)
+   Kernel cache:
+     /root/.cache/warp/1.17.0
+Module kernel_engine.lbm.lbm3d_mrt_les a3f7fdb load on device 'cuda:0' took 2037.41 ms  (compiled)
+{"step": 512, "errors": [2.4207382398958033e-08, 1.8705978866578876e-09], "stable": true, "ledger_exact": true}
+{"step": 1024, "errors": [1.1226769953444349e-07, 7.9581318791766e-09], "stable": true, "ledger_exact": true}
+{"step": 1536, "errors": [6.021125380714643e-07, 4.076396314487859e-08], "stable": true, "ledger_exact": true}
+{"step": 2048, "errors": [1.8775456334715196e-06, 1.368487725066786e-07], "stable": true, "ledger_exact": true}
+{"step": 2560, "errors": [9.383049210918287e-06, 4.148131051012749e-07], "stable": true, "ledger_exact": true}
+{"step": 3072, "errors": [2.0028872716185836e-05, 1.0233700564301132e-06], "stable": true, "ledger_exact": true}
+{"step": 3584, "errors": [2.90932695557692e-05, 1.7679987328342812e-06], "stable": true, "ledger_exact": true}
+{"step": 4096, "errors": [5.191834127308854e-05, 2.365651123940188e-06], "stable": true, "ledger_exact": true}
+{"source_sha256": "0540d521fbcdbf44957abc80bd799523364c7fc18ba698e2a9a626da1bc77d05", "initial_ledgers": [[18014398509481984, 1, -1, 0], [288230376151711744, 0, 0, 0], [4611686018427387610, 6, 6, 0], [4611686018427387610, 6, 6, 0]], "gates": {"complete_stable": true, "integer_ledgers_exact": true, "44_bit_full_repeat_exact_at_every_checkpoint": true, "old_36_and_40_states_unchanged": true, "40_vs44_velocity_within_1e_minus5": true, "error_contracts_at_least_4x": true}, "passed": true, "maximum_checkpoint_errors": [5.191834127308854e-05, 2.503170772242947e-06], "error_contraction": 20.741030475746367, "step_and_readback_s": 10.137443507999986, "final_step": 4096, "warp": "1.17.0", "device": "cuda:0"}

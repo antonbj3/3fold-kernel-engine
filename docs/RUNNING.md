@@ -29,7 +29,7 @@ synthetic inputs. The hardware and decisive values are stated with each new resu
 
 | module | status | note |
 | --- | --- | --- |
-| src/kernel_engine/lbm/lbm3d_mrt_les.py | OWN-GATE-FAIL | H100 D3Q19 Hermite MRT+Smag optional mode: BGK fails320; MRT stable4096 twice with exact integer mass/momentum and all39,845,888B repeat. Seven of eight gates pass; 36-vs40 fractional-bit velocity difference5.1918e-5 remains above fixed1e-5 (raw MRT0.366107). 1054–1055MLUPS,10.75–10.76% large-copy memory roof. Raw mode retained; reports/lbm3d_hermite_mrt_les_v1/summary.json. |
+| src/kernel_engine/lbm/lbm3d_mrt_les.py | VERIFIED-FRESH | Scoped to explicit hermite_mrt at40 fractional bits: H1003D64^3 BGKfails320/MRTstable4096, exact mass/momentum/full repeats; finer44-bit reference gives max checkpoint velocity error2.5032e-6<1e-5 and20.74x contraction. Prior raw-mode and36-vs40 failures retained. 1054–1055MLUPS/10.75–10.76% memorycopyroof from unchanged fused kernel. Channel/refinement not yet validated. reports/lbm3d_precision_convergence_v1/. |
 | src/kernel_engine/_vendor/goal_oriented_culling.py | VERIFIED-FRESH |  |
 | src/kernel_engine/_vendor/lastfalt_v1_fem.py | VERIFIED-FRESH |  |
 | src/kernel_engine/_vendor/render_match_scaffold.py | SYNTHETIC-ONLY |  |
@@ -1708,3 +1708,21 @@ copy roof. No gate relaxation, promotion, local GPU job or push. The raw mode
 remains the default experimental control. Receipts and energy-history summaries:
 reports/lbm3d_hermite_mrt_les_v1/; linear analysis:
 reports/lbm3d_mrt_spectrum_v1/. Channel and draft-tube work remain gated.
+
+E 2026-09-14: Hermite40 collision precision refinement VERIFIED-FRESH in
+this declared scope. New three-level36/40/44fraction-bit study preserves the
+historical36-vs40 failure and changes no1e-5 numerical threshold. Same64^3,
+4096steps,Cs0.1,tau0.5001 and fused-kernel arithmetic. All64checkpoint full
+velocity comparisons40-vs44 <=2.5031708e-6; maximum36-vs40 remains5.1918341e-5,
+a20.741x contraction. Both prior36/40final full-state hashes match exactly.
+The44-bit reference repeats all39,845,888B at every checkpoint, and every
+run's integer mass/momentum ledger remains exact. Actual44-bit initial mass
+4611686018427387610 fits signed int64; unsafe actual reductions are rejected
+before device allocation. Ten CPUcontrols pass, including44-bit conservation
+and an individually representable but globally overflowing initial state.
+The six precision-refinement gates all pass. Earlier36bit resolution is not
+certified by this result; the raw moment mode remains a failed control. Use
+explicit mode='hermite_mrt',bits=40. Prior physical stability, BGKblow-up,
+analytical shear, full repeats and measured memory-roof receipts still apply
+to the unchanged40-bit trajectory. This closes the first collision item and
+opens the forced3Dchannel and2:1wall refinement, without claiming their validation.

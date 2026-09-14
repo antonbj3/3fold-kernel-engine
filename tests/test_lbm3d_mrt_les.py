@@ -98,3 +98,14 @@ def test_hermite_mrt_is_conserved_plus_stress_projection():
     expected[0]+=q.sum(0)-expected.sum(0)
     expected=np.array([np.roll(expected[h],tuple(lb.C[h]),axis=(0,1,2)) for h in range(19)])
     assert np.max(np.abs(sim.numpy()-expected))<=4
+
+
+def test_finer_storage_and_actual_ledger_range():
+    rho=np.ones((4,4,4));u=np.full((3,4,4,4),.021)
+    q=lb.quantize(lb.equilibrium(rho,u),44)
+    sim=lb.Simulation(q,tau=.67,mode='hermite_mrt',bits=44);sim.step(13)
+    assert lb.ledger(sim.numpy())==lb.ledger(q)
+    assert sim.failure.numpy()[0]==0
+    # Every population fits the local bound, but the total cannot fit int64.
+    unsafe=np.full((19,12,12,12),32*2**44,dtype=np.int64)
+    with pytest.raises(OverflowError):lb.Simulation(unsafe,tau=.8,bits=44)
