@@ -81,6 +81,14 @@
       "scaling": "compare explicit CPU configurations and GPU plus host configurations; no CPU-core to GPU-core conversion"
     },
     "multiple_gpus": "candidate only after domain decomposition and boundary exchange are implemented and validated; not currently implemented in this LBM path",
-    "current_evidence": "accepted turbulent reference on one H100; local RTX5070 small numerical screens; no accepted cross-device turbulent cost or energy ranking"
+    "current_evidence": "accepted turbulent reference on one H100; local RTX5070 small numerical screens; no accepted cross-device turbulent cost or energy ranking",
+    "equal_deadline_comparison": {
+      "objective": "minimum measured resource cost per accepted solve at a shared wall-clock deadline",
+      "reference": "measured H100 end-to-end duration, not GPU solver time alone",
+      "CPU_search": "measure OpenFOAM accuracy and scaling across explicit core counts; find configurations meeting the deadline rather than assuming linear scaling",
+      "cost_scope": "all allocated CPU, GPU and memory resources for the full job at recorded rates",
+      "infeasible_case": "report when no tested CPU configuration meets the deadline; do not extrapolate unlimited scaling",
+      "status": "CPU runs and cost comparison not yet measured"
+    }
   }
 }

@@ -1,0 +1,182 @@
+{
+  "scope": "64^3 TGV u0=.2 tau=.5001 Cs=.1, FP32 collision against FP64, int64 40fractionbit storage and repair retained; not turbulent channel validation",
+  "candidate": "mixed_transforms",
+  "device": "NVIDIA GeForce RTX 5070",
+  "velocity_absolute_limit": 1e-05,
+  "passed": false,
+  "history": [
+    {
+      "step": 64,
+      "velocity_max_abs_error": 6.930032575569456e-09,
+      "density_max_abs_error": 8.430106390733272e-09,
+      "repeat_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true,
+      "stable": true
+    },
+    {
+      "step": 128,
+      "velocity_max_abs_error": 1.0405845726757512e-08,
+      "density_max_abs_error": 9.012182999867946e-09,
+      "repeat_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true,
+      "stable": true
+    },
+    {
+      "step": 192,
+      "velocity_max_abs_error": 3.130289903674477e-08,
+      "density_max_abs_error": 2.0349034457467496e-08,
+      "repeat_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true,
+      "stable": true
+    },
+    {
+      "step": 256,
+      "velocity_max_abs_error": 7.00130037215984e-08,
+      "density_max_abs_error": 3.113109414698556e-08,
+      "repeat_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true,
+      "stable": true
+    },
+    {
+      "step": 320,
+      "velocity_max_abs_error": 1.2981306782462732e-07,
+      "density_max_abs_error": 5.937636160524562e-08,
+      "repeat_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true,
+      "stable": true
+    },
+    {
+      "step": 384,
+      "velocity_max_abs_error": 1.954208738441654e-07,
+      "density_max_abs_error": 7.267590262927115e-08,
+      "repeat_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true,
+      "stable": true
+    },
+    {
+      "step": 448,
+      "velocity_max_abs_error": 4.357440112623401e-07,
+      "density_max_abs_error": 1.2588861864060163e-07,
+      "repeat_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true,
+      "stable": true
+    },
+    {
+      "step": 512,
+      "velocity_max_abs_error": 7.212700879402623e-07,
+      "density_max_abs_error": 1.3200860848883167e-07,
+      "repeat_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true,
+      "stable": true
+    },
+    {
+      "step": 576,
+      "velocity_max_abs_error": 1.0830588960883403e-06,
+      "density_max_abs_error": 1.4505894796457142e-07,
+      "repeat_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true,
+      "stable": true
+    },
+    {
+      "step": 640,
+      "velocity_max_abs_error": 1.4053081549281199e-06,
+      "density_max_abs_error": 1.6682224668329582e-07,
+      "repeat_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true,
+      "stable": true
+    },
+    {
+      "step": 704,
+      "velocity_max_abs_error": 1.5970532166939555e-06,
+      "density_max_abs_error": 1.8811988411471248e-07,
+      "repeat_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true,
+      "stable": true
+    },
+    {
+      "step": 768,
+      "velocity_max_abs_error": 1.999448227878476e-06,
+      "density_max_abs_error": 1.932858140207827e-07,
+      "repeat_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true,
+      "stable": true
+    },
+    {
+      "step": 832,
+      "velocity_max_abs_error": 2.551823539011233e-06,
+      "density_max_abs_error": 2.3331631382461637e-07,
+      "repeat_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true,
+      "stable": true
+    },
+    {
+      "step": 896,
+      "velocity_max_abs_error": 4.026373198694026e-06,
+      "density_max_abs_error": 3.8761845644330606e-07,
+      "repeat_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true,
+      "stable": true
+    },
+    {
+      "step": 960,
+      "velocity_max_abs_error": 6.236094849878127e-06,
+      "density_max_abs_error": 5.356614565243945e-07,
+      "repeat_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true,
+      "stable": true
+    },
+    {
+      "step": 1024,
+      "velocity_max_abs_error": 8.549295468496948e-06,
+      "density_max_abs_error": 9.602981663192622e-07,
+      "repeat_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true,
+      "stable": true
+    },
+    {
+      "step": 1088,
+      "velocity_max_abs_error": 1.1954842107995967e-05,
+      "density_max_abs_error": 7.096150511642918e-07,
+      "repeat_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true,
+      "stable": true
+    }
+  ],
+  "timing_scope": "96^3 TGV,64steps per timing, diagnostic only if precision fails",
+  "seconds": [
+    [
+      0.762097889004508,
+      0.7659788239980116
+    ],
+    [
+      0.4853155989840161,
+      0.4818246100039687
+    ]
+  ],
+  "diagnostic_speedups": [
+    1.5703140195780267,
+    1.5897461609354127
+  ],
+  "elapsed_seconds": 17.36489722598344,
+  "source_sha256": {
+    "scripts/measure_lbm3d_fp32.py": "e01a41da224ddd4252a8ee6384de533a07b16ea2ca40fd6baef5079d100a241e",
+    "src/kernel_engine/lbm/lbm3d_channel_mixed.py": "60e8dd586fdeaf526b7889899070a2b282858f8b0845d58cfc62976e616fc885"
+  }
+}

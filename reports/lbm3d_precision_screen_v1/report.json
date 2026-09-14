@@ -1,0 +1,50 @@
+{
+  "scope": "RTX5070 arithmetic precision screening; fixed1e-5 absolute velocity againstFP64 over4096TGVsteps. Timing gains do not qualify failed candidates for production.",
+  "experiments": [
+    {
+      "candidate": "fp32",
+      "passed": false,
+      "first_failed_checkpoint": 576,
+      "velocity_max_abs_error": 1.112215365836047e-05,
+      "velocity_limit": 1e-05,
+      "stable": true,
+      "repeat_exact": true,
+      "ledgers_exact": true,
+      "diagnostic_speedups": [
+        8.536220466654916,
+        8.663194251036193
+      ]
+    },
+    {
+      "candidate": "mixed",
+      "passed": false,
+      "first_failed_checkpoint": 1088,
+      "velocity_max_abs_error": 1.1954842107995967e-05,
+      "velocity_limit": 1e-05,
+      "stable": true,
+      "repeat_exact": true,
+      "ledgers_exact": true,
+      "diagnostic_speedups": [
+        1.5703140195780267,
+        1.5897461609354127
+      ]
+    },
+    {
+      "candidate": "hermite32",
+      "passed": false,
+      "first_failed_checkpoint": 2368,
+      "velocity_max_abs_error": 1.0033887541534845e-05,
+      "velocity_limit": 1e-05,
+      "stable": true,
+      "repeat_exact": true,
+      "ledgers_exact": true,
+      "diagnostic_speedups": [
+        1.3829926626701878,
+        1.3214304633161835
+      ]
+    }
+  ],
+  "decision": "retain FP64 collision; no lower-precision candidate admitted",
+  "storage": "int64 with40fractionbits and exact mass/momentum repair unchanged",
+  "next_possible_research": "compensated arithmetic or sensitivity-guided precision, requiring the same numerical and turbulent validation; neither implemented nor validated"
+}

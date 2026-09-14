@@ -1,0 +1,362 @@
+{
+  "scope": "64^3 TGV u0=.2 tau=.5001 Cs=.1, FP32 collision against FP64, int64 40fractionbit storage and repair retained; not turbulent channel validation",
+  "candidate": "hermite32",
+  "device": "NVIDIA GeForce RTX 5070",
+  "velocity_absolute_limit": 1e-05,
+  "passed": false,
+  "history": [
+    {
+      "step": 64,
+      "velocity_max_abs_error": 6.360938997751475e-10,
+      "density_max_abs_error": 9.731593308970332e-10,
+      "repeat_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true,
+      "stable": true
+    },
+    {
+      "step": 128,
+      "velocity_max_abs_error": 8.915980731494244e-10,
+      "density_max_abs_error": 1.1514202924445271e-09,
+      "repeat_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true,
+      "stable": true
+    },
+    {
+      "step": 192,
+      "velocity_max_abs_error": 1.3034170132097955e-09,
+      "density_max_abs_error": 2.4629116524010897e-09,
+      "repeat_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true,
+      "stable": true
+    },
+    {
+      "step": 256,
+      "velocity_max_abs_error": 3.5213770649411558e-09,
+      "density_max_abs_error": 5.130459612701088e-09,
+      "repeat_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true,
+      "stable": true
+    },
+    {
+      "step": 320,
+      "velocity_max_abs_error": 4.2177183412484e-09,
+      "density_max_abs_error": 7.427843229379505e-09,
+      "repeat_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true,
+      "stable": true
+    },
+    {
+      "step": 384,
+      "velocity_max_abs_error": 9.147930635222679e-09,
+      "density_max_abs_error": 5.3923940868116915e-09,
+      "repeat_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true,
+      "stable": true
+    },
+    {
+      "step": 448,
+      "velocity_max_abs_error": 1.9400564071903048e-08,
+      "density_max_abs_error": 7.07223080098629e-09,
+      "repeat_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true,
+      "stable": true
+    },
+    {
+      "step": 512,
+      "velocity_max_abs_error": 3.866086869391827e-08,
+      "density_max_abs_error": 8.142706064973027e-09,
+      "repeat_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true,
+      "stable": true
+    },
+    {
+      "step": 576,
+      "velocity_max_abs_error": 5.3382758918169015e-08,
+      "density_max_abs_error": 1.0284566087648273e-08,
+      "repeat_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true,
+      "stable": true
+    },
+    {
+      "step": 640,
+      "velocity_max_abs_error": 6.220474110113505e-08,
+      "density_max_abs_error": 8.766619430389255e-09,
+      "repeat_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true,
+      "stable": true
+    },
+    {
+      "step": 704,
+      "velocity_max_abs_error": 8.086159149905958e-08,
+      "density_max_abs_error": 9.515133569948375e-09,
+      "repeat_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true,
+      "stable": true
+    },
+    {
+      "step": 768,
+      "velocity_max_abs_error": 1.1388423812578923e-07,
+      "density_max_abs_error": 1.5311343304347247e-08,
+      "repeat_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true,
+      "stable": true
+    },
+    {
+      "step": 832,
+      "velocity_max_abs_error": 1.5592849853321433e-07,
+      "density_max_abs_error": 1.3410499377641827e-08,
+      "repeat_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true,
+      "stable": true
+    },
+    {
+      "step": 896,
+      "velocity_max_abs_error": 3.075810572523985e-07,
+      "density_max_abs_error": 2.807155397022143e-08,
+      "repeat_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true,
+      "stable": true
+    },
+    {
+      "step": 960,
+      "velocity_max_abs_error": 4.0223878189100254e-07,
+      "density_max_abs_error": 3.449076757533476e-08,
+      "repeat_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true,
+      "stable": true
+    },
+    {
+      "step": 1024,
+      "velocity_max_abs_error": 7.253609010590689e-07,
+      "density_max_abs_error": 6.592381396330893e-08,
+      "repeat_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true,
+      "stable": true
+    },
+    {
+      "step": 1088,
+      "velocity_max_abs_error": 7.968055396878615e-07,
+      "density_max_abs_error": 5.025503924116492e-08,
+      "repeat_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true,
+      "stable": true
+    },
+    {
+      "step": 1152,
+      "velocity_max_abs_error": 8.666683945258991e-07,
+      "density_max_abs_error": 4.213598003843799e-08,
+      "repeat_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true,
+      "stable": true
+    },
+    {
+      "step": 1216,
+      "velocity_max_abs_error": 8.360873405312275e-07,
+      "density_max_abs_error": 3.979948814958334e-08,
+      "repeat_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true,
+      "stable": true
+    },
+    {
+      "step": 1280,
+      "velocity_max_abs_error": 7.4930067151327e-07,
+      "density_max_abs_error": 4.3757609091699123e-08,
+      "repeat_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true,
+      "stable": true
+    },
+    {
+      "step": 1344,
+      "velocity_max_abs_error": 7.852375613244533e-07,
+      "density_max_abs_error": 4.37448761658743e-08,
+      "repeat_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true,
+      "stable": true
+    },
+    {
+      "step": 1408,
+      "velocity_max_abs_error": 8.832523879422766e-07,
+      "density_max_abs_error": 5.3575604397337884e-08,
+      "repeat_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true,
+      "stable": true
+    },
+    {
+      "step": 1472,
+      "velocity_max_abs_error": 8.316346521604345e-07,
+      "density_max_abs_error": 4.8737092583905905e-08,
+      "repeat_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true,
+      "stable": true
+    },
+    {
+      "step": 1536,
+      "velocity_max_abs_error": 1.0011220938355159e-06,
+      "density_max_abs_error": 8.211918611777946e-08,
+      "repeat_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true,
+      "stable": true
+    },
+    {
+      "step": 1600,
+      "velocity_max_abs_error": 1.0092428603303207e-06,
+      "density_max_abs_error": 9.988070814870298e-08,
+      "repeat_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true,
+      "stable": true
+    },
+    {
+      "step": 1664,
+      "velocity_max_abs_error": 1.1414407872153975e-06,
+      "density_max_abs_error": 1.6215562936849892e-07,
+      "repeat_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true,
+      "stable": true
+    },
+    {
+      "step": 1728,
+      "velocity_max_abs_error": 1.3557328931491398e-06,
+      "density_max_abs_error": 1.8699756765272468e-07,
+      "repeat_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true,
+      "stable": true
+    },
+    {
+      "step": 1792,
+      "velocity_max_abs_error": 1.3287884981730974e-06,
+      "density_max_abs_error": 1.1825795809272677e-07,
+      "repeat_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true,
+      "stable": true
+    },
+    {
+      "step": 1856,
+      "velocity_max_abs_error": 1.6137583525888637e-06,
+      "density_max_abs_error": 1.4023680705577135e-07,
+      "repeat_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true,
+      "stable": true
+    },
+    {
+      "step": 1920,
+      "velocity_max_abs_error": 2.2021903156761724e-06,
+      "density_max_abs_error": 1.992357283597812e-07,
+      "repeat_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true,
+      "stable": true
+    },
+    {
+      "step": 1984,
+      "velocity_max_abs_error": 3.0652333683402894e-06,
+      "density_max_abs_error": 2.6900943339569494e-07,
+      "repeat_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true,
+      "stable": true
+    },
+    {
+      "step": 2048,
+      "velocity_max_abs_error": 3.7056667230497137e-06,
+      "density_max_abs_error": 3.126242518192157e-07,
+      "repeat_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true,
+      "stable": true
+    },
+    {
+      "step": 2112,
+      "velocity_max_abs_error": 3.980900271521176e-06,
+      "density_max_abs_error": 3.3690594136714935e-07,
+      "repeat_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true,
+      "stable": true
+    },
+    {
+      "step": 2176,
+      "velocity_max_abs_error": 6.043930098859757e-06,
+      "density_max_abs_error": 3.570612534531392e-07,
+      "repeat_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true,
+      "stable": true
+    },
+    {
+      "step": 2240,
+      "velocity_max_abs_error": 7.417524070088555e-06,
+      "density_max_abs_error": 3.9857786759966984e-07,
+      "repeat_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true,
+      "stable": true
+    },
+    {
+      "step": 2304,
+      "velocity_max_abs_error": 8.34581524170909e-06,
+      "density_max_abs_error": 4.181929398328066e-07,
+      "repeat_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true,
+      "stable": true
+    },
+    {
+      "step": 2368,
+      "velocity_max_abs_error": 1.0033887541534845e-05,
+      "density_max_abs_error": 4.77878529636655e-07,
+      "repeat_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true,
+      "stable": true
+    }
+  ],
+  "timing_scope": "96^3 TGV,64steps per timing, diagnostic only if precision fails",
+  "seconds": [
+    [
+      0.8096674559928942,
+      0.767843671987066
+    ],
+    [
+      0.5854459519905504,
+      0.5810700549918693
+    ]
+  ],
+  "diagnostic_speedups": [
+    1.3829926626701878,
+    1.3214304633161835
+  ],
+  "elapsed_seconds": 34.15256317699095,
+  "source_sha256": {
+    "scripts/measure_lbm3d_fp32.py": "ed53d14ccff2946c7ab9af7d6d686d80f77ab0c36f5111bee87ff62b6867476e",
+    "src/kernel_engine/lbm/lbm3d_channel_hermite32.py": "4a51cfba8b1fa7e03872a7c68b568778e02ba8302897e455f7a7b3d106c07fac"
+  }
+}
