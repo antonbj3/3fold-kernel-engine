@@ -1,4 +1,4 @@
-"""Conservative 2:1 D3Q19 transfer primitives, not yet a coupled flow solver.
+"""Conservative 2:1 D3Q19 transfer and coupled wall-block reference.
 
 A parent stores population MASS in units shared with its eight children: its
 population density scale is eight times the children's scale. This avoids
@@ -74,6 +74,42 @@ locations and times; this primitive does not make interpolation conservative.
     return arrays[0]+arrays[1]-arrays[2]
 
 
+def checked_int64_sum(values):
+    """Reduce bounded chunks and combine in Python before the int64 range gate.
+
+    Opposing wall-pressure terms may have intermediate sums beyond int64,
+    even when their exact net is representable. No NumPy reduction may wrap.
+    """
+    a=np.asarray(values)
+    if a.dtype!=np.int64 or not a.size:
+        raise ValueError('nonempty int64 array required')
+    bound=max(abs(int(a.min())),abs(int(a.max())))
+    chunk=max(1,(2**63-1)//max(1,bound))
+    flat=a.ravel()
+    total=sum(int(flat[i:i+chunk].sum(dtype=np.int64)) for i in range(0,flat.size,chunk))
+    if total<-(2**63) or total>=2**63:
+        raise OverflowError('exact sum exceeds int64 range')
+    return total
+
+
+def sgs_transfer_taus(rho,stress_norm,tau_source,tau_target,cs_source,cs_target,dt_ratio):
+    """Effective relaxation times for incoming forced-stress transfer.
+
+    Pi_target = r*tau_eff_target/tau_eff_source * Pi_source. Substituting
+    this into the target Smagorinsky quadratic gives its explicit value.
+    For Cs_target=Cs_source/r and acoustic molecular scaling, physical
+    eddy viscosity and strain are continuous across the interface.
+    """
+    if not np.isfinite([tau_source,tau_target,cs_source,cs_target,dt_ratio]).all() or min(tau_source,tau_target)<=.5 or min(cs_source,cs_target)<0 or dt_ratio<=0:
+        raise ValueError('invalid SGS transfer parameters')
+    rho=np.asarray(rho);stress_norm=np.asarray(stress_norm)
+    if np.any(rho<=0) or np.any(stress_norm<0) or not np.isfinite(rho).all() or not np.isfinite(stress_norm).all():
+        raise ValueError('invalid density or stress norm')
+    source=.5*(tau_source+np.sqrt(tau_source**2+18*np.sqrt(2)*cs_source**2*stress_norm/rho))
+    target=tau_target+4.5*np.sqrt(2)*cs_target**2*dt_ratio*stress_norm/(rho*source)
+    return source,target
+
+
 class ReferenceRefinedChannel:
     """CPU-orchestrated two-wall-block reference, fixed 2:1 acoustic scaling.
 
@@ -81,14 +117,20 @@ class ReferenceRefinedChannel:
     not the GPU performance path. Fine blocks advance twice per coarse step;
     interface ghost populations use trilinear space interpolation and linear
     time interpolation of the coarse predictor. Reflux replaces coarse fluxes
-    by measured fine fluxes. Cs=0 only until the interface SGS scaling is checked.
+    by measured fine fluxes. The physical Smagorinsky filter is fixed across
+    levels: Cs_coarse = Cs_fine / 2 under acoustic scaling.
     """
-    def __init__(self,nx=8,height=32,nz=8,wall_cells=8,tau_fine=.8,force_fine=1e-5,device='cpu'):
+    def __init__(self,nx=8,height=32,nz=8,wall_cells=8,tau_fine=.8,force_fine=1e-5,device='cpu',cs_fine=0.0):
         import warp as wp
         from .lbm3d_mrt_les import quantize
         from .lbm3d_channel import ChannelSimulation
-        if any(n%2 for n in (nx,height,nz,wall_cells)) or wall_cells<2 or 2*wall_cells>=height:
+        if any(not isinstance(n,int) or n<2 or n%2 for n in (nx,height,nz,wall_cells)) or wall_cells<2 or 2*wall_cells>=height:
             raise ValueError('even dimensions and a nonempty coarse core required')
+        if nx*height*nz*2**40>=2**63:
+            raise OverflowError('volume-weighted int64 inventory exceeds range')
+        if not np.isfinite([tau_fine,force_fine,cs_fine]).all() or tau_fine<=.5 or cs_fine<0:
+            raise ValueError('invalid relaxation, force or Smagorinsky coefficient')
+        self.csf=cs_fine;self.csc=cs_fine/2
         self.nx,self.h,self.nz,self.nf=nx,height,nz,wall_cells
         self.tf=tau_fine;self.tc=.5+(tau_fine-.5)/2
         self.force_units=int(np.rint(force_fine*2**40));self.gf=self.force_units/2**40
@@ -101,13 +143,13 @@ class ReferenceRefinedChannel:
             u=np.zeros((3,)+shape);u[0]=self.gf/(2*((tau_fine-.5)/3))*y[None,:,None]*(height-y[None,:,None])-.5*self.gf
             u[:,mask!=0]=0
             q=quantize(equilibrium(np.ones(shape),u),40)
-            self.fine.append(ChannelSimulation(q,tau=self.tf,force_density=self.gf,cs=0,solid=mask,device=device))
+            self.fine.append(ChannelSimulation(q,tau=self.tf,force_density=self.gf,cs=self.csf,solid=mask,device=device))
         shape=(nx//2,height//2+2,nz//2);mask=np.zeros(shape,np.int32);mask[:,0,:]=1;mask[:,-1,:]=1
         y=2*np.arange(height//2+2)-1
         u=np.zeros((3,)+shape);u[0]=self.gf/(2*((tau_fine-.5)/3))*y[None,:,None]*(height-y[None,:,None])-self.gf
         u[:,mask!=0]=0
         q=quantize(equilibrium(np.ones(shape),u),43)
-        self.coarse=ChannelSimulation(q,tau=self.tc,force_density=2*self.gf,cs=0,bits=43,solid=mask,device=device)
+        self.coarse=ChannelSimulation(q,tau=self.tc,force_density=2*self.gf,cs=self.csc,bits=43,solid=mask,device=device)
         self.initial_ledger=self.ledger()
 
     def _replace(self,sim,q):
@@ -120,7 +162,12 @@ class ReferenceRefinedChannel:
         pi=np.einsum('qa,qb,q...->ab...',C,C,f-eq)
         for a in range(3):
             pi[0,a]+=.5*u[a]*source_force;pi[a,0]+=.5*u[a]*source_force
-        pi*=dt_ratio*target_tau/source_tau
+        source_cs=self.csf if dt_ratio==2 else self.csc
+        target_cs=self.csc if dt_ratio==2 else self.csf
+        effective_source,effective_target=sgs_transfer_taus(
+            rho,np.sqrt(np.sum(pi*pi,axis=(0,1))),source_tau,target_tau,
+            source_cs,target_cs,dt_ratio)
+        pi*=dt_ratio*effective_target/effective_source
         for a in range(3):
             pi[0,a]-=.5*u[a]*target_force;pi[a,0]-=.5*u[a]*target_force
         h2=np.einsum('qa,qb->qab',C,C)-np.eye(3)[None,:,:]/3
@@ -191,15 +238,20 @@ class ReferenceRefinedChannel:
     def ledger(self):
         arrays=[s.numpy()[:,:,1:-1,:] for s in self.fine]
         arrays.append(self.coarse.numpy()[:,:,self.b:self.t+1,:])
-        totals=np.sum([a.sum(axis=(1,2,3),dtype=np.int64) for a in arrays],axis=0,dtype=np.int64)
-        return [int(totals.sum()),*[int(v) for v in C.astype(np.int64).T@totals]]
+        totals=[sum(checked_int64_sum(a[q]) for a in arrays) for q in range(19)]
+        if sum(abs(v) for v in totals)>=2**63:
+            raise OverflowError('combined int64 population ledger exceeds range')
+        return [sum(totals),*[sum(int(C[q,k])*totals[q] for q in range(19)) for k in range(3)]]
 
     def wall_impulse(self):
-        out=np.zeros(3,np.int64)
+        out=[0,0,0]
         for side,sim in enumerate(self.fine):
             a=sim.wall_impulse.numpy().reshape((3,)+sim.shape)
-            out+=a[:,:,1 if side==0 else -2,:].sum(axis=(1,2),dtype=np.int64)
-        return out
+            for k in range(3):
+                out[k]+=checked_int64_sum(a[k,:,1 if side==0 else -2,:])
+        if any(v<-(2**63) or v>=2**63 for v in out):
+            raise OverflowError('combined wall impulse exceeds int64 range')
+        return np.asarray(out,dtype=np.int64)
 
     def profile(self):
         from .lbm3d_mrt_les import fields

@@ -1,0 +1,13 @@
+{
+  "repo": "3fold-kernel-e-lbm-check",
+  "cmd": "OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 PYTHONPATH=src python scripts/measure_lbm3d_refinement_gpu.py && OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 PYTHONPATH=src python scripts/measure_lbm3d_refinement_sgs.py",
+  "gpu": "NVIDIA H100 80GB HBM3, 81559 MiB, 580.95.05",
+  "rc": 0,
+  "seconds": 25.2,
+  "stamp": "20260914T092427Z",
+  "files": [
+    "reports/lbm3d_refinement_gpu_v1/report.json",
+    "reports/lbm3d_refinement_sgs_v1/report.json"
+  ],
+  "extras": []
+}

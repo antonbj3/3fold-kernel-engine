@@ -1758,3 +1758,22 @@ SGS-consistent level scaling, bounded global integer reductions for larger
 refined domains, measured QoI sensitivity/water-filling map, and refined DNS
 against a validated uniform control. Backward step and draft tube remain
 unvalidated. No local GPU/context/lock, no push, README unchanged.
+
+E 2026-09-14: SGS-consistent 2:1 incoming-population coupling VERIFIED-FRESH
+for the numerical transfer gate, not turbulent DNS. Fixed physical filter uses
+fine Cs0.1/coarse Cs0.05. The force-corrected stress norm determines source
+effective tau; substitution into the target Smagorinsky quadratic determines
+target effective tau. Both transfer directions preserve physical strain and
+viscosity in independent algebraic tests. H100 spatially varying 3D case,
+2000 fine steps: all four gates pass, full GPU repeats/history bit-identical,
+all mass and body-force/wall-impulse budgets exact. Maximum CPU/GPU population
+density differences by block:6.3665e-12,8.1855e-12,1.9327e-12, below1e-10.
+The previous Cs0 laminar gate also passes5/5 with all three full-state hashes
+unchanged from20260914T091734Z. Receipts: reports/lbm3d_refinement_sgs_v1/.
+Twenty-four focused CPU tests pass. Guarded chunk reductions prevent int64
+intermediate wrap; oversized initial volume-weighted inventories are rejected
+before allocation. This rejects384x128x192 at40fractionbits, rather than
+silently lowering precision. A larger-domain ledger representation remains
+needed for that resolution. Uniform turbulent DNS failure remains unchanged;
+sensitivity/water-filling allocation and refined DNS are still open. No local
+GPU/context/lock, no push, README unchanged.

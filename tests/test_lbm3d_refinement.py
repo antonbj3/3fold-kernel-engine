@@ -66,11 +66,12 @@ def test_resident_coupling_matches_reference():
     assert all(s.failure.numpy()[0]==0 for s in [*b.fine,b.coarse])
 
 
-def test_resident_coupling_spatial_flux_and_wall_momentum():
+@pytest.mark.parametrize('cs',[0.,.1])
+def test_resident_coupling_spatial_flux_and_wall_momentum(cs):
     from kernel_engine.lbm.lbm3d_refinement import ReferenceRefinedChannel
     from kernel_engine.lbm.lbm3d_refinement_gpu import RefinedChannelGPU
-    a=ReferenceRefinedChannel(nx=8,height=16,nz=8,wall_cells=4)
-    b=RefinedChannelGPU(device='cpu',nx=8,height=16,nz=8,wall_cells=4)
+    a=ReferenceRefinedChannel(nx=8,height=16,nz=8,wall_cells=4,cs_fine=cs)
+    b=RefinedChannelGPU(device='cpu',nx=8,height=16,nz=8,wall_cells=4,cs_fine=cs)
     for sa,sb in zip([*a.fine,a.coarse],[*b.fine,b.coarse]):
         q=sa.numpy();x,y,z=np.indices(sa.shape)
         # Vary all momentum components across both periodic directions and the
@@ -89,3 +90,28 @@ def test_resident_coupling_spatial_flux_and_wall_momentum():
             assert [state[k+1]-initial[k+1]+int(wall[k]) for k in range(3)]==[sim.steps*sim.nx*sim.h*sim.nz*sim.force_units,0,0]
     for sa,sb in zip([*a.fine,a.coarse],[*b.fine,b.coarse]):
         np.testing.assert_allclose(sa.numpy()/2**sa.bits,sb.numpy()/2**sb.bits,atol=1e-10,rtol=0)
+
+
+@pytest.mark.parametrize('ratio',[.5,2.0])
+def test_sgs_transfer_preserves_physical_viscosity_and_strain(ratio):
+    from kernel_engine.lbm.lbm3d_refinement import sgs_transfer_taus
+    rho=np.array([.95,1.,1.05]);norm=np.array([0.,.002,.02])
+    ts=.5008;tt=.5+(ts-.5)/ratio;cs=.1
+    source,target=sgs_transfer_taus(rho,norm,ts,tt,cs,cs/ratio,ratio)
+    transferred=ratio*target/source*norm
+    independently_computed=.5*(tt+np.sqrt(tt**2+18*np.sqrt(2)*(cs/ratio)**2*transferred/rho))
+    np.testing.assert_allclose(target,independently_computed,rtol=1e-15)
+    np.testing.assert_allclose((target-.5)*ratio,source-.5,atol=2e-16,rtol=1e-12)
+    np.testing.assert_allclose(transferred/(target*ratio),norm/source,rtol=1e-15)
+    back_source,back_target=sgs_transfer_taus(rho,transferred,tt,ts,cs/ratio,cs,1/ratio)
+    np.testing.assert_allclose(transferred/ratio*back_target/back_source,norm,atol=1e-17)
+
+
+def test_guarded_reduction_handles_cancellation_without_wrap():
+    from kernel_engine.lbm.lbm3d_refinement import checked_int64_sum,ReferenceRefinedChannel
+    # A direct NumPy reduction would overflow before the cancellation.
+    values=np.array([2**62,2**62,-2**62,-2**62,17],dtype=np.int64)
+    assert checked_int64_sum(values)==17
+    assert checked_int64_sum(np.array([-2**63],dtype=np.int64))==-2**63
+    with pytest.raises(OverflowError):checked_int64_sum(np.array([2**62,2**62],dtype=np.int64))
+    with pytest.raises(OverflowError):ReferenceRefinedChannel(nx=384,height=128,nz=192,wall_cells=16)
