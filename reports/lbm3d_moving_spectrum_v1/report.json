@@ -1,0 +1,199 @@
+{
+  "scope": "infinitesimal unforced moving equilibrium, Cs contribution higher order; no nonlinear/DNS gate",
+  "tau_shear": 0.5021333333333333,
+  "wavevectors": 4913,
+  "results": [
+    {
+      "u_x": 0.0,
+      "bulk_tau": null,
+      "third_order_equilibrium": false,
+      "max_radius": 1.0000000000000004,
+      "unstable_modes": 0,
+      "worst_k_over_pi": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "u_x": 0.0,
+      "bulk_tau": null,
+      "third_order_equilibrium": true,
+      "max_radius": 1.0000000000000004,
+      "unstable_modes": 0,
+      "worst_k_over_pi": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "u_x": 0.0,
+      "bulk_tau": 1.0,
+      "third_order_equilibrium": false,
+      "max_radius": 1.0000000000000004,
+      "unstable_modes": 0,
+      "worst_k_over_pi": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "u_x": 0.0,
+      "bulk_tau": 1.0,
+      "third_order_equilibrium": true,
+      "max_radius": 1.0000000000000004,
+      "unstable_modes": 0,
+      "worst_k_over_pi": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "u_x": 0.04,
+      "bulk_tau": null,
+      "third_order_equilibrium": false,
+      "max_radius": 1.0000000000000009,
+      "unstable_modes": 0,
+      "worst_k_over_pi": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "u_x": 0.04,
+      "bulk_tau": null,
+      "third_order_equilibrium": true,
+      "max_radius": 1.0000000000000013,
+      "unstable_modes": 0,
+      "worst_k_over_pi": [
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "u_x": 0.04,
+      "bulk_tau": 1.0,
+      "third_order_equilibrium": false,
+      "max_radius": 1.0000000000000007,
+      "unstable_modes": 0,
+      "worst_k_over_pi": [
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "u_x": 0.04,
+      "bulk_tau": 1.0,
+      "third_order_equilibrium": true,
+      "max_radius": 1.0000000000000004,
+      "unstable_modes": 0,
+      "worst_k_over_pi": [
+        1.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "u_x": 0.07,
+      "bulk_tau": null,
+      "third_order_equilibrium": false,
+      "max_radius": 1.0032151905153563,
+      "unstable_modes": 262,
+      "worst_k_over_pi": [
+        0.6874999999999999,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "u_x": 0.07,
+      "bulk_tau": null,
+      "third_order_equilibrium": true,
+      "max_radius": 1.0029512968515988,
+      "unstable_modes": 237,
+      "worst_k_over_pi": [
+        0.6874999999999999,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "u_x": 0.07,
+      "bulk_tau": 1.0,
+      "third_order_equilibrium": false,
+      "max_radius": 1.003215190515356,
+      "unstable_modes": 207,
+      "worst_k_over_pi": [
+        0.6874999999999999,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "u_x": 0.07,
+      "bulk_tau": 1.0,
+      "third_order_equilibrium": true,
+      "max_radius": 1.0029512968515988,
+      "unstable_modes": 195,
+      "worst_k_over_pi": [
+        0.6874999999999999,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "u_x": 0.1,
+      "bulk_tau": null,
+      "third_order_equilibrium": false,
+      "max_radius": 1.0116473303081222,
+      "unstable_modes": 738,
+      "worst_k_over_pi": [
+        0.75,
+        0.0625,
+        0.0
+      ]
+    },
+    {
+      "u_x": 0.1,
+      "bulk_tau": null,
+      "third_order_equilibrium": true,
+      "max_radius": 1.0104368718014205,
+      "unstable_modes": 672,
+      "worst_k_over_pi": [
+        0.75,
+        0.1875,
+        1.0
+      ]
+    },
+    {
+      "u_x": 0.1,
+      "bulk_tau": 1.0,
+      "third_order_equilibrium": false,
+      "max_radius": 1.0116473303081224,
+      "unstable_modes": 452,
+      "worst_k_over_pi": [
+        0.75,
+        0.0625,
+        1.0
+      ]
+    },
+    {
+      "u_x": 0.1,
+      "bulk_tau": 1.0,
+      "third_order_equilibrium": true,
+      "max_radius": 1.0104368718014196,
+      "unstable_modes": 438,
+      "worst_k_over_pi": [
+        0.75,
+        0.0,
+        0.1875
+      ]
+    }
+  ]
+}

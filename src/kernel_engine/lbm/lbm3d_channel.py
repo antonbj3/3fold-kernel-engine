@@ -19,7 +19,7 @@ def forced_collide_stream(a: wp.array4d(dtype=wp.int64), b: wp.array4d(dtype=wp.
                    m: Mat19, mi: Mat19, tau: wp.float64, cs: wp.float64,
                    scale: wp.float64, mode: int, nx: int, ny: int, nz: int,
                    failure: wp.array(dtype=wp.int32), force_x: wp.int64,
-                   wall_impulse: wp.array(dtype=wp.int64)):
+                   wall_impulse: wp.array(dtype=wp.int64), bulk_rate: wp.float64, recursive: int):
     i,j,k = wp.tid()
     g = V19()
     qout = I19()
@@ -46,6 +46,8 @@ def forced_collide_stream(a: wp.array4d(dtype=wp.int64), b: wp.array4d(dtype=wp.
         for q in range(19):
             cu = wp.float64(c[q,0])*ux+wp.float64(c[q,1])*uy+wp.float64(c[q,2])*uz
             eq[q] = w[q]*rho*(wp.float64(1.0)+wp.float64(3.0)*cu+wp.float64(4.5)*cu*cu-wp.float64(1.5)*usq)
+            if recursive != 0:
+                eq[q] += w[q]*rho*(wp.float64(4.5)*cu*cu*cu-wp.float64(4.5)*cu*usq)
         delta = g-eq
         dm = m*delta
         # Recover the six stress components from trace/deviatoric raw moments.
@@ -69,8 +71,30 @@ def forced_collide_stream(a: wp.array4d(dtype=wp.int64), b: wp.array4d(dtype=wp.
                     rate = wp.float64(1.0)
                     if h < 10:
                         rate = omega
+                        if h == 4 and bulk_rate > wp.float64(0.0):
+                            rate = bulk_rate
                 relaxed[h] = rate*dm[h]
             post = g-mi*relaxed
+        if recursive != 0:
+            # Recursive third Hermite nonequilibrium from the post-collision
+            # physical stress. Guo half-force correction is already in pxx,
+            # pxy and pxz. This is not a cumulant collision.
+            factor = wp.float64(1.0)-omega
+            axx=factor*pxx;ayy=factor*pyy;azz=factor*pzz
+            axy=factor*pxy;axz=factor*pxz;ayz=factor*dm[9]
+            if bulk_rate > wp.float64(0.0):
+                trace_shift=(omega-bulk_rate)*(pxx+pyy+pzz)/wp.float64(3.0)
+                axx+=trace_shift;ayy+=trace_shift;azz+=trace_shift
+            atrace=axx+ayy+azz
+            pux=axx*ux+axy*uy+axz*uz
+            puy=axy*ux+ayy*uy+ayz*uz
+            puz=axz*ux+ayz*uy+azz*uz
+            for q in range(19):
+                cx=wp.float64(c[q,0]);cy=wp.float64(c[q,1]);cz=wp.float64(c[q,2])
+                cu=cx*ux+cy*uy+cz*uz
+                cpc=cx*cx*axx+cy*cy*ayy+cz*cz*azz+wp.float64(2.0)*(cx*cy*axy+cx*cz*axz+cy*cz*ayz)
+                cpu=cx*pux+cy*puy+cz*puz
+                post[q]+=w[q]*(wp.float64(13.5)*cu*cpc-wp.float64(4.5)*cu*atrace-wp.float64(9.0)*cpu)
         if force_x != wp.int64(0):
             source = V19()
             force = wp.float64(force_x)/scale
@@ -78,6 +102,8 @@ def forced_collide_stream(a: wp.array4d(dtype=wp.int64), b: wp.array4d(dtype=wp.
                 cx = wp.float64(c[q,0]); cy = wp.float64(c[q,1]); cz = wp.float64(c[q,2])
                 cu = cx*ux+cy*uy+cz*uz
                 source[q] = w[q]*force*(wp.float64(3.0)*(cx-ux)+wp.float64(9.0)*cu*cx)
+                if recursive != 0:
+                    source[q]+=w[q]*force*((wp.float64(13.5)*cu*cu-wp.float64(4.5)*usq)*cx-wp.float64(9.0)*cu*ux)
             if mode == 1:
                 ms = m*source
                 for h in range(19):
@@ -86,6 +112,8 @@ def forced_collide_stream(a: wp.array4d(dtype=wp.int64), b: wp.array4d(dtype=wp.
                         rate = wp.float64(1.0)
                         if h < 10:
                             rate = omega
+                            if h == 4 and bulk_rate > wp.float64(0.0):
+                                rate = bulk_rate
                     ms[h] = (wp.float64(1.0)-wp.float64(0.5)*rate)*ms[h]
                 post += mi*ms
             else:
@@ -132,14 +160,17 @@ def forced_collide_stream(a: wp.array4d(dtype=wp.int64), b: wp.array4d(dtype=wp.
             b[q,ti,tj,tk] = qout[q]
 
 class ChannelSimulation(Simulation):
-    def __init__(self,q,*,force_density,tau,cs=.1,bits=40,solid=None,device='cpu',ledger_mode='int64'):
+    def __init__(self,q,*,force_density,tau,cs=.1,bits=40,solid=None,device='cpu',ledger_mode='int64',bulk_tau=None,recursive=False):
         if not np.isfinite(force_density) or abs(force_density)>.01:
             raise ValueError('invalid body force')
+        if bulk_tau is not None and (not np.isfinite(bulk_tau) or bulk_tau<=.5):
+            raise ValueError('invalid bulk relaxation time')
+        self.bulk_tau=bulk_tau;self.recursive=bool(recursive)
         super().__init__(q,tau=tau,cs=cs,mode='hermite_mrt',bits=bits,solid=solid,device=device,ledger_mode=ledger_mode)
         self.force_units=int(np.rint(force_density*2**bits))
         self.force_density=self.force_units/2**bits
         self.wall_impulse=wp.zeros(3*int(np.prod(self.shape)),dtype=wp.int64,device=device)
-        self.args += [wp.int64(self.force_units),self.wall_impulse]
+        self.args += [wp.int64(self.force_units),self.wall_impulse,wp.float64(0 if bulk_tau is None else 1/bulk_tau),int(self.recursive)]
     def step(self,steps=1):
         if not isinstance(steps,int) or steps<0:raise ValueError('steps must be nonnegative integer')
         for _ in range(steps):

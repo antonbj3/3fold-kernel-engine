@@ -1,0 +1,76 @@
+{
+  "scope": "recursive third-Hermite nonequilibrium plus cubic equilibrium, unforced linear screen only",
+  "modes": 4913,
+  "results": [
+    {
+      "u": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "max_radius": 1.0000000000000009,
+      "unstable_modes": 0,
+      "worst_k_over_pi": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "u": [
+        0.04,
+        0.0,
+        0.0
+      ],
+      "max_radius": 1.0000000000000009,
+      "unstable_modes": 0,
+      "worst_k_over_pi": [
+        1.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "u": [
+        0.07,
+        0.0,
+        0.0
+      ],
+      "max_radius": 1.0000000000000018,
+      "unstable_modes": 0,
+      "worst_k_over_pi": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "u": [
+        0.1,
+        0.0,
+        0.0
+      ],
+      "max_radius": 1.0000000000000009,
+      "unstable_modes": 0,
+      "worst_k_over_pi": [
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "u": [
+        0.07,
+        0.02,
+        0.01
+      ],
+      "max_radius": 1.0000000000000009,
+      "unstable_modes": 0,
+      "worst_k_over_pi": [
+        1.0,
+        0.0,
+        0.0
+      ]
+    }
+  ]
+}

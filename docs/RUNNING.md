@@ -1796,3 +1796,43 @@ explicit ledger routing changed before the successful run; collision kernels
 are unchanged. Receipts: reports/lbm3d_refinement_wide_ledger_v1/.
 Sensitivity measurement remains active on its original isolated H100 payload.
 No localGPU/context/lock, no push, README unchanged.
+
+E 2026-09-14: measured channel coarsening sensitivities and goal reweighting
+VERIFIED-FRESH for the local response model, not a certified refinement map.
+Original uniform240kstep trajectory reproduced at every full-state hash.
+Eight symmetric wall-distance bands, balanced2x2x2 population coarsening
+perturbations +/-0.125 and+/-0.0625,256steps/probe, last128 averaged every16:
+all integer budgets/flags pass; every derivative amplitude-convergence error
+<5% (maximum0.106%). Sensitivity of U+ selects wall bands0/1; sensitivity of
+Reynolds stresses selects core bands6/7. Reweighting the same Jacobian requires
+no additional PDE solve. Existing mesh water-filling is reused; equal-cost
+binary band choices agree with exhaustive search. At34.375%fine-equivalent
+cells, the conditional stress-error model strongly rejects a wall-only map.
+This result is tied to the failed reference state and short response horizon;
+new geometry/operating point requires new evidence. Receipts:
+reports/lbm3d_channel_sensitivity_v1/ and reports/lbm3d_goal_reweighting_v1/.
+
+Endpoint Fourier diagnostics show high-k energy fractions0.76%/45.86%/33.24%
+for u/v/w, with8.02% of w energy at exact alternating modes. One bulk_tau1
+candidate retains exact budgets and passes6/7DNSgates: logmean3.82%<5%, but
+vv/wwstressRMS102.5%/93.0%>20%. Mean improvement is not overall validation.
+Exact alternating modes disappear; high-k v/w energy persists. Receipt:
+reports/lbm3d_channel_dns_bulk_v1/. Moving-equilibrium linear screen explains
+a possible source: at u_x0.07, original Hermite radius1.003215/262unstable
+vectors while rest is stable. Cubic equilibrium alone remains unstable;
+a naive represented-moment D3Q19 cumulant closure fails even at rest1.05462.
+Both are recorded negatives, not GPU candidates. Recursive third-Hermite
+nonequilibrium plus cubic equilibrium passes all sampled moving-state screens
+through u_x0.1 and an oblique velocity, with and without separate bulk tau.
+Analysis receipts: reports/lbm3d_{moving,factorized,recursive}_spectrum_v1/.
+
+Recursive channel candidate remains RUNNING. Independent tensor tests cover
+third-order forcing and trace/shear relaxation; 37focusedCPUtests pass. CPU
+forced laminar12000steps twice passes with0.02760%profileL2 and exact repeated
+states/budgets (reports/lbm3d_channel_recursive_laminar_cpu_v1/). H100bulk1
+TGV64^3,4096steps40/44/40 passes5/5gates, bit-identical repeats, exact ledgers,
+maxprecisionerror2.115e-6<1e-5 and shear decay<2%; full DNS is active. A separate
+shared-bulk/shear RR ablation is gated on the same tests before its DNS run.
+No claim of recursive DNS validation yet. Initial RR payload omitted the TGV
+helper and failed before GPU launch; missing helper added and snapshot imports
+checked. No localGPU/context/lock, no push, README unchanged.

@@ -1,3 +1,4 @@
+import pytest
 import numpy as np
 from kernel_engine.lbm import lbm3d_mrt_les as lb
 from kernel_engine.lbm.lbm3d_channel import ChannelSimulation
@@ -50,3 +51,63 @@ def test_plane_statistics_match_independent_fields():
     expected=np.copysign(np.floor(np.abs(scaled)+.5),scaled).astype(np.int64)
     expected[:,mask==1]=0
     np.testing.assert_array_equal(stats.numpy(),expected.sum(axis=(1,3)))
+
+
+def test_independent_bulk_rate_removes_trace_preserves_shear_relaxation():
+    from kernel_engine.lbm import lbm3d_mrt_les as lb
+    from kernel_engine.lbm.lbm3d_channel import ChannelSimulation
+    shape=(4,4,4)
+    eq=lb.equilibrium(np.ones(shape),np.zeros((3,)+shape))
+    c=lb.C.astype(float);h=np.einsum('qa,qb->qab',c,c)-np.eye(3)[None]/3
+    pi=np.eye(3)*.0003;pi[0,1]=pi[1,0]=.0002
+    f=eq+4.5*lb.W[:,None,None,None]*np.einsum('qab,ab->q',h,pi)[:,None,None,None]
+    q=lb.quantize(f);s=ChannelSimulation(q,force_density=0,tau=.8,cs=0,bulk_tau=1.)
+    s.step();after=s.numpy()/2**40
+    stress=np.einsum('qa,qb,qxyz->ab',c,c,after-eq)/np.prod(shape)
+    assert abs(np.trace(stress))<2e-11
+    np.testing.assert_allclose(stress[0,1],(1-1/.8)*pi[0,1],atol=2e-11,rtol=0)
+    assert lb.ledger(s.numpy())==lb.ledger(q)
+
+
+def test_bulk_rate_uses_matching_guo_source_in_moment_space():
+    from kernel_engine.lbm import lbm3d_mrt_les as lb
+    from kernel_engine.lbm.lbm3d_channel import ChannelSimulation
+    shape=(4,4,4);u=np.zeros((3,)+shape);u[0]=.031;u[1]=.017;u[2]=-.013
+    q=lb.quantize(lb.equilibrium(np.ones(shape),u));sim=ChannelSimulation(q,force_density=1e-5,tau=.8,cs=0,bulk_tau=1.)
+    f=q[:,0,0,0]/2**40;rho=f.sum();vel=lb.C.T@f/rho;vel[0]+=.5*sim.force_density/rho
+    eq=lb.equilibrium(np.array([[[rho]]]),vel[:,None,None,None])[:,0,0,0]
+    cu=lb.C@vel
+    source=lb.W*sim.force_density*(3*(lb.C[:,0]-vel[0])+9*cu*lb.C[:,0])
+    rates=np.r_[np.zeros(4),1.,np.full(5,1/.8),np.ones(9)]
+    expected=f-lb.MI_HERMITE@(rates*(lb.M_HERMITE@(f-eq)))+lb.MI_HERMITE@((1-.5*rates)*(lb.M_HERMITE@source))
+    sim.step();actual=sim.numpy()[:,0,0,0]/2**40
+    np.testing.assert_allclose(actual,expected,atol=5e-12,rtol=0)
+    before=lb.ledger(q);after=lb.ledger(sim.numpy())
+    assert after[0]==before[0] and after[1]-before[1]==sim.force_units*np.prod(shape)
+
+
+@pytest.mark.parametrize('force',[0.,1e-5])
+@pytest.mark.parametrize('bulk',[None,1.])
+def test_recursive_forced_collision_matches_third_hermite_tensor(force,bulk):
+    from kernel_engine.lbm import lbm3d_mrt_les as lb
+    from kernel_engine.lbm.lbm3d_channel import ChannelSimulation
+    c=lb.C.astype(float);shape=(4,4,4);velocity=np.array([.07,.02,-.01]);u=np.broadcast_to(velocity[:,None,None,None],(3,)+shape)
+    f=lb.equilibrium(np.ones(shape),u)+lb.W[:,None,None,None]*(c[:,0]*c[:,1])[:,None,None,None]*.001
+    q=lb.quantize(f);sim=ChannelSimulation(q,force_density=force,tau=.8,cs=0,bulk_tau=bulk,recursive=True)
+    g=q[:,0,0,0]/2**40;rho=g.sum();v=c.T@g/rho;v[0]+=.5*sim.force_density/rho
+    cu=c@v;v2=v@v
+    eq=lb.W*rho*(1+3*cu+4.5*cu**2-1.5*v2+4.5*cu**3-4.5*cu*v2)
+    force_vector=np.array([sim.force_density,0.,0.]);source2=np.outer(v,force_vector)+np.outer(force_vector,v)
+    pi=np.einsum('qa,qb,q->ab',c,c,g-eq)+.5*source2
+    post_pi=(1-1/.8)*pi
+    if bulk is not None:post_pi+=np.eye(3)*(1/.8-1/bulk)*np.trace(pi)/3
+    h3=np.einsum('qa,qb,qc->qabc',c,c,c)-(np.einsum('qa,bc->qabc',c,np.eye(3))+np.einsum('qb,ac->qabc',c,np.eye(3))+np.einsum('qc,ab->qabc',c,np.eye(3)))/3
+    third=np.einsum('a,bc->abc',v,post_pi)+np.einsum('b,ac->abc',v,post_pi)+np.einsum('c,ab->abc',v,post_pi)
+    recursive=4.5*lb.W*np.einsum('qabc,abc->q',h3,third)
+    source=lb.W*sim.force_density*(3*(c[:,0]-v[0])+9*cu*c[:,0]+(13.5*cu**2-4.5*v2)*c[:,0]-9*cu*v[0])
+    rates=np.r_[np.zeros(4),np.full(6,1/.8),np.ones(9)]
+    if bulk is not None:rates[4]=1/bulk
+    expected=g-lb.MI_HERMITE@(rates*(lb.M_HERMITE@(g-eq)))+lb.MI_HERMITE@((1-.5*rates)*(lb.M_HERMITE@source))+recursive
+    sim.step();np.testing.assert_allclose(sim.numpy()[:,0,0,0]/2**40,expected,atol=5e-12,rtol=0)
+    before=lb.ledger(q);after=lb.ledger(sim.numpy())
+    assert after[0]==before[0] and after[1]-before[1]==sim.force_units*np.prod(shape)

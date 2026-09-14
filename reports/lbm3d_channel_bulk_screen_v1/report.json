@@ -1,0 +1,8 @@
+{
+  "scope": "linear rest-state screen for Hermite MRT with independent bulk rate1; no finite-amplitude validation",
+  "tau_shear": 0.5021333333333333,
+  "tau_bulk": 1.0,
+  "modes": 4913,
+  "max_spectral_radius": 1.0000000000000004,
+  "unstable_vectors_tolerance1e_10": 0
+}

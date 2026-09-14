@@ -39,18 +39,18 @@ def folded(raw,count):
     return v[1],stresses,v[0]
 
 
-def main():
+def main(final_observer=None,bulk_tau=None,recursive=False):
     ROOT.mkdir(parents=True,exist_ok=True)
     ref=Path('tests/data/lbm_channel');means=np.loadtxt(ref/'chan180.means');stress=np.loadtxt(ref/'chan180.reystress')
     report={'grid':[NX,H+2,NZ],'fluid_cells':NX*H*NZ,'wall_locations':[-.5,H-.5],
             'Re_tau_target':180,'reference_Re_tau':178.12,'first_cell_wall_units_nominal':.5*UTAU/NU,
-            'domain_over_half_height':[NX/(H/2),2,NZ/(H/2)],'tau':TAU,'Cs':.1,'bits':40,
+            'domain_over_half_height':[NX/(H/2),2,NZ/(H/2)],'tau':TAU,'bulk_tau':bulk_tau,'recursive_third_order':recursive,'Cs':.1,'bits':40,
             'burn_steps':BURN,'averaging_steps':AVERAGE,'block_steps':BLOCK,'sample_every':SAMPLE,
             'burn_outer_times':BURN*UTAU/(H/2),'averaging_outer_times':AVERAGE*UTAU/(H/2),
             'thresholds':THRESHOLDS,'source_sha256':hashlib.sha256(Path(ch.__file__).read_bytes()).hexdigest(),
             'reference_provenance':json.loads((ref/'provenance.json').read_text()),'blocks':[]}
     def save(): (ROOT/'report.json').write_text(json.dumps(report,indent=2,allow_nan=False)+'\n')
-    q,mask,force=initial();s=ch.ChannelSimulation(q,force_density=force,tau=TAU,solid=mask,device='cuda:0')
+    q,mask,force=initial();s=ch.ChannelSimulation(q,force_density=force,tau=TAU,solid=mask,device='cuda:0',bulk_tau=bulk_tau,recursive=recursive)
     first_ledger=lb.ledger(q);report['initial_ledger']=first_ledger
     report['force_density_applied']=s.force_density;report['force_integer_units']=s.force_units;save()
     stats=wp.zeros((10,H+2),dtype=wp.int64,device='cuda:0')
@@ -114,6 +114,7 @@ def main():
                   whole_run_MLUPS=NX*H*NZ*(BURN+AVERAGE)/report['total_s']/1e6,
                   note='Uniform control only. No block refinement or draft-tube validation claimed. Sampled integer moments use2^-32; actual populations use2^-40.')
     save();print(json.dumps({'gates':gates,'mean_error':mean_error,'stress_errors':stress_errors.tolist(),'u_tau':utau,'passed':report['passed']}),flush=True)
+    if final_observer is not None:final_observer(s,mask,report)
     return 0 if report['passed'] else 1
 
 if __name__=='__main__':raise SystemExit(main())

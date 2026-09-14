@@ -1,0 +1,82 @@
+{
+  "scope": "complex-step Jacobian of represented D3Q19 cumulant closure; not GPU/DNS validation",
+  "modes": 4913,
+  "tau": 0.5021333333333333,
+  "results": [
+    {
+      "u": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "max_radius": 1.0546206600901729,
+      "unstable_modes": 468,
+      "worst_k_over_pi": [
+        0.5625,
+        1.0,
+        1.0
+      ],
+      "equilibrium_residual": 1.6653345369377348e-16
+    },
+    {
+      "u": [
+        0.04,
+        0.0,
+        0.0
+      ],
+      "max_radius": 1.054511887698082,
+      "unstable_modes": 501,
+      "worst_k_over_pi": [
+        0.5625,
+        1.0,
+        1.0
+      ],
+      "equilibrium_residual": 1.6653345369377348e-16
+    },
+    {
+      "u": [
+        0.07,
+        0.0,
+        0.0
+      ],
+      "max_radius": 1.0543265510631539,
+      "unstable_modes": 346,
+      "worst_k_over_pi": [
+        0.5625,
+        1.0,
+        1.0
+      ],
+      "equilibrium_residual": 1.1102230246251565e-16
+    },
+    {
+      "u": [
+        0.1,
+        0.0,
+        0.0
+      ],
+      "max_radius": 1.054145166078475,
+      "unstable_modes": 241,
+      "worst_k_over_pi": [
+        0.5625,
+        1.0,
+        1.0
+      ],
+      "equilibrium_residual": 1.1102230246251565e-16
+    },
+    {
+      "u": [
+        0.07,
+        0.02,
+        0.01
+      ],
+      "max_radius": 1.0509064197884188,
+      "unstable_modes": 455,
+      "worst_k_over_pi": [
+        0.5625,
+        1.0,
+        1.0
+      ],
+      "equilibrium_residual": 1.6653345369377348e-16
+    }
+  ]
+}
