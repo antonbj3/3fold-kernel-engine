@@ -15,6 +15,7 @@ def main():
     parser=argparse.ArgumentParser();parser.add_argument('--uniform-report',type=Path,required=True);parser.add_argument('--sensitivity-report',type=Path,required=True);parser.add_argument('--wall-cells',type=int,default=8)
     parser.add_argument('--diagnostic',action='store_true')
     parser.add_argument('--conserved-reflux',action='store_true')
+    parser.add_argument('--balanced-reflux',action='store_true')
     args=parser.parse_args();control=json.loads(args.uniform_report.read_text());sensitivity=json.loads(args.sensitivity_report.read_text())
     if control.get('grid')==[288,98,144]:
         from measure_lbm3d_recursive_resolution import configure
@@ -26,7 +27,7 @@ def main():
     if args.diagnostic:dns.BURN,dns.AVERAGE,dns.BLOCK,dns.SAMPLE=0,2000,100,100
     nx,h,nz=dns.NX,dns.H,dns.NZ;nf=args.wall_cells
     start=time.perf_counter();q,mask,force=dns.initial()
-    sim=RefinedChannelGPU(nx=nx,height=h,nz=nz,wall_cells=nf,tau_fine=dns.TAU,force_fine=force,cs_fine=.1,recursive=True,bulk_tau_fine=control.get("bulk_tau"),conserved_reflux=args.conserved_reflux)
+    sim=RefinedChannelGPU(nx=nx,height=h,nz=nz,wall_cells=nf,tau_fine=dns.TAU,force_fine=force,cs_fine=.1,recursive=True,bulk_tau_fine=control.get("bulk_tau"),conserved_reflux=args.conserved_reflux,balanced_reflux=args.balanced_reflux)
     sim._replace(sim.fine[0],q[:,:,:nf+2,:]);sim._replace(sim.fine[1],q[:,:,h-nf:h+2,:])
     coarse=sim.coarse.numpy();density=restrict_child_mass(q[:,:,1:-1,:]).astype(float)/2**43
     coarse[:,:,1:-1,:]=sim._convert(density,sim.tf,sim.tc,2,sim.gf,2*sim.gf,43)
@@ -41,6 +42,7 @@ def main():
         'uniform_parity_limits':{'mean_relative_L2':.05,'stress_peak_RMS':.10},'blocks':[]}
     report['diagnostic_only']=args.diagnostic
     report['conserved_reflux']=args.conserved_reflux
+    report['balanced_reflux']=args.balanced_reflux
     root=Path('reports/lbm3d_refined_startup_v1' if args.diagnostic else 'reports/lbm3d_refined_dns_v1');root.mkdir(parents=True,exist_ok=True)
     def save(): (root/'report.json').write_text(json.dumps(report,indent=2,allow_nan=False)+'\n')
     samples_per_block=dns.BLOCK//dns.SAMPLE;records=[];wall_at_burn=None;valid=True;started=time.perf_counter();save()

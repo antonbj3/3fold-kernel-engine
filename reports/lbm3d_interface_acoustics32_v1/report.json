@@ -1,0 +1,945 @@
+{
+  "scope": "small3D acoustic interface diagnostic; not turbulent DNS",
+  "amplitude": 0.0001,
+  "wavelength_cells": 32,
+  "steps": 2000,
+  "seconds": 4.378377615008503,
+  "maximum_wave_errors": {
+    "conserved": 0.032915592954126396,
+    "balanced_conserved": 0.030000562279079056
+  },
+  "history": [
+    {
+      "step": 50,
+      "models": {
+        "conserved": {
+          "relative_wave_error": 0.011282746521448303,
+          "exact_ledger": true,
+          "flags": [
+            0,
+            0,
+            0
+          ]
+        },
+        "balanced_conserved": {
+          "relative_wave_error": 0.009806438906467126,
+          "exact_ledger": true,
+          "flags": [
+            0,
+            0,
+            0
+          ]
+        }
+      }
+    },
+    {
+      "step": 100,
+      "models": {
+        "conserved": {
+          "relative_wave_error": 0.01797495766762323,
+          "exact_ledger": true,
+          "flags": [
+            0,
+            0,
+            0
+          ]
+        },
+        "balanced_conserved": {
+          "relative_wave_error": 0.01576288855974148,
+          "exact_ledger": true,
+          "flags": [
+            0,
+            0,
+            0
+          ]
+        }
+      }
+    },
+    {
+      "step": 150,
+      "models": {
+        "conserved": {
+          "relative_wave_error": 0.02327616922875055,
+          "exact_ledger": true,
+          "flags": [
+            0,
+            0,
+            0
+          ]
+        },
+        "balanced_conserved": {
+          "relative_wave_error": 0.020780303546481423,
+          "exact_ledger": true,
+          "flags": [
+            0,
+            0,
+            0
+          ]
+        }
+      }
+    },
+    {
+      "step": 200,
+      "models": {
+        "conserved": {
+          "relative_wave_error": 0.02654067219990981,
+          "exact_ledger": true,
+          "flags": [
+            0,
+            0,
+            0
+          ]
+        },
+        "balanced_conserved": {
+          "relative_wave_error": 0.02395833034128053,
+          "exact_ledger": true,
+          "flags": [
+            0,
+            0,
+            0
+          ]
+        }
+      }
+    },
+    {
+      "step": 250,
+      "models": {
+        "conserved": {
+          "relative_wave_error": 0.028700460442650566,
+          "exact_ledger": true,
+          "flags": [
+            0,
+            0,
+            0
+          ]
+        },
+        "balanced_conserved": {
+          "relative_wave_error": 0.025835304183627825,
+          "exact_ledger": true,
+          "flags": [
+            0,
+            0,
+            0
+          ]
+        }
+      }
+    },
+    {
+      "step": 300,
+      "models": {
+        "conserved": {
+          "relative_wave_error": 0.030504113544322534,
+          "exact_ledger": true,
+          "flags": [
+            0,
+            0,
+            0
+          ]
+        },
+        "balanced_conserved": {
+          "relative_wave_error": 0.02742016612441305,
+          "exact_ledger": true,
+          "flags": [
+            0,
+            0,
+            0
+          ]
+        }
+      }
+    },
+    {
+      "step": 350,
+      "models": {
+        "conserved": {
+          "relative_wave_error": 0.032018716942343366,
+          "exact_ledger": true,
+          "flags": [
+            0,
+            0,
+            0
+          ]
+        },
+        "balanced_conserved": {
+          "relative_wave_error": 0.028893679714871966,
+          "exact_ledger": true,
+          "flags": [
+            0,
+            0,
+            0
+          ]
+        }
+      }
+    },
+    {
+      "step": 400,
+      "models": {
+        "conserved": {
+          "relative_wave_error": 0.03284915168803398,
+          "exact_ledger": true,
+          "flags": [
+            0,
+            0,
+            0
+          ]
+        },
+        "balanced_conserved": {
+          "relative_wave_error": 0.02985178913835461,
+          "exact_ledger": true,
+          "flags": [
+            0,
+            0,
+            0
+          ]
+        }
+      }
+    },
+    {
+      "step": 450,
+      "models": {
+        "conserved": {
+          "relative_wave_error": 0.032915592954126396,
+          "exact_ledger": true,
+          "flags": [
+            0,
+            0,
+            0
+          ]
+        },
+        "balanced_conserved": {
+          "relative_wave_error": 0.030000562279079056,
+          "exact_ledger": true,
+          "flags": [
+            0,
+            0,
+            0
+          ]
+        }
+      }
+    },
+    {
+      "step": 500,
+      "models": {
+        "conserved": {
+          "relative_wave_error": 0.03249971349116313,
+          "exact_ledger": true,
+          "flags": [
+            0,
+            0,
+            0
+          ]
+        },
+        "balanced_conserved": {
+          "relative_wave_error": 0.029607650320257275,
+          "exact_ledger": true,
+          "flags": [
+            0,
+            0,
+            0
+          ]
+        }
+      }
+    },
+    {
+      "step": 550,
+      "models": {
+        "conserved": {
+          "relative_wave_error": 0.03197023051075924,
+          "exact_ledger": true,
+          "flags": [
+            0,
+            0,
+            0
+          ]
+        },
+        "balanced_conserved": {
+          "relative_wave_error": 0.029125122257948582,
+          "exact_ledger": true,
+          "flags": [
+            0,
+            0,
+            0
+          ]
+        }
+      }
+    },
+    {
+      "step": 600,
+      "models": {
+        "conserved": {
+          "relative_wave_error": 0.031282389256109766,
+          "exact_ledger": true,
+          "flags": [
+            0,
+            0,
+            0
+          ]
+        },
+        "balanced_conserved": {
+          "relative_wave_error": 0.028590417815001927,
+          "exact_ledger": true,
+          "flags": [
+            0,
+            0,
+            0
+          ]
+        }
+      }
+    },
+    {
+      "step": 650,
+      "models": {
+        "conserved": {
+          "relative_wave_error": 0.0303171082844399,
+          "exact_ledger": true,
+          "flags": [
+            0,
+            0,
+            0
+          ]
+        },
+        "balanced_conserved": {
+          "relative_wave_error": 0.027818834303534205,
+          "exact_ledger": true,
+          "flags": [
+            0,
+            0,
+            0
+          ]
+        }
+      }
+    },
+    {
+      "step": 700,
+      "models": {
+        "conserved": {
+          "relative_wave_error": 0.029140468036595955,
+          "exact_ledger": true,
+          "flags": [
+            0,
+            0,
+            0
+          ]
+        },
+        "balanced_conserved": {
+          "relative_wave_error": 0.02678810664470981,
+          "exact_ledger": true,
+          "flags": [
+            0,
+            0,
+            0
+          ]
+        }
+      }
+    },
+    {
+      "step": 750,
+      "models": {
+        "conserved": {
+          "relative_wave_error": 0.027937736081521,
+          "exact_ledger": true,
+          "flags": [
+            0,
+            0,
+            0
+          ]
+        },
+        "balanced_conserved": {
+          "relative_wave_error": 0.02566673095299843,
+          "exact_ledger": true,
+          "flags": [
+            0,
+            0,
+            0
+          ]
+        }
+      }
+    },
+    {
+      "step": 800,
+      "models": {
+        "conserved": {
+          "relative_wave_error": 0.026736652402740743,
+          "exact_ledger": true,
+          "flags": [
+            0,
+            0,
+            0
+          ]
+        },
+        "balanced_conserved": {
+          "relative_wave_error": 0.024584148949250973,
+          "exact_ledger": true,
+          "flags": [
+            0,
+            0,
+            0
+          ]
+        }
+      }
+    },
+    {
+      "step": 850,
+      "models": {
+        "conserved": {
+          "relative_wave_error": 0.025429625525115067,
+          "exact_ledger": true,
+          "flags": [
+            0,
+            0,
+            0
+          ]
+        },
+        "balanced_conserved": {
+          "relative_wave_error": 0.023453454467734072,
+          "exact_ledger": true,
+          "flags": [
+            0,
+            0,
+            0
+          ]
+        }
+      }
+    },
+    {
+      "step": 900,
+      "models": {
+        "conserved": {
+          "relative_wave_error": 0.024009403432076217,
+          "exact_ledger": true,
+          "flags": [
+            0,
+            0,
+            0
+          ]
+        },
+        "balanced_conserved": {
+          "relative_wave_error": 0.022224729008442894,
+          "exact_ledger": true,
+          "flags": [
+            0,
+            0,
+            0
+          ]
+        }
+      }
+    },
+    {
+      "step": 950,
+      "models": {
+        "conserved": {
+          "relative_wave_error": 0.02263709124830566,
+          "exact_ledger": true,
+          "flags": [
+            0,
+            0,
+            0
+          ]
+        },
+        "balanced_conserved": {
+          "relative_wave_error": 0.02096756397147817,
+          "exact_ledger": true,
+          "flags": [
+            0,
+            0,
+            0
+          ]
+        }
+      }
+    },
+    {
+      "step": 1000,
+      "models": {
+        "conserved": {
+          "relative_wave_error": 0.021380670902505016,
+          "exact_ledger": true,
+          "flags": [
+            0,
+            0,
+            0
+          ]
+        },
+        "balanced_conserved": {
+          "relative_wave_error": 0.0197896310350074,
+          "exact_ledger": true,
+          "flags": [
+            0,
+            0,
+            0
+          ]
+        }
+      }
+    },
+    {
+      "step": 1050,
+      "models": {
+        "conserved": {
+          "relative_wave_error": 0.02017440002883141,
+          "exact_ledger": true,
+          "flags": [
+            0,
+            0,
+            0
+          ]
+        },
+        "balanced_conserved": {
+          "relative_wave_error": 0.01869700850200074,
+          "exact_ledger": true,
+          "flags": [
+            0,
+            0,
+            0
+          ]
+        }
+      }
+    },
+    {
+      "step": 1100,
+      "models": {
+        "conserved": {
+          "relative_wave_error": 0.018899562592125406,
+          "exact_ledger": true,
+          "flags": [
+            0,
+            0,
+            0
+          ]
+        },
+        "balanced_conserved": {
+          "relative_wave_error": 0.017577777026069667,
+          "exact_ledger": true,
+          "flags": [
+            0,
+            0,
+            0
+          ]
+        }
+      }
+    },
+    {
+      "step": 1150,
+      "models": {
+        "conserved": {
+          "relative_wave_error": 0.017596159641447267,
+          "exact_ledger": true,
+          "flags": [
+            0,
+            0,
+            0
+          ]
+        },
+        "balanced_conserved": {
+          "relative_wave_error": 0.016412306466586403,
+          "exact_ledger": true,
+          "flags": [
+            0,
+            0,
+            0
+          ]
+        }
+      }
+    },
+    {
+      "step": 1200,
+      "models": {
+        "conserved": {
+          "relative_wave_error": 0.016395276986346435,
+          "exact_ledger": true,
+          "flags": [
+            0,
+            0,
+            0
+          ]
+        },
+        "balanced_conserved": {
+          "relative_wave_error": 0.01529730850523292,
+          "exact_ledger": true,
+          "flags": [
+            0,
+            0,
+            0
+          ]
+        }
+      }
+    },
+    {
+      "step": 1250,
+      "models": {
+        "conserved": {
+          "relative_wave_error": 0.015345567243375437,
+          "exact_ledger": true,
+          "flags": [
+            0,
+            0,
+            0
+          ]
+        },
+        "balanced_conserved": {
+          "relative_wave_error": 0.014307931005271484,
+          "exact_ledger": true,
+          "flags": [
+            0,
+            0,
+            0
+          ]
+        }
+      }
+    },
+    {
+      "step": 1300,
+      "models": {
+        "conserved": {
+          "relative_wave_error": 0.014357134118504339,
+          "exact_ledger": true,
+          "flags": [
+            0,
+            0,
+            0
+          ]
+        },
+        "balanced_conserved": {
+          "relative_wave_error": 0.013407453335635406,
+          "exact_ledger": true,
+          "flags": [
+            0,
+            0,
+            0
+          ]
+        }
+      }
+    },
+    {
+      "step": 1350,
+      "models": {
+        "conserved": {
+          "relative_wave_error": 0.013326658293810134,
+          "exact_ledger": true,
+          "flags": [
+            0,
+            0,
+            0
+          ]
+        },
+        "balanced_conserved": {
+          "relative_wave_error": 0.01248737554989752,
+          "exact_ledger": true,
+          "flags": [
+            0,
+            0,
+            0
+          ]
+        }
+      }
+    },
+    {
+      "step": 1400,
+      "models": {
+        "conserved": {
+          "relative_wave_error": 0.012287342350375489,
+          "exact_ledger": true,
+          "flags": [
+            0,
+            0,
+            0
+          ]
+        },
+        "balanced_conserved": {
+          "relative_wave_error": 0.011549487704751097,
+          "exact_ledger": true,
+          "flags": [
+            0,
+            0,
+            0
+          ]
+        }
+      }
+    },
+    {
+      "step": 1450,
+      "models": {
+        "conserved": {
+          "relative_wave_error": 0.011361412695918593,
+          "exact_ledger": true,
+          "flags": [
+            0,
+            0,
+            0
+          ]
+        },
+        "balanced_conserved": {
+          "relative_wave_error": 0.01067769232263554,
+          "exact_ledger": true,
+          "flags": [
+            0,
+            0,
+            0
+          ]
+        }
+      }
+    },
+    {
+      "step": 1500,
+      "models": {
+        "conserved": {
+          "relative_wave_error": 0.010570132541910629,
+          "exact_ledger": true,
+          "flags": [
+            0,
+            0,
+            0
+          ]
+        },
+        "balanced_conserved": {
+          "relative_wave_error": 0.009924896449112324,
+          "exact_ledger": true,
+          "flags": [
+            0,
+            0,
+            0
+          ]
+        }
+      }
+    },
+    {
+      "step": 1550,
+      "models": {
+        "conserved": {
+          "relative_wave_error": 0.009833690430480359,
+          "exact_ledger": true,
+          "flags": [
+            0,
+            0,
+            0
+          ]
+        },
+        "balanced_conserved": {
+          "relative_wave_error": 0.009249483290686568,
+          "exact_ledger": true,
+          "flags": [
+            0,
+            0,
+            0
+          ]
+        }
+      }
+    },
+    {
+      "step": 1600,
+      "models": {
+        "conserved": {
+          "relative_wave_error": 0.009069415114247971,
+          "exact_ledger": true,
+          "flags": [
+            0,
+            0,
+            0
+          ]
+        },
+        "balanced_conserved": {
+          "relative_wave_error": 0.008563959039000129,
+          "exact_ledger": true,
+          "flags": [
+            0,
+            0,
+            0
+          ]
+        }
+      }
+    },
+    {
+      "step": 1650,
+      "models": {
+        "conserved": {
+          "relative_wave_error": 0.008311868678501883,
+          "exact_ledger": true,
+          "flags": [
+            0,
+            0,
+            0
+          ]
+        },
+        "balanced_conserved": {
+          "relative_wave_error": 0.007869789056786043,
+          "exact_ledger": true,
+          "flags": [
+            0,
+            0,
+            0
+          ]
+        }
+      }
+    },
+    {
+      "step": 1700,
+      "models": {
+        "conserved": {
+          "relative_wave_error": 0.007642467733824777,
+          "exact_ledger": true,
+          "flags": [
+            0,
+            0,
+            0
+          ]
+        },
+        "balanced_conserved": {
+          "relative_wave_error": 0.007234281785902124,
+          "exact_ledger": true,
+          "flags": [
+            0,
+            0,
+            0
+          ]
+        }
+      }
+    },
+    {
+      "step": 1750,
+      "models": {
+        "conserved": {
+          "relative_wave_error": 0.007078067988044241,
+          "exact_ledger": true,
+          "flags": [
+            0,
+            0,
+            0
+          ]
+        },
+        "balanced_conserved": {
+          "relative_wave_error": 0.006694388397392118,
+          "exact_ledger": true,
+          "flags": [
+            0,
+            0,
+            0
+          ]
+        }
+      }
+    },
+    {
+      "step": 1800,
+      "models": {
+        "conserved": {
+          "relative_wave_error": 0.006558560162430541,
+          "exact_ledger": true,
+          "flags": [
+            0,
+            0,
+            0
+          ]
+        },
+        "balanced_conserved": {
+          "relative_wave_error": 0.006214915550018429,
+          "exact_ledger": true,
+          "flags": [
+            0,
+            0,
+            0
+          ]
+        }
+      }
+    },
+    {
+      "step": 1850,
+      "models": {
+        "conserved": {
+          "relative_wave_error": 0.006022920925416579,
+          "exact_ledger": true,
+          "flags": [
+            0,
+            0,
+            0
+          ]
+        },
+        "balanced_conserved": {
+          "relative_wave_error": 0.005728149881769845,
+          "exact_ledger": true,
+          "flags": [
+            0,
+            0,
+            0
+          ]
+        }
+      }
+    },
+    {
+      "step": 1900,
+      "models": {
+        "conserved": {
+          "relative_wave_error": 0.005491314983287559,
+          "exact_ledger": true,
+          "flags": [
+            0,
+            0,
+            0
+          ]
+        },
+        "balanced_conserved": {
+          "relative_wave_error": 0.0052389724929540245,
+          "exact_ledger": true,
+          "flags": [
+            0,
+            0,
+            0
+          ]
+        }
+      }
+    },
+    {
+      "step": 1950,
+      "models": {
+        "conserved": {
+          "relative_wave_error": 0.005028286972852662,
+          "exact_ledger": true,
+          "flags": [
+            0,
+            0,
+            0
+          ]
+        },
+        "balanced_conserved": {
+          "relative_wave_error": 0.004794927088489458,
+          "exact_ledger": true,
+          "flags": [
+            0,
+            0,
+            0
+          ]
+        }
+      }
+    },
+    {
+      "step": 2000,
+      "models": {
+        "conserved": {
+          "relative_wave_error": 0.004642198333583596,
+          "exact_ledger": true,
+          "flags": [
+            0,
+            0,
+            0
+          ]
+        },
+        "balanced_conserved": {
+          "relative_wave_error": 0.004421904222013436,
+          "exact_ledger": true,
+          "flags": [
+            0,
+            0,
+            0
+          ]
+        }
+      }
+    }
+  ],
+  "gates": {
+    "complete": true,
+    "exact_ledgers_and_flags": true,
+    "balanced_error_below_5percent": true,
+    "balanced_improves_control": true
+  },
+  "source_sha256": {
+    "src/kernel_engine/lbm/lbm3d_refinement.py": "ed7eb435c480adbbdbaf68e0ca5f71c4c0fdfc44157f8fcf1f6db701fcc29632",
+    "src/kernel_engine/lbm/lbm3d_refinement_gpu.py": "23cdcf69bccfdc0401fb211473376275439df82edf84d8ccd0ce1b68b0665b26",
+    "scripts/measure_lbm3d_interface_acoustics.py": "4d40acdb25251c2275b2ba2f82cf11ec251f36304ca13d32e8a4157f4b657ac6"
+  },
+  "passed": true
+}

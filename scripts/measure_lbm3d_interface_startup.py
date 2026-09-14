@@ -16,11 +16,11 @@ def initialize(sim,y,speed):
     return lb.quantize(lb.equilibrium(np.ones(sim.shape),u),sim.bits)
 
 
-def main(skip_uniform=False,output='reports/lbm3d_interface_startup_v1',conserved_reflux=False):
+def main(skip_uniform=False,output='reports/lbm3d_interface_startup_v1',conserved_reflux=False,stress_reflux=False,balanced_reflux=False):
     report={'scope':'small3D low-viscosity startup, identical smooth physical initialization; not DNS','cases':[]}
     root=Path(output);root.mkdir(parents=True,exist_ok=True)
     for speed in [0.,.07]:
-        refined=RefinedChannelGPU(device='cpu',nx=8,height=96,nz=8,wall_cells=12,tau_fine=.5032,force_fine=0.,cs_fine=.1,bulk_tau_fine=1.,recursive=True,conserved_reflux=conserved_reflux)
+        refined=RefinedChannelGPU(device='cpu',nx=8,height=96,nz=8,wall_cells=12,tau_fine=.5032,force_fine=0.,cs_fine=.1,bulk_tau_fine=1.,recursive=True,conserved_reflux=conserved_reflux,stress_reflux=stress_reflux,balanced_reflux=balanced_reflux)
         for s,y in zip([*refined.fine,refined.coarse],[np.arange(14)-.5,np.arange(14)+83.5,2*np.arange(50)-1]):
             refined._replace(s,initialize(s,y,speed))
         solid=np.zeros((8,98,8),np.int32);solid[:,0,:]=1;solid[:,-1,:]=1

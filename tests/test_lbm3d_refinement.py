@@ -150,3 +150,44 @@ def test_conserved_flux_projection_keeps_exact_ledger_and_discards_kinetic_modes
     expected=np.eye(3)[:,:,None,None]*delta.sum(0)/3
     np.testing.assert_allclose(stress,expected,atol=10,rtol=0)
     assert np.max(np.abs(out-delta))>1000000
+
+
+def test_stress_flux_projection_retains_all_second_moments():
+    from kernel_engine.lbm.lbm3d_refinement import conserved_flux_correction
+    rng=np.random.default_rng(974);delta=rng.integers(-2**30,2**30,(19,4,4),dtype=np.int64)
+    out=conserved_flux_correction(delta,second_order=True)
+    np.testing.assert_array_equal(out.sum(0),delta.sum(0))
+    np.testing.assert_array_equal(np.einsum('qa,q...->a...',lb.C.astype(np.int64),out),np.einsum('qa,q...->a...',lb.C.astype(np.int64),delta))
+    np.testing.assert_allclose(np.einsum('qa,qb,q...->ab...',lb.C,lb.C,out-delta),0,atol=10,rtol=0)
+    assert np.max(np.abs(out-delta))>1000000
+
+
+@pytest.mark.parametrize('balanced',[False,True])
+def test_stress_reflux_spatial_cpu_reference_parity(balanced):
+    from kernel_engine.lbm.lbm3d_refinement import ReferenceRefinedChannel
+    from kernel_engine.lbm.lbm3d_refinement_gpu import RefinedChannelGPU
+    kwargs=dict(nx=8,height=32,nz=8,wall_cells=8,cs_fine=.1,recursive=True,bulk_tau_fine=1.,stress_reflux=True,balanced_reflux=balanced)
+    a=ReferenceRefinedChannel(**kwargs);b=RefinedChannelGPU(device='cpu',**kwargs)
+    initial=a.ledger()
+    for _ in range(20):a.step();b.step()
+    for sim in [a,b]:
+        ledger=sim.ledger();wall=sim.wall_impulse()
+        assert ledger[0]==initial[0]
+        assert [ledger[k+1]-initial[k+1]+int(wall[k]) for k in range(3)]==[sim.steps*sim.nx*sim.h*sim.nz*sim.force_units,0,0]
+    for x,y in zip([*a.fine,a.coarse],[*b.fine,b.coarse]):
+        np.testing.assert_allclose(x.numpy()/2**x.bits,y.numpy()/2**y.bits,atol=1e-10,rtol=0)
+
+
+def test_balanced_reflux_splits_equal_physical_volumes_with_exact_signed_totals():
+    import warp as wp
+    from kernel_engine.lbm.lbm3d_refinement_gpu import apply_balanced_reflux
+    rng=np.random.default_rng(953);delta=rng.integers(-2**30,2**30,(19,2,2),dtype=np.int64)
+    coarse=wp.zeros((19,2,1,2),dtype=wp.int64,device='cpu')
+    fine=wp.zeros((19,4,2,4),dtype=wp.int64,device='cpu')
+    d=wp.array(delta,dtype=wp.int64,device='cpu')
+    wp.launch(apply_balanced_reflux,delta.shape,[coarse,fine,d,0,0],device='cpu')
+    c=coarse.numpy();f=fine.numpy()
+    np.testing.assert_array_equal(c[:,:,0,:],delta//2)
+    np.testing.assert_array_equal((c+restrict_child_mass(f))[:,:,0,:],delta)
+    ideal=np.repeat(np.repeat(delta[:, :, None, :]/16,2,axis=1),2,axis=3)
+    np.testing.assert_allclose(f, np.repeat(ideal,2,axis=2),atol=1,rtol=0)

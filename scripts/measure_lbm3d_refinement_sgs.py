@@ -21,10 +21,10 @@ def initialize(cls,**kwargs):
     return sim
 
 
-def main(*,recursive=False,bulk_tau_fine=None,conserved_reflux=False,output='reports/lbm3d_refinement_sgs_v1/report.json'):
-    reference,a=run(initialize(ReferenceRefinedChannel,recursive=recursive,bulk_tau_fine=bulk_tau_fine,conserved_reflux=conserved_reflux))
-    first,b=run(initialize(RefinedChannelGPU,recursive=recursive,bulk_tau_fine=bulk_tau_fine,conserved_reflux=conserved_reflux))
-    second,c=run(initialize(RefinedChannelGPU,recursive=recursive,bulk_tau_fine=bulk_tau_fine,conserved_reflux=conserved_reflux))
+def main(*,recursive=False,bulk_tau_fine=None,conserved_reflux=False,stress_reflux=False,balanced_reflux=False,output='reports/lbm3d_refinement_sgs_v1/report.json'):
+    reference,a=run(initialize(ReferenceRefinedChannel,recursive=recursive,bulk_tau_fine=bulk_tau_fine,conserved_reflux=conserved_reflux,stress_reflux=stress_reflux,balanced_reflux=balanced_reflux))
+    first,b=run(initialize(RefinedChannelGPU,recursive=recursive,bulk_tau_fine=bulk_tau_fine,conserved_reflux=conserved_reflux,stress_reflux=stress_reflux,balanced_reflux=balanced_reflux))
+    second,c=run(initialize(RefinedChannelGPU,recursive=recursive,bulk_tau_fine=bulk_tau_fine,conserved_reflux=conserved_reflux,stress_reflux=stress_reflux,balanced_reflux=balanced_reflux))
     errors=[float(np.max(np.abs(x.astype(float)-y.astype(float)))/2**bits) for x,y,bits in zip(a,b,[40,40,43])]
     gates={'full_gpu_repeat_exact':all(np.array_equal(x,y) for x,y in zip(b,c)),
            'repeat_history_exact':first['history']==second['history'],
@@ -33,7 +33,7 @@ def main(*,recursive=False,bulk_tau_fine=None,conserved_reflux=False,output='rep
     # The inherited observer's laminar-profile distance is diagnostic only:
     # this case has nonzero SGS and three-dimensional initial perturbations.
     report={'scope':'SGS level coupling numerical gate; not turbulent DNS validation',
-            'physical_filter':'fine Cs=0.1, coarse Cs=0.05; acoustic 2:1','recursive':recursive,'bulk_tau_fine':bulk_tau_fine,'conserved_reflux':conserved_reflux,'device':wp.get_device('cuda:0').name,
+            'physical_filter':'fine Cs=0.1, coarse Cs=0.05; acoustic 2:1','recursive':recursive,'bulk_tau_fine':bulk_tau_fine,'conserved_reflux':conserved_reflux,'stress_reflux':stress_reflux,'balanced_reflux':balanced_reflux,'device':wp.get_device('cuda:0').name,
             'population_density_max_absolute_errors':errors,'gates':gates,'passed':all(gates.values()),
             'cpu':reference,'gpu_first':first,'gpu_second':second,
             'source_sha256':{str(p):hashlib.sha256(p.read_bytes()).hexdigest() for p in [*Path('src/kernel_engine/lbm').glob('lbm3d_*.py'),Path('scripts/measure_lbm3d_refinement_sgs.py'),Path('scripts/measure_lbm3d_refinement_gpu.py')]}}

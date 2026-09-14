@@ -177,13 +177,31 @@ def collect_flux(fine:wp.array4d(dtype=wp.int64),delta:wp.array3d(dtype=wp.int64
 
 
 @wp.kernel
-def project_reflux(delta:wp.array3d(dtype=wp.int64),c:wp.array2d(dtype=wp.int32),w:wp.array(dtype=wp.float64)):
+def project_reflux(delta:wp.array3d(dtype=wp.int64),c:wp.array2d(dtype=wp.int32),w:wp.array(dtype=wp.float64),second_order:int):
     i,k=wp.tid();mass=wp.int64(0);jx=wp.int64(0);jy=wp.int64(0);jz=wp.int64(0)
     for q in range(19):
         v=delta[q,i,k];mass+=v;jx+=v*wp.int64(c[q,0]);jy+=v*wp.int64(c[q,1]);jz+=v*wp.int64(c[q,2])
+    stress=Mat3()
+    if second_order!=0:
+        for a in range(3):
+            for b in range(3):
+                value=wp.float64(0.0)
+                for q in range(19):
+                    h=wp.float64(c[q,a]*c[q,b])
+                    if a==b:h-=wp.float64(1.0)/wp.float64(3.0)
+                    value+=h*wp.float64(delta[q,i,k])
+                stress[a,b]=value
     out=I19();dm=mass;dx=jx;dy=jy;dz=jz
     for q in range(19):
         value=w[q]*(wp.float64(mass)+wp.float64(3.0)*(wp.float64(c[q,0])*wp.float64(jx)+wp.float64(c[q,1])*wp.float64(jy)+wp.float64(c[q,2])*wp.float64(jz)))
+        if second_order!=0:
+            correction=wp.float64(0.0)
+            for a in range(3):
+                for b in range(3):
+                    h=wp.float64(c[q,a]*c[q,b])
+                    if a==b:h-=wp.float64(1.0)/wp.float64(3.0)
+                    correction+=h*stress[a,b]
+            value+=wp.float64(4.5)*w[q]*correction
         v=wp.int64(wp.round(value));out[q]=v;dm-=v;dx-=v*wp.int64(c[q,0]);dy-=v*wp.int64(c[q,1]);dz-=v*wp.int64(c[q,2])
     out[1]+=dx;out[3]+=dy;out[5]+=dz;out[0]+=dm-dx-dy-dz
     for q in range(19):delta[q,i,k]=out[q]
@@ -192,6 +210,23 @@ def project_reflux(delta:wp.array3d(dtype=wp.int64),c:wp.array2d(dtype=wp.int32)
 @wp.kernel
 def apply_reflux(coarse:wp.array4d(dtype=wp.int64),delta:wp.array3d(dtype=wp.int64),j:int):
     q,i,k=wp.tid();coarse[q,i,j,k]+=delta[q,i,k]
+
+
+@wp.kernel
+def apply_balanced_reflux(coarse:wp.array4d(dtype=wp.int64),fine:wp.array4d(dtype=wp.int64),delta:wp.array3d(dtype=wp.int64),jc:int,jf:int):
+    q,i,k=wp.tid();d=delta[q,i,k]
+    half=d/wp.int64(2)
+    if d<wp.int64(0) and d%wp.int64(2)!=wp.int64(0):half-=wp.int64(1)
+    rest=d-half;base=rest/wp.int64(8)
+    if rest<wp.int64(0) and rest%wp.int64(8)!=wp.int64(0):base-=wp.int64(1)
+    remainder=rest-wp.int64(8)*base
+    coarse[q,i,jc,k]+=half
+    for dx in range(2):
+        for dy in range(2):
+            for dz in range(2):
+                value=base
+                if wp.int64(4*dx+2*dy+dz)<remainder:value+=wp.int64(1)
+                fine[q,2*i+dx,jf+dy,2*k+dz]+=value
 
 
 class RefinedChannelGPU(ReferenceRefinedChannel):
@@ -217,6 +252,10 @@ class RefinedChannelGPU(ReferenceRefinedChannel):
                 sim.step()
                 wp.launch(collect_flux,(19,self.nx//2,self.nz//2),[sim.a,self.delta[side],c,side,self.nf,self.nx,self.nz],device=self.device)
         for side,j in enumerate((self.b,self.t)):
-            if self.conserved_reflux:wp.launch(project_reflux,(self.nx//2,self.nz//2),[self.delta[side],c,w],device=self.device)
-            wp.launch(apply_reflux,(19,self.nx//2,self.nz//2),[self.coarse.a,self.delta[side],j],device=self.device)
+            if self.conserved_reflux:wp.launch(project_reflux,(self.nx//2,self.nz//2),[self.delta[side],c,w,int(self.stress_reflux)],device=self.device)
+            if self.balanced_reflux:
+                jf=self.nf-1 if side==0 else 1
+                wp.launch(apply_balanced_reflux,(19,self.nx//2,self.nz//2),[self.coarse.a,self.fine[side].a,self.delta[side],j,jf],device=self.device)
+            else:
+                wp.launch(apply_reflux,(19,self.nx//2,self.nz//2),[self.coarse.a,self.delta[side],j],device=self.device)
         self.steps+=2

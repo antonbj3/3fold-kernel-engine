@@ -1988,3 +1988,34 @@ suppressing higher kinetic modes; independently verify moments and small-grid
 stability before any further long DNS. Original projected candidate remains
 explicit, not adopted as a validated refinement method. App ended/fetched;
 no active cloud/local GPU job, no push. Uniform DNS remains accepted7/7.
+
+
+RUNNING E 2026-09-14 interface iterations and allocation:
+Second-order Hermite reflux preserves all6 stresses within integer rounding,
+with exactly repaired mass/momentum, but the small3D tests fail3000/2700steps.
+No long H100 job spent on this candidate. Distributing full-population reflux
+over equal physical volumes on both sides also fails (rest1200steps); retained.
+Balanced splitting uses half the integer correction in one coarse cell and
+its exact remainder split among8fine cells spanning two fine layers. This
+keeps all population totals exactly and gives equal density correction per
+physical volume up to integer remainders; no fitted distribution coefficient.
+
+Balanced CONSERVED-mode reflux is tested separately. New localRTX5070 weak
+standing-wave tests compare both conservative paths against the same uniform
+control at2000fine steps. At12finewalllayers, wave96/32errors improve from
+.39594/3.29156pct to.29247/3.00006pct. Wave16improves6.12764->5.38235pct but
+fails the fixed5pct gate; no relaxation or long-run promotion at that budget.
+Doubling the fine wall allocation to24layers makes all3wavegates pass:
+.49263/1.85468/3.84379pct, all below5pct and below paired unbalanced controls.
+Every mass/momentum budget is exact. Each local wave test takes4.4-6.8s,
+under existingflock and120s bounds; all local GPU jobs finished/lock released.
+54focusedCPUtests pass including exact signed balanced splits and stress
+projection/reference parity. These acoustic screens do not certify turbulence.
+
+Next RUNNING H100: balanced conserved reflux with24fine wall layers each,
+56.25pct active cells (previous12layerbudget34.375pct). Numerical2000step
+CPU/GPU/GPU parity and fullgrid startup must pass before original long DNS.
+All original Re/time/accuracy/stationarity/uniform-parity requirements remain.
+This changes both the correction distribution and cell allocation; no isolated
+causal claim for future DNS improvements. ONLY the authorized new Modal profile,
+source/input snapshot verified, no push. Local GPU currently idle.
