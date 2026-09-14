@@ -56,5 +56,31 @@
     "required": "same3D problem, physical averaging interval, comparable turbulence treatment, same observables/error limits and declared hardware/resource budget; report setup and solver time separately",
     "sampling_requirement": "Use a common physical wall-distance evaluation grid before a cross-solver ranking. Current refined reporter uses native planes for log/stress/parity and interpolated fine planes for whole-mean L2; preserve historical gate receipts and do not equate differing quadratures.",
     "lbm_only_requirements": "Integer-ledger and bit-repetition checks are implementation checks, not a requirement to use identical arithmetic in another solver."
+  },
+  "hardware_conditioned_selection": {
+    "status": "benchmark contract; no automated hardware selector or global optimum demonstrated",
+    "inputs": [
+      "physical task and quantities of interest",
+      "fixed error limits",
+      "available hardware and memory",
+      "wall-clock deadline or resource budget"
+    ],
+    "objective": "choose either minimum time under a cost budget or minimum cost under a deadline; report nondominated accepted choices when no preference is supplied",
+    "candidate_dimensions": [
+      "cell allocation",
+      "time-step schedule consistent with the physics",
+      "validated collision and precision",
+      "kernel implementation",
+      "device type and count"
+    ],
+    "admission": "all physical and numerical requirements must pass; fit measured peak memory; preserve hardware-specific parity receipts",
+    "measurement": {
+      "time": "end-to-end time to accepted result, with setup, compilation, solver, diagnostics and I/O separately recorded",
+      "cost": "actual allocated GPU plus host CPU and memory charges over the measured interval; identify rate date",
+      "energy": "integrated measured whole-system power over the solve; component-only telemetry must identify its narrower scope",
+      "scaling": "compare explicit CPU configurations and GPU plus host configurations; no CPU-core to GPU-core conversion"
+    },
+    "multiple_gpus": "candidate only after domain decomposition and boundary exchange are implemented and validated; not currently implemented in this LBM path",
+    "current_evidence": "accepted turbulent reference on one H100; local RTX5070 small numerical screens; no accepted cross-device turbulent cost or energy ranking"
   }
 }
