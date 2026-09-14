@@ -1870,3 +1870,28 @@ windows and every original threshold. Spatial and temporal sampling increased
 1.5x; initialization filter3 rather than2cells preserves physical width, but
 the seeded noise is a different realization. No threshold tuning. Resolution
 source: scripts/measure_lbm3d_recursive_resolution.py. No local GPU use, no push.
+
+
+RUNNING E 2026-09-14 resolution control COMPLETE PASS7/7:
+288x96x144 fluid grid, recursive bulk-tau1 with compile-time matrices, all
+original thresholds retained. Logmean2.0802pct, wholemean2.2189pct,
+Reynolds RMS5.7072/4.8480/4.8116/3.6180pct, friction and both stationarity
+gates pass; all12 exact conservation/state checks pass. Whole solver and
+diagnostics1158.12MLUPS; complete H100 job1247.7s. Receipt:
+reports/lbm3d_recursive_resolution_v1/20260914T103313Z/report.json.
+This supports a resolution explanation for the earlier6.526pct mean failure;
+the initialization realization also changed, so it is not a controlled
+single-realization convergence proof. Refinement/draft-tube validation remains
+unfinished. Old lower-resolution failures are retained.
+
+Next RUNNING: reproduce this accepted control and verify all12 fullstatehashes
+and integer statistics before measuring endpoint sensitivity. The original
+job retained reports but not full endpoint populations. Eight symmetric bands
+now cover every physical cell at H96 (six cells per band);384steps/probe and
+sample24 preserve the previous physical horizon. All32 perturbations conserve
+parent population totals, with original5pct finite-difference linearity gate.
+Seven focused tests pass, including full band coverage/parent alignment and
+rejection of altered interior checkpoint hashes/statistics. No active job was
+restarted. Inputs upload with the source snapshot; no old volumes required.
+Separate bulk/shear refinement transfer is not yet implemented, so the current
+shared-tau refined driver still rejects this bulk-tau1 reference. No push.
