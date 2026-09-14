@@ -13,6 +13,8 @@ from kernel_engine.lbm.lbm3d_ledger import int64_limbs
 
 def main():
     parser=argparse.ArgumentParser();parser.add_argument('--uniform-report',type=Path,required=True);parser.add_argument('--sensitivity-report',type=Path,required=True);parser.add_argument('--wall-cells',type=int,default=8)
+    parser.add_argument('--diagnostic',action='store_true')
+    parser.add_argument('--conserved-reflux',action='store_true')
     args=parser.parse_args();control=json.loads(args.uniform_report.read_text());sensitivity=json.loads(args.sensitivity_report.read_text())
     if control.get('grid')==[288,98,144]:
         from measure_lbm3d_recursive_resolution import configure
@@ -21,9 +23,10 @@ def main():
         raise ValueError('passed matching recursive uniform control required')
     if sensitivity['base_state_sha256']!=control['blocks'][-1]['state_sha256'] or not all(sensitivity['gates'].values()):
         raise ValueError('converged sensitivity measured at this uniform endpoint required')
+    if args.diagnostic:dns.BURN,dns.AVERAGE,dns.BLOCK,dns.SAMPLE=0,2000,100,100
     nx,h,nz=dns.NX,dns.H,dns.NZ;nf=args.wall_cells
     start=time.perf_counter();q,mask,force=dns.initial()
-    sim=RefinedChannelGPU(nx=nx,height=h,nz=nz,wall_cells=nf,tau_fine=dns.TAU,force_fine=force,cs_fine=.1,recursive=True,bulk_tau_fine=control.get("bulk_tau"))
+    sim=RefinedChannelGPU(nx=nx,height=h,nz=nz,wall_cells=nf,tau_fine=dns.TAU,force_fine=force,cs_fine=.1,recursive=True,bulk_tau_fine=control.get("bulk_tau"),conserved_reflux=args.conserved_reflux)
     sim._replace(sim.fine[0],q[:,:,:nf+2,:]);sim._replace(sim.fine[1],q[:,:,h-nf:h+2,:])
     coarse=sim.coarse.numpy();density=restrict_child_mass(q[:,:,1:-1,:]).astype(float)/2**43
     coarse[:,:,1:-1,:]=sim._convert(density,sim.tf,sim.tc,2,sim.gf,2*sim.gf,43)
@@ -36,7 +39,9 @@ def main():
         'source_sha256':{str(p):hashlib.sha256(p.read_bytes()).hexdigest() for p in [Path(__file__).relative_to(Path.cwd()),Path('src/kernel_engine/lbm/lbm3d_channel.py'),Path('src/kernel_engine/lbm/lbm3d_refinement_gpu.py'),Path('src/kernel_engine/lbm/lbm3d_refinement.py')]},'uniform_report_sha256':hashlib.sha256(args.uniform_report.read_bytes()).hexdigest(),
         'sensitivity_report_sha256':hashlib.sha256(args.sensitivity_report.read_bytes()).hexdigest(),'thresholds':dns.THRESHOLDS,
         'uniform_parity_limits':{'mean_relative_L2':.05,'stress_peak_RMS':.10},'blocks':[]}
-    root=Path('reports/lbm3d_refined_dns_v1');root.mkdir(parents=True,exist_ok=True)
+    report['diagnostic_only']=args.diagnostic
+    report['conserved_reflux']=args.conserved_reflux
+    root=Path('reports/lbm3d_refined_startup_v1' if args.diagnostic else 'reports/lbm3d_refined_dns_v1');root.mkdir(parents=True,exist_ok=True)
     def save(): (root/'report.json').write_text(json.dumps(report,indent=2,allow_nan=False)+'\n')
     samples_per_block=dns.BLOCK//dns.SAMPLE;records=[];wall_at_burn=None;valid=True;started=time.perf_counter();save()
     def folded(selected):
@@ -48,7 +53,18 @@ def main():
             for _ in range(dns.SAMPLE//2):sim.step()
             if done>dns.BURN:
                 for s,a in zip(blocks,stats):wp.launch(accumulate,s.shape,[s.a,s.args[0],s.args[1],wp.float64(2**s.bits),wp.int64(s.force_units),a,s.failure],device='cuda:0')
-        ledger=sim.ledger();wall=sim.wall_impulse();flags=[int(s.failure.numpy()[0]) for s in blocks]
+        flags=[int(s.failure.numpy()[0]) for s in blocks]
+        if args.diagnostic or any(flags):
+            extrema=[]
+            for s in blocks:
+                q=s.numpy();rho=q.sum(axis=0,dtype=np.float64)/2**s.bits
+                fluid=s.args[0].numpy()==0
+                extrema.append({'rho_min':float(rho[fluid].min()),'rho_max':float(rho[fluid].max()),
+                                'population_min':float(q.min()/2**s.bits),'population_max':float(q.max()/2**s.bits)})
+            report.setdefault('state_checks',[]).append({'step':done,'flags':flags,'blocks':extrema});save()
+        if any(flags):
+            report.update(passed=False,blocker='collision or statistics state guard failed before ledger reduction');save();return 1
+        ledger=sim.ledger();wall=sim.wall_impulse()
         residual=[ledger[k+1]-initial[k+1]+int(wall[k])-(done*nx*h*nz*sim.force_units if k==0 else 0) for k in range(3)]
         valid=valid and ledger[0]==initial[0] and residual==[0,0,0] and flags==[0,0,0]
         row={'step':done,'mass_exact':ledger[0]==initial[0],'momentum_residual':residual,'flags':flags,'wall_int64_limbs':[int64_limbs(int(v)) for v in wall],'elapsed_s':time.perf_counter()-started}
@@ -58,6 +74,8 @@ def main():
         report['blocks'].append(row);save();print(json.dumps({k:v for k,v in row.items() if k!='plane_integer_statistics'}),flush=True)
         if not valid:break
     report['seconds']=time.perf_counter()-started
+    if args.diagnostic:
+        report.update(passed=bool(valid),scope='startup diagnostics only; no turbulent DNS validation');save();return 0 if valid else 1
     if not valid or done!=dns.BURN+dns.AVERAGE:
         report.update(passed=False,blocker='state or conservation failed');save();return 1
     y,mean,stress,rho=folded(records);shear=(int(wall[0])-wall_at_burn[0])/2**40/(2*nx*nz*dns.AVERAGE);utau=np.sqrt(abs(shear));yp=y*utau/dns.NU;up=mean/utau;rp=stress/utau**2

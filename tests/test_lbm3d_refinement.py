@@ -66,14 +66,15 @@ def test_resident_coupling_matches_reference():
     assert all(s.failure.numpy()[0]==0 for s in [*b.fine,b.coarse])
 
 
+@pytest.mark.parametrize('projected',[False,True])
 @pytest.mark.parametrize('bulk',[None,1.])
 @pytest.mark.parametrize('cs',[0.,.1])
 @pytest.mark.parametrize('recursive',[False,True])
-def test_resident_coupling_spatial_flux_and_wall_momentum(cs,recursive,bulk):
+def test_resident_coupling_spatial_flux_and_wall_momentum(cs,recursive,bulk,projected):
     from kernel_engine.lbm.lbm3d_refinement import ReferenceRefinedChannel
     from kernel_engine.lbm.lbm3d_refinement_gpu import RefinedChannelGPU
-    a=ReferenceRefinedChannel(nx=8,height=16,nz=8,wall_cells=4,cs_fine=cs,recursive=recursive,bulk_tau_fine=bulk)
-    b=RefinedChannelGPU(device='cpu',nx=8,height=16,nz=8,wall_cells=4,cs_fine=cs,recursive=recursive,bulk_tau_fine=bulk)
+    a=ReferenceRefinedChannel(nx=8,height=16,nz=8,wall_cells=4,cs_fine=cs,recursive=recursive,bulk_tau_fine=bulk,conserved_reflux=projected)
+    b=RefinedChannelGPU(device='cpu',nx=8,height=16,nz=8,wall_cells=4,cs_fine=cs,recursive=recursive,bulk_tau_fine=bulk,conserved_reflux=projected)
     for sa,sb in zip([*a.fine,a.coarse],[*b.fine,b.coarse]):
         q=sa.numpy();x,y,z=np.indices(sa.shape)
         # Vary all momentum components across both periodic directions and the
@@ -137,3 +138,15 @@ def test_split_bulk_transfer_strain_closure_and_roundtrip(ratio,cs):
     np.testing.assert_allclose(target,computed,atol=2e-16,rtol=1e-15)
     back,_,_=split_relaxation_stress(rho,out,tt,ts,cs/ratio,cs,1/ratio,bt,bs)
     np.testing.assert_allclose(back,pi,atol=1e-17)
+
+
+def test_conserved_flux_projection_keeps_exact_ledger_and_discards_kinetic_modes():
+    from kernel_engine.lbm.lbm3d_refinement import conserved_flux_correction
+    rng=np.random.default_rng(742);delta=rng.integers(-2**30,2**30,(19,4,4),dtype=np.int64)
+    out=conserved_flux_correction(delta)
+    np.testing.assert_array_equal(out.sum(0),delta.sum(0))
+    np.testing.assert_array_equal(np.einsum('qa,q...->a...',lb.C.astype(np.int64),out),np.einsum('qa,q...->a...',lb.C.astype(np.int64),delta))
+    stress=np.einsum('qa,qb,q...->ab...',lb.C,lb.C,out)
+    expected=np.eye(3)[:,:,None,None]*delta.sum(0)/3
+    np.testing.assert_allclose(stress,expected,atol=10,rtol=0)
+    assert np.max(np.abs(out-delta))>1000000

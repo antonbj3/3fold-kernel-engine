@@ -1,0 +1,7 @@
+{
+  "passed": false,
+  "completed_control_blocks": 0,
+  "exception": "OverflowError: exact sum exceeds int64 range",
+  "location": "ReferenceRefinedChannel.ledger -> checked_int64_sum",
+  "followup": "100-step diagnostics identify unstable populations at1700; do not bypass the range guard"
+}

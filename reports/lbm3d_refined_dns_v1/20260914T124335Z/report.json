@@ -1,0 +1,48 @@
+{
+  "scope": "recursive two-wall-block DNS and uniform-profile gate",
+  "fine_equivalent_extent": [
+    288,
+    96,
+    144
+  ],
+  "wall_fine_layers_each": 12,
+  "active_cells": 1368576,
+  "uniform_cells": 3981312,
+  "cell_fraction": 0.34375,
+  "allocated_cells": 1679616,
+  "setup_s": 10.144903083,
+  "fine_tau": 0.5032,
+  "coarse_tau": 0.5016,
+  "fine_bulk_tau": 1.0,
+  "coarse_bulk_tau": 0.75,
+  "Cs_fine": 0.1,
+  "Cs_coarse": 0.05,
+  "population_fraction_bits": [
+    40,
+    43
+  ],
+  "burn_steps": 120000,
+  "averaging_steps": 240000,
+  "sample_every": 300,
+  "source_sha256": {
+    "scripts/measure_lbm3d_refined_dns.py": "8e868a708dcbb3ab042b359a7ccf7a56fee3c5e40f93f3ef228923211e6b28ab",
+    "src/kernel_engine/lbm/lbm3d_channel.py": "98389d34fe93eb77fdbeb86a0a186f284e50c5e1335e52a85073630997b38c63",
+    "src/kernel_engine/lbm/lbm3d_refinement_gpu.py": "1756402dd6953c9803eecf3ad6703f3e5f87ae0016785de2b9b08e20656af6cb",
+    "src/kernel_engine/lbm/lbm3d_refinement.py": "85e9ca1d58b5d0237e505f74f4f62928282e65ee0b48c755daafe30f9838979d"
+  },
+  "uniform_report_sha256": "b21d43fec9afd7fdf79d8acec23187c82b50c1548c676e98de252b14575ddfe6",
+  "sensitivity_report_sha256": "9ea2844963afd0f71edb19d8307a8c67b86c67d0ce609c6a5276c939a4935018",
+  "thresholds": {
+    "log_mean_relative_max": 0.05,
+    "whole_mean_relative_L2": 0.1,
+    "stress_peak_normalized_RMS": 0.2,
+    "friction_velocity_relative": 0.05,
+    "mean_half_window_relative_max": 0.05,
+    "stress_half_window_peak_RMS": 0.15
+  },
+  "uniform_parity_limits": {
+    "mean_relative_L2": 0.05,
+    "stress_peak_RMS": 0.1
+  },
+  "blocks": []
+}

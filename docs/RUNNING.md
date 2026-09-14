@@ -1939,3 +1939,33 @@ Next RUNNING: turbulent refined channel, fine-equivalent288x96x144,
 5pct/stress10pct parity gates. Matching passed control and endpoint sensitivity
 are uploaded with source; no old volume dependency. No turbulent refinement
 pass or speedup claimed yet. H100 only, no local GPU use or push.
+
+
+RUNNING E 2026-09-14 refined startup diagnosis and conserved-mode candidate:
+Original refined DNS failed at the first30k ledger reduction. The initial mass
+fits int64; the failure is NOT an excuse to widen the sum or reduce precision.
+A separate100-step diagnostic reveals negative coarse populations by900 and
+invalid density/collision flags at1700. Conservation is exact through1600.
+The observer now checks state flags before ledger reduction and has a bounded
+startup mode, preventing this physical failure from masquerading as capacity.
+Failure receipts: reports/lbm3d_refined_dns_v1/20260914T124335Z/{report,failure}.json
+and reports/lbm3d_refined_startup_v1/20260914T124918Z/report.json.
+
+Small genuine3D8x96x8 screens isolate interface growth: uniform grids remain
+stable4000steps at mean0/.07; original refined coupling fails3000/2800. A
+standalone diagnostic omitting reflux is stable4000 for both, but loses exact
+conservation and is not admissible. No production reflux-disable option added.
+New explicit conserved_reflux candidate projects the interface correction onto
+W*(delta_mass+3*c.delta_momentum) with exact integer moment repair. Nonconserved
+kinetic correction modes are removed; all actual mass and momentum fluxes
+remain corrected. Original full-population reflux remains the default.
+29CPUtests pass, including projection moments and all bulk/recursive/SGS
+combinations through the CPU and resident spatial coupling. Projected small
+screens remain stable4000 at both mean speeds; maximum moving density deviation
+is6.31e-7. These are numerical screens, not turbulent accuracy certification.
+
+Next RUNNING H100 chain: projected coupling2000fine-step CPU/GPU/GPU parity,
+then2000-step startup at full accepted resolution, then the original long
+refined DNS only if both gates pass. Original accuracy/stationarity and uniform
+parity thresholds retained. Script: scripts/measure_lbm3d_conserved_reflux.py.
+No local GPU use, no push. Earlier failed results remain archived.

@@ -74,6 +74,22 @@ locations and times; this primitive does not make interpolation conservative.
     return arrays[0]+arrays[1]-arrays[2]
 
 
+def conserved_flux_correction(delta):
+    """Minimum weighted-norm conserved-mode reflux, with exact integer repair."""
+    from .lbm3d_mrt_les import W
+    delta=np.asarray(delta)
+    if delta.dtype!=np.int64 or delta.shape[0]!=19:raise ValueError('int64 D3Q19 correction required')
+    if max(abs(int(delta.min())),abs(int(delta.max())))>=2**63//128:raise OverflowError('reflux projection range')
+    mass=delta.sum(axis=0);momentum=np.einsum('qa,q...->a...',C.astype(np.int64),delta)
+    values=W.reshape((19,)+(1,)*(delta.ndim-1))*(mass+3*np.einsum('qa,a...->q...',C.astype(float),momentum))
+    out=np.copysign(np.floor(np.abs(values)+.5),values).astype(np.int64)
+    residual=momentum-np.einsum('qa,q...->a...',C.astype(np.int64),out)
+    dm=mass-out.sum(axis=0)
+    out[1]+=residual[0];out[3]+=residual[1];out[5]+=residual[2]
+    out[0]+=dm-residual.sum(axis=0)
+    return out
+
+
 def checked_int64_sum(values):
     """Reduce bounded chunks and combine in Python before the int64 range gate.
 
@@ -147,7 +163,7 @@ class ReferenceRefinedChannel:
     by measured fine fluxes. The physical Smagorinsky filter is fixed across
     levels: Cs_coarse = Cs_fine / 2 under acoustic scaling.
     """
-    def __init__(self,nx=8,height=32,nz=8,wall_cells=8,tau_fine=.8,force_fine=1e-5,device='cpu',cs_fine=0.0,ledger_mode='int64',recursive=False,channel_factory=None,bulk_tau_fine=None):
+    def __init__(self,nx=8,height=32,nz=8,wall_cells=8,tau_fine=.8,force_fine=1e-5,device='cpu',cs_fine=0.0,ledger_mode='int64',recursive=False,channel_factory=None,bulk_tau_fine=None,conserved_reflux=False):
         import warp as wp
         from .lbm3d_mrt_les import quantize
         from .lbm3d_channel import ChannelSimulation
@@ -160,6 +176,7 @@ class ReferenceRefinedChannel:
             raise OverflowError('volume-weighted int64 inventory exceeds range')
         if not np.isfinite([tau_fine,force_fine,cs_fine]).all() or tau_fine<=.5 or cs_fine<0:
             raise ValueError('invalid relaxation, force or Smagorinsky coefficient')
+        self.conserved_reflux=bool(conserved_reflux)
         self.csf=cs_fine;self.csc=cs_fine/2;self.recursive=bool(recursive)
         self.nx,self.h,self.nz,self.nf=nx,height,nz,wall_cells
         self.tf=tau_fine;self.tc=.5+(tau_fine-.5)/2
@@ -278,7 +295,11 @@ class ReferenceRefinedChannel:
                 else:q[:,:,:1,:]=self._ghost(old,new,substep/2,side)
                 self._replace(sim,q);sim.step();fine_net[side]+=self._fine_flux(sim.numpy(),side)
         for side,j in enumerate((self.b,self.t)):
-            new[:,:,j,:]=reflux_population_mass(new[:,:,j,:],fine_net[side],coarse_net[side])
+            if self.conserved_reflux:
+                correction=conserved_flux_correction(fine_net[side]-coarse_net[side])
+                new[:,:,j,:]=reflux_population_mass(new[:,:,j,:],correction,np.zeros_like(correction))
+            else:
+                new[:,:,j,:]=reflux_population_mass(new[:,:,j,:],fine_net[side],coarse_net[side])
         self._replace(self.coarse,new);self.steps+=2
 
     def ledger(self):
