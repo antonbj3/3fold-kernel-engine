@@ -1,0 +1,12 @@
+{
+  "chan180.means": {
+    "url": "https://turbulence.oden.utexas.edu/data/MKM/chan180/profiles/chan180.means",
+    "sha256": "f54c86e30a869798f140aa004c1e167cd13a6280e988d2794d72ca2be8b5fc82",
+    "reference_Re_tau": 178.12
+  },
+  "chan180.reystress": {
+    "url": "https://turbulence.oden.utexas.edu/data/MKM/chan180/profiles/chan180.reystress",
+    "sha256": "61f282379b80192ac8eba087aabdc41e891e854926161db866ca23fbf9111608",
+    "reference_Re_tau": 178.12
+  }
+}

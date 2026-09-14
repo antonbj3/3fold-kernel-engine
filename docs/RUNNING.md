@@ -1726,3 +1726,35 @@ explicit mode='hermite_mrt',bits=40. Prior physical stability, BGKblow-up,
 analytical shear, full repeats and measured memory-roof receipts still apply
 to the unchanged40-bit trajectory. This closes the first collision item and
 opens the forced3Dchannel and2:1wall refinement, without claiming their validation.
+
+E 2026-09-14: forced D3Q19 channel and conservative wall-block coupling
+checkpoint. Item 2 remains RUNNING; uniform turbulent DNS gate OWN-GATE-FAIL.
+Guo forcing and strain correction preserve the integer mass/impulse budget;
+wall impulses accumulate per owning voxel. H100 laminar 8x32x8, 12000 steps
+has profile relative L2 0.0276%, full repeated state exact, and exact ledgers.
+Uniform Re_tau180 channel 192x64x96, Cs0.1, 80000 burn + 160000 average steps
+completed at 800.15 MLUPS including diagnostics. Measured wall u_tau differs
+0.669% and all conservation checks pass, but log-region mean error17.47%>5%,
+whole-profile L2 13.51%>10%, and vv/ww stress RMS57.86%/42.13%>20% fail.
+First-cell y+2.83; vv stationarity also fails. No turbulent validation or gate
+relaxation. The initial statistics zeroing API failure is retained separately.
+
+Two fine wall blocks now subcycle a coarse background at 2:1 acoustic scaling.
+Integer populations represent physical cell mass: fine40/coarse43fractionbits;
+forced non-equilibrium stress is rescaled across levels. Reflux uses actual
+streamed population fluxes, with one writer per interface value. Resident Warp
+coupling has no host readback between coarse steps; diagnostics are separate.
+Cs=0 only: 2000 fine-step H100 laminar test passes all five gates, full repeat
+bit-exact, every mass/impulse ledger exact, profile L2 0.6512%<2%, maximum
+CPU/GPU profile difference1.842e-12<1e-10. FirstGPU5.099s includes compilation;
+warm repeat0.572s; CPU reference8.515s. This small case is not a turbulent
+speedup claim. Twenty focused CPU tests pass, including spatially varying
+three-component interface exchange and exact wall/body-force accounting.
+
+Receipts: reports/lbm3d_channel_refinement_v1/ (four dated runs, metadata and
+source hashes); CPU reference: reports/lbm3d_refinement_laminar_v1/.
+MKM profiles and primary-source hashes: tests/data/lbm_channel/. Next gates:
+SGS-consistent level scaling, bounded global integer reductions for larger
+refined domains, measured QoI sensitivity/water-filling map, and refined DNS
+against a validated uniform control. Backward step and draft tube remain
+unvalidated. No local GPU/context/lock, no push, README unchanged.

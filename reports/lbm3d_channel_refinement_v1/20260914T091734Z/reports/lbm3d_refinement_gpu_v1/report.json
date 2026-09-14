@@ -1,0 +1,1053 @@
+{
+  "scope": "3D two wall blocks, Cs=0, 2000 fine steps; no turbulent validation",
+  "device": "NVIDIA H100 80GB HBM3",
+  "cpu_reference": {
+    "history": [
+      {
+        "steps": 100,
+        "mass_exact": true,
+        "momentum_residual": [
+          0,
+          0,
+          0
+        ],
+        "flags": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "steps": 200,
+        "mass_exact": true,
+        "momentum_residual": [
+          0,
+          0,
+          0
+        ],
+        "flags": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "steps": 300,
+        "mass_exact": true,
+        "momentum_residual": [
+          0,
+          0,
+          0
+        ],
+        "flags": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "steps": 400,
+        "mass_exact": true,
+        "momentum_residual": [
+          0,
+          0,
+          0
+        ],
+        "flags": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "steps": 500,
+        "mass_exact": true,
+        "momentum_residual": [
+          0,
+          0,
+          0
+        ],
+        "flags": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "steps": 600,
+        "mass_exact": true,
+        "momentum_residual": [
+          0,
+          0,
+          0
+        ],
+        "flags": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "steps": 700,
+        "mass_exact": true,
+        "momentum_residual": [
+          0,
+          0,
+          0
+        ],
+        "flags": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "steps": 800,
+        "mass_exact": true,
+        "momentum_residual": [
+          0,
+          0,
+          0
+        ],
+        "flags": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "steps": 900,
+        "mass_exact": true,
+        "momentum_residual": [
+          0,
+          0,
+          0
+        ],
+        "flags": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "steps": 1000,
+        "mass_exact": true,
+        "momentum_residual": [
+          0,
+          0,
+          0
+        ],
+        "flags": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "steps": 1100,
+        "mass_exact": true,
+        "momentum_residual": [
+          0,
+          0,
+          0
+        ],
+        "flags": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "steps": 1200,
+        "mass_exact": true,
+        "momentum_residual": [
+          0,
+          0,
+          0
+        ],
+        "flags": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "steps": 1300,
+        "mass_exact": true,
+        "momentum_residual": [
+          0,
+          0,
+          0
+        ],
+        "flags": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "steps": 1400,
+        "mass_exact": true,
+        "momentum_residual": [
+          0,
+          0,
+          0
+        ],
+        "flags": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "steps": 1500,
+        "mass_exact": true,
+        "momentum_residual": [
+          0,
+          0,
+          0
+        ],
+        "flags": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "steps": 1600,
+        "mass_exact": true,
+        "momentum_residual": [
+          0,
+          0,
+          0
+        ],
+        "flags": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "steps": 1700,
+        "mass_exact": true,
+        "momentum_residual": [
+          0,
+          0,
+          0
+        ],
+        "flags": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "steps": 1800,
+        "mass_exact": true,
+        "momentum_residual": [
+          0,
+          0,
+          0
+        ],
+        "flags": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "steps": 1900,
+        "mass_exact": true,
+        "momentum_residual": [
+          0,
+          0,
+          0
+        ],
+        "flags": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "steps": 2000,
+        "mass_exact": true,
+        "momentum_residual": [
+          0,
+          0,
+          0
+        ],
+        "flags": [
+          0,
+          0,
+          0
+        ]
+      }
+    ],
+    "seconds": 8.51541976,
+    "profile": [
+      0.0007842491977527396,
+      0.0022827547754807553,
+      0.0036812818170969025,
+      0.004979844406989287,
+      0.0061784562831403815,
+      0.007277130724125376,
+      0.008275880655643867,
+      0.009174727543689462,
+      0.010404441497258905,
+      0.011654600697859027,
+      0.012453452196736188,
+      0.012852866795937607,
+      0.012852866795596546,
+      0.012453452196390881,
+      0.011654600698077127,
+      0.010404441496782865,
+      0.009174727544640679,
+      0.008275880654741897,
+      0.007277130724988539,
+      0.00617845628401616,
+      0.004979844404247215,
+      0.0036812818161706673,
+      0.0022827547745671085,
+      0.0007842491977498867
+    ],
+    "y": [
+      0.5,
+      1.5,
+      2.5,
+      3.5,
+      4.5,
+      5.5,
+      6.5,
+      7.5,
+      9.0,
+      11.0,
+      13.0,
+      15.0,
+      17.0,
+      19.0,
+      21.0,
+      23.0,
+      24.5,
+      25.5,
+      26.5,
+      27.5,
+      28.5,
+      29.5,
+      30.5,
+      31.5
+    ],
+    "profile_relative_L2": 0.006511862093140197,
+    "state_sha256": [
+      "ab07be459d5e01477464407e1e9aaf62d7cf2e8215459c52a4122fea441cb6f3",
+      "a1af43df73356482c14bb00b38e7f961fc0ad5824f1eb1109930e3b7e3d21d15",
+      "ed45bb8fe9e138b5cf3bc700a44313cfdd91f9cc512e93f7152d2621d2070327"
+    ]
+  },
+  "gpu_first": {
+    "history": [
+      {
+        "steps": 100,
+        "mass_exact": true,
+        "momentum_residual": [
+          0,
+          0,
+          0
+        ],
+        "flags": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "steps": 200,
+        "mass_exact": true,
+        "momentum_residual": [
+          0,
+          0,
+          0
+        ],
+        "flags": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "steps": 300,
+        "mass_exact": true,
+        "momentum_residual": [
+          0,
+          0,
+          0
+        ],
+        "flags": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "steps": 400,
+        "mass_exact": true,
+        "momentum_residual": [
+          0,
+          0,
+          0
+        ],
+        "flags": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "steps": 500,
+        "mass_exact": true,
+        "momentum_residual": [
+          0,
+          0,
+          0
+        ],
+        "flags": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "steps": 600,
+        "mass_exact": true,
+        "momentum_residual": [
+          0,
+          0,
+          0
+        ],
+        "flags": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "steps": 700,
+        "mass_exact": true,
+        "momentum_residual": [
+          0,
+          0,
+          0
+        ],
+        "flags": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "steps": 800,
+        "mass_exact": true,
+        "momentum_residual": [
+          0,
+          0,
+          0
+        ],
+        "flags": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "steps": 900,
+        "mass_exact": true,
+        "momentum_residual": [
+          0,
+          0,
+          0
+        ],
+        "flags": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "steps": 1000,
+        "mass_exact": true,
+        "momentum_residual": [
+          0,
+          0,
+          0
+        ],
+        "flags": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "steps": 1100,
+        "mass_exact": true,
+        "momentum_residual": [
+          0,
+          0,
+          0
+        ],
+        "flags": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "steps": 1200,
+        "mass_exact": true,
+        "momentum_residual": [
+          0,
+          0,
+          0
+        ],
+        "flags": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "steps": 1300,
+        "mass_exact": true,
+        "momentum_residual": [
+          0,
+          0,
+          0
+        ],
+        "flags": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "steps": 1400,
+        "mass_exact": true,
+        "momentum_residual": [
+          0,
+          0,
+          0
+        ],
+        "flags": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "steps": 1500,
+        "mass_exact": true,
+        "momentum_residual": [
+          0,
+          0,
+          0
+        ],
+        "flags": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "steps": 1600,
+        "mass_exact": true,
+        "momentum_residual": [
+          0,
+          0,
+          0
+        ],
+        "flags": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "steps": 1700,
+        "mass_exact": true,
+        "momentum_residual": [
+          0,
+          0,
+          0
+        ],
+        "flags": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "steps": 1800,
+        "mass_exact": true,
+        "momentum_residual": [
+          0,
+          0,
+          0
+        ],
+        "flags": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "steps": 1900,
+        "mass_exact": true,
+        "momentum_residual": [
+          0,
+          0,
+          0
+        ],
+        "flags": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "steps": 2000,
+        "mass_exact": true,
+        "momentum_residual": [
+          0,
+          0,
+          0
+        ],
+        "flags": [
+          0,
+          0,
+          0
+        ]
+      }
+    ],
+    "seconds": 5.098640619999998,
+    "profile": [
+      0.0007842491977505998,
+      0.0022827547754849073,
+      0.0036812818188924554,
+      0.004979844405152181,
+      0.006178456284038638,
+      0.007277130725015013,
+      0.008275880654764478,
+      0.009174727543647739,
+      0.010404441496555492,
+      0.011654600697829878,
+      0.012453452196274363,
+      0.012852866795589241,
+      0.012852866795834148,
+      0.012453452196508815,
+      0.011654600698653511,
+      0.010404441497358398,
+      0.00917472754376456,
+      0.008275880656583467,
+      0.007277130725970838,
+      0.006178456284004922,
+      0.00497984440515671,
+      0.0036812818161639713,
+      0.0022827547736679944,
+      0.0007842491968446716
+    ],
+    "y": [
+      0.5,
+      1.5,
+      2.5,
+      3.5,
+      4.5,
+      5.5,
+      6.5,
+      7.5,
+      9.0,
+      11.0,
+      13.0,
+      15.0,
+      17.0,
+      19.0,
+      21.0,
+      23.0,
+      24.5,
+      25.5,
+      26.5,
+      27.5,
+      28.5,
+      29.5,
+      30.5,
+      31.5
+    ],
+    "profile_relative_L2": 0.006511862091284728,
+    "state_sha256": [
+      "b262815391259aebe42afb0b0fc1829e9041226e5ab5dc179d68b19a3998f733",
+      "a4d92873f161f6ff33062248dc605e8a66aaaec00cbe5af862e9b5b8c8f81968",
+      "da1bda9dac3a412c55f38f0f9b466c446a6c4f8198427ef96525d24e95ff15c2"
+    ]
+  },
+  "gpu_second": {
+    "history": [
+      {
+        "steps": 100,
+        "mass_exact": true,
+        "momentum_residual": [
+          0,
+          0,
+          0
+        ],
+        "flags": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "steps": 200,
+        "mass_exact": true,
+        "momentum_residual": [
+          0,
+          0,
+          0
+        ],
+        "flags": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "steps": 300,
+        "mass_exact": true,
+        "momentum_residual": [
+          0,
+          0,
+          0
+        ],
+        "flags": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "steps": 400,
+        "mass_exact": true,
+        "momentum_residual": [
+          0,
+          0,
+          0
+        ],
+        "flags": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "steps": 500,
+        "mass_exact": true,
+        "momentum_residual": [
+          0,
+          0,
+          0
+        ],
+        "flags": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "steps": 600,
+        "mass_exact": true,
+        "momentum_residual": [
+          0,
+          0,
+          0
+        ],
+        "flags": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "steps": 700,
+        "mass_exact": true,
+        "momentum_residual": [
+          0,
+          0,
+          0
+        ],
+        "flags": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "steps": 800,
+        "mass_exact": true,
+        "momentum_residual": [
+          0,
+          0,
+          0
+        ],
+        "flags": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "steps": 900,
+        "mass_exact": true,
+        "momentum_residual": [
+          0,
+          0,
+          0
+        ],
+        "flags": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "steps": 1000,
+        "mass_exact": true,
+        "momentum_residual": [
+          0,
+          0,
+          0
+        ],
+        "flags": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "steps": 1100,
+        "mass_exact": true,
+        "momentum_residual": [
+          0,
+          0,
+          0
+        ],
+        "flags": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "steps": 1200,
+        "mass_exact": true,
+        "momentum_residual": [
+          0,
+          0,
+          0
+        ],
+        "flags": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "steps": 1300,
+        "mass_exact": true,
+        "momentum_residual": [
+          0,
+          0,
+          0
+        ],
+        "flags": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "steps": 1400,
+        "mass_exact": true,
+        "momentum_residual": [
+          0,
+          0,
+          0
+        ],
+        "flags": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "steps": 1500,
+        "mass_exact": true,
+        "momentum_residual": [
+          0,
+          0,
+          0
+        ],
+        "flags": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "steps": 1600,
+        "mass_exact": true,
+        "momentum_residual": [
+          0,
+          0,
+          0
+        ],
+        "flags": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "steps": 1700,
+        "mass_exact": true,
+        "momentum_residual": [
+          0,
+          0,
+          0
+        ],
+        "flags": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "steps": 1800,
+        "mass_exact": true,
+        "momentum_residual": [
+          0,
+          0,
+          0
+        ],
+        "flags": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "steps": 1900,
+        "mass_exact": true,
+        "momentum_residual": [
+          0,
+          0,
+          0
+        ],
+        "flags": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "steps": 2000,
+        "mass_exact": true,
+        "momentum_residual": [
+          0,
+          0,
+          0
+        ],
+        "flags": [
+          0,
+          0,
+          0
+        ]
+      }
+    ],
+    "seconds": 0.5716261749999987,
+    "profile": [
+      0.0007842491977505998,
+      0.0022827547754849073,
+      0.0036812818188924554,
+      0.004979844405152181,
+      0.006178456284038638,
+      0.007277130725015013,
+      0.008275880654764478,
+      0.009174727543647739,
+      0.010404441496555492,
+      0.011654600697829878,
+      0.012453452196274363,
+      0.012852866795589241,
+      0.012852866795834148,
+      0.012453452196508815,
+      0.011654600698653511,
+      0.010404441497358398,
+      0.00917472754376456,
+      0.008275880656583467,
+      0.007277130725970838,
+      0.006178456284004922,
+      0.00497984440515671,
+      0.0036812818161639713,
+      0.0022827547736679944,
+      0.0007842491968446716
+    ],
+    "y": [
+      0.5,
+      1.5,
+      2.5,
+      3.5,
+      4.5,
+      5.5,
+      6.5,
+      7.5,
+      9.0,
+      11.0,
+      13.0,
+      15.0,
+      17.0,
+      19.0,
+      21.0,
+      23.0,
+      24.5,
+      25.5,
+      26.5,
+      27.5,
+      28.5,
+      29.5,
+      30.5,
+      31.5
+    ],
+    "profile_relative_L2": 0.006511862091284728,
+    "state_sha256": [
+      "b262815391259aebe42afb0b0fc1829e9041226e5ab5dc179d68b19a3998f733",
+      "a4d92873f161f6ff33062248dc605e8a66aaaec00cbe5af862e9b5b8c8f81968",
+      "da1bda9dac3a412c55f38f0f9b466c446a6c4f8198427ef96525d24e95ff15c2"
+    ]
+  },
+  "cpu_gpu_profile_max_absolute_error": 1.8415702990326466e-12,
+  "gates": {
+    "full_gpu_repeat_exact": true,
+    "repeat_history_exact": true,
+    "cpu_profile_absolute_error_at_most_1e_10": true,
+    "laminar_profile_relative_L2_below_2_percent": true,
+    "all_ledgers_exact_and_states_valid": true
+  },
+  "passed": true,
+  "source_sha256": {
+    "scripts/measure_lbm3d_refinement_gpu.py": "be25e037542119638a4e6c7f3bf09cf9163ed7356dd22d2e5129d0f8e75c0ec7",
+    "src/kernel_engine/lbm/lbm3d_refinement.py": "c1aaee0127cbd03da74a9ad18dfc39361effea7752b8ca0afe5e434fdce0dd1c",
+    "src/kernel_engine/lbm/lbm3d_immersed_boundary.py": "9f4014806a0fee1cc0dfe168f5109276fec2dfc73ab22c7eacacfea3e78447db",
+    "src/kernel_engine/lbm/lbm3d_poiseuille.py": "d045b846647477377f65c85dd7d0449b72622ac21b2df45bebc7dd11e4006ffb",
+    "src/kernel_engine/lbm/lbm3d_gpu.py": "1e01e0807c5b000ac2c64966c06938345fe6c000f32085e860eec1771346ede2",
+    "src/kernel_engine/lbm/lbm3d_mrt_les.py": "b9c37a0ea448c9a8f541ae1553788bb8307bb64db4a6371957c74810e38d0ac9",
+    "src/kernel_engine/lbm/lbm3d_channel_statistics.py": "4255ad7be85ab43e2287a21c8dd712998a1eb7be84b1b14e515eda0e84d3bb13",
+    "src/kernel_engine/lbm/lbm3d_refinement_gpu.py": "935d1a593c0c173c60f270e92db2174e1d32dc1b30edbe4619e2b764d8dd2d3a",
+    "src/kernel_engine/lbm/lbm3d_channel.py": "9d1b210c3879cb58b7e413ad08befccaecb4354ed09479e1c45cdf6a80416ff0"
+  }
+}

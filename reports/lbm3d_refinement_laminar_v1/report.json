@@ -1,0 +1,398 @@
+{
+  "scope": "CPU two-wall-block coupling reference, Cs=0; not GPU or turbulent validation",
+  "preregistered": {
+    "fine_extent": [
+      8,
+      32,
+      8
+    ],
+    "wall_fine_layers_each": 8,
+    "fine_tau": 0.8,
+    "coarse_tau": 0.65,
+    "steps_fine": 2000,
+    "profile_relative_L2_limit": 0.02
+  },
+  "history": [
+    {
+      "fine_steps": 100,
+      "mass_exact": true,
+      "momentum_residual": [
+        0,
+        0,
+        0
+      ],
+      "flags": [
+        0,
+        0,
+        0
+      ],
+      "profile_relative_L2": 0.002754655362016621
+    },
+    {
+      "fine_steps": 200,
+      "mass_exact": true,
+      "momentum_residual": [
+        0,
+        0,
+        0
+      ],
+      "flags": [
+        0,
+        0,
+        0
+      ],
+      "profile_relative_L2": 0.003622905571370299
+    },
+    {
+      "fine_steps": 300,
+      "mass_exact": true,
+      "momentum_residual": [
+        0,
+        0,
+        0
+      ],
+      "flags": [
+        0,
+        0,
+        0
+      ],
+      "profile_relative_L2": 0.004042102711203539
+    },
+    {
+      "fine_steps": 400,
+      "mass_exact": true,
+      "momentum_residual": [
+        0,
+        0,
+        0
+      ],
+      "flags": [
+        0,
+        0,
+        0
+      ],
+      "profile_relative_L2": 0.004272160226151668
+    },
+    {
+      "fine_steps": 500,
+      "mass_exact": true,
+      "momentum_residual": [
+        0,
+        0,
+        0
+      ],
+      "flags": [
+        0,
+        0,
+        0
+      ],
+      "profile_relative_L2": 0.004444488680999039
+    },
+    {
+      "fine_steps": 600,
+      "mass_exact": true,
+      "momentum_residual": [
+        0,
+        0,
+        0
+      ],
+      "flags": [
+        0,
+        0,
+        0
+      ],
+      "profile_relative_L2": 0.004606929233619058
+    },
+    {
+      "fine_steps": 700,
+      "mass_exact": true,
+      "momentum_residual": [
+        0,
+        0,
+        0
+      ],
+      "flags": [
+        0,
+        0,
+        0
+      ],
+      "profile_relative_L2": 0.004772391422117163
+    },
+    {
+      "fine_steps": 800,
+      "mass_exact": true,
+      "momentum_residual": [
+        0,
+        0,
+        0
+      ],
+      "flags": [
+        0,
+        0,
+        0
+      ],
+      "profile_relative_L2": 0.004941328035655218
+    },
+    {
+      "fine_steps": 900,
+      "mass_exact": true,
+      "momentum_residual": [
+        0,
+        0,
+        0
+      ],
+      "flags": [
+        0,
+        0,
+        0
+      ],
+      "profile_relative_L2": 0.00511072353778908
+    },
+    {
+      "fine_steps": 1000,
+      "mass_exact": true,
+      "momentum_residual": [
+        0,
+        0,
+        0
+      ],
+      "flags": [
+        0,
+        0,
+        0
+      ],
+      "profile_relative_L2": 0.005277301032117469
+    },
+    {
+      "fine_steps": 1100,
+      "mass_exact": true,
+      "momentum_residual": [
+        0,
+        0,
+        0
+      ],
+      "flags": [
+        0,
+        0,
+        0
+      ],
+      "profile_relative_L2": 0.005438461970907795
+    },
+    {
+      "fine_steps": 1200,
+      "mass_exact": true,
+      "momentum_residual": [
+        0,
+        0,
+        0
+      ],
+      "flags": [
+        0,
+        0,
+        0
+      ],
+      "profile_relative_L2": 0.0055924153266235
+    },
+    {
+      "fine_steps": 1300,
+      "mass_exact": true,
+      "momentum_residual": [
+        0,
+        0,
+        0
+      ],
+      "flags": [
+        0,
+        0,
+        0
+      ],
+      "profile_relative_L2": 0.005738059422974521
+    },
+    {
+      "fine_steps": 1400,
+      "mass_exact": true,
+      "momentum_residual": [
+        0,
+        0,
+        0
+      ],
+      "flags": [
+        0,
+        0,
+        0
+      ],
+      "profile_relative_L2": 0.005874817637084565
+    },
+    {
+      "fine_steps": 1500,
+      "mass_exact": true,
+      "momentum_residual": [
+        0,
+        0,
+        0
+      ],
+      "flags": [
+        0,
+        0,
+        0
+      ],
+      "profile_relative_L2": 0.00600249160377703
+    },
+    {
+      "fine_steps": 1600,
+      "mass_exact": true,
+      "momentum_residual": [
+        0,
+        0,
+        0
+      ],
+      "flags": [
+        0,
+        0,
+        0
+      ],
+      "profile_relative_L2": 0.006121145814676599
+    },
+    {
+      "fine_steps": 1700,
+      "mass_exact": true,
+      "momentum_residual": [
+        0,
+        0,
+        0
+      ],
+      "flags": [
+        0,
+        0,
+        0
+      ],
+      "profile_relative_L2": 0.006231021850585224
+    },
+    {
+      "fine_steps": 1800,
+      "mass_exact": true,
+      "momentum_residual": [
+        0,
+        0,
+        0
+      ],
+      "flags": [
+        0,
+        0,
+        0
+      ],
+      "profile_relative_L2": 0.0063324759460239325
+    },
+    {
+      "fine_steps": 1900,
+      "mass_exact": true,
+      "momentum_residual": [
+        0,
+        0,
+        0
+      ],
+      "flags": [
+        0,
+        0,
+        0
+      ],
+      "profile_relative_L2": 0.006425934426400968
+    },
+    {
+      "fine_steps": 2000,
+      "mass_exact": true,
+      "momentum_residual": [
+        0,
+        0,
+        0
+      ],
+      "flags": [
+        0,
+        0,
+        0
+      ],
+      "profile_relative_L2": 0.006511862093140197
+    }
+  ],
+  "passed": true,
+  "seconds": 5.593791855004383,
+  "y": [
+    0.5,
+    1.5,
+    2.5,
+    3.5,
+    4.5,
+    5.5,
+    6.5,
+    7.5,
+    9.0,
+    11.0,
+    13.0,
+    15.0,
+    17.0,
+    19.0,
+    21.0,
+    23.0,
+    24.5,
+    25.5,
+    26.5,
+    27.5,
+    28.5,
+    29.5,
+    30.5,
+    31.5
+  ],
+  "profile": [
+    0.0007842491977527396,
+    0.0022827547754807553,
+    0.0036812818170969025,
+    0.004979844406989287,
+    0.0061784562831403815,
+    0.007277130724125376,
+    0.008275880655643867,
+    0.009174727543689462,
+    0.010404441497258905,
+    0.011654600697859027,
+    0.012453452196736188,
+    0.012852866795937607,
+    0.012852866795596546,
+    0.012453452196390881,
+    0.011654600698077127,
+    0.010404441496782865,
+    0.009174727544640679,
+    0.008275880654741897,
+    0.007277130724988539,
+    0.00617845628401616,
+    0.004979844404247215,
+    0.0036812818161706673,
+    0.0022827547745671085,
+    0.0007842491977498867
+  ],
+  "analytic": [
+    0.0007874999801060766,
+    0.002287499942212889,
+    0.003687499906845914,
+    0.0049874998740051515,
+    0.006187499843690602,
+    0.0072874998159022635,
+    0.008287499790640139,
+    0.009187499767904226,
+    0.010349999738537006,
+    0.011549999708222456,
+    0.012349999688012757,
+    0.012749999677907907,
+    0.012749999677907907,
+    0.012349999688012757,
+    0.011549999708222456,
+    0.010349999738537006,
+    0.009187499767904226,
+    0.008287499790640139,
+    0.007287499815902264,
+    0.006187499843690602,
+    0.0049874998740051515,
+    0.0036874999068459142,
+    0.002287499942212889,
+    0.0007874999801060766
+  ],
+  "source_sha256": "48f917b96a1d6a027973f284362520f77d9a8f24b7adeda362bdf0ae7e665c7d"
+}

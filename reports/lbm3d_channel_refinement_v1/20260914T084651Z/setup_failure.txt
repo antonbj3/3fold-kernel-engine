@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/work/3fold-kernel-e-lbm-check/measure_lbm3d_channel_dns.py", line 119, in <module>
+    if __name__=='__main__':raise SystemExit(main())
+                                             ^^^^^^
+  File "/work/3fold-kernel-e-lbm-check/measure_lbm3d_channel_dns.py", line 59, in main
+    stat_time=0.;wp.zero_(stats)
+                 ^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/warp/__init__.py", line 607, in __getattr__
+    raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
+AttributeError: module 'warp' has no attribute 'zero_'. Did you mean: 'zeros'?

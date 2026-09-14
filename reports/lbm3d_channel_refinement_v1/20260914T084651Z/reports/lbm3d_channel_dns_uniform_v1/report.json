@@ -1,0 +1,59 @@
+{
+  "grid": [
+    192,
+    66,
+    96
+  ],
+  "fluid_cells": 1179648,
+  "wall_locations": [
+    -0.5,
+    63.5
+  ],
+  "Re_tau_target": 180,
+  "reference_Re_tau": 178.12,
+  "first_cell_wall_units_nominal": 2.8125,
+  "domain_over_half_height": [
+    6.0,
+    2,
+    3.0
+  ],
+  "tau": 0.5021333333333333,
+  "Cs": 0.1,
+  "bits": 40,
+  "burn_steps": 80000,
+  "averaging_steps": 160000,
+  "block_steps": 20000,
+  "sample_every": 200,
+  "burn_outer_times": 10.0,
+  "averaging_outer_times": 20.0,
+  "thresholds": {
+    "log_mean_relative_max": 0.05,
+    "whole_mean_relative_L2": 0.1,
+    "stress_peak_normalized_RMS": 0.2,
+    "friction_velocity_relative": 0.05,
+    "mean_half_window_relative_max": 0.05,
+    "stress_half_window_peak_RMS": 0.15
+  },
+  "source_sha256": "9d1b210c3879cb58b7e413ad08befccaecb4354ed09479e1c45cdf6a80416ff0",
+  "reference_provenance": {
+    "chan180.means": {
+      "url": "https://turbulence.oden.utexas.edu/data/MKM/chan180/profiles/chan180.means",
+      "sha256": "f54c86e30a869798f140aa004c1e167cd13a6280e988d2794d72ca2be8b5fc82",
+      "reference_Re_tau": 178.12
+    },
+    "chan180.reystress": {
+      "url": "https://turbulence.oden.utexas.edu/data/MKM/chan180/profiles/chan180.reystress",
+      "sha256": "61f282379b80192ac8eba087aabdc41e891e854926161db866ca23fbf9111608",
+      "reference_Re_tau": 178.12
+    }
+  },
+  "blocks": [],
+  "initial_ledger": [
+    1337569089329037312,
+    82868782616883372,
+    -27386190301903,
+    31160543401734
+  ],
+  "force_density_applied": 5.000001692678779e-07,
+  "force_integer_units": 549756
+}

@@ -143,8 +143,8 @@ def equilibrium(rho, velocity):
 
 def quantize(f, bits=40):
     f = np.asarray(f,dtype=np.float64)
-    if bits not in (32,36,40,44) or f.ndim != 4 or f.shape[0] != 19:
-        raise ValueError('expected D3Q19 populations and bits in (32,36,40,44)')
+    if bits not in (32,36,40,43,44) or f.ndim != 4 or f.shape[0] != 19:
+        raise ValueError('expected D3Q19 populations and bits in (32,36,40,43,44)')
     if not np.isfinite(f).all() or np.max(np.abs(f)) > 2 or int(np.prod(f.shape[1:]))*2**bits >= 2**63:
         raise ValueError('initial population/ledger range exceeded')
     scale = 2**bits
@@ -189,7 +189,7 @@ class Simulation:
         q = np.asarray(q)
         if q.dtype != np.int64 or q.ndim != 4 or q.shape[0] != 19 or min(q.shape[1:])<2:
             raise ValueError('expected int64 (19,nx,ny,nz), all dimensions >=2')
-        if not np.isfinite([tau,cs]).all() or tau<=0.5 or cs<0 or bits not in (32,36,40,44) or mode not in ('mrt','bgk','hermite_mrt'):
+        if not np.isfinite([tau,cs]).all() or tau<=0.5 or cs<0 or bits not in (32,36,40,43,44) or mode not in ('mrt','bgk','hermite_mrt'):
             raise ValueError('invalid collision parameters')
         if np.max(np.abs(q.astype(np.float64)))>32*2**bits or int(np.prod(q.shape[1:]))*2**bits>=2**63:
             raise ValueError('population/ledger range exceeded')
