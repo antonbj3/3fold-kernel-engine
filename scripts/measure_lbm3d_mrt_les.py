@@ -1,4 +1,5 @@
 """Queue-51 item-one gates. Complete states hashed; no bulk arrays are saved."""
+import argparse
 import hashlib
 import json
 import time
@@ -7,6 +8,7 @@ import numpy as np
 import warp as wp
 from kernel_engine.lbm import lbm3d_mrt_les as lb
 
+MRT_MODE='mrt'
 REPORT=Path('reports/lbm3d_mrt_les_v1/report.json')
 RESULT={'preregistered':{'grid':[64,64,64],'u0':.2,'tau':.5001,'Cs':.1,'steps':4096,
         'check_every':64,'bgk_failure':'kinetic energy >20*initial, nonpositive density, or unsafe/nonfinite populations',
@@ -40,7 +42,7 @@ def metrics(q,bits):
 
 def run(name,mode,bits=40):
     q=lb.quantize(initial(),bits); original=lb.ledger(q); start=metrics(q,bits)
-    t=time.perf_counter(); sim=lb.Simulation(q,tau=.5001,cs=.1 if mode=='mrt' else 0,mode=mode,bits=bits,device='cuda:0')
+    t=time.perf_counter(); sim=lb.Simulation(q,tau=.5001,cs=.1 if mode!='bgk' else 0,mode=mode,bits=bits,device='cuda:0')
     setup=time.perf_counter()-t
     history=[];stable=True;failed=False;exact=True
     t=time.perf_counter()
@@ -52,7 +54,7 @@ def run(name,mode,bits=40):
         stable=bool(finite and .5<=m['rho_min'] and m['rho_max']<=1.5 and m['max_speed']<.5 and m['energy']<=1.05*start['energy'])
         l=lb.ledger(q);exact=exact and l==original
         history.append(dict(step=step,**{k:v if np.isfinite(v) else None for k,v in m.items()},ledger=l,flag=flag))
-        if failed or (mode=='mrt' and not stable):break
+        if failed or (mode!='bgk' and not stable):break
     elapsed=time.perf_counter()-t
     r=dict(steps=step,setup_s=setup,full_run_s=elapsed,initial=start,initial_ledger=original,
            failed=failed,stable=stable and step==4096,ledger_exact=exact,
@@ -67,7 +69,7 @@ def shear():
     x,y,z=np.meshgrid(*([np.arange(n)]*3),indexing='ij')
     u=np.zeros((3,n,n,n));u[0]=.01*np.cos(k*y)*np.cos(k*z)
     q=lb.quantize(lb.equilibrium(np.ones((n,n,n)),u))
-    sim=lb.Simulation(q,tau=.8,cs=0,device='cuda:0');sim.step(steps)
+    sim=lb.Simulation(q,tau=.8,cs=0,mode=MRT_MODE,device='cuda:0');sim.step(steps)
     out=sim.numpy();_,uf=lb.fields(out)
     amp=float(np.sum(uf[0]*u[0])/np.sum(u[0]**2))
     truth=float(np.exp(-2*nu*k*k*steps))
@@ -79,7 +81,7 @@ def shear():
 def throughput():
     n=96;steps=100
     q=lb.quantize(lb.equilibrium(np.ones((n,n,n)),np.zeros((3,n,n,n))))
-    sim=lb.Simulation(q,tau=.8,device='cuda:0');sim.step(2);wp.synchronize()
+    sim=lb.Simulation(q,tau=.8,mode=MRT_MODE,device='cuda:0');sim.step(2);wp.synchronize()
     durations=[]
     for _ in range(2):
         t=time.perf_counter();sim.step(steps);wp.synchronize();durations.append(time.perf_counter()-t)
@@ -101,14 +103,20 @@ def throughput():
 
 
 def main():
+    global MRT_MODE, REPORT
+    parser=argparse.ArgumentParser()
+    parser.add_argument('--mode',choices=['mrt','hermite_mrt'],default='mrt')
+    MRT_MODE=parser.parse_args().mode
+    RESULT['preregistered']['collision']=MRT_MODE
+    if MRT_MODE=='hermite_mrt':REPORT=Path('reports/lbm3d_hermite_mrt_les_v1/report.json')
     wp.init();RESULT['device']=str(wp.get_device('cuda:0'));save()
-    t=time.perf_counter();warm=lb.Simulation(lb.quantize(initial(4)),tau=.8,device='cuda:0');warm.step();wp.synchronize()
+    t=time.perf_counter();warm=lb.Simulation(lb.quantize(initial(4)),tau=.8,mode=MRT_MODE,device='cuda:0');warm.step();wp.synchronize()
     RESULT['first_launch_setup_build_s']=time.perf_counter()-t;save()
     shear_ok=shear()
     _,control=run('bgk','bgk')
-    a,ra=run('mrt_first','mrt');b,rb=run('mrt_repeat','mrt')
+    a,ra=run('mrt_first',MRT_MODE);b,rb=run('mrt_repeat',MRT_MODE)
     exact=bool(np.array_equal(a,b) and ra['history']==rb['history'])
-    low,rl=run('mrt_precision36','mrt',36)
+    low,rl=run('mrt_precision36',MRT_MODE,36)
     _,ua=lb.fields(a);_,ul=lb.fields(low,36)
     error=float(np.max(np.abs(ua-ul)))
     RESULT["precision_max_velocity_difference"]=error

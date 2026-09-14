@@ -23,7 +23,7 @@ def test_lattice_and_second_moments():
             np.testing.assert_allclose(stress,rho*(u[i]*u[j]+(i==j)/3),atol=2e-15)
 
 
-@pytest.mark.parametrize('mode',['bgk','mrt'])
+@pytest.mark.parametrize('mode',['bgk','mrt','hermite_mrt'])
 def test_collision_and_periodic_stream_conserve(mode):
     q=state(); sim=lb.Simulation(q,tau=.67,mode=mode)
     sim.step(11)
@@ -76,3 +76,25 @@ def test_invalid_state_sticky_failure():
     with pytest.raises(ValueError):lb.Simulation(q,tau=.8,cs=-1)
     with pytest.raises(ValueError):lb.Simulation(q,tau=.8,bits=63)
     with pytest.raises(OverflowError):lb.ledger(np.full((19,2,2,2),2**62,dtype=np.int64))
+
+
+def test_hermite_mrt_is_conserved_plus_stress_projection():
+    e,p=lb.E_PROJECTOR,lb.P2_PROJECTOR
+    np.testing.assert_allclose(lb.M_HERMITE[:10],lb.M[:10],atol=0,rtol=0)
+    np.testing.assert_allclose(lb.M_HERMITE[10:]@e,0,atol=1e-15)
+    np.testing.assert_allclose(lb.M_HERMITE[10:]@p,0,atol=1e-15)
+    rates=np.r_[np.zeros(4),np.full(6,1/.5001),np.ones(9)]
+    collision=np.eye(19)-lb.MI_HERMITE@np.diag(rates)@lb.M_HERMITE@(np.eye(19)-e)
+    np.testing.assert_allclose(collision,e+(1-1/.5001)*p,atol=2e-15)
+    q=state();sim=lb.Simulation(q,tau=.67,mode='hermite_mrt');sim.step()
+    f=q.astype(float)/2**40;rho,u=lb.fields(q);eq=lb.equilibrium(rho,u)
+    pi=np.einsum('qa,qb,q...->ab...',lb.C,lb.C,f-eq)
+    norm=np.sqrt(np.sum(pi*pi,axis=(0,1)))
+    tau=(.67+np.sqrt(.67**2+18*np.sqrt(2)*.1**2*norm/rho))/2
+    post=eq+(1-1/tau)*np.einsum('pq,q...->p...',p,f-eq)
+    expected=lb.quantize(post)
+    dj=np.einsum('qd,q...->d...',lb.C.astype(np.int64),q-expected)
+    expected[1]+=dj[0];expected[3]+=dj[1];expected[5]+=dj[2]
+    expected[0]+=q.sum(0)-expected.sum(0)
+    expected=np.array([np.roll(expected[h],tuple(lb.C[h]),axis=(0,1,2)) for h in range(19)])
+    assert np.max(np.abs(sim.numpy()-expected))<=4

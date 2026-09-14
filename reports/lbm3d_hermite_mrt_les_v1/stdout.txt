@@ -1,0 +1,15 @@
+Warp 1.17.0 initialized:
+   CUDA Toolkit 12.9, Driver 13.0
+   Devices:
+     "cpu"      : "x86_64"
+     "cuda:0"   : "NVIDIA H100 80GB HBM3" (79 GiB, sm_90, mempool enabled)
+   Kernel cache:
+     /root/.cache/warp/1.17.0
+Module kernel_engine.lbm.lbm3d_mrt_les a3f7fdb load on device 'cuda:0' took 1838.92 ms  (compiled)
+{"shear_decay": {"amplitude": 0.021048542793955547, "analytic": 0.021166951203105924, "relative_error": 0.005594022871513116, "ledger_exact": true, "failure": 0}}
+{"run": "bgk", "steps": 320, "setup_s": 0.03396438599999918, "full_run_s": 0.3398316959999992, "initial": {"rho_min": 0.9549999999999272, "rho_max": 1.0450000000000728, "max_speed": 0.1999999999998181, "energy": 0.004999999999998998, "max_uz": 0.0}, "initial_ledger": [288230376151711744, 0, 0, 0], "failed": true, "stable": false, "ledger_exact": true, "final_sha256": "1dd7ae1ed0d3d2b61b14bec1a87d8996baf004bb6e786401da484d4b5afb942b"}
+{"run": "mrt_first", "steps": 4096, "setup_s": 0.03545336300000024, "full_run_s": 5.419577945, "initial": {"rho_min": 0.9549999999999272, "rho_max": 1.0450000000000728, "max_speed": 0.1999999999998181, "energy": 0.004999999999998998, "max_uz": 0.0}, "initial_ledger": [288230376151711744, 0, 0, 0], "failed": false, "stable": true, "ledger_exact": true, "final_sha256": "170c393995e4b9cae8d56b3b694e38c02176b922796a04ee70da0f6152b4551a"}
+{"run": "mrt_repeat", "steps": 4096, "setup_s": 0.04921650400000033, "full_run_s": 5.078309288, "initial": {"rho_min": 0.9549999999999272, "rho_max": 1.0450000000000728, "max_speed": 0.1999999999998181, "energy": 0.004999999999998998, "max_uz": 0.0}, "initial_ledger": [288230376151711744, 0, 0, 0], "failed": false, "stable": true, "ledger_exact": true, "final_sha256": "170c393995e4b9cae8d56b3b694e38c02176b922796a04ee70da0f6152b4551a"}
+{"run": "mrt_precision36", "steps": 4096, "setup_s": 0.03784167099999891, "full_run_s": 4.934098371999998, "initial": {"rho_min": 0.9550000000017462, "rho_max": 1.0449999999982538, "max_speed": 0.19999999999708962, "energy": 0.0050000000000042545, "max_uz": 0.0}, "initial_ledger": [18014398509481984, 1, -1, 0], "failed": false, "stable": true, "ledger_exact": true, "final_sha256": "e8e9bf6ae38b063c32fefabde34a85221c1a48b13431d6921c066e19bfa4e90e"}
+{"throughput": {"grid": [96, 96, 96], "steps": 100, "seconds": [0.08384691299999858, 0.08390481100000002], "mlups": [1055.1801710338639, 1054.4520504312914], "logical_bandwidth_GBs": [320.7747719942946, 320.5534233311126], "copy_GBs": [2980.770418495435, 2981.5068915747456], "memory_roof_fraction": [0.10758813702586167, 0.10751389649205391], "traffic_bytes_per_update": 304, "scope": "warm synchronized host-launched steps, excludes setup/readback; no graph; includes collision, quantization, streaming; copy roof only", "failure": 0}}
+{"gates": {"shear": true, "bgk_blows_up": true, "mrt_stable": true, "mass_and_momentum_exact": true, "full_repeat_exact": true, "precision": false, "three_dimensional": true, "throughput_valid": true}, "precision_error": 5.191834127308854e-05, "passed": false}

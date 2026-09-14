@@ -1,0 +1,37 @@
+{
+  "scope": "4913 Fourier vectors in [0,pi]^3, infinitesimal perturbations about rho=1,u=0; Cs term is higher order and absent in this Jacobian",
+  "tau": 0.5001,
+  "modes": 4913,
+  "results": {
+    "raw_mrt": {
+      "max_spectral_radius": 1.003712603544268,
+      "worst_k_over_pi": [
+        0.5,
+        0.125,
+        0.125
+      ],
+      "unstable_vectors_tolerance_1e_minus10": 252
+    },
+    "bulk_rate_one": {
+      "max_spectral_radius": 1.0053170061756795,
+      "worst_k_over_pi": [
+        0.1875,
+        0.5625,
+        0.125
+      ],
+      "unstable_vectors_tolerance_1e_minus10": 312
+    },
+    "hermite_projected_mrt": {
+      "max_spectral_radius": 1.0000000000000016,
+      "worst_k_over_pi": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "unstable_vectors_tolerance_1e_minus10": 0
+    }
+  },
+  "projector_rank": 6,
+  "projector_idempotence_max_error": 2.220446049250313e-16,
+  "conserved_stress_cross_error": 4.394632805807912e-17
+}

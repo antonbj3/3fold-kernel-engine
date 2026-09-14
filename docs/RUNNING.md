@@ -29,7 +29,7 @@ synthetic inputs. The hardware and decisive values are stated with each new resu
 
 | module | status | note |
 | --- | --- | --- |
-| src/kernel_engine/lbm/lbm3d_mrt_les.py | OWN-GATE-FAIL | H100 D3Q19 MRT+Smagorinsky: BGK fails step320; MRT completes4096 twice, all4,980,736 int64 populations and64 checkpoint records repeat exactly, integer mass/momentum exact. Seven of eight gates pass; late-time 36-vs40 fractional-bit velocity difference0.366107 exceeds fixed1e-5. 96^3 warm1053–1054MLUPS,10.68–10.69% of measured large-copy memory roof. Experimental/unpromoted; reports/lbm3d_mrt_les_v1/summary.json. |
+| src/kernel_engine/lbm/lbm3d_mrt_les.py | OWN-GATE-FAIL | H100 D3Q19 Hermite MRT+Smag optional mode: BGK fails320; MRT stable4096 twice with exact integer mass/momentum and all39,845,888B repeat. Seven of eight gates pass; 36-vs40 fractional-bit velocity difference5.1918e-5 remains above fixed1e-5 (raw MRT0.366107). 1054–1055MLUPS,10.75–10.76% large-copy memory roof. Raw mode retained; reports/lbm3d_hermite_mrt_les_v1/summary.json. |
 | src/kernel_engine/_vendor/goal_oriented_culling.py | VERIFIED-FRESH |  |
 | src/kernel_engine/_vendor/lastfalt_v1_fem.py | VERIFIED-FRESH |  |
 | src/kernel_engine/_vendor/render_match_scaffold.py | SYNTHETIC-ONLY |  |
@@ -1683,3 +1683,28 @@ Seven focused local CPU tests pass; chained remote pytest did not execute after
 the expected nonzero gate verdict. No local CUDA job/context, README edits or push.
 Next target: a justified precision diagnostic separating early-time discretization
 error from late-time chaotic decorrelation; this negative remains archived.
+
+E 2026-09-14 continuation: diagnosed raw MRT and added optional Hermite MRT,
+OWN-GATE-FAIL7/8 retained. Existing trajectory energy grows after its minimum;
+this prompted an independent linear Fourier analysis rather than attributing
+the precision failure to chaos. At tau=0.5001 about rho=1,u=0,4913 wavevectors
+in[0,pi]^3 give raw MRT maximum spectral radius1.003712604 with252 vectors
+above1+1e-10. Setting only the bulk rate to1 worsens the maximum to1.005317006
+(312vectors), rejected before GPU. Hermite projection of the nine higher-moment
+rows gives maximum1+1.6e-15 and no unstable vectors in this scan. This is an
+infinitesimal rest-state diagnosis, not a proof of finite-flow LES stability.
+
+Only optional host-supplied moment matrices change; the fused Warp kernel,
+first ten moments, viscosity, Cs, fixed-point correction, grid and original
+eight thresholds are unchanged. Independent tests prove the matrix collision
+equals the conserved-plus-second-order Hermite projection and compare the fused
+step against the explicit population projection. Nine focused CPU tests pass.
+On H100 the full4096step64^3 case passes stability, mass/momentum exactness,
+all39,845,888B and64checkpoint repeat records; BGK again fails320 with its
+previous complete state hash unchanged. The fixed36-vs40fraction-bit precision
+error improves0.366107->5.191834e-5 (7052x) but still fails1e-5. Analytical shear
+error0.5594%; warm96^3 throughput1054–1055MLUPS,10.75–10.76% measured memory
+copy roof. No gate relaxation, promotion, local GPU job or push. The raw mode
+remains the default experimental control. Receipts and energy-history summaries:
+reports/lbm3d_hermite_mrt_les_v1/; linear analysis:
+reports/lbm3d_mrt_spectrum_v1/. Channel and draft-tube work remain gated.

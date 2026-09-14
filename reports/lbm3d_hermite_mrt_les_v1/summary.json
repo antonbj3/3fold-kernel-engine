@@ -1,0 +1,38 @@
+{
+  "status": "OWN-GATE-FAIL",
+  "gates": {
+    "shear": true,
+    "bgk_blows_up": true,
+    "mrt_stable": true,
+    "mass_and_momentum_exact": true,
+    "full_repeat_exact": true,
+    "precision": false,
+    "three_dimensional": true,
+    "throughput_valid": true
+  },
+  "raw_energy_history": {
+    "minimum_energy": 0.0007538701760669969,
+    "minimum_at_step": 1280,
+    "final_energy": 0.0020213084175960275,
+    "final_over_minimum": 2.681242051703598,
+    "largest_positive_checkpoint_increment": 9.721603371739065e-05
+  },
+  "hermite_energy_history": {
+    "minimum_energy": 0.00011526725427998233,
+    "minimum_at_step": 4096,
+    "final_energy": 0.00011526725427998233,
+    "final_over_minimum": 1.0,
+    "largest_positive_checkpoint_increment": 0
+  },
+  "precision_difference_before": 0.36610729158564476,
+  "precision_difference_after": 5.191834127308854e-05,
+  "precision_error_reduction_factor": 7051.598387165994,
+  "interpretation": "Raw MRT has a linear instability about rest and late-time unforced energy regrowth. Hermite ghost-row projection removes the measured rest-state unstable Fourier modes; it does not prove general nonlinear stability. The same full-case precision gate still fails, so the channel remains blocked.",
+  "change": "Only the nine higher-moment basis rows and their inverse transform change in optional hermite_mrt mode. The fused Warp kernel AST, first ten moments, six viscosity relaxation rates, Smagorinsky formula, int64 rounding correction and old raw mode are unchanged.",
+  "controls": "9 focused CPU tests pass, including independent Hermite population projection versus fused step and conservation/repeats in all three modes. H100 original eight gates repeated, seven pass. BGK final state hash unchanged from first experiment.",
+  "next_target": "Quantify precision convergence over the trajectory with unchanged numerical thresholds; consider finer fixed-point storage only after its int64 ledger range is bounded. No channel, draft tube or refinement result claimed.",
+  "sources": [
+    "https://arxiv.org/abs/physics/0506157",
+    "https://arxiv.org/abs/1904.12948"
+  ]
+}

@@ -10,6 +10,11 @@ streaming is a permutation; optional solid links use halfway bounce-back.
 The basis follows the raw polynomial construction in Li et al. (2019), equations
 7–10, with an equivalent ordering of third-order moments:
 https://discovery.ucl.ac.uk/10076000/1/Luo%202019%20Computers%20and%20Fluids%20Accepted.pdf
+The optional hermite_mrt mode projects the nine higher raw-moment rows onto
+the complement of the conserved and second-order Hermite subspaces. It is
+algebraically equivalent to a second-order Hermite MRT with higher rates one
+(projected regularization); see https://arxiv.org/abs/physics/0506157.
+The original raw-moment mode remains available as the failed control.
 All six second-order moments share the effective viscosity relaxation rate;
 the nine higher moments relax at one. This is MRT, not cumulant collision.
 Smagorinsky uses the Frobenius norm of the nonequilibrium stress, with
@@ -33,6 +38,13 @@ r2 = x*x+y*y+z*z
 M = np.array([np.ones(19),x,y,z,r2,3*x*x-r2,y*y-z*z,x*y,x*z,y*z,
               x*y*y,x*z*z,y*x*x,y*z*z,z*x*x,z*y*y,x*x*y*y,x*x*z*z,y*y*z*z])
 MI = np.linalg.inv(M)
+# Population-space projectors at rest. Orthogonalize only the ghost rows;
+# the first ten moment definitions used by the stress reconstruction stay exact.
+E_PROJECTOR = W[:,None]*(1+3*(C@C.T))
+P2_PROJECTOR = 4.5*W[:,None]*((C@C.T)**2-(r2[:,None]+r2[None,:])/3+1/3)
+M_HERMITE = M.copy()
+M_HERMITE[10:] = M[10:]@(np.eye(19)-E_PROJECTOR-P2_PROJECTOR)
+MI_HERMITE = np.linalg.inv(M_HERMITE)
 V19 = wp.types.vector(length=19,dtype=wp.float64)
 I19 = wp.types.vector(length=19,dtype=wp.int64)
 Mat19 = wp.types.matrix(shape=(19,19),dtype=wp.float64)
@@ -176,7 +188,7 @@ class Simulation:
         q = np.asarray(q)
         if q.dtype != np.int64 or q.ndim != 4 or q.shape[0] != 19 or min(q.shape[1:])<2:
             raise ValueError('expected int64 (19,nx,ny,nz), all dimensions >=2')
-        if not np.isfinite([tau,cs]).all() or tau<=0.5 or cs<0 or bits not in (32,36,40) or mode not in ('mrt','bgk'):
+        if not np.isfinite([tau,cs]).all() or tau<=0.5 or cs<0 or bits not in (32,36,40) or mode not in ('mrt','bgk','hermite_mrt'):
             raise ValueError('invalid collision parameters')
         if np.max(np.abs(q.astype(np.float64)))>32*2**bits or np.prod(q.shape[1:])*2**bits>=2**61:
             raise ValueError('population/ledger range exceeded')
@@ -188,8 +200,9 @@ class Simulation:
         self.failure=wp.zeros(1,dtype=wp.int32,device=device)
         self.args=[wp.array(solid,dtype=wp.int32,device=device),wp.array(C,dtype=wp.int32,device=device),
                    wp.array(W,dtype=wp.float64,device=device),wp.array(OPP,dtype=wp.int32,device=device),
-                   Mat19(M),Mat19(MI),wp.float64(tau),wp.float64(cs),wp.float64(2**bits),
-                   int(mode=='mrt'),*self.shape,self.failure]
+                   Mat19(M_HERMITE if mode=='hermite_mrt' else M),
+                   Mat19(MI_HERMITE if mode=='hermite_mrt' else MI),wp.float64(tau),wp.float64(cs),wp.float64(2**bits),
+                   int(mode!='bgk'),*self.shape,self.failure]
     def step(self,steps=1):
         if not isinstance(steps,int) or steps<0: raise ValueError('steps must be nonnegative integer')
         for _ in range(steps):
