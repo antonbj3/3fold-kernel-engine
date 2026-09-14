@@ -1,0 +1,142 @@
+{
+  "scope": "goal reweighting at one measured uniform DNS endpoint; no new PDE solve or certified mesh",
+  "uniform_DNS_passed": true,
+  "input_jacobian_already_tolerance_scaled": true,
+  "source_sha256": "9ea2844963afd0f71edb19d8307a8c67b86c67d0ce609c6a5276c939a4935018",
+  "physical_state": "928994dbbf28b3b1ee0c1fd3d7821b05307dc518663696e0e8f9a34d09f703ef",
+  "goals": {
+    "mean_U_plus_only": {
+      "sensitivities": [
+        0.8688004029332066,
+        0.15014287431265438,
+        0.046298093989744715,
+        0.019746555097641998,
+        0.009252361163898,
+        0.008043980568822185,
+        0.009159904401375875,
+        0.004644425621019985
+      ],
+      "order": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        6,
+        5,
+        7
+      ],
+      "continuous_resources": [
+        2.1089845304935073,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "waterlevel": 6.213698255070261,
+      "model_error_budget_squared": 0.19503656228439137,
+      "model_error_squared": 0.1950365622843913,
+      "two_fine_band_candidate": {
+        "selected_bands": [
+          0,
+          1
+        ],
+        "model_error_squared": 0.014935429775731647,
+        "wall_prefix_model_error_squared": 0.014935429775731647,
+        "fine_equivalent_cell_fraction": 0.34375
+      }
+    },
+    "Reynolds_stresses_only": {
+      "sensitivities": [
+        1.4092773467199335,
+        1.1193534321406853,
+        0.822975641789588,
+        0.6073351294330479,
+        0.4275542041599797,
+        0.3277570301085756,
+        0.249022352474446,
+        0.2234391979477135
+      ],
+      "order": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "continuous_resources": [
+        2.7228463061108803,
+        2.3352693034741057,
+        1.9023195363837269,
+        1.5534993720352466,
+        1.2293803522106672,
+        1.0297382008182816,
+        1.0,
+        1.0
+      ],
+      "waterlevel": 5.082137908947442,
+      "model_error_budget_squared": 1.1718310219843602,
+      "model_error_squared": 1.1718310219843602,
+      "two_fine_band_candidate": {
+        "selected_bands": [
+          0,
+          1
+        ],
+        "model_error_squared": 1.4989189473209443,
+        "wall_prefix_model_error_squared": 1.4989189473209443,
+        "fine_equivalent_cell_fraction": 0.34375
+      }
+    },
+    "mean_and_stresses": {
+      "sensitivities": [
+        1.6555593556604598,
+        1.1293781424978957,
+        0.8242769076506193,
+        0.6076560588702143,
+        0.42765430394417964,
+        0.3278557249904069,
+        0.24919076202891144,
+        0.22348746244222892
+      ],
+      "order": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "continuous_resources": [
+        2.816805268140218,
+        2.1828299599640806,
+        1.7694667619490516,
+        1.4439945101718705,
+        1.1424982719184367,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "waterlevel": 4.077096263139613,
+      "model_error_budget_squared": 1.3668675842687514,
+      "model_error_squared": 1.3668675842687512,
+      "two_fine_band_candidate": {
+        "selected_bands": [
+          0,
+          1
+        ],
+        "model_error_squared": 1.5138543770966764,
+        "wall_prefix_model_error_squared": 1.5138543770966764,
+        "fine_equivalent_cell_fraction": 0.34375
+      }
+    }
+  },
+  "limitation": "Only goals formed from the measured observables at this state/horizon are covered. New geometry or operating point requires additional sensitivity evidence."
+}

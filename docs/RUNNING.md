@@ -1895,3 +1895,21 @@ rejection of altered interior checkpoint hashes/statistics. No active job was
 restarted. Inputs upload with the source snapshot; no old volumes required.
 Separate bulk/shear refinement transfer is not yet implemented, so the current
 shared-tau refined driver still rejects this bulk-tau1 reference. No push.
+
+
+RUNNING E 2026-09-14 accepted-resolution sensitivity COMPLETE:
+H100 replay reproduces all12 checkpoint fullstatehashes and sampled integer
+statistics exactly; all7 original DNS gates pass again. All32 endpoint probes
+pass exact population conservation/state checks. Maximum derivative-amplitude
+relative difference2.03044e-5 (0.002031pct) is below unchanged5pct threshold.
+Sensitivity order is strictly wall-to-core [0,1,2,3,4,5,6,7]. Reweighting for
+mean velocity alone, Reynolds stresses alone, and their combined goal all
+select wall bands0/1. The conditional two-level candidate retains12fine cells
+at each wall,34.375pct of uniform active cells. This is a local response-model
+prediction, not a validated refined mesh or measured solver speedup.
+Receipts: reports/lbm3d_resolution_{replay,sensitivity}_v1/20260914T110349Z/
+and reports/lbm3d_resolution_goal_reweighting_v1/report.json.
+Next target: separate trace/shear relaxation in the two-level population
+transfer, with independent physical scaling and CPU/GPU parity gates before
+this bulk-tau1 refined channel can be admitted. Existing shared-tau transfer
+cannot be used as-is. H100 app finished/fetched; no local GPU use or push.
