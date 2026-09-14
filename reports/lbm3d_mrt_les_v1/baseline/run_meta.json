@@ -1,0 +1,12 @@
+{
+  "repo": "3fold-kernel-e-lbm-check",
+  "cmd": "OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 PYTHONPATH=src python measure_lbm_baseline.py",
+  "gpu": "NVIDIA H100 80GB HBM3, 81559 MiB, 580.95.05",
+  "rc": 0,
+  "seconds": 2.7,
+  "stamp": "20260914T080736Z",
+  "files": [
+    "reports/lbm_baseline_profile.json"
+  ],
+  "extras": []
+}

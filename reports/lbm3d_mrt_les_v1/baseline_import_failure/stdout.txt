@@ -1,0 +1,20 @@
+Traceback (most recent call last):
+  File "/work/3fold-kernel-e-lbm-check/profile.py", line 4, in <module>
+    import warp as wp
+  File "/usr/local/lib/python3.12/site-packages/warp/__init__.py", line 318, in <module>
+    from warp._src.utils import map as map
+  File "/usr/local/lib/python3.12/site-packages/warp/_src/utils.py", line 6, in <module>
+    import cProfile
+  File "/usr/local/lib/python3.12/cProfile.py", line 12, in <module>
+    import profile as _pyprofile
+  File "/work/3fold-kernel-e-lbm-check/profile.py", line 5, in <module>
+    from kernel_engine.lbm import lbm3d_gpu as b
+  File "/work/3fold-kernel-e-lbm-check/src/kernel_engine/lbm/lbm3d_gpu.py", line 23, in <module>
+    wp.init()
+  File "/usr/local/lib/python3.12/site-packages/warp/_src/context.py", line 15521, in init
+    runtime = Runtime()
+              ^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/warp/_src/context.py", line 8183, in __init__
+    if not warp.config.quiet and warp.config.log_level <= warp.LOG_INFO:
+                                                          ^^^^^^^^^^^^^
+AttributeError: partially initialized module 'warp' has no attribute 'LOG_INFO' (most likely due to a circular import)

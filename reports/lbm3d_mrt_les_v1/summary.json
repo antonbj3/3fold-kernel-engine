@@ -1,0 +1,32 @@
+{
+  "status": "OWN-GATE-FAIL",
+  "scope": "D3Q19 collision experiment; channel and draft tube not started",
+  "passed_gates": [
+    "shear",
+    "bgk_blows_up",
+    "mrt_stable",
+    "mass_and_momentum_exact",
+    "full_repeat_exact",
+    "three_dimensional",
+    "throughput_valid"
+  ],
+  "failed_gates": [
+    "precision"
+  ],
+  "precision_max_velocity_difference": 0.36610729158564476,
+  "interpretation": "A pointwise late-time precision comparison of chaotic trajectories failed. This does not alone establish incorrect turbulent statistics. The preregistered gate is retained; no precision-convergence or channel-validation claim is made.",
+  "failures_preserved": [
+    "Observer filename profile.py shadowed the standard library; renamed without solver edits.",
+    "128^3 throughput setup exceeded the conservative initial ledger size guard; measured 96^3 instead, still beyond L2. The complete physical cases were repeated unchanged."
+  ],
+  "quantization": "int64 populations at 2^-40, float64 collision, local correction conserves integer mass and momentum; alternative 2^-36 sensitivity run",
+  "baseline_comparison": "Existing float32 BGK 64^3 timing and new int64 MRT 96^3 timing have different collision, precision and size. Not a paired speedup claim.",
+  "roofline_limit": "Measured fraction of large-copy bandwidth with logical population traffic only. No hardware-counter traffic, compute roof, or full roofline measured.",
+  "validation": "Seven focused CPU tests passed locally. H100 full experiment executed; chained remote pytest skipped because the experiment returned its negative gate status.",
+  "next_target": "Review a physically justified precision-convergence test that separates short-time truncation error from long-time chaotic decorrelation; keep this failed receipt unchanged. Channel Re_tau180 remains gated.",
+  "sources": [
+    "https://discovery.ucl.ac.uk/10076000/1/Luo%202019%20Computers%20and%20Fluids%20Accepted.pdf",
+    "https://www.openlb.net/DoxyGen/html/d7/dcf/collisionLES_8h_source.html"
+  ],
+  "source_sha256": "5c253859bd3a5b4f221430100e747e8f7471af1099e01ced728d3ca44458852c"
+}

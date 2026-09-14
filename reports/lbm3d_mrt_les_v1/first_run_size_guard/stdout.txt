@@ -1,0 +1,25 @@
+Warp 1.17.0 initialized:
+   CUDA Toolkit 12.9, Driver 13.0
+   Devices:
+     "cpu"      : "x86_64"
+     "cuda:0"   : "NVIDIA H100 80GB HBM3" (79 GiB, sm_90, mempool enabled)
+   Kernel cache:
+     /root/.cache/warp/1.17.0
+Module kernel_engine.lbm.lbm3d_mrt_les a3f7fdb load on device 'cuda:0' took 1725.64 ms  (compiled)
+{"shear_decay": {"amplitude": 0.02104854286774385, "analytic": 0.021166951203105924, "relative_error": 0.005594019385498528, "ledger_exact": true, "failure": 0}}
+{"run": "bgk", "steps": 320, "setup_s": 0.075253193, "full_run_s": 0.36076332300000047, "initial": {"rho_min": 0.9549999999999272, "rho_max": 1.0450000000000728, "max_speed": 0.1999999999998181, "energy": 0.004999999999998998, "max_uz": 0.0}, "initial_ledger": [288230376151711744, 0, 0, 0], "failed": true, "stable": false, "ledger_exact": true, "final_sha256": "1dd7ae1ed0d3d2b61b14bec1a87d8996baf004bb6e786401da484d4b5afb942b"}
+{"run": "mrt_first", "steps": 4096, "setup_s": 0.03480390399999855, "full_run_s": 4.912286627, "initial": {"rho_min": 0.9549999999999272, "rho_max": 1.0450000000000728, "max_speed": 0.1999999999998181, "energy": 0.004999999999998998, "max_uz": 0.0}, "initial_ledger": [288230376151711744, 0, 0, 0], "failed": false, "stable": true, "ledger_exact": true, "final_sha256": "f267a300984618523599b2f3a49f269b428822e68f2f27d0a8e9ff184af45c0f"}
+{"run": "mrt_repeat", "steps": 4096, "setup_s": 0.03459555399999914, "full_run_s": 4.936506282, "initial": {"rho_min": 0.9549999999999272, "rho_max": 1.0450000000000728, "max_speed": 0.1999999999998181, "energy": 0.004999999999998998, "max_uz": 0.0}, "initial_ledger": [288230376151711744, 0, 0, 0], "failed": false, "stable": true, "ledger_exact": true, "final_sha256": "f267a300984618523599b2f3a49f269b428822e68f2f27d0a8e9ff184af45c0f"}
+{"run": "mrt_precision36", "steps": 4096, "setup_s": 0.05605559600000021, "full_run_s": 5.023306041000001, "initial": {"rho_min": 0.9550000000017462, "rho_max": 1.0449999999982538, "max_speed": 0.19999999999708962, "energy": 0.0050000000000042545, "max_uz": 0.0}, "initial_ledger": [18014398509481984, 1, -1, 0], "failed": false, "stable": true, "ledger_exact": true, "final_sha256": "2632795ca6a2006dd28faccfece66034ee9321220b3074ad9e5a29778abf0f67"}
+Traceback (most recent call last):
+  File "/work/3fold-kernel-e-lbm-check/measure_lbm3d_mrt_les.py", line 124, in <module>
+    if __name__=='__main__':raise SystemExit(main())
+                                             ^^^^^^
+  File "/work/3fold-kernel-e-lbm-check/measure_lbm3d_mrt_les.py", line 114, in main
+    throughput()
+  File "/work/3fold-kernel-e-lbm-check/measure_lbm3d_mrt_les.py", line 81, in throughput
+    q=lb.quantize(lb.equilibrium(np.ones((n,n,n)),np.zeros((3,n,n,n))))
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/work/3fold-kernel-e-lbm-check/src/kernel_engine/lbm/lbm3d_mrt_les.py", line 137, in quantize
+    raise ValueError('initial population/ledger range exceeded')
+ValueError: initial population/ledger range exceeded

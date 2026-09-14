@@ -29,6 +29,7 @@ synthetic inputs. The hardware and decisive values are stated with each new resu
 
 | module | status | note |
 | --- | --- | --- |
+| src/kernel_engine/lbm/lbm3d_mrt_les.py | OWN-GATE-FAIL | H100 D3Q19 MRT+Smagorinsky: BGK fails step320; MRT completes4096 twice, all4,980,736 int64 populations and64 checkpoint records repeat exactly, integer mass/momentum exact. Seven of eight gates pass; late-time 36-vs40 fractional-bit velocity difference0.366107 exceeds fixed1e-5. 96^3 warm1053–1054MLUPS,10.68–10.69% of measured large-copy memory roof. Experimental/unpromoted; reports/lbm3d_mrt_les_v1/summary.json. |
 | src/kernel_engine/_vendor/goal_oriented_culling.py | VERIFIED-FRESH |  |
 | src/kernel_engine/_vendor/lastfalt_v1_fem.py | VERIFIED-FRESH |  |
 | src/kernel_engine/_vendor/render_match_scaffold.py | SYNTHETIC-ONLY |  |
@@ -1647,3 +1648,38 @@ changing timing boundaries would not close this batch gate. No RT source change
 or GPU rerun was made for this bound.
 
 E 2026-09-13: Vulkan denormal-preservation attempt CLOSED on measured capability refusal. The unchanged existing feature inventory ran under the shared flock in0.1128s and found one hardware device with float32 preservation0; this is inventory latency, not kernel timing. The requested execution mode is prohibited by https://docs.vulkan.org/spec/latest/appendices/spirvenv.html#VUID-RuntimeSpirv-shaderDenormPreserveFloat32-06297. Gate-1 was not rerun with an unsupported mode. Historical full-size subnormal mismatches64/1024/2048/2048 remain; no tolerance/domain change, runtime implementation, README edit or push. Stop after this negative; Hankel-on-device not started.
+
+E 2026-09-14: D3Q19 turbulence collision experiment, OWN-GATE-FAIL (7/8).
+The new sibling uses the lattice ordering and one-thread-per-voxel fused push
+layout of lbm3d_gpu.py; the brief's lbm_voxel_aero_gpu.py reference is D2Q9 and
+was not used as a 3D solver. Raw-moment MRT (not cumulant), configurable Cs=0.1,
+float64 collision and int64 population storage at 2^-40. Local rounding residuals
+are corrected before streaming, conserving actual stored mass and momentum;
+the ledger is not a rounded floating mass diagnostic. Existing aero files unchanged.
+
+Fixed 64^3 three-dimensional Taylor–Green, u0=0.2, tau=0.5001,4096steps,
+checks every64: BGK without LES fails at320 (density -66.94..85.79, sticky
+invalid-population flag); MRT completes twice in4.212/4.207s including every
+checkpoint readback/ledger/diagnostic. All39,845,888 final population bytes and
+64 complete diagnostic records match, with zero integer mass/momentum drift.
+Final MRT density0.89788..1.10183 and max z velocity0.25317 demonstrate this is
+not an extruded 2D solution. The analytical 3D shear decay differs0.5594% (<2%).
+The 2^-36 run remains stable and conservative, but its complete late-time
+velocity differs0.366107 from2^-40, exceeding the preregistered1e-5. Chaotic
+trajectory separation is a possible explanation, not proof of either correct
+statistics or numerical error; no gate relaxation or precision-convergence claim.
+This extra precision gate blocks promotion and channel/draft-tube/refinement work.
+
+Timing: existing unmodified float32 BGK64^3/200steps measured5484–5519MLUPS;
+new int64 MRT96^3/100steps measured1053–1054MLUPS,320.12–320.40GB/s logical
+population traffic (304B/update). Two256MiB buffers give2995.94–2996.13GB/s
+copy bandwidth, so10.68–10.69% of that memory roof. This is not a full compute
+roofline or a paired speedup comparison: precision, model and grid differ.
+First observer failed before launch by shadowing stdlib profile; renamed only.
+First complete physics run then hit the conservative size guard at128^3 in the
+throughput setup; that receipt is retained. Only throughput size changed to96^3,
+still beyond L2, and the fixed physics cases reran unchanged with identical hashes.
+Seven focused local CPU tests pass; chained remote pytest did not execute after
+the expected nonzero gate verdict. No local CUDA job/context, README edits or push.
+Next target: a justified precision diagnostic separating early-time discretization
+error from late-time chaotic decorrelation; this negative remains archived.
