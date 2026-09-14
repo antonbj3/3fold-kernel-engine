@@ -1,0 +1,104 @@
+{
+  "scope": "Traceable, conditional CPU cost model; not an OpenFOAM benchmark.\n\nThe only timing anchor is a published 2017 tutorial run. Hardware uplift,\nrequired target mesh and strong-scaling efficiency are assumptions. The\nscenario spread is not a statistical confidence interval or accuracy proof.\n",
+  "timing_anchor": {
+    "cpu": "Intel Core i7-2600 3.40GHz",
+    "ranks": 4,
+    "cells": 60000,
+    "wall_seconds": 777.06,
+    "physical_end_time": 1000,
+    "delta_t": 0.2,
+    "steps": 5000,
+    "timing_url": "https://www.xsim.info/articles/OpenFOAM/en-US/tutorials/incompressible-pimpleFoam-channel395.html",
+    "control_url": "https://raw.githubusercontent.com/OpenFOAM/OpenFOAM-4.x/master/tutorials/incompressible/pimpleFoam/channel395/system/controlDict",
+    "mesh_url": "https://raw.githubusercontent.com/OpenFOAM/OpenFOAM-4.x/master/tutorials/incompressible/pimpleFoam/channel395/system/blockMeshDict",
+    "solution_url": "https://raw.githubusercontent.com/OpenFOAM/OpenFOAM-4.x/master/tutorials/incompressible/pimpleFoam/channel395/system/fvSolution",
+    "limitations": "Different Reynolds number, 2017 hardware/software, single reported timing, no raw solver log; mapping to5000steps assumes the documented stock tutorial settings. Timing may include output/other overhead."
+  },
+  "historical_core_seconds_per_cell_step": 1.0360799999999999e-05,
+  "assumptions": {
+    "outer_times": 30,
+    "domain_x_over_h": 6,
+    "representative_advecting_velocity_over_u_tau": 20,
+    "CFL": 0.5,
+    "modern_per_core_speedup_over_anchor": 3,
+    "hardware_speedup_sensitivity": [
+      2,
+      4
+    ],
+    "parallel_efficiency_at_target": 0.7,
+    "efficiency_sensitivity": [
+      0.5,
+      0.85
+    ],
+    "target_seconds": 660,
+    "CFL_and_solver_source": "https://journal.openfoam.com/index.php/ofj/article/download/159/186/4425",
+    "target_meshes_are_not_accuracy_validated": true,
+    "hardware_note": "A modern EPYC-class CPU is intended, but 2-4x is an assumed sensitivity range, not a measured architectural conversion or GHz ratio.",
+    "timestep_note": "Streamwise advective CFL estimate; ignores transient velocity peaks and other-direction flux contributions. No claim all grids meet accuracy at this timestep.",
+    "scaling_note": "Assumed efficiency can fail at high rank counts; calculated ranks do not establish that the deadline is attainable."
+  },
+  "scenarios": [
+    {
+      "label": "coarse_screen_only",
+      "shape": [
+        64,
+        64,
+        64
+      ],
+      "cells": 262144,
+      "estimated_OpenFOAM_steps": 12800,
+      "dx_plus": 16.875,
+      "dz_plus": 8.4375,
+      "historical_equivalent_core_hours": 9.6569655296,
+      "assumed_modern_core_hours": 3.2189885098666666,
+      "idealized_32core_minutes": 6.0356034560000005,
+      "conditional_cores_for11min": 25.083027349610393,
+      "cores_sensitivity_hardware_and_efficiency_only": [
+        15.492458068877005,
+        52.674357434181815
+      ]
+    },
+    {
+      "label": "near_DNS_wall_parallel_spacing",
+      "shape": [
+        128,
+        96,
+        96
+      ],
+      "cells": 1179648,
+      "estimated_OpenFOAM_steps": 25600,
+      "dx_plus": 8.4375,
+      "dz_plus": 5.625,
+      "historical_equivalent_core_hours": 86.91268976639999,
+      "assumed_modern_core_hours": 28.9708965888,
+      "idealized_32core_minutes": 54.320431104,
+      "conditional_cores_for11min": 225.74724614649352,
+      "cores_sensitivity_hardware_and_efficiency_only": [
+        139.43212261989305,
+        474.06921690763636
+      ]
+    },
+    {
+      "label": "LBM_uniform_cell_count_control",
+      "shape": [
+        288,
+        96,
+        144
+      ],
+      "cells": 3981312,
+      "estimated_OpenFOAM_steps": 57600,
+      "dx_plus": 3.75,
+      "dz_plus": 3.75,
+      "historical_equivalent_core_hours": 659.9932379136,
+      "assumed_modern_core_hours": 219.99774597119995,
+      "idealized_32core_minutes": 412.4957736959999,
+      "conditional_cores_for11min": 1714.268150424935,
+      "cores_sensitivity_hardware_and_efficiency_only": [
+        1058.8126811448126,
+        3599.963115892363
+      ]
+    }
+  ],
+  "conclusion": "Useful for selecting benchmark resources, not a speedup claim. The target mesh that meets the requested error bars is the dominant unresolved choice; CPU pilot or independent matching validated logs still required.",
+  "published_mesh_guidance": "Mukha/Parsani2026 discuss DNS wall-parallel dx+~10,dz+~5 and LES~25,10. This motivates scenarios only, not acceptance under our exact profile/stationarity limits."
+}

@@ -1,0 +1,146 @@
+{
+  "scope": "64^3 TGV u0=.2 tau=.5001 Cs=.1, FP32 collision against FP64, int64 40fractionbit storage and repair retained; not turbulent channel validation",
+  "candidate": "shifted32",
+  "device": "NVIDIA GeForce RTX 5070",
+  "velocity_absolute_limit": 1e-05,
+  "passed": false,
+  "history": [
+    {
+      "step": 64,
+      "velocity_max_abs_error": 4.2653027193528814e-08,
+      "density_max_abs_error": 4.6115019358694553e-08,
+      "repeat_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true,
+      "stable": true
+    },
+    {
+      "step": 128,
+      "velocity_max_abs_error": 5.4861787793236694e-08,
+      "density_max_abs_error": 4.7031790018081665e-08,
+      "repeat_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true,
+      "stable": true
+    },
+    {
+      "step": 192,
+      "velocity_max_abs_error": 1.0277160679417197e-07,
+      "density_max_abs_error": 4.185312718618661e-08,
+      "repeat_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true,
+      "stable": true
+    },
+    {
+      "step": 256,
+      "velocity_max_abs_error": 1.5295911046098176e-07,
+      "density_max_abs_error": 9.307768777944148e-08,
+      "repeat_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true,
+      "stable": true
+    },
+    {
+      "step": 320,
+      "velocity_max_abs_error": 2.6577968841728916e-07,
+      "density_max_abs_error": 9.600262274034321e-08,
+      "repeat_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true,
+      "stable": true
+    },
+    {
+      "step": 384,
+      "velocity_max_abs_error": 7.170366508393866e-07,
+      "density_max_abs_error": 2.6891575544141233e-07,
+      "repeat_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true,
+      "stable": true
+    },
+    {
+      "step": 448,
+      "velocity_max_abs_error": 1.6528255493419852e-06,
+      "density_max_abs_error": 4.972598617314361e-07,
+      "repeat_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true,
+      "stable": true
+    },
+    {
+      "step": 512,
+      "velocity_max_abs_error": 3.0559641584528008e-06,
+      "density_max_abs_error": 5.526408131117932e-07,
+      "repeat_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true,
+      "stable": true
+    },
+    {
+      "step": 576,
+      "velocity_max_abs_error": 4.625106107179755e-06,
+      "density_max_abs_error": 9.093218977795914e-07,
+      "repeat_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true,
+      "stable": true
+    },
+    {
+      "step": 640,
+      "velocity_max_abs_error": 4.8672715360770225e-06,
+      "density_max_abs_error": 6.252930688788183e-07,
+      "repeat_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true,
+      "stable": true
+    },
+    {
+      "step": 704,
+      "velocity_max_abs_error": 6.771322596007233e-06,
+      "density_max_abs_error": 8.161487130564637e-07,
+      "repeat_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true,
+      "stable": true
+    },
+    {
+      "step": 768,
+      "velocity_max_abs_error": 9.438283959835314e-06,
+      "density_max_abs_error": 8.985271051642485e-07,
+      "repeat_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true,
+      "stable": true
+    },
+    {
+      "step": 832,
+      "velocity_max_abs_error": 1.223899861437297e-05,
+      "density_max_abs_error": 1.1575830285437405e-06,
+      "repeat_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true,
+      "stable": true
+    }
+  ],
+  "timing_scope": "96^3 TGV,64steps per timing, diagnostic only if precision fails",
+  "seconds": [
+    [
+      0.7488042610057164,
+      0.7497334020154085
+    ],
+    [
+      0.13135089600109495,
+      0.13572034201934002
+    ]
+  ],
+  "diagnostic_speedups": [
+    5.700792943197542,
+    5.5241048678507765
+  ],
+  "elapsed_seconds": 10.560115203988971,
+  "source_sha256": {
+    "scripts/measure_lbm3d_fp32.py": "976da9e4636c2f55c751c68a5c9c949bdaf13bca3537ca6e1cb33fef15e236a8",
+    "src/kernel_engine/lbm/lbm3d_channel_shifted32.py": "a09fbc254df52a2e8f6b07565f3c300e494c8bc6a10b0f11f186ffb126c62dda"
+  }
+}

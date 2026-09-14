@@ -9,10 +9,13 @@ from kernel_engine.lbm.lbm3d_channel_fp32 import FP32ChannelSimulation
 from measure_lbm3d_mrt_les import initial,metrics
 
 
-def main(mixed=False,hermite=False):
+def main(mixed=False,hermite=False,shifted=False,regularized=False,regularized32=False):
+    from kernel_engine.lbm.lbm3d_channel_regularized64 import Regularized64ChannelSimulation
+    from kernel_engine.lbm.lbm3d_channel_regularized32 import Regularized32ChannelSimulation
+    from kernel_engine.lbm.lbm3d_channel_shifted32 import Shifted32ChannelSimulation
     from kernel_engine.lbm.lbm3d_channel_hermite32 import Hermite32ChannelSimulation
     from kernel_engine.lbm.lbm3d_channel_mixed import MixedChannelSimulation
-    candidate=Hermite32ChannelSimulation if hermite else MixedChannelSimulation if mixed else FP32ChannelSimulation
+    candidate=Regularized32ChannelSimulation if regularized32 else Regularized64ChannelSimulation if regularized else Shifted32ChannelSimulation if shifted else Hermite32ChannelSimulation if hermite else MixedChannelSimulation if mixed else FP32ChannelSimulation
     q=lb.quantize(initial());original=lb.ledger(q);initial_energy=metrics(q,40)['energy']
     opts=dict(force_density=0.,tau=.5001,cs=.1,bulk_tau=1.,recursive=True,device='cuda:0')
     sims=[cls(q,**opts) for cls in (SpecializedChannelSimulation,candidate,candidate)]
@@ -38,15 +41,15 @@ def main(mixed=False,hermite=False):
         for i in order:
             start=time.perf_counter();timed[i].step(64);wp.synchronize_device('cuda:0');durations[i].append(time.perf_counter()-start)
     result={'scope':'64^3 TGV u0=.2 tau=.5001 Cs=.1, FP32 collision against FP64, int64 40fractionbit storage and repair retained; not turbulent channel validation',
-            'candidate':'hermite32' if hermite else 'mixed_transforms' if mixed else 'fp32_collision','device':wp.get_device('cuda:0').name,'velocity_absolute_limit':1e-5,'passed':numerical,'history':history,
+            'candidate':'regularized32' if regularized32 else 'regularized64' if regularized else 'shifted32' if shifted else 'hermite32' if hermite else 'mixed_transforms' if mixed else 'fp32_collision','device':wp.get_device('cuda:0').name,'velocity_absolute_limit':1e-5,'passed':numerical,'history':history,
             'timing_scope':'96^3 TGV,64steps per timing, diagnostic only if precision fails','seconds':durations,'diagnostic_speedups':[a/b for a,b in zip(*durations)],
-            'elapsed_seconds':time.perf_counter()-started,'source_sha256':{str(p):hashlib.sha256(p.read_bytes()).hexdigest() for p in [Path('scripts/measure_lbm3d_fp32.py'),Path('src/kernel_engine/lbm/lbm3d_channel_hermite32.py' if hermite else 'src/kernel_engine/lbm/lbm3d_channel_mixed.py' if mixed else 'src/kernel_engine/lbm/lbm3d_channel_fp32.py')]}}
-    p=Path('reports/lbm3d_hermite32_v1/report.json' if hermite else 'reports/lbm3d_mixed_v1/report.json' if mixed else 'reports/lbm3d_fp32_v1/report.json');p.parent.mkdir(parents=True,exist_ok=True);p.write_text(json.dumps(result,indent=2)+'\n')
+            'elapsed_seconds':time.perf_counter()-started,'source_sha256':{str(p):hashlib.sha256(p.read_bytes()).hexdigest() for p in [Path('scripts/measure_lbm3d_fp32.py'),Path('src/kernel_engine/lbm/lbm3d_channel_regularized32.py' if regularized32 else 'src/kernel_engine/lbm/lbm3d_channel_regularized64.py' if regularized else 'src/kernel_engine/lbm/lbm3d_channel_shifted32.py' if shifted else 'src/kernel_engine/lbm/lbm3d_channel_hermite32.py' if hermite else 'src/kernel_engine/lbm/lbm3d_channel_mixed.py' if mixed else 'src/kernel_engine/lbm/lbm3d_channel_fp32.py')]}}
+    p=Path('reports/lbm3d_regularized32_v1/report.json' if regularized32 else 'reports/lbm3d_regularized64_v1/report.json' if regularized else 'reports/lbm3d_shifted32_v1/report.json' if shifted else 'reports/lbm3d_hermite32_v1/report.json' if hermite else 'reports/lbm3d_mixed_v1/report.json' if mixed else 'reports/lbm3d_fp32_v1/report.json');p.parent.mkdir(parents=True,exist_ok=True);p.write_text(json.dumps(result,indent=2)+'\n')
     print(json.dumps({'passed':numerical,'last':history[-1],'speedups':result['diagnostic_speedups']}),flush=True)
     return 0 if numerical else 1
 
 if __name__=='__main__':
     import argparse
-    parser=argparse.ArgumentParser();parser.add_argument('--mixed',action='store_true');parser.add_argument('--hermite',action='store_true')
+    parser=argparse.ArgumentParser();parser.add_argument('--mixed',action='store_true');parser.add_argument('--hermite',action='store_true');parser.add_argument('--shifted',action='store_true');parser.add_argument('--regularized',action='store_true');parser.add_argument('--regularized32',action='store_true')
     args=parser.parse_args()
-    raise SystemExit(main(mixed=args.mixed,hermite=args.hermite))
+    raise SystemExit(main(mixed=args.mixed,hermite=args.hermite,shifted=args.shifted,regularized=args.regularized,regularized32=args.regularized32))
