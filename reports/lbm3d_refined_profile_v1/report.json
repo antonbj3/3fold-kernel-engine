@@ -1,0 +1,36 @@
+{
+  "scope": "full-size geometry, smooth initial state, kernel attribution only; not a turbulent throughput benchmark",
+  "device": "NVIDIA GeForce RTX 5070",
+  "macro_steps": 100,
+  "plain_seconds": 10.802644803014118,
+  "kernels": {
+    "forward kernel specialized_collide_stream_50150651": {
+      "calls": 500,
+      "milliseconds": 9626.288695335388
+    },
+    "forward kernel restrict_covered_e4bacf1d": {
+      "calls": 200,
+      "milliseconds": 593.4907827377319
+    },
+    "forward kernel fill_ghost_0194180d": {
+      "calls": 400,
+      "milliseconds": 551.241535782814
+    },
+    "forward kernel apply_balanced_reflux_b24c805a": {
+      "calls": 200,
+      "milliseconds": 13.347776014357805
+    },
+    "forward kernel collect_flux_9246f014": {
+      "calls": 400,
+      "milliseconds": 6.095007988624275
+    },
+    "forward kernel project_reflux_f08bee0e": {
+      "calls": 200,
+      "milliseconds": 4.179392008110881
+    },
+    "forward kernel initialize_flux_6644111a": {
+      "calls": 200,
+      "milliseconds": 1.5075199943967164
+    }
+  }
+}

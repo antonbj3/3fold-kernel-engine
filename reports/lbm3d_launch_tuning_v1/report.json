@@ -1,0 +1,57 @@
+{
+  "scope": "paired full-size refined steps; smooth timing state, no new turbulent validation",
+  "device": "NVIDIA GeForce RTX 5070",
+  "block_dimensions": [
+    256,
+    128,
+    64
+  ],
+  "fine_steps_per_timing": 40,
+  "seconds": [
+    [
+      2.1401244970038533,
+      2.1411889260052703,
+      2.1398288720229175
+    ],
+    [
+      2.084142241976224,
+      2.0865010999841616,
+      2.0882947120117024
+    ],
+    [
+      2.082223768986296,
+      2.0807618240069132,
+      2.0816800059983507
+    ]
+  ],
+  "speedups_over256": {
+    "256": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "128": [
+      1.0268610529070923,
+      1.0262103029907457,
+      1.0246776279778878
+    ],
+    "64": [
+      1.027807159288046,
+      1.0290408547971113,
+      1.0279336237351615
+    ]
+  },
+  "gates": {
+    "full2000step_states_exact": true,
+    "ledgers_and_flags": true,
+    "timed_full_states_exact": true
+  },
+  "faster_all_pairs": {
+    "128": true,
+    "64": true
+  },
+  "source_sha256": {
+    "scripts/measure_lbm3d_launch_tuning.py": "80532c3da840b1283bf6455eb1834984df623dbf8e59eafbad73eae5d15ac3dd",
+    "src/kernel_engine/lbm/lbm3d_channel_specialized.py": "4befcbd9dd31de11fe5f54a3af4f9734d7155a0f8c08c1a15cae34d4f0f91a94"
+  }
+}

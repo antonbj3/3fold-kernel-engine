@@ -1,0 +1,57 @@
+{
+  "scope": "paired full-size refined steps; smooth timing state, no new turbulent validation",
+  "device": "NVIDIA H100 80GB HBM3",
+  "block_dimensions": [
+    256,
+    128,
+    64
+  ],
+  "fine_steps_per_timing": 40,
+  "seconds": [
+    [
+      0.09600453299999856,
+      0.09602371999999804,
+      0.09620257200000282
+    ],
+    [
+      0.09646468200000058,
+      0.09655021800000085,
+      0.09655362399999845
+    ],
+    [
+      0.09948413000000045,
+      0.09943156000000286,
+      0.09941905199999823
+    ]
+  ],
+  "speedups_over256": {
+    "256": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "128": [
+      0.9952298707624204,
+      0.9945468999355049,
+      0.9963641758283911
+    ],
+    "64": [
+      0.9650235972310169,
+      0.9657267772927959,
+      0.9676472473304667
+    ]
+  },
+  "gates": {
+    "full2000step_states_exact": true,
+    "ledgers_and_flags": true,
+    "timed_full_states_exact": true
+  },
+  "faster_all_pairs": {
+    "128": false,
+    "64": false
+  },
+  "source_sha256": {
+    "scripts/measure_lbm3d_launch_tuning.py": "80532c3da840b1283bf6455eb1834984df623dbf8e59eafbad73eae5d15ac3dd",
+    "src/kernel_engine/lbm/lbm3d_channel_specialized.py": "4befcbd9dd31de11fe5f54a3af4f9734d7155a0f8c08c1a15cae34d4f0f91a94"
+  }
+}

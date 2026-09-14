@@ -1,0 +1,36 @@
+{
+  "scope": "full-size geometry, smooth initial state, kernel attribution only; not a turbulent throughput benchmark",
+  "device": "NVIDIA H100 80GB HBM3",
+  "macro_steps": 100,
+  "plain_seconds": 0.47652006600000085,
+  "kernels": {
+    "forward kernel specialized_collide_stream_8e6122d5": {
+      "calls": 500,
+      "milliseconds": 420.5190722644329
+    },
+    "forward kernel restrict_covered_e4bacf1d": {
+      "calls": 200,
+      "milliseconds": 26.51519986987114
+    },
+    "forward kernel fill_ghost_0194180d": {
+      "calls": 400,
+      "milliseconds": 24.55395196378231
+    },
+    "forward kernel apply_balanced_reflux_b24c805a": {
+      "calls": 200,
+      "milliseconds": 4.782463997602463
+    },
+    "forward kernel collect_flux_9246f014": {
+      "calls": 400,
+      "milliseconds": 3.7748480029404163
+    },
+    "forward kernel project_reflux_f08bee0e": {
+      "calls": 200,
+      "milliseconds": 1.8826879942789674
+    },
+    "forward kernel initialize_flux_6644111a": {
+      "calls": 200,
+      "milliseconds": 1.559295997954905
+    }
+  }
+}
