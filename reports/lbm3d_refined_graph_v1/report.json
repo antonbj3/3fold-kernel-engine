@@ -1,0 +1,70 @@
+{
+  "scope": "complete refined-step graph versus specialized launch loop, not DNS validation",
+  "device": "NVIDIA GeForce RTX 5070",
+  "gates": {
+    "interleaved_2000step_states_ledgers_counters_exact": true,
+    "timed_full_states_exact": true,
+    "faster_all_three_pairs": false
+  },
+  "passed": false,
+  "history": [
+    {
+      "fine_steps": 2,
+      "states_exact": true,
+      "conservation_and_flags": true,
+      "counters_exact": true
+    },
+    {
+      "fine_steps": 8,
+      "states_exact": true,
+      "conservation_and_flags": true,
+      "counters_exact": true
+    },
+    {
+      "fine_steps": 12,
+      "states_exact": true,
+      "conservation_and_flags": true,
+      "counters_exact": true
+    },
+    {
+      "fine_steps": 110,
+      "states_exact": true,
+      "conservation_and_flags": true,
+      "counters_exact": true
+    },
+    {
+      "fine_steps": 210,
+      "states_exact": true,
+      "conservation_and_flags": true,
+      "counters_exact": true
+    },
+    {
+      "fine_steps": 2000,
+      "states_exact": true,
+      "conservation_and_flags": true,
+      "counters_exact": true
+    }
+  ],
+  "seconds": [
+    [
+      1.2046251200081315,
+      1.2047769299824722,
+      1.2053139749914408
+    ],
+    [
+      1.2030081080156378,
+      1.2060576520161703,
+      1.2030583010055125
+    ]
+  ],
+  "speedups": [
+    1.0013441405604164,
+    0.9989380921952138,
+    1.0018749498540869
+  ],
+  "capture_and_first_four_fine_steps_seconds": 0.024126884003635496,
+  "source_sha256": {
+    "/home/anton/projects/3fold_staging/3fold-kernel-engine/scripts/measure_lbm3d_refined_graph.py": "fffd6780db26b01d783a367eb29f4ef696931eef31c1627dd52bed8f70feb76b",
+    "src/kernel_engine/lbm/lbm3d_refinement_gpu.py": "7cc2d0d8eb66c450b84931321ac3fd827de5c19990501a3cf27dc76fadb03476"
+  }
+}

@@ -235,6 +235,35 @@ class RefinedChannelGPU(ReferenceRefinedChannel):
         super().__init__(device=device,**kwargs)
         self.device=device
         self.delta=[wp.zeros((19,self.nx//2,self.nz//2),dtype=wp.int64,device=device) for _ in range(2)]
+        self._step_graphs={}
+    def step_many(self,macro_steps,*,use_graph=False):
+        """Advance macro steps, optionally replaying two-step CUDA graphs.
+
+        Two macro steps close every ping-pong buffer cycle. Cache separately
+        for each starting buffer orientation so odd ordinary steps interleave.
+        Capture records launches without advancing populations or counters.
+        """
+        if not isinstance(macro_steps,int) or macro_steps<0:
+            raise ValueError('macro_steps must be a nonnegative integer')
+        if not use_graph:
+            for _ in range(macro_steps):self.step()
+            return
+        if not wp.get_device(self.device).is_cuda:
+            raise ValueError('CUDA graph requires a CUDA device')
+        if macro_steps>=2:
+            key=tuple(s.a.ptr for s in [*self.fine,self.coarse])
+            if key not in self._step_graphs:
+                count=self.steps
+                try:
+                    with wp.ScopedCapture(device=self.device,force_module_load=True) as capture:
+                        self.step();self.step()
+                finally:
+                    self.steps=count
+                self._step_graphs[key]=capture.graph
+            for _ in range(macro_steps//2):
+                wp.capture_launch(self._step_graphs[key])
+                self.steps+=4
+        if macro_steps%2:self.step()
     def step(self):
         c,w=self.coarse.args[1],self.coarse.args[2]
         shared=[wp.float64(self.tf),wp.float64(self.tc),wp.float64(self.gf),wp.float64(self.csf),wp.float64(self.csc),wp.float64(self.bf or 0.),wp.float64(self.bc or 0.),int(self.recursive)]
