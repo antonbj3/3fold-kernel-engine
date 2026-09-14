@@ -1,0 +1,40 @@
+{
+  "scope": "200 steps64^3 warm local throughput, not DNS or old/new numerical equivalence",
+  "device": "NVIDIA GeForce RTX 5070",
+  "modes": {
+    "False": {
+      "seconds": [
+        0.653697330999421,
+        0.6520632070023566
+      ],
+      "MLUPS": [
+        80.203478756511,
+        80.40447526708942
+      ],
+      "hashes": [
+        "79be6e4e181f704c4264ece0c9f23dfdc26314ff36b87f0a18f6a0efeda40dec",
+        "79be6e4e181f704c4264ece0c9f23dfdc26314ff36b87f0a18f6a0efeda40dec"
+      ],
+      "repeat_exact": true,
+      "ledger_and_flags_pass": true
+    },
+    "True": {
+      "seconds": [
+        0.8459577079920564,
+        0.8465571929991711
+      ],
+      "MLUPS": [
+        61.97567503042635,
+        61.93178728333283
+      ],
+      "hashes": [
+        "49f507d5a1078c35734b0ece40a7188f3c75858cc7b1aed8b377915739baa267",
+        "49f507d5a1078c35734b0ece40a7188f3c75858cc7b1aed8b377915739baa267"
+      ],
+      "repeat_exact": true,
+      "ledger_and_flags_pass": true
+    }
+  },
+  "passed": true,
+  "source_sha256": "98389d34fe93eb77fdbeb86a0a186f284e50c5e1335e52a85073630997b38c63"
+}

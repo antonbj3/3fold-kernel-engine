@@ -67,11 +67,12 @@ def test_resident_coupling_matches_reference():
 
 
 @pytest.mark.parametrize('cs',[0.,.1])
-def test_resident_coupling_spatial_flux_and_wall_momentum(cs):
+@pytest.mark.parametrize('recursive',[False,True])
+def test_resident_coupling_spatial_flux_and_wall_momentum(cs,recursive):
     from kernel_engine.lbm.lbm3d_refinement import ReferenceRefinedChannel
     from kernel_engine.lbm.lbm3d_refinement_gpu import RefinedChannelGPU
-    a=ReferenceRefinedChannel(nx=8,height=16,nz=8,wall_cells=4,cs_fine=cs)
-    b=RefinedChannelGPU(device='cpu',nx=8,height=16,nz=8,wall_cells=4,cs_fine=cs)
+    a=ReferenceRefinedChannel(nx=8,height=16,nz=8,wall_cells=4,cs_fine=cs,recursive=recursive)
+    b=RefinedChannelGPU(device='cpu',nx=8,height=16,nz=8,wall_cells=4,cs_fine=cs,recursive=recursive)
     for sa,sb in zip([*a.fine,a.coarse],[*b.fine,b.coarse]):
         q=sa.numpy();x,y,z=np.indices(sa.shape)
         # Vary all momentum components across both periodic directions and the

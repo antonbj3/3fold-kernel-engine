@@ -1836,3 +1836,37 @@ shared-bulk/shear RR ablation is gated on the same tests before its DNS run.
 No claim of recursive DNS validation yet. Initial RR payload omitted the TGV
 helper and failed before GPU launch; missing helper added and snapshot imports
 checked. No localGPU/context/lock, no push, README unchanged.
+
+
+RUNNING E 2026-09-14 recursive specialization and channel continuation:
+H100 compile-time Hermite matrices pass full 4096-step state equality against
+runtime matrices and an independent repeat at all 64 checkpoints, exact integer
+ledgers, and both paired timing gates: 1.2057/1.2069x speedup (1079 to1302MLUPS).
+Local RTX5070 also passes, 1.1374/1.1401x. Both recursive bulk variants pass all
+five stability, precision, shear-decay and repeat gates on H100. Completed
+receipts are under reports/lbm3d_{specialized,recursive_gates,
+recursive_shared_bulk_gates,channel_dns_recursive,
+channel_dns_recursive_shared_bulk}_v1/20260914T102417Z/.
+
+Bulk-tau1 recursive channel remains OWN-GATE-FAIL6/7: log-mean error6.526pct
+exceeds the unchanged5pct limit. Reynolds peak-normalized RMS errors are now
+13.21/10.31/6.41/7.07pct (all below20pct); whole mean, friction and both
+stationarity checks pass. Whole solver/diagnostic throughput1135MLUPS.
+Shared bulk/shear variant fails logmean19.825pct, whole mean and mean
+stationarity, while all four Reynolds stresses pass. No passed uniform control
+or sensitivity-map certification is claimed. Earlier workspace-interrupted
+runs are explicitly retained as interruptions, not physical failures.
+
+Recursive two-level transfer is implemented for shared bulk/shear relaxation.
+Local 2000-fine-step SGS coupling passes full repeated states/history, exact
+mass/impulse and CPU-reference density error <=9.095e-12. Native uneven-grid
+statistics exclude covered coarse cells and ghosts. The prepared refined DNS
+driver rejects unmatched or failed uniform/sensitivity inputs; it has NOT run.
+All43 focused CPU controls pass. Separate bulk-tau1 transfer is not implemented.
+
+Next RUNNING target: one 288x96x144 H100 resolution control, recursive bulk-tau1
+with specialized matrices. Same Re180, domain proportions, Cs,10+20 outer-time
+windows and every original threshold. Spatial and temporal sampling increased
+1.5x; initialization filter3 rather than2cells preserves physical width, but
+the seeded noise is a different realization. No threshold tuning. Resolution
+source: scripts/measure_lbm3d_recursive_resolution.py. No local GPU use, no push.

@@ -39,14 +39,14 @@ def observer(sim,mask,dns_report):
     target_utau=dns.UTAU
     ref_u=np.asarray(dns_report['reference_U_plus']);ref_r=np.asarray(dns_report['reference_reynolds_plus'])[:4]
     scaling=np.r_[np.maximum(.05*ref_u,.1),np.repeat(.2*np.max(np.abs(ref_r),axis=1),dns.H//2)]
-    report={'scope':'finite-horizon coarsening diagnostic on failed DNS control; map not certified',
+    report={'scope':'finite-horizon coarsening diagnostic; map not certified','recursive':sim.recursive,'bulk_tau':sim.bulk_tau,
             'uniform_DNS_passed':dns_report['passed'],'base_state_sha256':hashlib.sha256(base.tobytes()).hexdigest(),
             'diagnostic':diagnostic,'steps_per_probe':256,'sample_every':16,'average_last_steps':128,
             'epsilon':[.125,.0625],'bands':8,'linearity_relative_L2_limit':.05,'probes':[]}
     def save(): (ROOT/'report.json').write_text(json.dumps(report,indent=2)+'\n')
     save()
     def observe(q):
-        s=ChannelSimulation(q,force_density=sim.force_density,tau=dns.TAU,solid=mask,device='cuda:0')
+        s=ChannelSimulation(q,force_density=sim.force_density,tau=dns.TAU,solid=mask,device='cuda:0',recursive=sim.recursive,bulk_tau=sim.bulk_tau)
         initial=lb.ledger(q);stats=wp.zeros((10,dns.H+2),dtype=wp.int64,device='cuda:0')
         for step in range(16,257,16):
             s.step(16)

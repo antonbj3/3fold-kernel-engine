@@ -1,0 +1,433 @@
+{
+  "device": "NVIDIA H100 80GB HBM3",
+  "scope": "same recursive physics, matrix specialization only; no new DNS claim",
+  "gates": {
+    "full4096step_states_exact_including_repeat": true,
+    "integer_ledgers_exact": true,
+    "flags_clear": true,
+    "faster_in_both_pairs": true
+  },
+  "passed": true,
+  "speedup": [
+    1.2056740711646974,
+    1.2068896499380544
+  ],
+  "timings": {
+    "runtime_matrices": {
+      "seconds": [
+        0.08194949299999976,
+        0.0819821360000006
+      ],
+      "MLUPS": [
+        1079.6113162042413,
+        1079.1814450894444
+      ]
+    },
+    "compile_time_matrices": {
+      "seconds": [
+        0.06796985600000127,
+        0.0679284440000032
+      ],
+      "MLUPS": [
+        1301.659370883445,
+        1302.4529164836433
+      ]
+    }
+  },
+  "history": [
+    {
+      "step": 64,
+      "states_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true
+    },
+    {
+      "step": 128,
+      "states_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true
+    },
+    {
+      "step": 192,
+      "states_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true
+    },
+    {
+      "step": 256,
+      "states_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true
+    },
+    {
+      "step": 320,
+      "states_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true
+    },
+    {
+      "step": 384,
+      "states_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true
+    },
+    {
+      "step": 448,
+      "states_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true
+    },
+    {
+      "step": 512,
+      "states_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true
+    },
+    {
+      "step": 576,
+      "states_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true
+    },
+    {
+      "step": 640,
+      "states_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true
+    },
+    {
+      "step": 704,
+      "states_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true
+    },
+    {
+      "step": 768,
+      "states_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true
+    },
+    {
+      "step": 832,
+      "states_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true
+    },
+    {
+      "step": 896,
+      "states_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true
+    },
+    {
+      "step": 960,
+      "states_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true
+    },
+    {
+      "step": 1024,
+      "states_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true
+    },
+    {
+      "step": 1088,
+      "states_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true
+    },
+    {
+      "step": 1152,
+      "states_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true
+    },
+    {
+      "step": 1216,
+      "states_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true
+    },
+    {
+      "step": 1280,
+      "states_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true
+    },
+    {
+      "step": 1344,
+      "states_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true
+    },
+    {
+      "step": 1408,
+      "states_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true
+    },
+    {
+      "step": 1472,
+      "states_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true
+    },
+    {
+      "step": 1536,
+      "states_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true
+    },
+    {
+      "step": 1600,
+      "states_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true
+    },
+    {
+      "step": 1664,
+      "states_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true
+    },
+    {
+      "step": 1728,
+      "states_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true
+    },
+    {
+      "step": 1792,
+      "states_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true
+    },
+    {
+      "step": 1856,
+      "states_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true
+    },
+    {
+      "step": 1920,
+      "states_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true
+    },
+    {
+      "step": 1984,
+      "states_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true
+    },
+    {
+      "step": 2048,
+      "states_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true
+    },
+    {
+      "step": 2112,
+      "states_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true
+    },
+    {
+      "step": 2176,
+      "states_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true
+    },
+    {
+      "step": 2240,
+      "states_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true
+    },
+    {
+      "step": 2304,
+      "states_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true
+    },
+    {
+      "step": 2368,
+      "states_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true
+    },
+    {
+      "step": 2432,
+      "states_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true
+    },
+    {
+      "step": 2496,
+      "states_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true
+    },
+    {
+      "step": 2560,
+      "states_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true
+    },
+    {
+      "step": 2624,
+      "states_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true
+    },
+    {
+      "step": 2688,
+      "states_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true
+    },
+    {
+      "step": 2752,
+      "states_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true
+    },
+    {
+      "step": 2816,
+      "states_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true
+    },
+    {
+      "step": 2880,
+      "states_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true
+    },
+    {
+      "step": 2944,
+      "states_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true
+    },
+    {
+      "step": 3008,
+      "states_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true
+    },
+    {
+      "step": 3072,
+      "states_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true
+    },
+    {
+      "step": 3136,
+      "states_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true
+    },
+    {
+      "step": 3200,
+      "states_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true
+    },
+    {
+      "step": 3264,
+      "states_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true
+    },
+    {
+      "step": 3328,
+      "states_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true
+    },
+    {
+      "step": 3392,
+      "states_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true
+    },
+    {
+      "step": 3456,
+      "states_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true
+    },
+    {
+      "step": 3520,
+      "states_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true
+    },
+    {
+      "step": 3584,
+      "states_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true
+    },
+    {
+      "step": 3648,
+      "states_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true
+    },
+    {
+      "step": 3712,
+      "states_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true
+    },
+    {
+      "step": 3776,
+      "states_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true
+    },
+    {
+      "step": 3840,
+      "states_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true
+    },
+    {
+      "step": 3904,
+      "states_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true
+    },
+    {
+      "step": 3968,
+      "states_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true
+    },
+    {
+      "step": 4032,
+      "states_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true
+    },
+    {
+      "step": 4096,
+      "states_exact": true,
+      "ledgers_exact": true,
+      "flags_clear": true
+    }
+  ],
+  "final_hashes": [
+    "e08d994b0073882516a6b41ed90f8cb32e1e464877dbb4a33fcf361fe4ddddab",
+    "e08d994b0073882516a6b41ed90f8cb32e1e464877dbb4a33fcf361fe4ddddab",
+    "e08d994b0073882516a6b41ed90f8cb32e1e464877dbb4a33fcf361fe4ddddab"
+  ],
+  "elapsed_s": 10.999539811999998,
+  "source_sha256": {
+    "src/kernel_engine/lbm/lbm3d_channel.py": "98389d34fe93eb77fdbeb86a0a186f284e50c5e1335e52a85073630997b38c63",
+    "src/kernel_engine/lbm/lbm3d_channel_specialized.py": "4befcbd9dd31de11fe5f54a3af4f9734d7155a0f8c08c1a15cae34d4f0f91a94"
+  }
+}

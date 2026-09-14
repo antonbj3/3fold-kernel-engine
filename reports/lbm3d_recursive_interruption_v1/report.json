@@ -1,0 +1,27 @@
+{
+  "scope": "old workspace interrupted both recursive DNS runs; final DNS verdict unavailable",
+  "interruption": "workspace disabled; container tasks subsequently reported terminated",
+  "recursive_bulk_one": {
+    "observed_precision_gates": {
+      "4096_steps_stable": true,
+      "full_40bit_repeat_every_checkpoint": true,
+      "all_integer_ledgers_exact": true,
+      "40_vs44_velocity_error_below_1e_5": true,
+      "shear_decay_error_below_2percent": true
+    },
+    "observed_precision_error": 2.1145258779885857e-06,
+    "last_observed_channel_step": 200000,
+    "last_observed_center_stresses_normalized_by_target_utau_squared": [
+      0.7105663371102496,
+      0.36864831236273576,
+      0.3855634222007423
+    ],
+    "final_DNS_passed": null,
+    "full_receipt_recovered": false
+  },
+  "recursive_shared_bulk": {
+    "final_DNS_passed": null,
+    "full_receipt_recovered": false
+  },
+  "note": "Live observations are retained as observations, not as complete run receipts. Both terminated targets are rerun on the authorized replacement workspace."
+}

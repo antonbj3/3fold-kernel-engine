@@ -12,6 +12,7 @@ ROOT=Path('reports/lbm3d_channel_dns_uniform_v1')
 NX,H,NZ=192,64,96
 BURN,AVERAGE,BLOCK,SAMPLE=80000,160000,20000,200
 UTAU=.004;NU=UTAU*(H/2)/180;TAU=.5+3*NU
+INITIAL_FILTER_CELLS=2.
 THRESHOLDS={'log_mean_relative_max':.05,'whole_mean_relative_L2':.10,'stress_peak_normalized_RMS':.20,
             'friction_velocity_relative':.05,'mean_half_window_relative_max':.05,'stress_half_window_peak_RMS':.15}
 
@@ -21,7 +22,7 @@ def initial():
     eta=(np.arange(H+2)-.5)/H;envelope=np.maximum(0,4*eta*(1-eta))[None,:,None]
     rng=np.random.default_rng(20260914);u=np.zeros((3,)+shape)
     for axis in range(3):
-        noise=gaussian_filter(rng.normal(size=shape),2,mode=('wrap','reflect','wrap'))
+        noise=gaussian_filter(rng.normal(size=shape),INITIAL_FILTER_CELLS,mode=('wrap','reflect','wrap'))
         u[axis]=noise/noise.std()*(2*UTAU)*envelope
     u[0]+=18*UTAU*np.maximum(0,1-(2*eta-1)**8)[None,:,None]
     force=UTAU**2/(H/2)
@@ -39,7 +40,7 @@ def folded(raw,count):
     return v[1],stresses,v[0]
 
 
-def main(final_observer=None,bulk_tau=None,recursive=False):
+def main(final_observer=None,bulk_tau=None,recursive=False,simulation_class=None):
     ROOT.mkdir(parents=True,exist_ok=True)
     ref=Path('tests/data/lbm_channel');means=np.loadtxt(ref/'chan180.means');stress=np.loadtxt(ref/'chan180.reystress')
     report={'grid':[NX,H+2,NZ],'fluid_cells':NX*H*NZ,'wall_locations':[-.5,H-.5],
@@ -47,10 +48,13 @@ def main(final_observer=None,bulk_tau=None,recursive=False):
             'domain_over_half_height':[NX/(H/2),2,NZ/(H/2)],'tau':TAU,'bulk_tau':bulk_tau,'recursive_third_order':recursive,'Cs':.1,'bits':40,
             'burn_steps':BURN,'averaging_steps':AVERAGE,'block_steps':BLOCK,'sample_every':SAMPLE,
             'burn_outer_times':BURN*UTAU/(H/2),'averaging_outer_times':AVERAGE*UTAU/(H/2),
+            'initial_filter_cells':INITIAL_FILTER_CELLS,
             'thresholds':THRESHOLDS,'source_sha256':hashlib.sha256(Path(ch.__file__).read_bytes()).hexdigest(),
             'reference_provenance':json.loads((ref/'provenance.json').read_text()),'blocks':[]}
     def save(): (ROOT/'report.json').write_text(json.dumps(report,indent=2,allow_nan=False)+'\n')
-    q,mask,force=initial();s=ch.ChannelSimulation(q,force_density=force,tau=TAU,solid=mask,device='cuda:0',bulk_tau=bulk_tau,recursive=recursive)
+    simulation_class=ch.ChannelSimulation if simulation_class is None else simulation_class
+    report['simulation_class']=simulation_class.__name__
+    q,mask,force=initial();s=simulation_class(q,force_density=force,tau=TAU,solid=mask,device='cuda:0',bulk_tau=bulk_tau,recursive=recursive)
     first_ledger=lb.ledger(q);report['initial_ledger']=first_ledger
     report['force_density_applied']=s.force_density;report['force_integer_units']=s.force_units;save()
     stats=wp.zeros((10,H+2),dtype=wp.int64,device='cuda:0')

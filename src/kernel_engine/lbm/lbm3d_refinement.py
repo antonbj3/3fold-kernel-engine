@@ -120,10 +120,11 @@ class ReferenceRefinedChannel:
     by measured fine fluxes. The physical Smagorinsky filter is fixed across
     levels: Cs_coarse = Cs_fine / 2 under acoustic scaling.
     """
-    def __init__(self,nx=8,height=32,nz=8,wall_cells=8,tau_fine=.8,force_fine=1e-5,device='cpu',cs_fine=0.0,ledger_mode='int64'):
+    def __init__(self,nx=8,height=32,nz=8,wall_cells=8,tau_fine=.8,force_fine=1e-5,device='cpu',cs_fine=0.0,ledger_mode='int64',recursive=False,channel_factory=None):
         import warp as wp
         from .lbm3d_mrt_les import quantize
         from .lbm3d_channel import ChannelSimulation
+        channel_factory=ChannelSimulation if channel_factory is None else channel_factory
         if any(not isinstance(n,int) or n<2 or n%2 for n in (nx,height,nz,wall_cells)) or wall_cells<2 or 2*wall_cells>=height:
             raise ValueError('even dimensions and a nonempty coarse core required')
         if ledger_mode not in ('int64','int64_limbs'):raise ValueError('invalid ledger mode')
@@ -132,7 +133,7 @@ class ReferenceRefinedChannel:
             raise OverflowError('volume-weighted int64 inventory exceeds range')
         if not np.isfinite([tau_fine,force_fine,cs_fine]).all() or tau_fine<=.5 or cs_fine<0:
             raise ValueError('invalid relaxation, force or Smagorinsky coefficient')
-        self.csf=cs_fine;self.csc=cs_fine/2
+        self.csf=cs_fine;self.csc=cs_fine/2;self.recursive=bool(recursive)
         self.nx,self.h,self.nz,self.nf=nx,height,nz,wall_cells
         self.tf=tau_fine;self.tc=.5+(tau_fine-.5)/2
         self.force_units=int(np.rint(force_fine*2**40));self.gf=self.force_units/2**40
@@ -145,13 +146,13 @@ class ReferenceRefinedChannel:
             u=np.zeros((3,)+shape);u[0]=self.gf/(2*((tau_fine-.5)/3))*y[None,:,None]*(height-y[None,:,None])-.5*self.gf
             u[:,mask!=0]=0
             q=quantize(equilibrium(np.ones(shape),u),40,ledger_mode=ledger_mode)
-            self.fine.append(ChannelSimulation(q,tau=self.tf,force_density=self.gf,cs=self.csf,solid=mask,device=device,ledger_mode=ledger_mode))
+            self.fine.append(channel_factory(q,tau=self.tf,force_density=self.gf,cs=self.csf,solid=mask,device=device,ledger_mode=ledger_mode,recursive=self.recursive))
         shape=(nx//2,height//2+2,nz//2);mask=np.zeros(shape,np.int32);mask[:,0,:]=1;mask[:,-1,:]=1
         y=2*np.arange(height//2+2)-1
         u=np.zeros((3,)+shape);u[0]=self.gf/(2*((tau_fine-.5)/3))*y[None,:,None]*(height-y[None,:,None])-self.gf
         u[:,mask!=0]=0
         q=quantize(equilibrium(np.ones(shape),u),43,ledger_mode=ledger_mode)
-        self.coarse=ChannelSimulation(q,tau=self.tc,force_density=2*self.gf,cs=self.csc,bits=43,solid=mask,device=device,ledger_mode=ledger_mode)
+        self.coarse=channel_factory(q,tau=self.tc,force_density=2*self.gf,cs=self.csc,bits=43,solid=mask,device=device,ledger_mode=ledger_mode,recursive=self.recursive)
         self.initial_ledger=self.ledger()
 
     def _replace(self,sim,q):
@@ -170,12 +171,22 @@ class ReferenceRefinedChannel:
             rho,np.sqrt(np.sum(pi*pi,axis=(0,1))),source_tau,target_tau,
             source_cs,target_cs,dt_ratio)
         pi*=dt_ratio*effective_target/effective_source
+        physical_pi=pi.copy() if self.recursive else None
         for a in range(3):
             pi[0,a]-=.5*u[a]*target_force;pi[a,0]-=.5*u[a]*target_force
         h2=np.einsum('qa,qb->qab',C,C)-np.eye(3)[None,:,:]/3
         from .lbm3d_mrt_les import W
         target=eq+4.5*W[:,None,None,None]*np.einsum('qab,ab...->q...',h2,pi)
         target-=1.5*W[:,None,None,None]*C[:,0,None,None,None]*target_force
+        if self.recursive:
+            cu=np.einsum('qa,a...->q...',C,u);usq=np.sum(u*u,axis=0)
+            target+=W[:,None,None,None]*rho*(4.5*cu**3-4.5*cu*usq)
+            cpc=np.einsum('qa,qb,ab...->q...',C,C,physical_pi)
+            cpu=np.einsum('qa,ab...,b...->q...',C,physical_pi,u)
+            trace=np.trace(physical_pi,axis1=0,axis2=1)
+            target+=W[:,None,None,None]*(13.5*cu*cpc-4.5*cu*trace-9*cpu)
+            source3=W[:,None,None,None]*target_force*((13.5*cu**2-4.5*usq)*C[:,0,None,None,None]-9*cu*u[0])
+            target-=.5*source3
         return quantize(target,bits,ledger_mode=self.ledger_mode)
 
     def _covered(self,coarse):
