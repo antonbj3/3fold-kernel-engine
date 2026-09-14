@@ -1,0 +1,60 @@
+{
+  "scope": "Re_tau180 channel validation goal and fair timing comparison; no OpenFOAM speedup claim",
+  "physical_problem": {
+    "Re_tau_target": 180,
+    "reference_Re_tau": 178.12,
+    "domain_over_half_height": [
+      6,
+      2,
+      3
+    ],
+    "dimensions": 3,
+    "walls": "stationary no-slip, no wall model",
+    "streamwise_spanwise": "periodic",
+    "forcing": "constant pressure-gradient equivalent body force",
+    "burn_outer_times": 10,
+    "averaging_outer_times": 20
+  },
+  "physics_limits": {
+    "log_mean_relative_max": 0.05,
+    "whole_mean_relative_L2": 0.1,
+    "stress_peak_normalized_RMS": 0.2,
+    "friction_velocity_relative": 0.05,
+    "mean_half_window_relative_max": 0.05,
+    "stress_half_window_peak_RMS": 0.15
+  },
+  "gates_must_all_pass": true,
+  "metric_definitions": {
+    "log_mean": "max absolute U_plus/reference_U_plus-1 at30<=y_plus<=100",
+    "whole_mean": "L2(U_plus-reference)/L2(reference)",
+    "stress": "RMS error divided by peak absolute reference value, separately for uu,vv,ww,uv",
+    "friction": "absolute measured_u_tau/target_u_tau-1",
+    "mean_stationarity": "max absolute difference between equal averaging-half means divided by full-window mean",
+    "stress_stationarity": "RMS difference between averaging-half stress profiles divided by full-window u_tau^2 and reference stress peak"
+  },
+  "refined_uniform_limits": {
+    "mean_relative_L2": 0.05,
+    "stress_peak_normalized_RMS": 0.1
+  },
+  "lbm_engineering_requirements": {
+    "integer_mass_and_momentum_ledgers": "exact, including wall impulse and forcing",
+    "repeated_states": "bit identical for gated numerical tests",
+    "population_precision": "40fractionbits fine;43coarse mass-storage bits; collision precision gate40vs44<=1e-5 velocity",
+    "state_guards": "must remain clear"
+  },
+  "performance_objective": "minimize wall-clock time and resource cost for an accepted result; no speed credit for failed physics",
+  "accepted_uniform_measurement": {
+    "report_sha256": "b21d43fec9afd7fdf79d8acec23187c82b50c1548c676e98de252b14575ddfe6",
+    "hardware": "single H10080GB",
+    "fluid_cells": 3981312,
+    "fine_steps": 360000,
+    "solver_and_diagnostics_seconds": 1237.590628854,
+    "MLUPS": 1158.1150394837748
+  },
+  "openfoam_comparison": {
+    "measured": false,
+    "required": "same3D problem, physical averaging interval, comparable turbulence treatment, same observables/error limits and declared hardware/resource budget; report setup and solver time separately",
+    "sampling_requirement": "Use a common physical wall-distance evaluation grid before a cross-solver ranking. Current refined reporter uses native planes for log/stress/parity and interpolated fine planes for whole-mean L2; preserve historical gate receipts and do not equate differing quadratures.",
+    "lbm_only_requirements": "Integer-ledger and bit-repetition checks are implementation checks, not a requirement to use identical arithmetic in another solver."
+  }
+}

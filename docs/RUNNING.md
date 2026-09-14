@@ -2019,3 +2019,14 @@ All original Re/time/accuracy/stationarity/uniform-parity requirements remain.
 This changes both the correction distribution and cell allocation; no isolated
 causal claim for future DNS improvements. ONLY the authorized new Modal profile,
 source/input snapshot verified, no push. Local GPU currently idle.
+
+
+RUNNING E validation objective pinned in reports/lbm3d_validation_goal_v1/report.json:
+All existing physical accuracy/stationarity and refined/uniform parity limits
+are explicit, separate from LBM integer/repetition requirements. Performance
+means time and resource cost to an accepted result, not nominal MLUPS or cell
+count. Accepted uniform baseline1237.59s H100; no measured OpenFOAM comparison.
+A fair cross-solver ranking must share physical sampling/evaluation points;
+the current native-plane refined metrics and interpolated whole-mean metric
+are disclosed, not silently called identical quadrature. Active H100 candidate
+and preregistered gates remain unchanged.
