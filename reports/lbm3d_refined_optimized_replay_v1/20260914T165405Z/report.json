@@ -1,0 +1,9 @@
+{
+  "passed": true,
+  "scope": "Recovered local comparison after reporting KeyError in burn blocks; no GPU rerun. Twelve ledger blocks and eight averaging blocks exact. Short separate gate checks full populations.",
+  "original_seconds": 1519.728823263,
+  "specialized_seconds": 863.3647693769999,
+  "separate_run_refined_speedup": 1.7602395617319775,
+  "separate_run_uniform_speedup": 1.4334504635242873,
+  "both_DNS_pass": true
+}
