@@ -1,0 +1,525 @@
+{
+  "scope": "500 fine-step large inventory gate; not long-time turbulent DNS",
+  "fine_equivalent_extent": [
+    384,
+    128,
+    192
+  ],
+  "fine_wall_layers_each": 16,
+  "active_cells": 3244032,
+  "uniform_fine_cells": 9437184,
+  "population_fraction_bits": {
+    "fine": 40,
+    "coarse": 43
+  },
+  "ledger_encoding": "signed int64 high * 2**63 + nonnegative int64 low",
+  "first": {
+    "initial_mass": 10376293541461622784,
+    "initial_mass_int64_limbs": [
+      1,
+      1152921504606846976
+    ],
+    "history": [
+      {
+        "steps": 100,
+        "mass_exact": true,
+        "ledger_int64_limbs": [
+          [
+            1,
+            1152921504606846976
+          ],
+          [
+            0,
+            14167037970726912
+          ],
+          [
+            0,
+            147456
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "wall_impulse_int64_limbs": [
+          [
+            0,
+            104300483198976
+          ],
+          [
+            -1,
+            9223372036854628352
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "momentum_residual": [
+          0,
+          0,
+          0
+        ],
+        "flags": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "steps": 200,
+        "mass_exact": true,
+        "ledger_int64_limbs": [
+          [
+            1,
+            1152921504606846976
+          ],
+          [
+            0,
+            14167036401500160
+          ],
+          [
+            -1,
+            9223372036854185984
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "wall_impulse_int64_limbs": [
+          [
+            0,
+            208064834224128
+          ],
+          [
+            0,
+            589824
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "momentum_residual": [
+          0,
+          0,
+          0
+        ],
+        "flags": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "steps": 300,
+        "mass_exact": true,
+        "ledger_int64_limbs": [
+          [
+            1,
+            1152921504606846976
+          ],
+          [
+            0,
+            14167021328400384
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "wall_impulse_int64_limbs": [
+          [
+            0,
+            311842689122304
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "momentum_residual": [
+          0,
+          0,
+          0
+        ],
+        "flags": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "steps": 400,
+        "mass_exact": true,
+        "ledger_int64_limbs": [
+          [
+            1,
+            1152921504606846976
+          ],
+          [
+            0,
+            14167003967225856
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "wall_impulse_int64_limbs": [
+          [
+            0,
+            415622832095232
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "momentum_residual": [
+          0,
+          0,
+          0
+        ],
+        "flags": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "steps": 500,
+        "mass_exact": true,
+        "ledger_int64_limbs": [
+          [
+            1,
+            1152921504606846976
+          ],
+          [
+            0,
+            14166991672492032
+          ],
+          [
+            0,
+            147456
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "wall_impulse_int64_limbs": [
+          [
+            0,
+            519397908627456
+          ],
+          [
+            -1,
+            9223372036854628352
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "momentum_residual": [
+          0,
+          0,
+          0
+        ],
+        "flags": [
+          0,
+          0,
+          0
+        ]
+      }
+    ],
+    "seconds_including_diagnostics": 8.659367139,
+    "full_state_sha256": [
+      "cd9f817b397965b5034cb422f92add49ef284db7c1f3224da77733b62f589e18",
+      "efebe8537286b09f313d723b4079249e9abf5d5bfc7aed9135e346f3f00cdf2b",
+      "858d5ca422d3242e4da2f0dc08adae600f5e60c0e5adaa5087d44ec3f66229cd"
+    ]
+  },
+  "second": {
+    "initial_mass": 10376293541461622784,
+    "initial_mass_int64_limbs": [
+      1,
+      1152921504606846976
+    ],
+    "history": [
+      {
+        "steps": 100,
+        "mass_exact": true,
+        "ledger_int64_limbs": [
+          [
+            1,
+            1152921504606846976
+          ],
+          [
+            0,
+            14167037970726912
+          ],
+          [
+            0,
+            147456
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "wall_impulse_int64_limbs": [
+          [
+            0,
+            104300483198976
+          ],
+          [
+            -1,
+            9223372036854628352
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "momentum_residual": [
+          0,
+          0,
+          0
+        ],
+        "flags": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "steps": 200,
+        "mass_exact": true,
+        "ledger_int64_limbs": [
+          [
+            1,
+            1152921504606846976
+          ],
+          [
+            0,
+            14167036401500160
+          ],
+          [
+            -1,
+            9223372036854185984
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "wall_impulse_int64_limbs": [
+          [
+            0,
+            208064834224128
+          ],
+          [
+            0,
+            589824
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "momentum_residual": [
+          0,
+          0,
+          0
+        ],
+        "flags": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "steps": 300,
+        "mass_exact": true,
+        "ledger_int64_limbs": [
+          [
+            1,
+            1152921504606846976
+          ],
+          [
+            0,
+            14167021328400384
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "wall_impulse_int64_limbs": [
+          [
+            0,
+            311842689122304
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "momentum_residual": [
+          0,
+          0,
+          0
+        ],
+        "flags": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "steps": 400,
+        "mass_exact": true,
+        "ledger_int64_limbs": [
+          [
+            1,
+            1152921504606846976
+          ],
+          [
+            0,
+            14167003967225856
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "wall_impulse_int64_limbs": [
+          [
+            0,
+            415622832095232
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "momentum_residual": [
+          0,
+          0,
+          0
+        ],
+        "flags": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "steps": 500,
+        "mass_exact": true,
+        "ledger_int64_limbs": [
+          [
+            1,
+            1152921504606846976
+          ],
+          [
+            0,
+            14166991672492032
+          ],
+          [
+            0,
+            147456
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "wall_impulse_int64_limbs": [
+          [
+            0,
+            519397908627456
+          ],
+          [
+            -1,
+            9223372036854628352
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "momentum_residual": [
+          0,
+          0,
+          0
+        ],
+        "flags": [
+          0,
+          0,
+          0
+        ]
+      }
+    ],
+    "seconds_including_diagnostics": 4.077443699,
+    "full_state_sha256": [
+      "cd9f817b397965b5034cb422f92add49ef284db7c1f3224da77733b62f589e18",
+      "efebe8537286b09f313d723b4079249e9abf5d5bfc7aed9135e346f3f00cdf2b",
+      "858d5ca422d3242e4da2f0dc08adae600f5e60c0e5adaa5087d44ec3f66229cd"
+    ]
+  },
+  "gates": {
+    "inventory_exceeds_single_signed_int64": true,
+    "repeated_full_state_hashes_exact": true,
+    "repeated_histories_exact": true,
+    "every_mass_momentum_ledger_exact_and_flags_clear": true
+  },
+  "passed": true,
+  "source_sha256": {
+    "src/kernel_engine/lbm/lbm3d_refinement.py": "b0e6066dbcd67397f29bd778823ed5a6739210e5a660044bdf7cf03f32a724bd",
+    "src/kernel_engine/lbm/lbm3d_immersed_boundary.py": "9f4014806a0fee1cc0dfe168f5109276fec2dfc73ab22c7eacacfea3e78447db",
+    "src/kernel_engine/lbm/lbm3d_poiseuille.py": "d045b846647477377f65c85dd7d0449b72622ac21b2df45bebc7dd11e4006ffb",
+    "src/kernel_engine/lbm/lbm3d_gpu.py": "1e01e0807c5b000ac2c64966c06938345fe6c000f32085e860eec1771346ede2",
+    "src/kernel_engine/lbm/lbm3d_mrt_les.py": "c13ef9b869875df72365e6e71ddc7cbbcede635cb2946dc7aa28ade91abbd842",
+    "src/kernel_engine/lbm/lbm3d_channel_statistics.py": "4255ad7be85ab43e2287a21c8dd712998a1eb7be84b1b14e515eda0e84d3bb13",
+    "src/kernel_engine/lbm/lbm3d_refinement_gpu.py": "0edb04ab3af0e7e5ba15dd1710aa12795ef4037047d18f7c1740e560612bed9b",
+    "src/kernel_engine/lbm/lbm3d_channel.py": "0b069e6520f9ebb86968a4cc999ec4cb097c5ef3144676b336758471e4b84ee7",
+    "src/kernel_engine/lbm/lbm3d_ledger.py": "9925dbba92778d4f98635ae86841b6c0bb28baab40118b46db2c16257e0dc5c1",
+    "scripts/measure_lbm3d_refinement_wide_ledger.py": "eea71e47710682a18995af198a03016c68cbbb399c4e467e2a26830d4df6b3ad"
+  }
+}

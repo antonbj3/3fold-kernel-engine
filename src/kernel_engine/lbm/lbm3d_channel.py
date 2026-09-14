@@ -132,10 +132,10 @@ def forced_collide_stream(a: wp.array4d(dtype=wp.int64), b: wp.array4d(dtype=wp.
             b[q,ti,tj,tk] = qout[q]
 
 class ChannelSimulation(Simulation):
-    def __init__(self,q,*,force_density,tau,cs=.1,bits=40,solid=None,device='cpu'):
+    def __init__(self,q,*,force_density,tau,cs=.1,bits=40,solid=None,device='cpu',ledger_mode='int64'):
         if not np.isfinite(force_density) or abs(force_density)>.01:
             raise ValueError('invalid body force')
-        super().__init__(q,tau=tau,cs=cs,mode='hermite_mrt',bits=bits,solid=solid,device=device)
+        super().__init__(q,tau=tau,cs=cs,mode='hermite_mrt',bits=bits,solid=solid,device=device,ledger_mode=ledger_mode)
         self.force_units=int(np.rint(force_density*2**bits))
         self.force_density=self.force_units/2**bits
         self.wall_impulse=wp.zeros(3*int(np.prod(self.shape)),dtype=wp.int64,device=device)

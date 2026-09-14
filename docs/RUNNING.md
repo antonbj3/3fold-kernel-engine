@@ -1777,3 +1777,22 @@ silently lowering precision. A larger-domain ledger representation remains
 needed for that resolution. Uniform turbulent DNS failure remains unchanged;
 sensitivity/water-filling allocation and refined DNS are still open. No local
 GPU/context/lock, no push, README unchanged.
+
+E 2026-09-14: large physical-volume ledger gate VERIFIED-FRESH. Explicit
+ledger_mode='int64_limbs' keeps int64 population storage at fine40/coarse43
+fraction bits and represents each total as high*2^63+low, both words int64.
+Bounded int64 partial sums use exact integer carry; no float summation or
+precision reduction. The default single-word range rejection stays enabled.
+H100 two-wall-block384x128x192 fine-equivalent domain,16fine layers per wall,
+active3,244,032/9,437,184cells (34.375%):500fine steps twice atCs0.1/0.05.
+All four gates pass. Initial physical mass10376293541461622784 exceeds signed
+int64 and encodes[1,1152921504606846976]. Every mass/impulse ledger is exact;
+full repeated states and checkpoint histories match bit-for-bit. First8.659s,
+warm4.077s include diagnostics. This is a range/conservation gate, not DNS.
+29focusedCPUtests pass including signed carries, cancellation and quantizer
+range routing. Initial large-grid setup exposed a remaining quantizer guard;
+its negative and an accidentally repeated stale payload are retained. Only
+explicit ledger routing changed before the successful run; collision kernels
+are unchanged. Receipts: reports/lbm3d_refinement_wide_ledger_v1/.
+Sensitivity measurement remains active on its original isolated H100 payload.
+No localGPU/context/lock, no push, README unchanged.

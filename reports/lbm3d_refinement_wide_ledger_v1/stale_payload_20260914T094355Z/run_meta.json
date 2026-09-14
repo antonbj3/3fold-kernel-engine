@@ -1,0 +1,10 @@
+{
+  "repo": "3fold-kernel-e-lbm-ledger-check",
+  "cmd": "OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 PYTHONPATH=src python scripts/measure_lbm3d_refinement_wide_ledger.py",
+  "gpu": "NVIDIA H100 80GB HBM3, 81559 MiB, 580.95.05",
+  "rc": 1,
+  "seconds": 4.8,
+  "stamp": "20260914T094355Z",
+  "files": [],
+  "extras": []
+}

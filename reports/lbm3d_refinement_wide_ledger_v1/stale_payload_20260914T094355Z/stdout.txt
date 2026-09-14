@@ -1,0 +1,25 @@
+Warp 1.17.0 initialized:
+   CUDA Toolkit 12.9, Driver 13.0
+   Devices:
+     "cpu"      : "x86_64"
+     "cuda:0"   : "NVIDIA H100 80GB HBM3" (79 GiB, sm_90, mempool enabled)
+   Kernel cache:
+     /root/.cache/warp/1.17.0
+Traceback (most recent call last):
+  File "/work/3fold-kernel-e-lbm-ledger-check/scripts/measure_lbm3d_refinement_wide_ledger.py", line 48, in <module>
+    if __name__=='__main__':raise SystemExit(main())
+                                             ^^^^^^
+  File "/work/3fold-kernel-e-lbm-ledger-check/scripts/measure_lbm3d_refinement_wide_ledger.py", line 32, in main
+    a=run();b=run()
+      ^^^^^
+  File "/work/3fold-kernel-e-lbm-ledger-check/scripts/measure_lbm3d_refinement_wide_ledger.py", line 11, in run
+    sim=RefinedChannelGPU(nx=384,height=128,nz=192,wall_cells=16,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/work/3fold-kernel-e-lbm-ledger-check/src/kernel_engine/lbm/lbm3d_refinement_gpu.py", line 152, in __init__
+    super().__init__(device=device,**kwargs)
+  File "/work/3fold-kernel-e-lbm-ledger-check/src/kernel_engine/lbm/lbm3d_refinement.py", line 153, in __init__
+    q=quantize(equilibrium(np.ones(shape),u),43)
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/work/3fold-kernel-e-lbm-ledger-check/src/kernel_engine/lbm/lbm3d_mrt_les.py", line 149, in quantize
+    raise ValueError('initial population/ledger range exceeded')
+ValueError: initial population/ledger range exceeded
