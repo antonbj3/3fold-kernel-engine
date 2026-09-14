@@ -1,0 +1,92 @@
+{
+  "scope": "Postprocess accepted profiles on the same physical wall-distance grid.\n\nHistorical native-plane receipts are preserved. These are interpolated profile\nmetrics, not new simulations or proof of spatial convergence.\n",
+  "wall_distance_fine_cells": [
+    0.5,
+    1.5,
+    2.5,
+    3.5,
+    4.5,
+    5.5,
+    6.5,
+    7.5,
+    8.5,
+    9.5,
+    10.5,
+    11.5,
+    12.5,
+    13.5,
+    14.5,
+    15.5,
+    16.5,
+    17.5,
+    18.5,
+    19.5,
+    20.5,
+    21.5,
+    22.5,
+    23.5,
+    24.5,
+    25.5,
+    26.5,
+    27.5,
+    28.5,
+    29.5,
+    30.5,
+    31.5,
+    32.5,
+    33.5,
+    34.5,
+    35.5,
+    36.5,
+    37.5,
+    38.5,
+    39.5,
+    40.5,
+    41.5,
+    42.5,
+    43.5,
+    44.5,
+    45.5,
+    46.5,
+    47.5
+  ],
+  "metrics": {
+    "uniform": {
+      "log_mean_relative_max": 0.020801601921031976,
+      "mean_relative_L2": 0.022189068172913648,
+      "stress_peak_RMS": [
+        0.05707209407590775,
+        0.048479795732121335,
+        0.04811624981759378,
+        0.03618033980532758
+      ],
+      "accuracy_pass": true
+    },
+    "refined": {
+      "log_mean_relative_max": 0.044927245251432435,
+      "mean_relative_L2": 0.034725581715751096,
+      "stress_peak_RMS": [
+        0.04420367533678132,
+        0.0687518322906431,
+        0.059083948307502944,
+        0.038212972542860275
+      ],
+      "accuracy_pass": true
+    }
+  },
+  "refined_vs_uniform": {
+    "dimensional_mean_relative_L2": 0.006360832330256113,
+    "dimensional_stress_peak_RMS": [
+      0.035351431081534296,
+      0.07710220377342748,
+      0.09117934889956766,
+      0.025424921344736447
+    ],
+    "pass": true
+  },
+  "passed": true,
+  "source_sha256": {
+    "reports/lbm3d_recursive_resolution_v1/20260914T103313Z/report.json": "b21d43fec9afd7fdf79d8acec23187c82b50c1548c676e98de252b14575ddfe6",
+    "reports/lbm3d_refined_dns_v1/20260914T172033Z/report.json": "c36f8314ec668ba65ea480288ed56fa326247727dbc1c1056c2c92e3721827e5"
+  }
+}

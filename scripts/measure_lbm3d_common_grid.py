@@ -8,10 +8,10 @@ from pathlib import Path
 import numpy as np
 
 
-def main():
+def main(refined_report='reports/lbm3d_refined_dns_v1/20260914T165405Z/report.json',output='reports/lbm3d_common_grid_v1/report.json'):
     paths={
       'uniform':Path('reports/lbm3d_recursive_resolution_v1/20260914T103313Z/report.json'),
-      'refined':Path('reports/lbm3d_refined_dns_v1/20260914T165405Z/report.json')}
+      'refined':Path(refined_report)}
     data={k:json.loads(p.read_text()) for k,p in paths.items()}
     data['uniform']['u_tau']=data['uniform']['u_tau_measured']
     assert data['uniform']['grid']==[288,98,144]
@@ -43,7 +43,7 @@ def main():
     result={'scope':__doc__,'wall_distance_fine_cells':y.tolist(),'metrics':rows,'refined_vs_uniform':parity,
             'passed':all(row['accuracy_pass'] for row in rows.values()) and parity['pass'],
             'source_sha256':{str(p):hashlib.sha256(p.read_bytes()).hexdigest() for p in paths.values()}}
-    p=Path('reports/lbm3d_common_grid_v1/report.json');p.parent.mkdir(parents=True,exist_ok=True);p.write_text(json.dumps(result,indent=2)+'\n')
+    p=Path(output);p.parent.mkdir(parents=True,exist_ok=True);p.write_text(json.dumps(result,indent=2)+'\n')
     print(json.dumps({'metrics':rows,'parity':parity,'passed':result['passed']}))
 
 if __name__=='__main__':main()

@@ -1,0 +1,250 @@
+{
+  "scope": "Resident array inventory and device allocation delta for the refined case.\n\nDevice free-memory deltas include allocator/kernel overhead and can include\nbackground activity. They are sampled, not a lifetime peak measurement.\n",
+  "device": "NVIDIA GeForce RTX 5070",
+  "wall_layers": 18,
+  "total_device_bytes": 12335316992,
+  "resident_array_bytes": 726010212,
+  "device_used_increase_after_setup": 738197504,
+  "device_used_increase_after_four_fine_steps": 742391808,
+  "arrays": [
+    {
+      "name": "fine0.a",
+      "bytes": 126074880,
+      "shape": [
+        19,
+        288,
+        20,
+        144
+      ],
+      "dtype": "<class 'warp._src.types.int64'>"
+    },
+    {
+      "name": "fine0.b",
+      "bytes": 126074880,
+      "shape": [
+        19,
+        288,
+        20,
+        144
+      ],
+      "dtype": "<class 'warp._src.types.int64'>"
+    },
+    {
+      "name": "fine1.a",
+      "bytes": 126074880,
+      "shape": [
+        19,
+        288,
+        20,
+        144
+      ],
+      "dtype": "<class 'warp._src.types.int64'>"
+    },
+    {
+      "name": "fine1.b",
+      "bytes": 126074880,
+      "shape": [
+        19,
+        288,
+        20,
+        144
+      ],
+      "dtype": "<class 'warp._src.types.int64'>"
+    },
+    {
+      "name": "coarse.a",
+      "bytes": 78796800,
+      "shape": [
+        19,
+        144,
+        50,
+        72
+      ],
+      "dtype": "<class 'warp._src.types.int64'>"
+    },
+    {
+      "name": "coarse.b",
+      "bytes": 78796800,
+      "shape": [
+        19,
+        144,
+        50,
+        72
+      ],
+      "dtype": "<class 'warp._src.types.int64'>"
+    },
+    {
+      "name": "fine0.args[15]",
+      "bytes": 19906560,
+      "shape": [
+        2488320
+      ],
+      "dtype": "<class 'warp._src.types.int64'>"
+    },
+    {
+      "name": "fine1.args[15]",
+      "bytes": 19906560,
+      "shape": [
+        2488320
+      ],
+      "dtype": "<class 'warp._src.types.int64'>"
+    },
+    {
+      "name": "coarse.args[15]",
+      "bytes": 12441600,
+      "shape": [
+        1555200
+      ],
+      "dtype": "<class 'warp._src.types.int64'>"
+    },
+    {
+      "name": "fine0.args[0]",
+      "bytes": 3317760,
+      "shape": [
+        288,
+        20,
+        144
+      ],
+      "dtype": "<class 'warp._src.types.int32'>"
+    },
+    {
+      "name": "fine1.args[0]",
+      "bytes": 3317760,
+      "shape": [
+        288,
+        20,
+        144
+      ],
+      "dtype": "<class 'warp._src.types.int32'>"
+    },
+    {
+      "name": "coarse.args[0]",
+      "bytes": 2073600,
+      "shape": [
+        144,
+        50,
+        72
+      ],
+      "dtype": "<class 'warp._src.types.int32'>"
+    },
+    {
+      "name": "refined.delta[0]",
+      "bytes": 1575936,
+      "shape": [
+        19,
+        144,
+        72
+      ],
+      "dtype": "<class 'warp._src.types.int64'>"
+    },
+    {
+      "name": "refined.delta[1]",
+      "bytes": 1575936,
+      "shape": [
+        19,
+        144,
+        72
+      ],
+      "dtype": "<class 'warp._src.types.int64'>"
+    },
+    {
+      "name": "fine0.args[1]",
+      "bytes": 228,
+      "shape": [
+        19,
+        3
+      ],
+      "dtype": "<class 'warp._src.types.int32'>"
+    },
+    {
+      "name": "fine1.args[1]",
+      "bytes": 228,
+      "shape": [
+        19,
+        3
+      ],
+      "dtype": "<class 'warp._src.types.int32'>"
+    },
+    {
+      "name": "coarse.args[1]",
+      "bytes": 228,
+      "shape": [
+        19,
+        3
+      ],
+      "dtype": "<class 'warp._src.types.int32'>"
+    },
+    {
+      "name": "fine0.args[2]",
+      "bytes": 152,
+      "shape": [
+        19
+      ],
+      "dtype": "<class 'warp._src.types.float64'>"
+    },
+    {
+      "name": "fine1.args[2]",
+      "bytes": 152,
+      "shape": [
+        19
+      ],
+      "dtype": "<class 'warp._src.types.float64'>"
+    },
+    {
+      "name": "coarse.args[2]",
+      "bytes": 152,
+      "shape": [
+        19
+      ],
+      "dtype": "<class 'warp._src.types.float64'>"
+    },
+    {
+      "name": "fine0.args[3]",
+      "bytes": 76,
+      "shape": [
+        19
+      ],
+      "dtype": "<class 'warp._src.types.int32'>"
+    },
+    {
+      "name": "fine1.args[3]",
+      "bytes": 76,
+      "shape": [
+        19
+      ],
+      "dtype": "<class 'warp._src.types.int32'>"
+    },
+    {
+      "name": "coarse.args[3]",
+      "bytes": 76,
+      "shape": [
+        19
+      ],
+      "dtype": "<class 'warp._src.types.int32'>"
+    },
+    {
+      "name": "fine0.failure",
+      "bytes": 4,
+      "shape": [
+        1
+      ],
+      "dtype": "<class 'warp._src.types.int32'>"
+    },
+    {
+      "name": "fine1.failure",
+      "bytes": 4,
+      "shape": [
+        1
+      ],
+      "dtype": "<class 'warp._src.types.int32'>"
+    },
+    {
+      "name": "coarse.failure",
+      "bytes": 4,
+      "shape": [
+        1
+      ],
+      "dtype": "<class 'warp._src.types.int32'>"
+    }
+  ]
+}

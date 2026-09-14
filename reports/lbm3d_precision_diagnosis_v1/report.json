@@ -1,0 +1,303 @@
+{
+  "scope": "diagnostic only, fixed precision admission limits unchanged; single-injection control is not proof of chaos",
+  "device": "cuda:0",
+  "history": [
+    {
+      "step": 1,
+      "differences": {
+        "fp32": {
+          "velocity_max": 5.0741977813961725e-08,
+          "velocity_RMS": 8.95125630702037e-09,
+          "density_max": 1.1315933079458773e-07,
+          "relative_energy_difference": 3.379674318182424e-11,
+          "max_error_component_and_cell": [
+            0,
+            14,
+            29,
+            6
+          ]
+        },
+        "symmetric_repair": {
+          "velocity_max": 3.892027322649483e-08,
+          "velocity_RMS": 8.42052272124638e-09,
+          "density_max": 9.274572221329436e-08,
+          "relative_energy_difference": 3.381139812574929e-11,
+          "max_error_component_and_cell": [
+            0,
+            18,
+            29,
+            26
+          ]
+        },
+        "single_injection_then_fp64": {
+          "velocity_max": 5.0741977813961725e-08,
+          "velocity_RMS": 8.95125630702037e-09,
+          "density_max": 1.1315933079458773e-07,
+          "relative_energy_difference": 3.379674318182424e-11,
+          "max_error_component_and_cell": [
+            0,
+            14,
+            29,
+            6
+          ]
+        }
+      },
+      "all_ledgers_exact": true,
+      "flags_clear": true,
+      "one_step_from_identical_state": {
+        "fp32": {
+          "velocity_max": 4.8513949552075886e-08,
+          "velocity_RMS": 1.0077158722169068e-08,
+          "density_max": 1.2025429896311834e-07,
+          "relative_energy_difference": 3.740341369962152e-12,
+          "max_error_component_and_cell": [
+            0,
+            20,
+            5,
+            38
+          ]
+        },
+        "symmetric_repair": {
+          "velocity_max": 4.4368066609568046e-08,
+          "velocity_RMS": 9.397094354948452e-09,
+          "density_max": 1.0364965419285e-07,
+          "relative_energy_difference": -1.2409961946957537e-11,
+          "max_error_component_and_cell": [
+            0,
+            12,
+            27,
+            26
+          ]
+        }
+      }
+    },
+    {
+      "step": 64,
+      "differences": {
+        "fp32": {
+          "velocity_max": 1.133657371310548e-07,
+          "velocity_RMS": 2.2242500618236417e-08,
+          "density_max": 1.7946968000615016e-07,
+          "relative_energy_difference": -4.919310403472821e-09,
+          "max_error_component_and_cell": [
+            1,
+            25,
+            59,
+            0
+          ]
+        },
+        "symmetric_repair": {
+          "velocity_max": 1.0057701116394924e-07,
+          "velocity_RMS": 2.1330316824184817e-08,
+          "density_max": 1.600665200385265e-07,
+          "relative_energy_difference": -4.88222351435752e-09,
+          "max_error_component_and_cell": [
+            1,
+            31,
+            14,
+            52
+          ]
+        },
+        "single_injection_then_fp64": {
+          "velocity_max": 5.954536456032229e-09,
+          "velocity_RMS": 1.2502265674898677e-09,
+          "density_max": 1.812622940633446e-09,
+          "relative_energy_difference": -2.522985154129742e-10,
+          "max_error_component_and_cell": [
+            2,
+            5,
+            9,
+            14
+          ]
+        }
+      },
+      "all_ledgers_exact": true,
+      "flags_clear": true
+    },
+    {
+      "step": 256,
+      "differences": {
+        "fp32": {
+          "velocity_max": 4.5498584049104805e-07,
+          "velocity_RMS": 4.591242392117203e-08,
+          "density_max": 2.6914312911685556e-07,
+          "relative_energy_difference": -7.624926678939659e-08,
+          "max_error_component_and_cell": [
+            2,
+            27,
+            36,
+            52
+          ]
+        },
+        "symmetric_repair": {
+          "velocity_max": 4.1435633340936467e-07,
+          "velocity_RMS": 4.389160489506305e-08,
+          "density_max": 2.058004611171782e-07,
+          "relative_energy_difference": -7.691541603627172e-08,
+          "max_error_component_and_cell": [
+            1,
+            30,
+            0,
+            31
+          ]
+        },
+        "single_injection_then_fp64": {
+          "velocity_max": 8.02760118101542e-09,
+          "velocity_RMS": 1.2259286189591007e-09,
+          "density_max": 5.1522874855436385e-09,
+          "relative_energy_difference": 8.76734684851499e-10,
+          "max_error_component_and_cell": [
+            2,
+            29,
+            35,
+            13
+          ]
+        }
+      },
+      "all_ledgers_exact": true,
+      "flags_clear": true
+    },
+    {
+      "step": 512,
+      "differences": {
+        "fp32": {
+          "velocity_max": 8.343263809305196e-06,
+          "velocity_RMS": 4.778762770989924e-07,
+          "density_max": 1.6239819160546176e-06,
+          "relative_energy_difference": -1.7590037360015742e-07,
+          "max_error_component_and_cell": [
+            0,
+            14,
+            17,
+            14
+          ]
+        },
+        "symmetric_repair": {
+          "velocity_max": 1.0248139812479002e-05,
+          "velocity_RMS": 4.684418077780934e-07,
+          "density_max": 1.6235735529335216e-06,
+          "relative_energy_difference": -1.5426614041746944e-07,
+          "max_error_component_and_cell": [
+            1,
+            20,
+            48,
+            48
+          ]
+        },
+        "single_injection_then_fp64": {
+          "velocity_max": 1.054005392027435e-07,
+          "velocity_RMS": 8.573932410805281e-09,
+          "density_max": 3.2266143534798175e-08,
+          "relative_energy_difference": 1.8023085246454684e-09,
+          "max_error_component_and_cell": [
+            1,
+            17,
+            14,
+            18
+          ]
+        }
+      },
+      "all_ledgers_exact": true,
+      "flags_clear": true,
+      "one_step_from_identical_state": {
+        "fp32": {
+          "velocity_max": 5.392261946679522e-08,
+          "velocity_RMS": 1.0211975547098036e-08,
+          "density_max": 1.0651456250343472e-07,
+          "relative_energy_difference": -7.964613968347578e-09,
+          "max_error_component_and_cell": [
+            1,
+            0,
+            42,
+            59
+          ]
+        },
+        "symmetric_repair": {
+          "velocity_max": 4.657248832418137e-08,
+          "velocity_RMS": 9.591571427620393e-09,
+          "density_max": 8.636197890155017e-08,
+          "relative_energy_difference": -7.932025591905756e-09,
+          "max_error_component_and_cell": [
+            1,
+            0,
+            10,
+            37
+          ]
+        }
+      }
+    },
+    {
+      "step": 1024,
+      "differences": {
+        "fp32": {
+          "velocity_max": 0.00015531490059179573,
+          "velocity_RMS": 9.633379727286228e-06,
+          "density_max": 1.2739901649183594e-05,
+          "relative_energy_difference": 3.965714392428765e-07,
+          "max_error_component_and_cell": [
+            1,
+            18,
+            45,
+            33
+          ]
+        },
+        "symmetric_repair": {
+          "velocity_max": 0.00020452083930418488,
+          "velocity_RMS": 8.951087853751734e-06,
+          "density_max": 2.081733418890508e-05,
+          "relative_energy_difference": 1.9972015801172915e-06,
+          "max_error_component_and_cell": [
+            1,
+            14,
+            51,
+            33
+          ]
+        },
+        "single_injection_then_fp64": {
+          "velocity_max": 5.028417477681568e-07,
+          "velocity_RMS": 7.442150544551107e-08,
+          "density_max": 4.7115463530644774e-08,
+          "relative_energy_difference": 1.1058732196644883e-07,
+          "max_error_component_and_cell": [
+            0,
+            29,
+            49,
+            46
+          ]
+        }
+      },
+      "all_ledgers_exact": true,
+      "flags_clear": true,
+      "one_step_from_identical_state": {
+        "fp32": {
+          "velocity_max": 5.5399816747958575e-08,
+          "velocity_RMS": 9.511524487213972e-09,
+          "density_max": 1.2613418221008033e-07,
+          "relative_energy_difference": -9.022449676265865e-09,
+          "max_error_component_and_cell": [
+            2,
+            16,
+            48,
+            5
+          ]
+        },
+        "symmetric_repair": {
+          "velocity_max": 4.51904336173925e-08,
+          "velocity_RMS": 8.924616743589057e-09,
+          "density_max": 1.0001895134337246e-07,
+          "relative_energy_difference": -9.078536367113088e-09,
+          "max_error_component_and_cell": [
+            2,
+            16,
+            48,
+            5
+          ]
+        }
+      }
+    }
+  ],
+  "source_sha256": {
+    "scripts/measure_lbm3d_precision_diagnosis.py": "715433152ba330d6481dba320aaf2397c83c22e4c56c52d7b7dd19684ebb02ad",
+    "src/kernel_engine/lbm/lbm3d_channel_symmetric32.py": "dc451c66ff5f427014eaf6cebbf4c1dc4d7b623da6fee99d180674c55786e91f"
+  }
+}
