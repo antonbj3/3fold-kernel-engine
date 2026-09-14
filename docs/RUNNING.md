@@ -1969,3 +1969,22 @@ then2000-step startup at full accepted resolution, then the original long
 refined DNS only if both gates pass. Original accuracy/stationarity and uniform
 parity thresholds retained. Script: scripts/measure_lbm3d_conserved_reflux.py.
 No local GPU use, no push. Earlier failed results remain archived.
+
+
+RUNNING E 2026-09-14 conserved-mode reflux DNS COMPLETE OWN-GATE-FAIL:
+H100 parity4/4 and fullgrid2000-step startup pass. Long360000step refined run
+keeps valid states and every integer mass/impulse budget exact, but passes only
+3/10 gates (state/conservation, wall friction, fewer active cells). Logmean
+19.643pct>5pct, wholemean14.106pct>10pct; stressRMS14.65/286.11/39.67/6.05pct.
+Mean/stress stationarity and uniform-profile parity also fail. Solver plus
+diagnostics939.87s versus uniform1237.59s on separate H100 workers,1.317x
+observed ratio; no accepted speedup because physics fails.34.375pct activecells.
+Normal-stress peak8.0099 occurs at y+58.47, wall-distance15finecells: second
+active coarse plane adjacent to the interface at12cells. This localizes a
+remaining interface artifact; stability alone did not certify accuracy.
+Receipts: reports/lbm3d_{conserved_reflux_gates,refined_startup,refined_dns}_v1/
+20260914T125652Z/. Next hypothesis: retain second-moment reflux correction while
+suppressing higher kinetic modes; independently verify moments and small-grid
+stability before any further long DNS. Original projected candidate remains
+explicit, not adopted as a validated refinement method. App ended/fetched;
+no active cloud/local GPU job, no push. Uniform DNS remains accepted7/7.

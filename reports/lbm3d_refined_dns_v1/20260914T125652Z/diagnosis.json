@@ -1,0 +1,9 @@
+{
+  "scope": "localization of failed refined profile, not a new simulation",
+  "vv_peak": 8.009894535988598,
+  "peak_y_plus": 58.4655033234301,
+  "peak_wall_distance_fine_cells": 15.0,
+  "interface_wall_distance_fine_cells": 12,
+  "observation": "normal-stress maximum lies in the second active coarse plane next to the interface",
+  "next_hypothesis": "conserved-only reflux removes the second-moment part of interface correction; test retaining second moments while suppressing higher kinetic modes before another DNS"
+}
