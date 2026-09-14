@@ -66,13 +66,14 @@ def test_resident_coupling_matches_reference():
     assert all(s.failure.numpy()[0]==0 for s in [*b.fine,b.coarse])
 
 
+@pytest.mark.parametrize('bulk',[None,1.])
 @pytest.mark.parametrize('cs',[0.,.1])
 @pytest.mark.parametrize('recursive',[False,True])
-def test_resident_coupling_spatial_flux_and_wall_momentum(cs,recursive):
+def test_resident_coupling_spatial_flux_and_wall_momentum(cs,recursive,bulk):
     from kernel_engine.lbm.lbm3d_refinement import ReferenceRefinedChannel
     from kernel_engine.lbm.lbm3d_refinement_gpu import RefinedChannelGPU
-    a=ReferenceRefinedChannel(nx=8,height=16,nz=8,wall_cells=4,cs_fine=cs,recursive=recursive)
-    b=RefinedChannelGPU(device='cpu',nx=8,height=16,nz=8,wall_cells=4,cs_fine=cs,recursive=recursive)
+    a=ReferenceRefinedChannel(nx=8,height=16,nz=8,wall_cells=4,cs_fine=cs,recursive=recursive,bulk_tau_fine=bulk)
+    b=RefinedChannelGPU(device='cpu',nx=8,height=16,nz=8,wall_cells=4,cs_fine=cs,recursive=recursive,bulk_tau_fine=bulk)
     for sa,sb in zip([*a.fine,a.coarse],[*b.fine,b.coarse]):
         q=sa.numpy();x,y,z=np.indices(sa.shape)
         # Vary all momentum components across both periodic directions and the
@@ -116,3 +117,23 @@ def test_guarded_reduction_handles_cancellation_without_wrap():
     assert checked_int64_sum(np.array([-2**63],dtype=np.int64))==-2**63
     with pytest.raises(OverflowError):checked_int64_sum(np.array([2**62,2**62],dtype=np.int64))
     with pytest.raises(OverflowError):ReferenceRefinedChannel(nx=384,height=128,nz=192,wall_cells=16)
+
+
+@pytest.mark.parametrize('ratio',[.5,2.])
+@pytest.mark.parametrize('cs',[0.,.1])
+def test_split_bulk_transfer_strain_closure_and_roundtrip(ratio,cs):
+    from kernel_engine.lbm.lbm3d_refinement import split_relaxation_stress
+    rng=np.random.default_rng(513)
+    pi=rng.normal(0,.002,(3,3,7));pi=(pi+pi.swapaxes(0,1))/2
+    rho=np.linspace(.98,1.02,7);ts=.503;tt=.5+(ts-.5)/ratio
+    bs=1.;bt=.5+(bs-.5)/ratio
+    out,source,target=split_relaxation_stress(rho,pi,ts,tt,cs,cs/ratio,ratio,bs,bt)
+    tr=np.trace(pi,axis1=0,axis2=1);otr=np.trace(out,axis1=0,axis2=1)
+    np.testing.assert_allclose(otr/(ratio*bt),tr/bs,atol=1e-17)
+    dev=pi-np.eye(3)[:,:,None]*tr/3
+    odev=out-np.eye(3)[:,:,None]*otr/3
+    np.testing.assert_allclose(odev/(ratio*target),dev/source,atol=1e-17)
+    computed=.5*(tt+np.sqrt(tt*tt+18*np.sqrt(2)*(cs/ratio)**2*np.sqrt(np.sum(out*out,axis=(0,1)))/rho))
+    np.testing.assert_allclose(target,computed,atol=2e-16,rtol=1e-15)
+    back,_,_=split_relaxation_stress(rho,out,tt,ts,cs/ratio,cs,1/ratio,bt,bs)
+    np.testing.assert_allclose(back,pi,atol=1e-17)

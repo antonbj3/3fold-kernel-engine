@@ -1913,3 +1913,29 @@ Next target: separate trace/shear relaxation in the two-level population
 transfer, with independent physical scaling and CPU/GPU parity gates before
 this bulk-tau1 refined channel can be admitted. Existing shared-tau transfer
 cannot be used as-is. H100 app finished/fetched; no local GPU use or push.
+
+
+RUNNING E 2026-09-14 independent bulk/shear refinement transfer:
+Optional bulk_tau_fine now sets an acoustically scaled coarse bulk tau;
+the accepted fine value1 gives coarse0.75. The physical stress trace and
+deviatoric stress use their respective incoming relaxation factors. The target
+SGS closure becomes t-tt=K*sqrt(A+B/t^2), with a unique positive root bracketed
+by tt and tt+K*sqrt(A+B/tt^2). Fixed48 bisections in CPU and Warp bound the
+solve without changing the collision kernel or shared-tau default path.
+Independent tests cover both acoustic directions, Cs0/.1, trace/deviatoric
+strain, target SGS closure and roundtrip. Spatial3D transfer tests now include
+separate bulk relaxation.41 focused CPU controls pass.
+
+H100 numerical coupling PASS4/4:2000fine steps CPU reference/GPU/GPU,
+full repeated states/history exact; every mass/impulse ledger exact and flags
+clear. Maximum density population difference1.0914e-11<1e-10. Receipt:
+reports/lbm3d_refinement_bulk_v1/20260914T124157Z/report.json.
+A preparation copy initially targeted its own snapshot and raised SameFileError;
+source paths were corrected and the snapshot bulk API verified before launch.
+
+Next RUNNING: turbulent refined channel, fine-equivalent288x96x144,
+12fine wall layers each,34.375pct active cells. Same accepted bulk1 reference,
+10burn+20average outertimes, original thresholds and additional uniform mean
+5pct/stress10pct parity gates. Matching passed control and endpoint sensitivity
+are uploaded with source; no old volume dependency. No turbulent refinement
+pass or speedup claimed yet. H100 only, no local GPU use or push.

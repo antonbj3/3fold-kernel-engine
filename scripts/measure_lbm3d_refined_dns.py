@@ -14,22 +14,25 @@ from kernel_engine.lbm.lbm3d_ledger import int64_limbs
 def main():
     parser=argparse.ArgumentParser();parser.add_argument('--uniform-report',type=Path,required=True);parser.add_argument('--sensitivity-report',type=Path,required=True);parser.add_argument('--wall-cells',type=int,default=8)
     args=parser.parse_args();control=json.loads(args.uniform_report.read_text());sensitivity=json.loads(args.sensitivity_report.read_text())
-    if not control.get('passed') or not control.get('recursive_third_order') or control.get('bulk_tau') is not None or control['grid']!=[dns.NX,dns.H+2,dns.NZ]:
-        raise ValueError('passed matching recursive shared-tau uniform control required')
+    if control.get('grid')==[288,98,144]:
+        from measure_lbm3d_recursive_resolution import configure
+        configure()
+    if not control.get('passed') or not control.get('recursive_third_order') or control.get('bulk_tau') not in (None,1.) or control['grid']!=[dns.NX,dns.H+2,dns.NZ]:
+        raise ValueError('passed matching recursive uniform control required')
     if sensitivity['base_state_sha256']!=control['blocks'][-1]['state_sha256'] or not all(sensitivity['gates'].values()):
         raise ValueError('converged sensitivity measured at this uniform endpoint required')
     nx,h,nz=dns.NX,dns.H,dns.NZ;nf=args.wall_cells
     start=time.perf_counter();q,mask,force=dns.initial()
-    sim=RefinedChannelGPU(nx=nx,height=h,nz=nz,wall_cells=nf,tau_fine=dns.TAU,force_fine=force,cs_fine=.1,recursive=True)
+    sim=RefinedChannelGPU(nx=nx,height=h,nz=nz,wall_cells=nf,tau_fine=dns.TAU,force_fine=force,cs_fine=.1,recursive=True,bulk_tau_fine=control.get("bulk_tau"))
     sim._replace(sim.fine[0],q[:,:,:nf+2,:]);sim._replace(sim.fine[1],q[:,:,h-nf:h+2,:])
     coarse=sim.coarse.numpy();density=restrict_child_mass(q[:,:,1:-1,:]).astype(float)/2**43
     coarse[:,:,1:-1,:]=sim._convert(density,sim.tf,sim.tc,2,sim.gf,2*sim.gf,43)
     sim._replace(sim.coarse,coarse);initial=sim.ledger();sim.initial_ledger=initial
     blocks=[*sim.fine,sim.coarse];stats=[wp.zeros((10,s.shape[1]),dtype=wp.int64,device='cuda:0') for s in blocks]
     active=2*nx*nf*nz+(nx//2)*((h-2*nf)//2)*(nz//2)
-    report={'scope':'recursive shared-tau two-wall-block DNS and uniform-profile gate','fine_equivalent_extent':[nx,h,nz],'wall_fine_layers_each':nf,
+    report={'scope':'recursive two-wall-block DNS and uniform-profile gate','fine_equivalent_extent':[nx,h,nz],'wall_fine_layers_each':nf,
         'active_cells':active,'uniform_cells':nx*h*nz,'cell_fraction':active/(nx*h*nz),'allocated_cells':sum(np.prod(s.shape).item() for s in blocks),
-        'setup_s':time.perf_counter()-start,'fine_tau':sim.tf,'coarse_tau':sim.tc,'Cs_fine':sim.csf,'Cs_coarse':sim.csc,'population_fraction_bits':[40,43],'burn_steps':dns.BURN,'averaging_steps':dns.AVERAGE,'sample_every':dns.SAMPLE,
+        'setup_s':time.perf_counter()-start,'fine_tau':sim.tf,'coarse_tau':sim.tc,'fine_bulk_tau':sim.bf,'coarse_bulk_tau':sim.bc,'Cs_fine':sim.csf,'Cs_coarse':sim.csc,'population_fraction_bits':[40,43],'burn_steps':dns.BURN,'averaging_steps':dns.AVERAGE,'sample_every':dns.SAMPLE,
         'source_sha256':{str(p):hashlib.sha256(p.read_bytes()).hexdigest() for p in [Path(__file__).relative_to(Path.cwd()),Path('src/kernel_engine/lbm/lbm3d_channel.py'),Path('src/kernel_engine/lbm/lbm3d_refinement_gpu.py'),Path('src/kernel_engine/lbm/lbm3d_refinement.py')]},'uniform_report_sha256':hashlib.sha256(args.uniform_report.read_bytes()).hexdigest(),
         'sensitivity_report_sha256':hashlib.sha256(args.sensitivity_report.read_bytes()).hexdigest(),'thresholds':dns.THRESHOLDS,
         'uniform_parity_limits':{'mean_relative_L2':.05,'stress_peak_RMS':.10},'blocks':[]}

@@ -110,6 +110,33 @@ def sgs_transfer_taus(rho,stress_norm,tau_source,tau_target,cs_source,cs_target,
     return source,target
 
 
+def split_relaxation_stress(rho,pi,ts,tt,cs,ct,ratio,bs,bt):
+    """Preserve deviatoric and dilatational strain with independent bulk tau.
+
+    The target SGS tau solves t-tt = K*sqrt(A+B/t**2). This function is
+    strictly increasing on t>0 after moving the RHS to the left. Bounds
+    tt and tt+K*sqrt(A+B/tt**2) bracket its unique root. Fixed48 bisections
+    avoid an unguarded nonlinear iteration at an interface.
+    """
+    source=.5*(ts+np.sqrt(ts*ts+18*np.sqrt(2)*cs*cs*np.sqrt(np.sum(pi*pi,axis=(0,1)))/rho))
+    trace=np.trace(pi,axis1=0,axis2=1)/3
+    dev=pi.copy()
+    for a in range(3):dev[a,a]-=trace
+    acoef=(ratio/source)**2*np.sum(dev*dev,axis=(0,1))
+    target_trace=ratio*bt/bs*trace
+    bcoef=3*target_trace**2
+    k=4.5*np.sqrt(2)*ct*ct/rho
+    lo=np.full_like(rho,tt);hi=tt+k*np.sqrt(acoef+bcoef/tt**2)
+    for _ in range(48):
+        mid=.5*(lo+hi)
+        positive=mid-tt-k*np.sqrt(acoef+bcoef/mid**2)>0
+        hi=np.where(positive,mid,hi);lo=np.where(positive,lo,mid)
+    target=.5*(lo+hi)
+    out=dev*(ratio*target/source)
+    for a in range(3):out[a,a]+=target_trace
+    return out,source,target
+
+
 class ReferenceRefinedChannel:
     """CPU-orchestrated two-wall-block reference, fixed 2:1 acoustic scaling.
 
@@ -120,7 +147,7 @@ class ReferenceRefinedChannel:
     by measured fine fluxes. The physical Smagorinsky filter is fixed across
     levels: Cs_coarse = Cs_fine / 2 under acoustic scaling.
     """
-    def __init__(self,nx=8,height=32,nz=8,wall_cells=8,tau_fine=.8,force_fine=1e-5,device='cpu',cs_fine=0.0,ledger_mode='int64',recursive=False,channel_factory=None):
+    def __init__(self,nx=8,height=32,nz=8,wall_cells=8,tau_fine=.8,force_fine=1e-5,device='cpu',cs_fine=0.0,ledger_mode='int64',recursive=False,channel_factory=None,bulk_tau_fine=None):
         import warp as wp
         from .lbm3d_mrt_les import quantize
         from .lbm3d_channel import ChannelSimulation
@@ -136,6 +163,8 @@ class ReferenceRefinedChannel:
         self.csf=cs_fine;self.csc=cs_fine/2;self.recursive=bool(recursive)
         self.nx,self.h,self.nz,self.nf=nx,height,nz,wall_cells
         self.tf=tau_fine;self.tc=.5+(tau_fine-.5)/2
+        if bulk_tau_fine is not None and (not np.isfinite(bulk_tau_fine) or bulk_tau_fine<=.5):raise ValueError("invalid bulk relaxation")
+        self.bf=bulk_tau_fine;self.bc=None if self.bf is None else .5+(self.bf-.5)/2
         self.force_units=int(np.rint(force_fine*2**40));self.gf=self.force_units/2**40
         self.wp=wp;self.steps=0;self.b=wall_cells//2+1;self.t=height//2-wall_cells//2
         self.fine=[]
@@ -146,13 +175,13 @@ class ReferenceRefinedChannel:
             u=np.zeros((3,)+shape);u[0]=self.gf/(2*((tau_fine-.5)/3))*y[None,:,None]*(height-y[None,:,None])-.5*self.gf
             u[:,mask!=0]=0
             q=quantize(equilibrium(np.ones(shape),u),40,ledger_mode=ledger_mode)
-            self.fine.append(channel_factory(q,tau=self.tf,force_density=self.gf,cs=self.csf,solid=mask,device=device,ledger_mode=ledger_mode,recursive=self.recursive))
+            self.fine.append(channel_factory(q,tau=self.tf,force_density=self.gf,cs=self.csf,solid=mask,device=device,ledger_mode=ledger_mode,recursive=self.recursive,bulk_tau=self.bf))
         shape=(nx//2,height//2+2,nz//2);mask=np.zeros(shape,np.int32);mask[:,0,:]=1;mask[:,-1,:]=1
         y=2*np.arange(height//2+2)-1
         u=np.zeros((3,)+shape);u[0]=self.gf/(2*((tau_fine-.5)/3))*y[None,:,None]*(height-y[None,:,None])-self.gf
         u[:,mask!=0]=0
         q=quantize(equilibrium(np.ones(shape),u),43,ledger_mode=ledger_mode)
-        self.coarse=channel_factory(q,tau=self.tc,force_density=2*self.gf,cs=self.csc,bits=43,solid=mask,device=device,ledger_mode=ledger_mode,recursive=self.recursive)
+        self.coarse=channel_factory(q,tau=self.tc,force_density=2*self.gf,cs=self.csc,bits=43,solid=mask,device=device,ledger_mode=ledger_mode,recursive=self.recursive,bulk_tau=self.bc)
         self.initial_ledger=self.ledger()
 
     def _replace(self,sim,q):
@@ -170,7 +199,11 @@ class ReferenceRefinedChannel:
         effective_source,effective_target=sgs_transfer_taus(
             rho,np.sqrt(np.sum(pi*pi,axis=(0,1))),source_tau,target_tau,
             source_cs,target_cs,dt_ratio)
-        pi*=dt_ratio*effective_target/effective_source
+        if self.bf is None:
+            pi*=dt_ratio*effective_target/effective_source
+        else:
+            bs,bt=(self.bf,self.bc) if dt_ratio==2 else (self.bc,self.bf)
+            pi,_,_=split_relaxation_stress(rho,pi,source_tau,target_tau,source_cs,target_cs,dt_ratio,bs,bt)
         physical_pi=pi.copy() if self.recursive else None
         for a in range(3):
             pi[0,a]-=.5*u[a]*target_force;pi[a,0]-=.5*u[a]*target_force

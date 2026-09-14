@@ -16,7 +16,7 @@ wp.set_module_options({'enable_backward':False,'fast_math':False,'fuse_fp':False
 @wp.func
 def convert(f:V19,c:wp.array2d(dtype=wp.int32),w:wp.array(dtype=wp.float64),
             ts:wp.float64,tt:wp.float64,dt:wp.float64,fs:wp.float64,ft:wp.float64,
-            scale:wp.float64,cs_source:wp.float64,cs_target:wp.float64,recursive:int,failure:wp.array(dtype=wp.int32)):
+            scale:wp.float64,cs_source:wp.float64,cs_target:wp.float64,bs:wp.float64,bt:wp.float64,recursive:int,failure:wp.array(dtype=wp.int32)):
     rho=wp.float64(0.0);jx=wp.float64(0.0);jy=wp.float64(0.0);jz=wp.float64(0.0)
     for q in range(19):
         rho+=f[q];jx+=wp.float64(c[q,0])*f[q];jy+=wp.float64(c[q,1])*f[q];jz+=wp.float64(c[q,2])*f[q]
@@ -43,10 +43,31 @@ def convert(f:V19,c:wp.array2d(dtype=wp.int32),w:wp.array(dtype=wp.float64),
     norm=wp.sqrt(norm2)
     effective_source=wp.float64(.5)*(ts+wp.sqrt(ts*ts+wp.float64(18.0)*wp.sqrt(wp.float64(2.0))*cs_source*cs_source*norm/rho))
     effective_target=tt+wp.float64(4.5)*wp.sqrt(wp.float64(2.0))*cs_target*cs_target*dt*norm/(rho*effective_source)
+    trace=wp.float64(0.0)
+    if bs>wp.float64(0.0):
+        trace=(pi[0,0]+pi[1,1]+pi[2,2])/wp.float64(3.0)
+        devnorm=wp.float64(0.0)
+        for a in range(3):
+            for b in range(3):
+                v=pi[a,b]
+                if a==b:v-=trace
+                devnorm+=v*v
+        ac=dt*dt/(effective_source*effective_source)*devnorm
+        target_trace=dt*bt/bs*trace
+        bc=wp.float64(3.0)*target_trace*target_trace
+        factor=wp.float64(4.5)*wp.sqrt(wp.float64(2.0))*cs_target*cs_target/rho
+        lo=tt;hi=tt+factor*wp.sqrt(ac+bc/(tt*tt))
+        for iteration in range(48):
+            mid=wp.float64(.5)*(lo+hi)
+            if mid-tt-factor*wp.sqrt(ac+bc/(mid*mid))>wp.float64(0.0):hi=mid
+            else:lo=mid
+        effective_target=wp.float64(.5)*(lo+hi)
     physical_pi=Mat3()
     for a in range(3):
         for b in range(3):
             value=pi[a,b]*(dt*effective_target/effective_source)
+            if bs>wp.float64(0.0) and a==b:
+                value=(pi[a,b]-trace)*(dt*effective_target/effective_source)+dt*bt/bs*trace
             physical_pi[a,b]=value
             if a==0:value-=wp.float64(.5)*u[b]*ft
             if b==0:value-=wp.float64(.5)*u[a]*ft
@@ -87,7 +108,7 @@ def convert(f:V19,c:wp.array2d(dtype=wp.int32),w:wp.array(dtype=wp.float64),
 @wp.kernel
 def restrict_covered(fine:wp.array4d(dtype=wp.int64),coarse:wp.array4d(dtype=wp.int64),
                      c:wp.array2d(dtype=wp.int32),w:wp.array(dtype=wp.float64),
-                     offset:int,tf:wp.float64,tc:wp.float64,g:wp.float64,csf:wp.float64,csc:wp.float64,recursive:int,failure:wp.array(dtype=wp.int32)):
+                     offset:int,tf:wp.float64,tc:wp.float64,g:wp.float64,csf:wp.float64,csc:wp.float64,bf:wp.float64,bc:wp.float64,recursive:int,failure:wp.array(dtype=wp.int32)):
     i,j,k=wp.tid();f=V19()
     for q in range(19):
         total=wp.int64(0)
@@ -95,7 +116,7 @@ def restrict_covered(fine:wp.array4d(dtype=wp.int64),coarse:wp.array4d(dtype=wp.
             for dy in range(2):
                 for dz in range(2):total+=fine[q,2*i+dx,1+2*j+dy,2*k+dz]
         f[q]=wp.float64(total)/wp.float64(8796093022208.0)
-    out=convert(f,c,w,tf,tc,wp.float64(2.0),g,wp.float64(2.0)*g,wp.float64(8796093022208.0),csf,csc,recursive,failure)
+    out=convert(f,c,w,tf,tc,wp.float64(2.0),g,wp.float64(2.0)*g,wp.float64(8796093022208.0),csf,csc,bf,bc,recursive,failure)
     for q in range(19):coarse[q,i,j+offset,k]=out[q]
 
 
@@ -103,7 +124,7 @@ def restrict_covered(fine:wp.array4d(dtype=wp.int64),coarse:wp.array4d(dtype=wp.
 def fill_ghost(old:wp.array4d(dtype=wp.int64),predicted:wp.array4d(dtype=wp.int64),fine:wp.array4d(dtype=wp.int64),
                c:wp.array2d(dtype=wp.int32),w:wp.array(dtype=wp.float64),
                ncx:int,ncz:int,jc:int,jf:int,fy:wp.float64,alpha:wp.float64,
-               tf:wp.float64,tc:wp.float64,g:wp.float64,csf:wp.float64,csc:wp.float64,recursive:int,failure:wp.array(dtype=wp.int32)):
+               tf:wp.float64,tc:wp.float64,g:wp.float64,csf:wp.float64,csc:wp.float64,bf:wp.float64,bc:wp.float64,recursive:int,failure:wp.array(dtype=wp.int32)):
     i,k=wp.tid();ix=i/2;iz=k/2;fx=wp.float64(.25);fz=wp.float64(.25)
     if i%2==0:ix-=1;fx=wp.float64(.75)
     if k%2==0:iz-=1;fz=wp.float64(.75)
@@ -118,7 +139,7 @@ def fill_ghost(old:wp.array4d(dtype=wp.int64),predicted:wp.array4d(dtype=wp.int6
                 lo=((wp.float64(1.0)-alpha)*wp.float64(old[q,ci,jc,ck])+alpha*wp.float64(predicted[q,ci,jc,ck]))/wp.float64(8796093022208.0)
                 hi=((wp.float64(1.0)-alpha)*wp.float64(old[q,ci,jc+1,ck])+alpha*wp.float64(predicted[q,ci,jc+1,ck]))/wp.float64(8796093022208.0)
                 f[q]+=((wp.float64(1.0)-fy)*lo+fy*hi)*wx*wz
-    out=convert(f,c,w,tc,tf,wp.float64(.5),wp.float64(2.0)*g,g,wp.float64(1099511627776.0),csc,csf,recursive,failure)
+    out=convert(f,c,w,tc,tf,wp.float64(.5),wp.float64(2.0)*g,g,wp.float64(1099511627776.0),csc,csf,bc,bf,recursive,failure)
     for q in range(19):fine[q,i,jf,k]=out[q]
 
 
@@ -168,7 +189,7 @@ class RefinedChannelGPU(ReferenceRefinedChannel):
         self.delta=[wp.zeros((19,self.nx//2,self.nz//2),dtype=wp.int64,device=device) for _ in range(2)]
     def step(self):
         c,w=self.coarse.args[1],self.coarse.args[2]
-        shared=[wp.float64(self.tf),wp.float64(self.tc),wp.float64(self.gf),wp.float64(self.csf),wp.float64(self.csc),int(self.recursive)]
+        shared=[wp.float64(self.tf),wp.float64(self.tc),wp.float64(self.gf),wp.float64(self.csf),wp.float64(self.csc),wp.float64(self.bf or 0.),wp.float64(self.bc or 0.),int(self.recursive)]
         for side,sim in enumerate(self.fine):
             offset=1 if side==0 else self.t+1
             wp.launch(restrict_covered,(self.nx//2,self.nf//2,self.nz//2),[sim.a,self.coarse.a,c,w,offset,*shared,sim.failure],device=self.device)

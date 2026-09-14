@@ -21,10 +21,10 @@ def initialize(cls,**kwargs):
     return sim
 
 
-def main(*,recursive=False,output='reports/lbm3d_refinement_sgs_v1/report.json'):
-    reference,a=run(initialize(ReferenceRefinedChannel,recursive=recursive))
-    first,b=run(initialize(RefinedChannelGPU,recursive=recursive))
-    second,c=run(initialize(RefinedChannelGPU,recursive=recursive))
+def main(*,recursive=False,bulk_tau_fine=None,output='reports/lbm3d_refinement_sgs_v1/report.json'):
+    reference,a=run(initialize(ReferenceRefinedChannel,recursive=recursive,bulk_tau_fine=bulk_tau_fine))
+    first,b=run(initialize(RefinedChannelGPU,recursive=recursive,bulk_tau_fine=bulk_tau_fine))
+    second,c=run(initialize(RefinedChannelGPU,recursive=recursive,bulk_tau_fine=bulk_tau_fine))
     errors=[float(np.max(np.abs(x.astype(float)-y.astype(float)))/2**bits) for x,y,bits in zip(a,b,[40,40,43])]
     gates={'full_gpu_repeat_exact':all(np.array_equal(x,y) for x,y in zip(b,c)),
            'repeat_history_exact':first['history']==second['history'],
@@ -33,7 +33,7 @@ def main(*,recursive=False,output='reports/lbm3d_refinement_sgs_v1/report.json')
     # The inherited observer's laminar-profile distance is diagnostic only:
     # this case has nonzero SGS and three-dimensional initial perturbations.
     report={'scope':'SGS level coupling numerical gate; not turbulent DNS validation',
-            'physical_filter':'fine Cs=0.1, coarse Cs=0.05; acoustic 2:1','recursive':recursive,'device':wp.get_device('cuda:0').name,
+            'physical_filter':'fine Cs=0.1, coarse Cs=0.05; acoustic 2:1','recursive':recursive,'bulk_tau_fine':bulk_tau_fine,'device':wp.get_device('cuda:0').name,
             'population_density_max_absolute_errors':errors,'gates':gates,'passed':all(gates.values()),
             'cpu':reference,'gpu_first':first,'gpu_second':second,
             'source_sha256':{str(p):hashlib.sha256(p.read_bytes()).hexdigest() for p in [*Path('src/kernel_engine/lbm').glob('lbm3d_*.py'),Path('scripts/measure_lbm3d_refinement_sgs.py'),Path('scripts/measure_lbm3d_refinement_gpu.py')]}}
